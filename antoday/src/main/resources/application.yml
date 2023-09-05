@@ -21,7 +21,7 @@ spring:
       matching-strategy: ant_path_matcher
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/auntoday?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/antoday?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true&serverTimezone=Asia/Seoul
     username: root
     password: root
 

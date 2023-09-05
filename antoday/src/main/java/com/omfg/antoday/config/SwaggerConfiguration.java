@@ -1,4 +1,4 @@
-package com.omfg.auntoday.config;
+package com.omfg.antoday.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +41,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         String title = "Swagger API Documents"; // 스웨거 UI 타이틀
         String version = "2.9.2";
-        String license = "Auntoday! All rights reserved";
+        String license = "Into Book! All rights reserved";
 
         return new ApiInfoBuilder()
                 .title(title)

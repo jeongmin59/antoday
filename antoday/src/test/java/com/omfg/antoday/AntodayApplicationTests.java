@@ -1,4 +1,4 @@
-package com.omfg.auntoday;
+package com.omfg.antoday;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
