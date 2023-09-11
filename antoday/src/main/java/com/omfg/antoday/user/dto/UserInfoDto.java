@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class UserInfoDto {
     private Long socialId;
     private String userName;
-    private String accessToken;
-    private String refreshToken;
+//    private Long id;
+//    private String nickname;
+//    private String email;
 }

@@ -3,6 +3,7 @@ package com.omfg.antoday.user.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,9 +31,15 @@ public class UserService {
         String accessToken = getAccessToken(code);
         System.out.println(1313);
         System.out.println(accessToken);
+
+        // Access Token으로 사용자 정보 가져오기
+        UserInfoDto userInfoDto = getKakaoUserInfo(accessToken);
+        System.out.println(userInfoDto.getSocialId());
+        System.out.println(userInfoDto.getUserName());
         return accessToken;
     }
 
+    // 인가 코드로 Access Token 요청
     private String getAccessToken(String code) throws JsonProcessingException {
 
         // HTTP Header 생성
@@ -61,5 +68,33 @@ public class UserService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
         return jsonNode.get("access_token").asText();
+    }
+
+    // Access Token으로 사용자 정보 가져오기
+    private UserInfoDto getKakaoUserInfo(String accessToken) throws JsonProcessingException {
+        // HTTP Header 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        // HTTP 요청 보내기
+        HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
+        RestTemplate rt = new RestTemplate();
+        ResponseEntity<String> response = rt.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoUserInfoRequest,
+                String.class
+        );
+
+        String responseBody = response.getBody();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responseBody);
+
+        // 사용자 정보 가져오기
+        Long socialId = jsonNode.get("id").asLong();
+        String userName = jsonNode.get("properties")
+                .get("nickname").asText();
+        return new UserInfoDto(socialId, userName);
     }
 }
