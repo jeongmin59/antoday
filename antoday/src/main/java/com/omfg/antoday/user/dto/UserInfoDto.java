@@ -1,14 +1,19 @@
 package com.omfg.antoday.user.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
 public class UserInfoDto {
     private Long socialId;
     private String userName;
-//    private Long id;
-//    private String nickname;
-//    private String email;
+
+//    @Builder
+//    public UserInfoDto(Long socialId, String userName) {
+//        this.socialId = socialId;
+//        this.userName = userName;
+//    }
 }

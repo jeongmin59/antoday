@@ -20,7 +20,9 @@ public class UserController {
 
     @GetMapping("/user/login")
     public ResponseEntity<Object> userLogin(@RequestParam String code) throws JsonProcessingException {
+//        UserInfoDto userInfoDto = userService.kakaologin(code);
         userService.kakaologin(code);
+//        return new ResponseEntity<>(userService.checkSignupUser(userInfoDto.getSocialId()), HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

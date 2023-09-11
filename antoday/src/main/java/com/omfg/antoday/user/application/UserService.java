@@ -3,6 +3,7 @@ package com.omfg.antoday.user.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
@@ -11,14 +12,20 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
+
+    private final UserRepository userRepository;
+//    private final PasswordEncoder passwordEncoder;
 
     @Value("${kakao.client_id}")
     private String client_id;
@@ -29,13 +36,14 @@ public class UserService {
     public String kakaologin(String code) throws JsonProcessingException {
         // 인가 코드로 Access Token 요청
         String accessToken = getAccessToken(code);
-        System.out.println(1313);
-        System.out.println(accessToken);
 
         // Access Token으로 사용자 정보 가져오기
         UserInfoDto userInfoDto = getKakaoUserInfo(accessToken);
         System.out.println(userInfoDto.getSocialId());
         System.out.println(userInfoDto.getUserName());
+
+
+        User user = registerKakaoUserIfNeeded(userInfoDto);
         return accessToken;
     }
 
@@ -96,5 +104,24 @@ public class UserService {
         String userName = jsonNode.get("properties")
                 .get("nickname").asText();
         return new UserInfoDto(socialId, userName);
+    }
+
+    // 회원가입
+    private User registerKakaoUserIfNeeded(UserInfoDto userInfoDto) {
+        User user = userRepository.findBySocialId(userInfoDto.getSocialId())
+                .orElse(null);
+
+        if (user == null) { // DB에 해당 유저 정보 없을 경우에만 회원가입 진행(DB 저장)
+//            String password = UUID.randomUUID().toString();
+//            String encodedPassword = passwordEncoder.encode(password);
+
+            user = User.builder()
+                    .socialId(userInfoDto.getSocialId())
+//                    .userPw(encodedPassword)
+                    .userName(userInfoDto.getUserName())
+                    .build();
+            userRepository.save(user);
+        }
+        return user;
     }
 }
