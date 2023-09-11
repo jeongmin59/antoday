@@ -1,5 +1,5 @@
 function BottomNavbar() {
-    return;
+    return ;
 }
 
 export default BottomNavbar;
