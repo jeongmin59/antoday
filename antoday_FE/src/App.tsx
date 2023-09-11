@@ -7,9 +7,9 @@ const About = () => <div>About Page</div>;
 
 function App() {
   return (
-    <>
+    <div className="App">
     <AppRouter/>
-    </>
+    </div>
   );
 }
 
