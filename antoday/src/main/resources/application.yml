@@ -25,7 +25,6 @@ spring:
     username: root
     password: root
 
-
 logging:
   level:
     org:
@@ -33,3 +32,7 @@ logging:
         type:
           descriptor:
             sql: trace
+
+kakao:
+  client_id: ef1dbd44e7ef6634e3fec53570d8fd11
+  redirect_uri: http://localhost:5173/oauth/callback/kakao
