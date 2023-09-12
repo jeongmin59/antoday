@@ -6,6 +6,7 @@ import CompanyInfoPage from './pages/CompanyInfoPage';
 import TradingRecordPage from './pages/TradingRecordPage';
 import TradingRecordDetailPage from './pages/TradingRecordDetailPage';
 import UpperNavBar from './components/Common/atoms/UpperNavBar';
+import BottomNavbarPage from './pages/BottomNavbarPage';
 
 const AppRouter = () => {
   return (
