@@ -1,15 +1,13 @@
-@media (max-width: 767px) {
-  body {
-      font-size: 10px;
-      /* 모바일에 맞는 스타일 속성들 */
-      overscroll-behavior-y: none;
-  }
+.App {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* PC 화면 스타일 */
-@media (min-width: 768px) {
-  body {
-      font-size: 50px;
-      /* PC에 맞는 스타일 속성들 적용되는건지 잘 모르겠다!!!*/
+@media screen and (min-width: 380px) and (max-width: 800px) {
+  .App {
+    border: 1px solid blue;
   }
 }
