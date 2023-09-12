@@ -1,11 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CompanySearchPage from './pages/CompanyInfoPage';
 import HomePage from './pages/HomePage';
 import CompanyInfoPage from './pages/CompanyInfoPage';
 import TradingRecordPage from './pages/TradingRecordPage';
 import TradingRecordDetailPage from './pages/TradingRecordDetailPage';
-import UpperNavBar from './components/Common/atoms/UpperNavBar';
+import UpperNavBar from './components/Common/organisms/UpperNavBar';
 
 const AppRouter = () => {
   return (
@@ -18,7 +17,6 @@ const AppRouter = () => {
         <Route path="/tradingrecord" element={<TradingRecordPage />} />
         <Route path="/tradingrecord/:recordPk" element={<TradingRecordDetailPage />} />
       </Routes>
-      <BottomNavbarPage />
     </Router>
   );
 }

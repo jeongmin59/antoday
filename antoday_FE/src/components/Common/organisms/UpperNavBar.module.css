@@ -1,0 +1,17 @@
+.navigation {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: var(--main-yellow-color);
+}
+
+.navItem {
+  text-decoration: none;
+  display: block; /* 기본적으로 모든 링크 보임 */
+}
+
+/* 웹 화면에 대한 미디어 쿼리 */
+@media screen and (max-width: 380px) {
+  .navItem {
+    display: none; /* 모바일 화면에서는 안보이게 설정 */
+  }
+}

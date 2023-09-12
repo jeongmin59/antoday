@@ -5,18 +5,19 @@
   --main-blue-color: #6798C0;
   --sub-blue-color: #99D6EA;
   
-  font-size: 26px;
-  color-scheme: light dark;
+  font-size: 20px;
+  /* color-scheme: light dark; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  border: 2px solid rebeccapurple;
 }
 
 a {
   font-weight: 500;
-  color: var(--main-yellow-color);
+  color: inherit;
 }
 
 a:hover {

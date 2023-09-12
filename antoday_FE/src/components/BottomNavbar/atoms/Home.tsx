@@ -1,13 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
         <Link to='/'>
-        <div>
-            <img src="/Home.png" alt="" />
+            <img src="" alt="" />
             <div>Home</div>
-        </div>
         </Link>
     )
 };
