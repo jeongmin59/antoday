@@ -2,12 +2,25 @@
   border: 1px solid red;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 0 0;
+  padding: 0 0;
   text-align: center;
+  height: 100vh;
 }
 
-@media screen and (min-width: 380px) and (max-width: 800px) {
+body {
+  margin: 0 calc((100% - 380px) / 6);
+  padding: 0;
+}
+
+@media screen and (max-width: 380px) {
   .App {
     border: 1px solid blue;
+    height: 100vh;
+  }
+
+  body {
+    margin: 0 0;
+    padding: 0;
   }
 }
