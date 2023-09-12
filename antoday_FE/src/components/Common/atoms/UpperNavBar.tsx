@@ -3,6 +3,7 @@ import styles from './UpperNavBar.module.css'
 import { Link } from 'react-router-dom';
 
 const UpperNavBar = () => {
+  console.log('확인')
   return (
     <nav className={styles.navigation}>
       <Link to='/' className={styles.navItem}>홈화면</Link>
