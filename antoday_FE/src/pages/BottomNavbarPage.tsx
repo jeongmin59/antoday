@@ -7,7 +7,7 @@ function BottomNavbarPage() {
 
     return (
         <div className={styles['navigationbar_bottom']}>
-            <NavbarSquare />
+            <NavbarSquare /> 
         </div>
     );
 }
