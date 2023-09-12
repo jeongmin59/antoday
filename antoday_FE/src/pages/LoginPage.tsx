@@ -1,6 +1,5 @@
 import React from 'react';
 import { kakaoLoginButton } from '../assets/img/login';
-import axios from 'axios';
 
 
 const LoginPage : React.FC = () => {
