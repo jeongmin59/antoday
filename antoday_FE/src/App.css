@@ -1,30 +1,13 @@
 .App {
-  font-size: 10px;
-  overscroll-behavior-y: none;
+  border: 1px solid red;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  min-height: 100vh;
-  max-width: 400px;
-  max-height: 0;
-  margin-right: auto;
-  margin-left: auto;
-  color: red;
+  margin: 0 auto;
+  text-align: center;
 }
 
-/* PC 화면 스타일 */
-@media (min-width: 768px) {
+@media screen and (min-width: 380px) and (max-width: 800px) {
   .App {
-    font-size: 50px;
-    overscroll-behavior-y: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    min-height: 100vh;
-    max-width: 400px;
-    max-height: 0;
-    margin-right: auto;
-    margin-left: auto;
-    color: black;
+    border: 1px solid blue;
   }
 }
