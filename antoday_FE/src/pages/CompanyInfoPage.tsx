@@ -1,6 +1,6 @@
 const CompanyInfoPage = () => {
     return (
-        <>회사정보페이지</>
+        <>종목정보검색페이지</>
     );
 }
 

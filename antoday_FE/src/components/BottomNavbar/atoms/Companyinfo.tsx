@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { companyImage } from "../../../assets/img";
+import { companyImage } from "../../../assets/img/common";
+
 
 const Companyinfo = () => {
     return (

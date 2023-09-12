@@ -17,9 +17,10 @@
 
 a {
   font-weight: 500;
+  text-decoration: none;
   color: inherit;
 }
 
 a:hover {
-  color: var(--main-yellow-color);
+  color: var(--main-blue-color);
 }
