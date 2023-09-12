@@ -1,6 +1,8 @@
 package com.omfg.antoday.user.domain;
 
+import com.omfg.antoday.stock.domain.Stock;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,11 +15,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long socialId;
 
     private String userPw;
@@ -31,4 +32,16 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @Builder
+    public User(Long socialId, String userPw, String userName, String refreshToken) {
+        this.socialId = socialId;
+        this.userPw = userPw;
+        this.userName = userName;
+        this.refreshToken = refreshToken;
+    }
+
+    public void updateRefreshToken(String updatedRefreshToken) {
+        this.refreshToken = updatedRefreshToken;
+    }
 }
