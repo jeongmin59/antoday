@@ -18,6 +18,7 @@ const AppRouter = () => {
         <Route path="/tradingrecord" element={<TradingRecordPage />} />
         <Route path="/tradingrecord/:recordPk" element={<TradingRecordDetailPage />} />
       </Routes>
+      <BottomNavbarPage />
     </Router>
   );
 }
