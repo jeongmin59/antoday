@@ -3,29 +3,33 @@ package com.omfg.antoday.user.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.omfg.antoday.config.jwt.JwtTokenProvider;
+import com.omfg.antoday.config.jwt.TokenDto;
 import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Value("${kakao.client_id}")
     private String client_id;
@@ -33,18 +37,25 @@ public class UserService {
     @Value("${kakao.redirect_uri}")
     private String redirect_uri;
 
-    public String kakaologin(String code) throws JsonProcessingException {
+    public Map<String, Object> kakaologin(String code) throws JsonProcessingException {
         // 인가 코드로 Access Token 요청
         String accessToken = getAccessToken(code);
 
         // Access Token으로 사용자 정보 가져오기
         UserInfoDto userInfoDto = getKakaoUserInfo(accessToken);
-        System.out.println(userInfoDto.getSocialId());
-        System.out.println(userInfoDto.getUserName());
 
-
+        // DB에 유저 저장
         User user = registerKakaoUserIfNeeded(userInfoDto);
-        return accessToken;
+
+        TokenDto tokenDto =  jwtTokenProvider.createToken(user);
+
+        updateRefreshToken(tokenDto, userInfoDto.getSocialId());
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("userName", user.getUserName());
+        data.put("tokenInfo", tokenDto);
+
+        return data;
     }
 
     // 인가 코드로 Access Token 요청
@@ -112,16 +123,23 @@ public class UserService {
                 .orElse(null);
 
         if (user == null) { // DB에 해당 유저 정보 없을 경우에만 회원가입 진행(DB 저장)
-//            String password = UUID.randomUUID().toString();
-//            String encodedPassword = passwordEncoder.encode(password);
-
             user = User.builder()
                     .socialId(userInfoDto.getSocialId())
-//                    .userPw(encodedPassword)
                     .userName(userInfoDto.getUserName())
                     .build();
             userRepository.save(user);
         }
         return user;
+    }
+
+    private void updateRefreshToken(TokenDto tokenDto, Long socialId) {
+        Optional<User> userOptional = userRepository.findBySocialId(socialId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.updateRefreshToken(tokenDto.getRefreshToken());
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("일치하는 회원이 없습니다.");
+        }
     }
 }
