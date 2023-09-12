@@ -17,7 +17,7 @@ public class Memo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long memoPk;
+    private Long memoPk;
 
     @OneToOne
     @JoinColumn(name = "social_id")
