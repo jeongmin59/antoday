@@ -20,7 +20,7 @@ import java.util.List;
 public class Trade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long tradePk;
+    private Long tradePk;
 
     @ManyToOne
     @JoinColumn(name = "social_id")
@@ -30,7 +30,9 @@ public class Trade {
     @JoinColumn(name = "stock_code")
     private Stock stock;
 
+    @NotNull
     private LocalDateTime tradeAt;
+    @NotNull
     private int price;
     @NotNull
     private int cnt;
@@ -49,7 +51,7 @@ public class Trade {
     private boolean isDeleted;
 
     @Builder
-    public Trade(long tradePk, User user, Stock stock, LocalDateTime tradeAt, int price, int cnt, String reason, String aiAnalyze, LocalDateTime updated_at, boolean isDeleted) {
+    public Trade(Long tradePk, User user, Stock stock, LocalDateTime tradeAt, int price, int cnt, String reason, String aiAnalyze, LocalDateTime updated_at, boolean isDeleted) {
         this.tradePk = tradePk;
         this.user = user;
         this.stock = stock;
