@@ -5,6 +5,7 @@ import CompanyInfoPage from './pages/CompanyInfoPage';
 import TradingRecordPage from './pages/TradingRecordPage';
 import TradingRecordDetailPage from './pages/TradingRecordDetailPage';
 import UpperNavBar from './components/Common/organisms/UpperNavBar';
+import BottomNavbar from './components/Common/organisms/BottomNavbar';
 import LoginPage from './pages/LoginPage';
 
 
@@ -20,6 +21,7 @@ const AppRouter = () => {
         <Route path="/tradingrecord" element={<TradingRecordPage />} />
         <Route path="/tradingrecord/:recordPk" element={<TradingRecordDetailPage />} />
       </Routes>
+      <BottomNavbar/>
     </Router>
   );
 }
