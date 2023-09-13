@@ -27,4 +27,10 @@ public class UserController {
         Map<String, Object> data = userService.kakaologin(code);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
+
+    @GetMapping("/user/makedummy")
+    public ResponseEntity<Object> makeDummy() {
+        userService.makeDummy();
+        return new ResponseEntity<>(0, HttpStatus.OK);
+    }
 }

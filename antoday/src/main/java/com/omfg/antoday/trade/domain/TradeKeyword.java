@@ -22,11 +22,9 @@ public class TradeKeyword {
     @JoinColumn(name = "trade_pk")
     private Trade trade;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "keword_pk")
     private Keyword keyword;
-
-    private String stockCode;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -35,12 +33,11 @@ public class TradeKeyword {
     private LocalDateTime updatedAt;
 
     @Builder
-    public TradeKeyword(long tradeKeywordPk, Trade trade, Keyword keyword, String stockCode, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public TradeKeyword(long tradeKeywordPk, Trade trade, Keyword keyword, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.tradeKeywordPk = tradeKeywordPk;
         this.trade = trade;
         this.keyword = keyword;
-        this.stockCode = stockCode;
-        this.createdAt = createdAt;
+         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 }
