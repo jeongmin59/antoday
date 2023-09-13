@@ -7,6 +7,7 @@ import TradingRecordDetailPage from './pages/TradingRecordDetailPage';
 import UpperNavBar from './components/Common/organisms/UpperNavBar';
 import LoginPage from './pages/LoginPage';
 
+
 const AppRouter = () => {
   return (
     <Router>
