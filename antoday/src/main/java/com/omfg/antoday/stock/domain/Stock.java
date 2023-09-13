@@ -18,12 +18,12 @@ public class Stock {
     private String cropCode;
     private String cropName;
     private String market;
-    private long stocks;
+    private Long stocks;
     @Column(columnDefinition = "TEXT")
     private String logo_url;
 
     @Builder
-    public Stock(String stockCode, String cropCode, String cropName, String market, long stocks, String logo_url) {
+    public Stock(String stockCode, String cropCode, String cropName, String market, Long stocks, String logo_url) {
         this.stockCode = stockCode;
         this.cropCode = cropCode;
         this.cropName = cropName;
