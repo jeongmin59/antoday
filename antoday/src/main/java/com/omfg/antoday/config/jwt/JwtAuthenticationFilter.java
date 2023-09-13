@@ -33,7 +33,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 토큰 없는 경우 로직 종료
         if(jwtHeader == null || !jwtHeader.startsWith(TOKEN_PREFIX)) {
             filterChain.doFilter(request, response);
-            log.info("[Token 인증] 토큰이 존재하지 않습니다.");
             return;
         }
 
