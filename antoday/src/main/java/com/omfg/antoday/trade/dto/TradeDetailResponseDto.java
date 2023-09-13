@@ -52,7 +52,7 @@ public class TradeDetailResponseDto {
                     return tradeKeyword.getKeyword().getKeyword();
                 }).collect(Collectors.toSet()))
                 .optionBuySell(trade.isOptionBuySell())
-                .corpName(trade.getStock().getCropName())
+                .corpName(trade.getStock().getCorpName())
                 .stockCode(trade.getStock().getStockCode())
                 .build();
     }
