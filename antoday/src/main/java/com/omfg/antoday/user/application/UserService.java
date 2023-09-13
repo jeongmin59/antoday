@@ -142,4 +142,10 @@ public class UserService {
             throw new RuntimeException("일치하는 회원이 없습니다.");
         }
     }
+
+    public void makeDummy() {
+        userRepository.save(User.builder()
+                .socialId(1L).userName("1")
+                .build());
+    }
 }
