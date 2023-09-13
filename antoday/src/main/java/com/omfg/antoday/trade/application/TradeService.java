@@ -86,8 +86,8 @@ public class TradeService {
     public Stock makeDummy(String stockCode) {
         return stockRepository.save(Stock.builder()
                         .stockCode(stockCode)
-                        .cropCode(stockCode)
-                        .cropName("test"+stockCode)
+                        .corpCode(stockCode)
+                        .corpName("test"+stockCode)
                         .logo_url("Test")
                         .market("SRX")
                         .stocks(100L)
