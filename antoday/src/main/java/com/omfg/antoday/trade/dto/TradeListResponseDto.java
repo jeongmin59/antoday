@@ -39,7 +39,7 @@ public class TradeListResponseDto {
                 .tradeAt(trade.getTradeAt())
                 .price(trade.getPrice())
                 .cnt(trade.getCnt())
-                .corpName(trade.getStock().getCropName())
+                .corpName(trade.getStock().getCorpName())
                 .stockCode(trade.getStock().getStockCode())
                 .build();
     }
