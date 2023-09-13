@@ -2,7 +2,6 @@ package com.omfg.antoday.trade.api;
 
 import com.omfg.antoday.trade.application.TradeService;
 import com.omfg.antoday.trade.domain.Trade;
-import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseDto;
 import com.omfg.antoday.trade.dto.TradeRequestDto;
@@ -19,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/trade")
