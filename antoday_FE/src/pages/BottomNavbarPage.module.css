@@ -17,3 +17,9 @@
   margin-top: auto;
   margin-bottom: 0.3rem;
 }
+
+@media (min-width: 768px) {
+  .navigationbar_bottom {
+    display: block; /* 웹 화면에서는 모든 링크 보이도록 설정 */
+  }
+}
