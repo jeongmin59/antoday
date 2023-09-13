@@ -3,7 +3,6 @@ server:
   servlet:
     context-path: /api
 
-
 spring:
   profiles:
     active: local
@@ -38,10 +37,8 @@ kakao:
   redirect_uri: http://localhost:5173/oauth/callback/kakao
 
 jwt:
-  secretKey: sc136as1c5qw4c13ax1cz3x5c4as3c1a35scczx3casc54;
+  secretKey: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
 
-  access:
-    header: Authorization
-
-  refresh:
-    header: Authorization-refresh
+dart:
+  apiKey: e361bdf14cb2ff30cbd64501d5b51b502734199d
+  path: C:/Users/SSAFY/Desktop/
