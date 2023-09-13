@@ -44,7 +44,7 @@ public class TradeRequestDto {
         return Trade.builder()
                 .tradePk(dto.getTradePk())
                 .cnt(dto.getCnt())
-                .price(dto.getCnt())
+                .price(dto.getPrice())
                 .optionBuySell(dto.isOptionBuySell())
                 .tradeAt(dto.getTradeAt())
                 .reason(dto.getReason())
