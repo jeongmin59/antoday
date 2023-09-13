@@ -1,7 +1,7 @@
 package com.omfg.antoday.trade.application;
 
+import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
-import com.omfg.antoday.trade.dao.StockRepository;
 import com.omfg.antoday.trade.dao.TradeKeywordRepository;
 import com.omfg.antoday.trade.dao.TradeRepository;
 import com.omfg.antoday.trade.domain.Trade;
@@ -86,8 +86,8 @@ public class TradeService {
     public Stock makeDummy(String stockCode) {
         return stockRepository.save(Stock.builder()
                         .stockCode(stockCode)
-                        .cropCode(stockCode)
-                        .cropName("test"+stockCode)
+                        .corpCode(stockCode)
+                        .corpName("test"+stockCode)
                         .logo_url("Test")
                         .market("SRX")
                         .stocks(100L)

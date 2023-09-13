@@ -4,7 +4,6 @@ import com.omfg.antoday.trade.domain.Trade;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -40,7 +39,7 @@ public class TradeListResponseDto {
                 .price(trade.getPrice())
                 .cnt(trade.getCnt())
                 .optionBuySell(trade.isOptionBuySell())
-                .corpName(trade.getStock().getCropName())
+                .corpName(trade.getStock().getCorpName())
                 .stockCode(trade.getStock().getStockCode())
                 .build();
     }
