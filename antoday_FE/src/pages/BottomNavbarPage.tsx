@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarSquare from '../components/BottomNavbar/templates/NavbarSquare';
+import NavbarSquare from '../components/BottomNavbar/organisms/NavbarSquare';
 import styles from './BottomNavbarPage.module.css';
 
 
