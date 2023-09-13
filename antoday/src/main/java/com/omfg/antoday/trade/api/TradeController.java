@@ -98,7 +98,7 @@ public class TradeController {
     }
 
     //사용자가 투자한 기업 리스트
-    @GetMapping( "/crop")
+    @GetMapping( "/corp")
     public ResponseEntity<List<Trade>> tradeCropGet() {
         List<Trade> list = new ArrayList();
         list.add(new Trade());
