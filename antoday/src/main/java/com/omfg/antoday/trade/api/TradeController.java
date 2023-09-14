@@ -1,5 +1,6 @@
 package com.omfg.antoday.trade.api;
 
+import com.omfg.antoday.stock.dto.StockListResponseDto;
 import com.omfg.antoday.trade.application.TradeService;
 import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
@@ -21,6 +22,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/trade")
@@ -98,12 +100,11 @@ public class TradeController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    //사용자가 투자한 기업 리스트
     @GetMapping( "/corp")
-    public ResponseEntity<List<Trade>> tradeCropGet() {
-        List<Trade> list = new ArrayList();
-        list.add(new Trade());
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    @ApiOperation(value = "사용자가 투자한 기업 리스트", notes = "")
+    public ResponseEntity<Set<StockListResponseDto>> tradeCorpGet() {
+        Optional<User> dummyUser = userRepository.findById(1L);
+        return new ResponseEntity<>(tradeService.getTradeCorp(dummyUser.get()), HttpStatus.OK);
     }
 
     // 기업 수익률 계산
