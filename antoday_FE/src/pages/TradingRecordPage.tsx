@@ -1,76 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import SearchInput from '../components/TradingRecord/templates/SearchInput';
-import Explanation from '../components/TradingRecord/templates/Explanation';
-import TradingRecordList from '../components/TradingRecord/templates/TradingRecordList';
+import React, { useEffect, useState } from 'react';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
+import TradingRecordList from '../components/TradingRecord/templates/TradingRecordList';
 
-// TradingRecordPage.tsx
-
-interface TradingRecordPageType {
-    cnt: number;
-    corpName: string;
-    logo_url: string;
-    optionBuySell: boolean, // true로 고정되어 있던 것을 boolean으로 변경
-    price: number, // 0으로 고정되어 있던 것을 number로 변경
-    stockCode: string, // "string"으로 고정되어 있던 것을 string으로 변경
-    tradeAt: string, // "2023-09-13T08:39:47.123Z"로 고정되어 있던 것을 string으로 변경
-    tradePk: number // 0으로 고정되어 있던 것을 number로 변경
+export interface TradingRecordPageType {
+  cnt: number;
+  corpName: string;
+  logo_url: string;
+  optionBuySell: boolean;
+  price: number;
+  stockCode: string;
+  tradeAt: string;
+  tradePk: number;
 }
 
+// const TradingRecord: React.FC<{ record: TradingRecordPageType }> = ({ record }) => {
+//   return (
+//     <div key={record.tradePk}>
+//       <p>Trade PK: {record.tradePk}</p>
+//       <p>Price: {record.price}</p>
+//       <p>Count: {record.cnt}</p>
+//       <p>Option Buy/Sell: {record.optionBuySell ? 'Buy' : 'Sell'}</p>
+//       <p>Trade At: {record.tradeAt}</p>
+//       <p>Stock Code: {record.stockCode}</p>
+//       <p>Corp Name: {record.corpName}</p>
+//     </div>
+//   );
+// };
 
 
 const TradingRecordPage: React.FC = () => {
-    const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>([]);
-    const [searched, setSearched] = useState(false); 
-    const currentDate = new Date();
-    const endDate = currentDate.toISOString().split('T')[0]; 
+  const [records, setRecords] = useState<TradingRecordPageType[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
-    const startDateDate = new Date();
-    startDateDate.setDate(currentDate.getDate() - 30); 
-    const startDate = startDateDate.toISOString().split('T')[0]; 
+  useEffect(() => {
+    axios.get('http://j9e107.p.ssafy.io:8080/api/trade', {
+      params: { page },
+    })
+    .then((response) => {
+      console.log(response.data.content)
+      setRecords(response.data.content);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, [page]);
 
-    const [page, setPage] = useState(1);
-    const [stockCode, setStockCode] = useState("AAPL");
+  const fetchMoreData = () => {
+    axios.get('http://j9e107.p.ssafy.io:8080/api/trade', {
+      params: { page: page + 1 },
+    })
+    .then((response) => {
+      const newData = response.data.content;
+      if (newData.length === 0) {
+        setHasMore(false);
+      } else {
+        setRecords([...records, ...newData]);
+        setPage(page + 1);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
 
-
-    const handleSearch = (keyword: string) => {
-        axios.get(`${process.env.REACT_APP_BACK_API_URL}/api/trade/search?keyword=${keyword}`)
-        .then((response) => {
-            const searchResultsData: TradingRecordPageType[] = response.data; 
-            setSearchResults(searchResultsData);
-            setSearched(true); 
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    };  
-
-    useEffect(() => {
-        getList();
-    }, []); 
-
-    const getList = () => {
-        axios.get(`${process.env.REACT_APP_BACK_API_URL}/api/trade?start=${startDate}&end=${endDate}&page=${page}&stock_code=${stockCode}`)
-        .then((response) => {
-            const listResultsData: TradingRecordPageType[] = response.data; 
-            setSearchResults(listResultsData);
-            setSearched(true); 
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    };
-
-    return (
-        <div>
-            <h1>거래 기록 페이지</h1>
-            <SearchInput onSearch={handleSearch} />
-            <Explanation />
-            {searched && searchResults.length === 0 && <p>검색 결과가 없습니다.</p>}
-            {searched && searchResults.length > 0 && <TradingRecordList records={searchResults} />}
-            {!searched && <TradingRecordList records={searchResults} />}
-        </div>
-    );
+  return (
+    <div>
+      <h1>Trading Record Page</h1>
+      {/* TradingRecordList 컴포넌트로 데이터와 함수 전달 */}
+      <TradingRecordList records={records} hasMore={hasMore} fetchMoreData={fetchMoreData} />
+    </div>
+  );
 };
 
 export default TradingRecordPage;
