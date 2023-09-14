@@ -1,48 +1,77 @@
-import React, { useState } from 'react';
-import SearchInput from '../components/TradingRecord/templates/SearchInput';
-import Explanation from '../components/TradingRecord/templates/Explanation';
-import TradingRecordList from '../components/TradingRecord/templates/TradingRecordList';
+import React, { useEffect, useState } from 'react';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 import axios from 'axios';
+import TradingRecordList from '../components/TradingRecord/templates/TradingRecordList';
 
-interface TradingRecord {
-    stock_code: string;
-    corp_name: string;
-    logo_url: string;
-    trade_at: string;
-    price: number;
-    cnt: number;
-    키워드_작성_여부: boolean;
+export interface TradingRecordPageType {
+  cnt: number;
+  corpName: string;
+  logo_url: string;
+  optionBuySell: boolean;
+  price: number;
+  stockCode: string;
+  tradeAt: string;
+  tradePk: number;
 }
+
+// const TradingRecord: React.FC<{ record: TradingRecordPageType }> = ({ record }) => {
+//   return (
+//     <div key={record.tradePk}>
+//       <p>Trade PK: {record.tradePk}</p>
+//       <p>Price: {record.price}</p>
+//       <p>Count: {record.cnt}</p>
+//       <p>Option Buy/Sell: {record.optionBuySell ? 'Buy' : 'Sell'}</p>
+//       <p>Trade At: {record.tradeAt}</p>
+//       <p>Stock Code: {record.stockCode}</p>
+//       <p>Corp Name: {record.corpName}</p>
+//     </div>
+//   );
+// };
 
 
 const TradingRecordPage: React.FC = () => {
-    const [searchResults, setSearchResults] = useState<TradingRecord[]>([]);
-    const [searched, setSearched] = useState(false); // 검색을 아직 수행하지 않은 경우를 나타내는 상태 변수
+  const [records, setRecords] = useState<TradingRecordPageType[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
-    // 검색 요청을 처리하는 함수
-    const handleSearch = (keyword: string) => {
-        axios.get(`${process.env.REACT_APP_API}/api/trade/search?keyword=${keyword}`)
-        .then((response) => {
-            // 응답을 받았을 때 처리
-            const searchResultsData: TradingRecord[] = response.data; 
-            setSearchResults(searchResultsData);
-            setSearched(true); // 검색을 수행한 경우 true로 설정
-        })
-        .catch((error) => {
-            // 에러 처리
-            console.error('API 요청 중 오류 발생:', error);
-        });
-    };
+  useEffect(() => {
+    axios.get('http://j9e107.p.ssafy.io:8080/api/trade', {
+      params: { page },
+    })
+    .then((response) => {
+      console.log(response.data.content)
+      setRecords(response.data.content);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, [page]);
 
-    return (
-        <div>
-            <h1>거래 기록 페이지</h1>
-            <SearchInput onSearch={handleSearch} />
-            <Explanation />
-            {searched && searchResults.length === 0 && <p>검색 결과가 없습니다.</p>}
-            {searched && searchResults.length > 0 && <TradingRecordList records={searchResults} />}
-        </div>
-    );
+  const fetchMoreData = () => {
+    axios.get('http://j9e107.p.ssafy.io:8080/api/trade', {
+      params: { page: page + 1 },
+    })
+    .then((response) => {
+      const newData = response.data.content;
+      if (newData.length === 0) {
+        setHasMore(false);
+      } else {
+        setRecords([...records, ...newData]);
+        setPage(page + 1);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  };
+
+  return (
+    <div>
+      <h1>Trading Record Page</h1>
+      {/* TradingRecordList 컴포넌트로 데이터와 함수 전달 */}
+      <TradingRecordList records={records} hasMore={hasMore} fetchMoreData={fetchMoreData} />
+    </div>
+  );
 };
 
 export default TradingRecordPage;
