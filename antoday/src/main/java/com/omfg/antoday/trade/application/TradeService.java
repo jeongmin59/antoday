@@ -2,6 +2,8 @@ package com.omfg.antoday.trade.application;
 
 import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
+import com.omfg.antoday.stock.domain.StockInterface;
+import com.omfg.antoday.stock.dto.StockListResponseDto;
 import com.omfg.antoday.trade.dao.TradeKeywordRepository;
 import com.omfg.antoday.trade.dao.TradeRepository;
 import com.omfg.antoday.trade.domain.Trade;
@@ -19,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TradeService {
@@ -92,5 +95,14 @@ public class TradeService {
                         .market("SRX")
                         .stocks(100L)
                 .build());
+    }
+
+    public Set<StockListResponseDto> getTradeCorp(User user) {
+        Set<StockInterface> set = tradeRepository.findDistintStockByUser(user.getSocialId());
+        return set.stream().map(trade -> {
+            StockListResponseDto d = StockListResponseDto.toDto(trade);
+            System.out.println(d);
+            return d;
+        }).collect(Collectors.toSet());
     }
 }
