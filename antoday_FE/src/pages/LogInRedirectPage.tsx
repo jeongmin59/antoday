@@ -11,7 +11,7 @@ const LogInRedirectPage : React.FC = () => {
 
     useEffect(() => {
 			const kakaoLogin = async () => {
-
+        console.log('요청이 두번가나?')
 				try {
 					const response = await axios({
 						method: "GET",
