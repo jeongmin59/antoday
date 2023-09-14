@@ -1,7 +1,7 @@
 import React from 'react';
-import Companyinfo from '../atoms/Companyinfo';
-import TradeHistory from '../atoms/TradeHistory';
-import Home from '../atoms/Home';
+import Companyinfo from './Companyinfo';
+import TradeHistory from './TradeHistory';
+import Home from './Home';
 import styles from './NavbarSquare.module.css';
 
 const NavbarSquare = () => {
