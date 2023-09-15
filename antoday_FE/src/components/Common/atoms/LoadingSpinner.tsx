@@ -1,6 +1,8 @@
+import styles from './LoadingSpinner.module.css';
+
 const LoadingSpinner = () => {
     return ( 
-        <div className="loading-spinner">
+        <div className={styles.loadingSpinner}>
         </div>
     );
 }

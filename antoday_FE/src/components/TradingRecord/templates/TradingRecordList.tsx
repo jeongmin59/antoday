@@ -1,7 +1,7 @@
 // TradingRecordList.tsx
 
 import React from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
+// import InfiniteScroll from 'react-infinite-scroll-component';
 import { TradingRecordPageType } from '../../../pages/TradingRecordPage'; 
 
 interface TradingRecordListProps {

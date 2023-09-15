@@ -4,8 +4,8 @@ import HomePage from './pages/HomePage';
 import CompanyInfoPage from './pages/CompanyInfoPage';
 import TradingRecordPage from './pages/TradingRecordPage';
 import TradingRecordDetailPage from './pages/TradingRecordDetailPage';
-import UpperNavBar from './components/Common/organisms/UpperNavBar';
-import BottomNavbar from './components/Common/organisms/BottomNavbar';
+import UpperNavBar from './components/Common/templates/UpperNavBar';
+import BottomNavbar from './components/Common/templates/BottomNavbar';
 import LoginPage from './pages/LoginPage';
 import LogInRedirectPage from './pages/LogInRedirectPage';
 
