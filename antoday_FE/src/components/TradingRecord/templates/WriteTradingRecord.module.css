@@ -1,0 +1,17 @@
+.bold {
+    font-weight: 800;
+}
+
+.normal {
+    font-weight: 100;
+}
+
+.button {
+    border: none;
+    background-color: none;
+}
+
+.horizontal {
+    display: flex;
+    justify-content: center;
+}

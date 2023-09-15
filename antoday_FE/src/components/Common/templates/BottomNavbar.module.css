@@ -1,7 +1,7 @@
 .navigationbar_bottom {
   display: flex;
   justify-content: space-between;
-  position: fixed;
+  position: sticky;
   left: 0;
   right: 0;
   bottom: 0;
@@ -18,8 +18,8 @@
   margin-bottom: 0.3rem;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 385px) {
   .navigationbar_bottom {
-    display: block; /* 웹 화면에서는 모든 링크 보이도록 설정 */
+    display: none;
   }
 }
