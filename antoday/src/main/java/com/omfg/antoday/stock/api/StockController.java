@@ -17,8 +17,14 @@ public class StockController {
 
     @GetMapping("/info")
     public ResponseEntity stockInfoAdd() {
-        System.out.println("실행함");
         stockService.getStockInfo();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/logo")
+    public ResponseEntity stockLogoUrlAdd() {
+        stockService.getStockLogoUrl();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
