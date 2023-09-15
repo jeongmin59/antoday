@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -174,5 +175,29 @@ public class StockService {
             }
         }
         folder.delete(); // 현재 폴더를 삭제합니다.
+    }
+
+    public void getStockLogoUrl() {
+        try {
+            List<Stock> corpList = stockRepository.findAll();
+            List<Stock> first3Stocks = corpList.subList(0, Math.min(corpList.size(), 3));
+
+            for (Stock stock : first3Stocks) {
+                // 여기에서 각각의 데이터를 출력하거나 처리할 수 있습니다.
+                System.out.println(stock.getCorpName());
+                String corpName = stock.getCorpName();
+
+                String encodedCorpName;
+                try {
+                    encodedCorpName = URLEncoder.encode(corpName, "UTF-8");
+                    System.out.println(encodedCorpName);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
