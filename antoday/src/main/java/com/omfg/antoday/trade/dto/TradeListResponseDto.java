@@ -43,4 +43,16 @@ public class TradeListResponseDto {
                 .stockCode(trade.getStock().getStockCode())
                 .build();
     }
+
+    public static TradeListResponseDto toDto(TradeListResponseInterface trade) {
+        return TradeListResponseDto.builder()
+                .tradePk(trade.getTradePk())
+                .tradeAt(trade.getTradeAt())
+                .price(trade.getPrice())
+                .cnt(trade.getCnt())
+                .optionBuySell(trade.isOptionBuySell())
+                .corpName(trade.getCorpName())
+                .stockCode(trade.getStockCode())
+                .build();
+    }
 }
