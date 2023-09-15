@@ -1,0 +1,19 @@
+.titleTextContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+}
+
+.title {
+    width : fit-content;
+    color: white;
+    background-color: var(--sub-blue-color);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 1rem;
+}
+
+.text {
+}
