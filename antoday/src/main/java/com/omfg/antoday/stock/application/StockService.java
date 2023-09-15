@@ -91,7 +91,7 @@ public class StockService {
 
                         Stock stock = stockRepository.findById(getValue("stock_code", corp)).orElseGet(() -> Stock.builder()
                                         .stockCode(getValue("stock_code", corp))
-                                        . corpCode(getValue("corp_code", corp))
+                                        .corpCode(getValue("corp_code", corp))
                                         .corpName(getValue("corp_name", corp))
                                         .build());
 
@@ -180,22 +180,22 @@ public class StockService {
     public void getStockLogoUrl() {
         try {
             List<Stock> corpList = stockRepository.findAll();
-            List<Stock> first3Stocks = corpList.subList(0, Math.min(corpList.size(), 3));
 
-            for (Stock stock : first3Stocks) {
-                // 여기에서 각각의 데이터를 출력하거나 처리할 수 있습니다.
-                System.out.println(stock.getCorpName());
-                String corpName = stock.getCorpName();
+            for (Stock stock : corpList) {
+                String stockCode = stock.getStockCode();
 
-                String encodedCorpName;
-                try {
-                    encodedCorpName = URLEncoder.encode(corpName, "UTF-8");
-                    System.out.println(encodedCorpName);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                String logoUrl = "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2" +
+                        "Fpng-icons%2Fsecurities%2Ficn-sec-fill-" + stockCode + ".png";
+
+                Stock updatedLogoUrl = Stock.builder()
+                        .stockCode(stock.getStockCode())
+                        .corpName(stock.getCorpName())
+                        .corpCode(stock.getCorpCode())
+                        .logo_url(logoUrl)
+                        .build();
+                stockRepository.save(updatedLogoUrl);
             }
-
+            log.info("[Stock] logoUrl 업데이트 완료");
         } catch (Exception e) {
             e.printStackTrace();
         }
