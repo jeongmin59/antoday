@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './LoginPage.module.css'
 import { kakaoLoginButton } from '../assets/img/login';
 
 
@@ -13,11 +14,9 @@ const LoginPage : React.FC = () => {
   }
 
   return (
-    <>
-    <div>
+    <div className={styles.logInButton}>
       <img src={kakaoLoginButton} alt="loginButton" onClick={handleLogin}/>
     </div>
-    </>
   )
 }
 
