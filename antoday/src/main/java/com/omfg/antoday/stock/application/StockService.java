@@ -2,12 +2,19 @@ package com.omfg.antoday.stock.application;
 
 import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
+import com.omfg.antoday.stock.dto.CorpListResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -38,6 +45,15 @@ public class StockService {
 
     @Value("${dart.path}")
     String filePath;
+
+    @Transactional
+    public Page<CorpListResponseDto> getCorpSearchList(String keyword, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+
+        Page<Stock> corpSearchList = stockRepository.findByCorpNameContainingOrderByCorpNameAsc(keyword, pageRequest);
+
+        return corpSearchList.map(CorpListResponseDto::toEntity);
+    }
 
     public void getStockInfo() {
 
