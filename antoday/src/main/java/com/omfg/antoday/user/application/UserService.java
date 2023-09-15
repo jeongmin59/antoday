@@ -10,7 +10,6 @@ import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.dto.UserInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.util.Pair;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
