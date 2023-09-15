@@ -191,6 +191,8 @@ public class StockService {
                         .stockCode(stock.getStockCode())
                         .corpName(stock.getCorpName())
                         .corpCode(stock.getCorpCode())
+                        .market(stock.getMarket())
+                        .stocks(stock.getStocks())
                         .logo_url(logoUrl)
                         .build();
                 stockRepository.save(updatedLogoUrl);
