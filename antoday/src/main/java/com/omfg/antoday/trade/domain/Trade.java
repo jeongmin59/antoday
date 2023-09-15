@@ -1,6 +1,7 @@
 package com.omfg.antoday.trade.domain;
 
 import com.omfg.antoday.stock.domain.Stock;
+import com.omfg.antoday.trade.dto.TradeRequestDto;
 import com.omfg.antoday.user.domain.User;
 import com.sun.istack.NotNull;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -62,7 +64,7 @@ public class Trade {
 
     @OneToMany(mappedBy = "trade",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.PERSIST,
             orphanRemoval = true)
     private Set<TradeKeyword> keywords;
 
@@ -81,4 +83,25 @@ public class Trade {
         this.isDeleted = isDeleted;
         this.keywords = keywords;
     }
+
+    public void setKeyWords(Set<TradeKeyword> set) {
+        if(keywords == null) keywords = new HashSet<>();
+        keywords.clear();
+        keywords.addAll(set);
+    }
+    public void addKeyword(TradeKeyword t) {
+        if(keywords == null) keywords = new HashSet<>();
+        keywords.add(t);
+    }
+    public void update(TradeRequestDto dto ) {
+        this.cnt = dto.getCnt();
+        this.price = dto.getPrice();
+        this.tradeAt = dto.getTradeAt();
+        this.keywords.clear();
+        this.reason = dto.getReason();
+        this.aiAnalyze = null;
+        this.optionBuySell = dto.isOptionBuySell();
+        this.stock = Stock.builder().stockCode(dto.getStockCode()).build();
+    }
+
 }

@@ -6,10 +6,12 @@ import com.omfg.antoday.stock.domain.StockInterface;
 import com.omfg.antoday.stock.dto.StockListResponseDto;
 import com.omfg.antoday.trade.dao.TradeKeywordRepository;
 import com.omfg.antoday.trade.dao.TradeRepository;
+import com.omfg.antoday.trade.domain.Keyword;
 import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseDto;
+import com.omfg.antoday.trade.dto.TradeRequestDto;
 import com.omfg.antoday.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,11 +37,41 @@ public class TradeService {
     @Autowired
     private StockRepository stockRepository;
 
-    public Trade addTrade(Trade trade) {
-        // trade에 userId 설정?
-        return tradeRepository.save(trade);
+    public Trade addTrade(TradeRequestDto dto,User user) {
+        Trade trade = TradeRequestDto.toTrade(dto, user);
+        Trade t =  tradeRepository.save(trade);
+
+        // 키워드 저장
+        // 비효율적인 것 같긴 한데 일단은 돌아감
+        dto.getKeywords().stream().forEach(word -> {
+            TradeKeyword tk = TradeKeyword.builder()
+                    .keyword(Keyword.builder().keyword(word).build())
+                    .trade(t)
+                    .build();
+
+            tradeKeywordRepository.save(tk);
+        });
+        return t;
     }
 
+    public Trade updateTrade(TradeRequestDto dto,User user) {
+
+        // 기존 trade 가져오기
+        Trade trade = tradeRepository.findById(dto.getTradePk()).get();
+
+        trade.update(dto);
+        Trade t =  tradeRepository.save(trade);
+        System.out.println("1번 완료!!!!!!!!!!!!!!!");
+
+        dto.getKeywords().stream().forEach(word -> {
+            TradeKeyword tk = TradeKeyword.builder()
+                    .keyword(Keyword.builder().keyword(word).build())
+                    .trade(trade)
+                    .build();
+            tradeKeywordRepository.save(tk);
+        });
+        return t;
+    }
 
     public Object deleteTrade(long tradePk) {
         // isDeleted만 바꾸면 된다.

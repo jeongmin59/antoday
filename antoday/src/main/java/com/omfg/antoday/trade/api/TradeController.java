@@ -36,20 +36,18 @@ public class TradeController {
     private final TradeService tradeService;
 
     @PostMapping
-    @ApiOperation(value = "매매기록 추가", notes = "pk없어도 들어감")
+    @ApiOperation(value = "매매기록 추가", notes = "tradePk는 입력하지 말것.")
     public ResponseEntity<Trade> tradeAdd(@RequestBody TradeRequestDto trade) {
         // 키워드 들어오면 어떻게 할지
         Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.addTrade(TradeRequestDto.toTrade(trade,dummyUser.get())),HttpStatus.OK);
+        return new ResponseEntity<>(tradeService.addTrade(trade, dummyUser.get()),HttpStatus.OK);
     }
 
     @PutMapping
     @ApiOperation(value = "매매기록 수정", notes = "매매 정보 입력")
     public ResponseEntity<Trade> tradeModify(@RequestBody TradeRequestDto trade) {
         Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.addTrade(TradeRequestDto.toTrade(trade,dummyUser.get())),HttpStatus.OK);
-        // AI분석 없애기
-
+        return new ResponseEntity<>(tradeService.updateTrade(trade, dummyUser.get()),HttpStatus.OK);
     }
 
     @Transactional
@@ -109,6 +107,7 @@ public class TradeController {
 
     // 기업 수익률 계산
     @GetMapping("/roi")
+    @ApiOperation(value = "해당 기업/전체 수익률 계산", notes = " 안넣으면 전체 수익률.")
     public ResponseEntity<Object> roiStockGet(@RequestParam String stock_code) {
         return new ResponseEntity<>("1", HttpStatus.OK);
     }

@@ -40,7 +40,6 @@ public class TradeRequestDto {
 
 
     public static Trade toTrade(TradeRequestDto dto, User user) {
-        Set<TradeKeyword> keywordlist = dto.keywords.stream().map(s -> TradeKeyword.builder().keyword(Keyword.builder().keyword(s).build()).build()).collect(Collectors.toSet());
         return Trade.builder()
                 .tradePk(dto.getTradePk())
                 .cnt(dto.getCnt())
@@ -49,7 +48,6 @@ public class TradeRequestDto {
                 .tradeAt(dto.getTradeAt())
                 .reason(dto.getReason())
                 .user(user)
-                .keywords(keywordlist)
                 .stock(Stock.builder().stockCode(dto.getStockCode()).build())
                 .build();
     }
