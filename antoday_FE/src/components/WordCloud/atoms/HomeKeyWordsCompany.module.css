@@ -1,0 +1,28 @@
+.companyContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px auto;
+    width: 80%;
+    height: fit-content;
+}
+
+.logoImage{
+    background-color: azure;
+    flex: 3;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.companyName{
+    background-color: beige;
+    flex: 7;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+}

@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   background-color: var(--main-yellow-color);
+  max-width: 100%;
 }
 
 .navItemHome {
