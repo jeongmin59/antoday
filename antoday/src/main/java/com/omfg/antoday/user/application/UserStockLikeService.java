@@ -6,11 +6,17 @@ import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.dao.UserStockLikeRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.domain.UserStockLike;
+import com.omfg.antoday.user.dto.UserStockListResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserStockLikeService {
@@ -36,5 +42,25 @@ public class UserStockLikeService {
                 .stock(stock)
                 .build();
         userStockLikeRepository.save(userStockLike);
+        log.info("[UserStock] 관심시기업으로 등록 되었습니다.");
+    }
+
+    @Transactional
+    public Page<UserStockListResponseDto> getUserStockList(int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+
+        Optional<User> userOptional = userRepository.findBySocialId(1L);
+        User user = userOptional.get();
+
+        Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUser(user, pageRequest);
+
+        Page<UserStockListResponseDto> responseDto = userStockLikes.map(userStock -> new UserStockListResponseDto(
+                userStock.getStock().getStockCode(),
+                userStock.getStock().getCorpCode(),
+                userStock.getStock().getLogo_url()
+        ));
+        log.info("[UserStock] 관심시기업 조회되었습니다.");
+
+        return responseDto;
     }
 }
