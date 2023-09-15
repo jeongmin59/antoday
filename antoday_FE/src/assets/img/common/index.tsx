@@ -1,4 +1,5 @@
 import companyImage from './company.png';
 import homeImage from './home.png';
+import headerImage from './header_image.png'
 
-export { homeImage, companyImage };
+export { homeImage, companyImage, headerImage };

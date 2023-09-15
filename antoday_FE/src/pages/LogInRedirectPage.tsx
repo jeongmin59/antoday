@@ -7,8 +7,8 @@ import { userNameAtom } from '../recoil/user';
 import LoadingSpinner from '../components/Common/atoms/LoadingSpinner';
 
 const LogInRedirectPage : React.FC = () => {
-  const code = new URL(window.location.href).searchParams.get('code');
-  const navigator = useNavigate();
+    const code = new URL(window.location.href).searchParams.get('code');
+    const navigator = useNavigate();
 	const [token,setToken] = useRecoilState(accessTokenAtom);
 	const [userName,setUserName] = useRecoilState(userNameAtom);
 
