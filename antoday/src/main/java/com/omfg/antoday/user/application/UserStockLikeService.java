@@ -42,7 +42,7 @@ public class UserStockLikeService {
                 .stock(stock)
                 .build();
         userStockLikeRepository.save(userStockLike);
-        log.info("[UserStock] 관심시기업으로 등록 되었습니다.");
+        log.info("[UserStock] 관심기업으로 등록 되었습니다.");
     }
 
     @Transactional
@@ -52,14 +52,14 @@ public class UserStockLikeService {
         Optional<User> userOptional = userRepository.findBySocialId(1L);
         User user = userOptional.get();
 
-        Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUser(user, pageRequest);
+        Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUserOrderByCreatedAtDesc(user, pageRequest);
 
         Page<UserStockListResponseDto> responseDto = userStockLikes.map(userStock -> new UserStockListResponseDto(
                 userStock.getStock().getStockCode(),
-                userStock.getStock().getCorpCode(),
+                userStock.getStock().getCorpName(),
                 userStock.getStock().getLogo_url()
         ));
-        log.info("[UserStock] 관심시기업 조회되었습니다.");
+        log.info("[UserStock] 관심기업이 조회되었습니다.");
 
         return responseDto;
     }

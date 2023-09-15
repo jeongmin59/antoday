@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserStockLikeRepository extends JpaRepository<UserStockLike, Long> {
-
-    Page<UserStockLike> findByUser(User user, PageRequest pageRequest);
+    Page<UserStockLike> findByUserOrderByCreatedAtDesc(User user, PageRequest pageRequest);
 }
