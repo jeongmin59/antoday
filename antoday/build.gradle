@@ -36,6 +36,9 @@ dependencies {
 
     // JWT
     implementation 'com.auth0:java-jwt:4.2.1'
+
+    // Jsoup
+    implementation 'org.jsoup:jsoup:1.14.3'
 }
 
 tasks.named('test') {

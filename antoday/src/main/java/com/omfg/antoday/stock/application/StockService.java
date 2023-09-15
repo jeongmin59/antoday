@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,7 +91,7 @@ public class StockService {
 
                         Stock stock = stockRepository.findById(getValue("stock_code", corp)).orElseGet(() -> Stock.builder()
                                         .stockCode(getValue("stock_code", corp))
-                                        . corpCode(getValue("corp_code", corp))
+                                        .corpCode(getValue("corp_code", corp))
                                         .corpName(getValue("corp_name", corp))
                                         .build());
 
@@ -174,5 +175,29 @@ public class StockService {
             }
         }
         folder.delete(); // 현재 폴더를 삭제합니다.
+    }
+
+    public void getStockLogoUrl() {
+        try {
+            List<Stock> corpList = stockRepository.findAll();
+
+            for (Stock stock : corpList) {
+                String stockCode = stock.getStockCode();
+
+                String logoUrl = "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2" +
+                        "Fpng-icons%2Fsecurities%2Ficn-sec-fill-" + stockCode + ".png";
+
+                Stock updatedLogoUrl = Stock.builder()
+                        .stockCode(stock.getStockCode())
+                        .corpName(stock.getCorpName())
+                        .corpCode(stock.getCorpCode())
+                        .logo_url(logoUrl)
+                        .build();
+                stockRepository.save(updatedLogoUrl);
+            }
+            log.info("[Stock] logoUrl 업데이트 완료");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
