@@ -32,3 +32,7 @@ a {
 a:hover {
   color: var(--main-blue-color);
 }
+
+.react-datepicker-popper {
+  z-index: 9999;
+}
