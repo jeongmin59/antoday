@@ -11,6 +11,7 @@ import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseDto;
+import com.omfg.antoday.trade.dto.TradeListResponseInterface;
 import com.omfg.antoday.trade.dto.TradeRequestDto;
 import com.omfg.antoday.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,32 +79,22 @@ public class TradeService {
         return tradeRepository.deleteByTradePk(tradePk);
     }
 
-    public Page<TradeListResponseDto> getTrade(User user, int page, String start, String end, String stockCode) {
+    public Page<TradeListResponseDto> getTrade(User user, int page, String start, String end, String keyword) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("tradePk").descending());
-        Stock stock = Stock.builder().stockCode(stockCode).build();
+//        Stock stock = Stock.builder().stockCode(stockCode).build();
 
-        Page<Trade> trades;
-        if(start != null && end != null && stockCode != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDateTime st = LocalDateTime.parse(start, formatter);
-            LocalDateTime ed = LocalDateTime.parse(end, formatter);
-            trades = tradeRepository.findByUserAndStockAndTradeAtBetweenAndIsDeletedFalse(user, stock, st, ed, pageRequest);
-        }
-        else if(start == null && stockCode != null) {
-            trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock, pageRequest);
-        }
-        else if(start != null && stockCode == null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDateTime st = LocalDateTime.parse(start, formatter);
-            LocalDateTime ed = LocalDateTime.parse(end, formatter);
-            trades = tradeRepository.findByUserAndTradeAtBetweenAndIsDeletedFalse(user, st, ed, pageRequest);
-        }
-        else {
-            trades = tradeRepository.findByUserAndIsDeletedFalse(user, pageRequest);
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if(start == null) start = "1900-01-01 00:00:00";
+        if(end == null) end = LocalDateTime.now().format(formatter);
+        LocalDateTime st = LocalDateTime.parse(start, formatter);
+        LocalDateTime ed = LocalDateTime.parse(end, formatter);
 
+        if(keyword == null) keyword = "";
+        keyword = '%'+keyword+'%';
+
+        Page<TradeListResponseInterface> trades = tradeRepository.findTradeByNativeQuery(user.getSocialId()
+                , keyword, st, ed,pageRequest);
         return trades.map(trade -> TradeListResponseDto.toDto(trade));
-
     }
 
     public TradeDetailResponseDto getTradeDetail(Long tradePk) {

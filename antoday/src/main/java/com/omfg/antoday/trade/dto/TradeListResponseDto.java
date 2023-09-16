@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 public class TradeListResponseDto {
-    private long tradePk;
+    private Long tradePk;
     private int price;
     private int cnt;
-    private boolean optionBuySell;
+    private byte optionBuySell;
     private LocalDateTime tradeAt;
     private String stockCode;
     private String corpName;
     private String logoUrl;
 
     @Builder
-    public TradeListResponseDto(long tradePk, int price, int cnt, boolean optionBuySell, LocalDateTime tradeAt, String stockCode, String corpName, String logoUrl) {
+    public TradeListResponseDto(Long tradePk, int price, int cnt, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String corpName, String logoUrl) {
         this.tradePk = tradePk;
         this.price = price;
         this.cnt = cnt;
@@ -38,9 +38,21 @@ public class TradeListResponseDto {
                 .tradeAt(trade.getTradeAt())
                 .price(trade.getPrice())
                 .cnt(trade.getCnt())
-                .optionBuySell(trade.isOptionBuySell())
+                .optionBuySell(trade.getOptionBuySell())
                 .corpName(trade.getStock().getCorpName())
                 .stockCode(trade.getStock().getStockCode())
+                .build();
+    }
+
+    public static TradeListResponseDto toDto(TradeListResponseInterface trade) {
+        return TradeListResponseDto.builder()
+                .tradePk(trade.getTradePk())
+                .tradeAt(trade.getTradeAt())
+                .price(trade.getPrice())
+                .cnt(trade.getCnt())
+                .optionBuySell(trade.getOptionBuySell())
+                .corpName(trade.getCorpName())
+                .stockCode(trade.getStockCode())
                 .build();
     }
 }

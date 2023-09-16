@@ -14,4 +14,6 @@ public interface StockRepository extends JpaRepository<Stock, String> {
     List<Stock> findAll();
 
     Page<Stock> findByCorpNameContainingOrderByCorpNameAsc(String keyword, PageRequest pageRequest);
+
+    Stock findByStockCode(String stockCode);
 }
