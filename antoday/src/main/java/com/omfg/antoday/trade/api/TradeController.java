@@ -74,15 +74,6 @@ public class TradeController {
         return new ResponseEntity<>(tradeService.getTrade(dummyUser.get(), Integer.parseInt(page), start,end, keyword), HttpStatus.OK);
     }
 
-    //매매기록 검색 조회
-    @GetMapping("/search")
-    @ApiOperation(value = "매매 기록 list - 검색어", notes = "page, 검색어")
-    public ResponseEntity<List<Trade>> tradeSearchGet(@RequestParam String keyword, @RequestParam String page) {
-        List<Trade> list = new ArrayList();
-        list.add(new Trade());
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
     //매매기록 개별 조회
     @GetMapping("/{trade_pk}")
     @ApiOperation(value = "매매 기록 detail", notes = "trade_pk 받아오기")

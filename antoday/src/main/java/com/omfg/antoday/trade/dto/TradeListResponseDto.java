@@ -53,6 +53,7 @@ public class TradeListResponseDto {
                 .optionBuySell(trade.getOptionBuySell())
                 .corpName(trade.getCorpName())
                 .stockCode(trade.getStockCode())
+                .logoUrl(trade.getLogoUrl())
                 .build();
     }
 }
