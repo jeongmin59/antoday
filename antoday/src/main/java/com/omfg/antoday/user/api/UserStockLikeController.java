@@ -33,4 +33,14 @@ public class UserStockLikeController {
         Page<UserStockListResponseDto> userStockList = userStockLikeService.getUserStockList(page);
         return new ResponseEntity<>(userStockList, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{stockCode}")
+    @ApiOperation(value = "관심 기업 등록 취소", notes = "토큰, stockCode 필요")
+    public ResponseEntity<String> userStockRemove(@PathVariable("stockCode") String stockCode) {
+        if (userStockLikeService.deleteUserStock(stockCode)) {
+            return new ResponseEntity<>(stockCode + "가 삭제되었습니다.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(stockCode + "를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        }
+    }
 }
