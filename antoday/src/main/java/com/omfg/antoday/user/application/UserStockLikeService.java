@@ -1,8 +1,8 @@
 package com.omfg.antoday.user.application;
 
+import com.omfg.antoday.config.UserDetailsImpl;
 import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
-import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.dao.UserStockLikeRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.domain.UserStockLike;
@@ -11,10 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
@@ -23,18 +23,14 @@ public class UserStockLikeService {
 
     private final UserStockLikeRepository userStockLikeRepository;
     private final StockRepository stockRepository;
-    private final UserRepository userRepository;
 
-    public void adduserStockLike(String stockCode) throws Exception {
-        Optional<User> userOptional = userRepository.findBySocialId(1L);
-        User user = userOptional.get();
+    public void adduserStockLike(String stockCode, UserDetailsImpl userDetails) {
+        User user = getUserFromToken(userDetails);
+        Stock stock = getStockByStockCode(stockCode);
 
-        Stock stock = stockRepository.findByStockCode(stockCode);
-
-        if (userOptional == null) {
-            throw new Exception("유효하지 않은 사용자입니다.");
-        } else if (stock == null) {
-            throw new Exception("유효하지 않은 종목코드입니다.");
+        if (userStockLikeRepository.existsByStockAndUser(stock, user)) {
+            log.info("[UserStock] 이미 관심 기업으로 등록되어 있습니다.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "[UserStock] 이미 관심 기업으로 등록되어 있습니다.");
         }
 
         UserStockLike userStockLike = UserStockLike.builder()
@@ -46,38 +42,45 @@ public class UserStockLikeService {
     }
 
     @Transactional
-    public Page<UserStockListResponseDto> getUserStockList(int page) {
+    public Page<UserStockListResponseDto> getUserStockList(int page, UserDetailsImpl userDetails) {
         PageRequest pageRequest = PageRequest.of(page, 10);
-
-        Optional<User> userOptional = userRepository.findBySocialId(1L);
-        User user = userOptional.get();
-
+        User user = getUserFromToken(userDetails);
         Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUserOrderByCreatedAtDesc(user, pageRequest);
 
-        Page<UserStockListResponseDto> responseDto = userStockLikes.map(userStock -> new UserStockListResponseDto(
+        log.info("[UserStock]" + user.getUserName() + "님의 관심기업이 조회되었습니다.");
+        return userStockLikes.map(userStock -> new UserStockListResponseDto(
                 userStock.getStock().getStockCode(),
                 userStock.getStock().getCorpName(),
                 userStock.getStock().getLogo_url()
         ));
-        log.info("[UserStock] 관심기업이 조회되었습니다.");
-
-        return responseDto;
     }
 
     @Transactional
-    public boolean deleteUserStock(String stockCode) {
-        Stock stock = stockRepository.findByStockCode(stockCode);
-
-        Optional<User> userOptional = userRepository.findBySocialId(1L);
-        User user = userOptional.get();
+    public boolean deleteUserStock(String stockCode, UserDetailsImpl userDetails) {
+        User user = getUserFromToken(userDetails);
+        Stock stock = getStockByStockCode(stockCode);
 
         UserStockLike userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
-
-        if (userStockLike == null) {
-            return false;
+        if (userStockLike != null) {
+            userStockLikeRepository.deleteById(userStockLike.getUserStockLikePk());
+            return true;
         }
+        return false;
+    }
 
-        userStockLikeRepository.deleteById(userStockLike.getUserStockLikePk());
-        return true;
+    private User getUserFromToken(UserDetailsImpl userDetails) {
+        User user = userDetails.getUser();
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "[Token] 유효하지 않은 사용자입니다.");
+        }
+        return user;
+    }
+
+    private Stock getStockByStockCode(String stockCode) {
+        Stock stock = stockRepository.findByStockCode(stockCode);
+        if (stock == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "[Stock] 조회되지 않는 종목 코드입니다.");
+        }
+        return stock;
     }
 }
