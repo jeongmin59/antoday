@@ -12,21 +12,24 @@ public class CorpListResponseDto {
     private String corpCode;
     private String corpName;
     private String logoUrl;
+    private Boolean isLiked;
 
     @Builder
-    public CorpListResponseDto(String stockCode, String corpCode, String corpName, String logoUrl) {
+    public CorpListResponseDto(String stockCode, String corpCode, String corpName, String logoUrl, Boolean isLiked) {
         this.stockCode = stockCode;
         this.corpCode = corpCode;
         this.corpName = corpName;
         this.logoUrl = logoUrl;
+        this.isLiked = isLiked;
     }
 
-    public static CorpListResponseDto toEntity(Stock stock) {
+    public static CorpListResponseDto toEntity(Stock stock, Boolean isLiked) {
         return CorpListResponseDto.builder()
                 .stockCode(stock.getStockCode())
                 .corpCode(stock.getCorpCode())
                 .corpName(stock.getCorpName())
                 .logoUrl(stock.getLogo_url())
+                .isLiked(isLiked)
                 .build();
     }
 }

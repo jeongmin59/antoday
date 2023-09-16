@@ -1,12 +1,12 @@
 package com.omfg.antoday.config.jwt;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Slf4j
+@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Value("${jwt.secretKey}")
-    private String SECRET_KEY;
+    private final JwtTokenProvider jwtTokenProvider;
     private static final String TOKEN_PREFIX = "Bearer ";
     private static final String HEADER_STRING = "Authorization";
 
@@ -39,12 +39,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Bearer 제거
         String token = jwtHeader.replace(TOKEN_PREFIX, "");
 
-        Long userCode = null;
-
         // 사용자 인증
         try {
-            userCode = JWT.require(Algorithm.HMAC512(SECRET_KEY)).build().verify(token)
-                    .getClaim("socialId").asLong();
+            Authentication authentication = jwtTokenProvider.authenticateToken(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             log.info("[Token 인증] 사용자 인증 성공");
 
         } catch (TokenExpiredException e) {
@@ -56,9 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             log.info("[Token 인증] 유효하지 않은 토큰입니다.");
             request.setAttribute(HEADER_STRING, "유효하지 않은 토큰입니다.");
         }
-
-        request.setAttribute("userCode", userCode);
-
         filterChain.doFilter(request, response);
     }
 }
