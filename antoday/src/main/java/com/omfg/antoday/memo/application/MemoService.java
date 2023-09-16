@@ -28,6 +28,26 @@ public class MemoService {
         log.info("[Memo] 메모가 생성되었습니다.");
     }
 
+    @Transactional
+    public void updateMemo(String updatedMemo, UserDetailsImpl userDetails) {
+        User user = getUserFromToken(userDetails);
+        Memo memo = memoRepository.findByUser(user);
+
+        if (memo != null) {
+            memo.setMemo(updatedMemo);
+            memoRepository.save(memo);
+        } else {
+            // 기존 메모가 없다면 새로운 메모를 생성 후 저장
+            Memo newMemo = Memo.builder()
+                    .user(user)
+                    .memo(updatedMemo)
+                    .build();
+
+            memoRepository.save(newMemo);
+        }
+        log.info("[Memo] 메모가 수정되었습니다.");
+    }
+
     private User getUserFromToken(UserDetailsImpl userDetails) {
         User user = userDetails.getUser();
         if (user == null) {
