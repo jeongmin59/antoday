@@ -8,10 +8,10 @@ const HomePage = () => {
     const [userName,setUserName]  = useRecoilState(userNameAtom);
 
     return ( 
-        <div className={styles.mainContainer}>
+      <div className={styles.mainContainer}>
         <HomeHeader/>
         <HomeWordCloud/>
-        </div >
+      </div >
     );
 }
 
