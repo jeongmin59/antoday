@@ -63,4 +63,21 @@ public class UserStockLikeService {
 
         return responseDto;
     }
+
+    @Transactional
+    public boolean deleteUserStock(String stockCode) {
+        Stock stock = stockRepository.findByStockCode(stockCode);
+
+        Optional<User> userOptional = userRepository.findBySocialId(1L);
+        User user = userOptional.get();
+
+        UserStockLike userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
+
+        if (userStockLike == null) {
+            return false;
+        }
+
+        userStockLikeRepository.deleteById(userStockLike.getUserStockLikePk());
+        return true;
+    }
 }
