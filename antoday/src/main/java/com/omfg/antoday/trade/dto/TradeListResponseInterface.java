@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 public interface TradeListResponseInterface {
 
-    long getTradePk();
+    Long getTradePk();
     int getPrice();
     int getCnt();
-    boolean isOptionBuySell();
+    byte getOptionBuySell();
     LocalDateTime getTradeAt();
     String getStockCode();
     String getCorpName();

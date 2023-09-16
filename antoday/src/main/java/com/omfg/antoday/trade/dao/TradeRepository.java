@@ -24,18 +24,22 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
 
     Trade findByTradePk(Long tradePk);
 
-    @Query(value = "select t.tradePk as trade_pk, t.price as price, t.cnt as cnt, t.optionBuySell as option_buy_sell, " +
-            "t.reason as reason, t.tradeAt as trade_at, t.stock.stockCode as stock_code, t.stock.corpName as corp_name, " +
-            "t.stock.logo_url as logo_url " +
-            "from Trade t " +
-            "left join t.keywords tk " +
-            "left join tk.keyword k " +
-            "where t.user.socialId = :socialId " +
-            "and t.isDeleted = 0 " +
-            "and (t.stock.corpName like :stockCode or k.keyword like :stockCode) " +
-            "and t.tradeAt between :start and :end " +
-            "order by t.tradeAt desc, t.tradePk", nativeQuery = true)
-    Page<TradeListResponseInterface> findTrade(Long socialId, LocalDateTime start, LocalDateTime end, String stockCode, PageRequest pageRequest);
+    @Query(value = "SELECT t.trade_pk AS tradePk, t.price AS price, t.cnt AS cnt, t.option_buy_sell AS optionBuySell, " +
+            "t.reason AS reason, t.trade_at AS tradeAt, t.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl " +
+            "FROM trade t " +
+            "INNER JOIN stock s ON t.stock_code = s.stock_code " +
+            "LEFT OUTER JOIN trade_keyword tk ON t.trade_pk = tk.trade_pk " +
+            "LEFT OUTER JOIN keyword k ON tk.keword_pk = k.keyword_pk " +
+            "WHERE t.social_id = :socialId " +
+            "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) " +
+            "AND t.trade_at BETWEEN :startDate AND :endDate " +
+            "ORDER BY t.trade_at DESC, t.trade_pk DESC",
+            nativeQuery = true)
+    Page<TradeListResponseInterface> findTradeByNativeQuery(@Param("socialId") Long socialId,
+                                          @Param("searchTerm") String searchTerm,
+                                          @Param("startDate") LocalDateTime startDate,
+                                          @Param("endDate") LocalDateTime endDate,
+                                          PageRequest pageRequest);
 
     //    Page<Trade> findByUserAndIsDeletedFalse(User u, PageRequest pageRequest);
 //

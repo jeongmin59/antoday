@@ -46,7 +46,7 @@ public class Trade {
 
     @Column(columnDefinition = "TINYINT")
     @NotNull
-    private boolean optionBuySell;
+    private byte optionBuySell;
 
     @Column(columnDefinition = "TEXT")
     private String reason;
@@ -69,7 +69,7 @@ public class Trade {
     private Set<TradeKeyword> keywords;
 
     @Builder
-    public Trade(Long tradePk, User user, Stock stock, LocalDateTime tradeAt, int price, int cnt, boolean optionBuySell, String reason, String aiAnalyze, LocalDateTime updated_at, boolean isDeleted, Set<TradeKeyword> keywords) {
+    public Trade(Long tradePk, User user, Stock stock, LocalDateTime tradeAt, int price, int cnt, byte optionBuySell, String reason, String aiAnalyze, LocalDateTime updated_at, boolean isDeleted, Set<TradeKeyword> keywords) {
         this.tradePk = tradePk;
         this.user = user;
         this.stock = stock;
@@ -100,7 +100,7 @@ public class Trade {
         this.keywords.clear();
         this.reason = dto.getReason();
         this.aiAnalyze = null;
-        this.optionBuySell = dto.isOptionBuySell();
+        this.optionBuySell = dto.getOptionBuySell();
         this.stock = Stock.builder().stockCode(dto.getStockCode()).build();
     }
 

@@ -20,14 +20,14 @@ public class TradeRequestDto {
     private Long tradePk;
     private int cnt;
     private int price;
-    private boolean optionBuySell;
+    private byte optionBuySell;
     private LocalDateTime tradeAt;
     private String stockCode;
     private String reason;
     private List<String> keywords;
 
     @Builder
-    public TradeRequestDto(Long tradePk, int cnt, int price, boolean optionBuySell, LocalDateTime tradeAt, String stockCode, String reason, List<String> keywords) {
+    public TradeRequestDto(Long tradePk, int cnt, int price, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String reason, List<String> keywords) {
         this.tradePk = tradePk;
         this.cnt = cnt;
         this.price = price;
@@ -44,7 +44,7 @@ public class TradeRequestDto {
                 .tradePk(dto.getTradePk())
                 .cnt(dto.getCnt())
                 .price(dto.getPrice())
-                .optionBuySell(dto.isOptionBuySell())
+                .optionBuySell(dto.getOptionBuySell())
                 .tradeAt(dto.getTradeAt())
                 .reason(dto.getReason())
                 .user(user)

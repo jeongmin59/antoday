@@ -79,7 +79,7 @@ public class TradeService {
         return tradeRepository.deleteByTradePk(tradePk);
     }
 
-    public Page<TradeListResponseDto> getTrade(User user, int page, String start, String end, String stockCode) {
+    public Page<TradeListResponseDto> getTrade(User user, int page, String start, String end, String keyword) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("tradePk").descending());
 //        Stock stock = Stock.builder().stockCode(stockCode).build();
 
@@ -89,10 +89,11 @@ public class TradeService {
         LocalDateTime st = LocalDateTime.parse(start, formatter);
         LocalDateTime ed = LocalDateTime.parse(end, formatter);
 
-        if(stockCode == null) stockCode = "";
-        stockCode = '%'+stockCode+'%';
+        if(keyword == null) keyword = "";
+        keyword = '%'+keyword+'%';
 
-        Page<TradeListResponseInterface> trades = tradeRepository.findTrade(user.getSocialId(), st, ed, stockCode, pageRequest);
+        Page<TradeListResponseInterface> trades = tradeRepository.findTradeByNativeQuery(user.getSocialId()
+                , keyword, st, ed,pageRequest);
         return trades.map(trade -> TradeListResponseDto.toDto(trade));
     }
 

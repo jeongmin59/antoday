@@ -16,7 +16,7 @@ public class TradeDetailResponseDto {
     private long tradePk;
     private int price;
     private int cnt;
-    private boolean optionBuySell;
+    private byte optionBuySell;
     private LocalDateTime tradeAt;
     private String stockCode;
     private String corpName;
@@ -26,7 +26,7 @@ public class TradeDetailResponseDto {
     private Set<String> keyword;
 
     @Builder
-    public TradeDetailResponseDto(long tradePk, int price, int cnt, boolean optionBuySell, LocalDateTime tradeAt, String stockCode, String corpName, String logoUrl, String reason, String aiAnalyze, Set<String> keyword) {
+    public TradeDetailResponseDto(long tradePk, int price, int cnt, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String corpName, String logoUrl, String reason, String aiAnalyze, Set<String> keyword) {
         this.tradePk = tradePk;
         this.price = price;
         this.cnt = cnt;
@@ -51,7 +51,7 @@ public class TradeDetailResponseDto {
                 .keyword(trade.getKeywords().stream().map(tradeKeyword -> {
                     return tradeKeyword.getKeyword().getKeyword();
                 }).collect(Collectors.toSet()))
-                .optionBuySell(trade.isOptionBuySell())
+                .optionBuySell(trade.getOptionBuySell())
                 .corpName(trade.getStock().getCorpName())
                 .stockCode(trade.getStock().getStockCode())
                 .build();
