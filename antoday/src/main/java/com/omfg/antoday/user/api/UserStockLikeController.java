@@ -1,5 +1,6 @@
 package com.omfg.antoday.user.api;
 
+import com.omfg.antoday.config.UserDetailsImpl;
 import com.omfg.antoday.user.application.UserStockLikeService;
 import com.omfg.antoday.user.dto.UserStockListResponseDto;
 import io.swagger.annotations.Api;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,10 +22,11 @@ public class UserStockLikeController {
 
     @PostMapping
     @ApiOperation(value = "관심 기업 등록", notes = "토큰, stockCode 필요" )
-    public ResponseEntity<String> userStockAdd(@RequestParam String stockCode) throws Exception {
+    public ResponseEntity<String> userStockAdd(@RequestParam String stockCode,
+                                               @AuthenticationPrincipal UserDetailsImpl userDetails) throws Exception {
         // 추후 현재 사용자 정보 받아와서 사용하는 것으로 변경 필요
-        userStockLikeService.adduserStockLike(stockCode);
-        return new ResponseEntity<String>("성공", HttpStatus.CREATED);
+        userStockLikeService.adduserStockLike(stockCode, userDetails);
+        return new ResponseEntity<>("[Stock] 관심 기업으로 등록되었습니다.", HttpStatus.CREATED);
     }
 
     @GetMapping

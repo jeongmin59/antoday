@@ -1,5 +1,6 @@
 package com.omfg.antoday.user.application;
 
+import com.omfg.antoday.config.UserDetailsImpl;
 import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.user.dao.UserRepository;
@@ -11,8 +12,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -25,16 +29,16 @@ public class UserStockLikeService {
     private final StockRepository stockRepository;
     private final UserRepository userRepository;
 
-    public void adduserStockLike(String stockCode) throws Exception {
-        Optional<User> userOptional = userRepository.findBySocialId(1L);
-        User user = userOptional.get();
+    public void adduserStockLike(String stockCode, UserDetailsImpl userDetails) {
+        User user = userDetails.getUser();
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "유효하지 않은 사용자입니다.");
+        }
 
         Stock stock = stockRepository.findByStockCode(stockCode);
-
-        if (userOptional == null) {
-            throw new Exception("유효하지 않은 사용자입니다.");
-        } else if (stock == null) {
-            throw new Exception("유효하지 않은 종목코드입니다.");
+        if (stock == null) {
+            new ResponseEntity<>("[Stock] 올바르지 않은 종목 코드입니다.", HttpStatus.NOT_FOUND);
+            return;
         }
 
         UserStockLike userStockLike = UserStockLike.builder()
