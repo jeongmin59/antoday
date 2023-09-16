@@ -67,11 +67,11 @@ public class TradeController {
     //매매기록 전체 조회 Option이 없으면 그냥 get
     //매매기록 기간별, 종목별 조회
     @GetMapping
-    @ApiOperation(value = "매매 기록 list", notes = "page필수(0부터), start(형식 : yyyy-MM-dd HH:mm:ss), end, 기업이름 선택")
-    public ResponseEntity<Page<TradeListResponseDto>> tradeOptionGet(@RequestParam String page, @RequestParam(required = false) String start , @RequestParam(required = false) String end, @RequestParam(required = false) String corpName) {
+    @ApiOperation(value = "매매 기록 list", notes = "page필수(0부터), start(형식 : yyyy-MM-dd HH:mm:ss), end, keyword(검색 키워드 또는 기업명) 선택")
+    public ResponseEntity<Page<TradeListResponseDto>> tradeOptionGet(@RequestParam String page, @RequestParam(required = false) String start , @RequestParam(required = false) String end, @RequestParam(required = false) String keyword) {
 
         Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.getTrade(dummyUser.get(), Integer.parseInt(page), start,end, corpName), HttpStatus.OK);
+        return new ResponseEntity<>(tradeService.getTrade(dummyUser.get(), Integer.parseInt(page), start,end, keyword), HttpStatus.OK);
     }
 
     //매매기록 검색 조회
