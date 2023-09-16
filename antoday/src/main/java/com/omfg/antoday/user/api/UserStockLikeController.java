@@ -23,17 +23,16 @@ public class UserStockLikeController {
     @PostMapping
     @ApiOperation(value = "관심 기업 등록", notes = "토큰, stockCode 필요" )
     public ResponseEntity<String> userStockAdd(@RequestParam String stockCode,
-                                               @AuthenticationPrincipal UserDetailsImpl userDetails) throws Exception {
-        // 추후 현재 사용자 정보 받아와서 사용하는 것으로 변경 필요
+                                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
         userStockLikeService.adduserStockLike(stockCode, userDetails);
         return new ResponseEntity<>("[Stock] 관심 기업으로 등록되었습니다.", HttpStatus.CREATED);
     }
 
     @GetMapping
     @ApiOperation(value = "관심 기업 조회", notes = "토큰, page 필요(0부터 시작)" )
-    public ResponseEntity<?> userStockGet(@RequestParam(name = "page", defaultValue = "0") int page) {
-        // 추후 유저 정보 받아오는 것으로 변경
-        Page<UserStockListResponseDto> userStockList = userStockLikeService.getUserStockList(page);
+    public ResponseEntity<?> userStockGet(@RequestParam(name = "page", defaultValue = "0") int page,
+                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        Page<UserStockListResponseDto> userStockList = userStockLikeService.getUserStockList(page, userDetails);
         return new ResponseEntity<>(userStockList, HttpStatus.OK);
     }
 

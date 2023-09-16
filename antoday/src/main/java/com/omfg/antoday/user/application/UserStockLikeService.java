@@ -50,11 +50,13 @@ public class UserStockLikeService {
     }
 
     @Transactional
-    public Page<UserStockListResponseDto> getUserStockList(int page) {
+    public Page<UserStockListResponseDto> getUserStockList(int page, UserDetailsImpl userDetails) {
         PageRequest pageRequest = PageRequest.of(page, 10);
 
-        Optional<User> userOptional = userRepository.findBySocialId(1L);
-        User user = userOptional.get();
+        User user = userDetails.getUser();
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "유효하지 않은 사용자입니다.");
+        }
 
         Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUserOrderByCreatedAtDesc(user, pageRequest);
 
@@ -63,8 +65,7 @@ public class UserStockLikeService {
                 userStock.getStock().getCorpName(),
                 userStock.getStock().getLogo_url()
         ));
-        log.info("[UserStock] 관심기업이 조회되었습니다.");
-
+        log.info("[UserStock]" + user.getUserName() + "님의 관심기업이 조회되었습니다.");
         return responseDto;
     }
 
