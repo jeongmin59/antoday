@@ -13,4 +13,6 @@ public interface UserStockLikeRepository extends JpaRepository<UserStockLike, Lo
     Page<UserStockLike> findByUserOrderByCreatedAtDesc(User user, PageRequest pageRequest);
 
     UserStockLike findByStockAndUser(Stock stock, User user);
+
+    boolean existsByStockAndUser(Stock stock, User user);
 }
