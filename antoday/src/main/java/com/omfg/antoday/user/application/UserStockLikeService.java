@@ -70,11 +70,13 @@ public class UserStockLikeService {
     }
 
     @Transactional
-    public boolean deleteUserStock(String stockCode) {
+    public boolean deleteUserStock(String stockCode, UserDetailsImpl userDetails) {
         Stock stock = stockRepository.findByStockCode(stockCode);
 
-        Optional<User> userOptional = userRepository.findBySocialId(1L);
-        User user = userOptional.get();
+        User user = userDetails.getUser();
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "유효하지 않은 사용자입니다.");
+        }
 
         UserStockLike userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
 
