@@ -11,6 +11,7 @@ import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.dao.UserStockLikeRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.domain.UserStockLike;
+import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -21,12 +22,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -87,7 +86,7 @@ public class StockService {
         if (Objects.equals(status, "매수")) {
             price = getPreviousClosingPrice(stockCode);
         } else if (Objects.equals(status, "매도")) {
-            User user = getUserFromToken(userDetails);
+            User user = UserUtils.getUserFromToken(userDetails);
 
             byte optionBuySell = 0; // 수정 필요(0이 매도인지 매수인지 확인 필요)
             price = getPreviousBuyPrice(stockCode, user, optionBuySell);
@@ -141,13 +140,5 @@ public class StockService {
     private int getPreviousBuyPrice(String stockCode, User user, byte optionBuySell) {
         Trade lastTrade = tradeRepository.findFirstByUserAndStock_StockCodeAndOptionBuySellOrderByTradeAtDesc(user, stockCode, optionBuySell);
         return lastTrade != null ? lastTrade.getPrice() : 0;
-    }
-
-    private User getUserFromToken(UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "[Token] 유효하지 않은 사용자입니다.");
-        }
-        return user;
     }
 }
