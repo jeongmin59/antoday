@@ -5,12 +5,11 @@ import com.omfg.antoday.memo.dao.MemoRepository;
 import com.omfg.antoday.memo.domain.Memo;
 import com.omfg.antoday.memo.dto.MemoDto;
 import com.omfg.antoday.user.domain.User;
+import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @Service
@@ -30,7 +29,7 @@ public class MemoService {
     }
 
     public MemoDto getMemo(UserDetailsImpl userDetails) {
-        User user = getUserFromToken(userDetails);
+        User user = UserUtils.getUserFromToken(userDetails);
         Memo memo = memoRepository.findByUser(user);
 
         log.info("[Memo] " +  user.getUserName() + "님의 메모가 조회되었습니다.");
@@ -42,7 +41,7 @@ public class MemoService {
 
     @Transactional
     public void updateMemo(String updatedMemo, UserDetailsImpl userDetails) {
-        User user = getUserFromToken(userDetails);
+        User user = UserUtils.getUserFromToken(userDetails);
         Memo memo = memoRepository.findByUser(user);
 
         if (memo != null) {
@@ -58,13 +57,5 @@ public class MemoService {
             memoRepository.save(newMemo);
         }
         log.info("[Memo] 메모가 수정되었습니다.");
-    }
-
-    private User getUserFromToken(UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "[Token] 유효하지 않은 사용자입니다.");
-        }
-        return user;
     }
 }

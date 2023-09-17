@@ -7,6 +7,7 @@ import com.omfg.antoday.user.dao.UserStockLikeRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.domain.UserStockLike;
 import com.omfg.antoday.user.dto.UserStockListResponseDto;
+import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ public class UserStockLikeService {
     private final StockRepository stockRepository;
 
     public void adduserStockLike(String stockCode, UserDetailsImpl userDetails) {
-        User user = getUserFromToken(userDetails);
+        User user = UserUtils.getUserFromToken(userDetails);
         Stock stock = getStockByStockCode(stockCode);
 
         if (userStockLikeRepository.existsByStockAndUser(stock, user)) {
@@ -44,7 +45,7 @@ public class UserStockLikeService {
     @Transactional
     public Page<UserStockListResponseDto> getUserStockList(int page, UserDetailsImpl userDetails) {
         PageRequest pageRequest = PageRequest.of(page, 10);
-        User user = getUserFromToken(userDetails);
+        User user = UserUtils.getUserFromToken(userDetails);
         Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUserOrderByCreatedAtDesc(user, pageRequest);
 
         log.info("[UserStock]" + user.getUserName() + "님의 관심기업이 조회되었습니다.");
@@ -58,7 +59,7 @@ public class UserStockLikeService {
 
     @Transactional
     public boolean deleteUserStock(String stockCode, UserDetailsImpl userDetails) {
-        User user = getUserFromToken(userDetails);
+        User user = UserUtils.getUserFromToken(userDetails);
         Stock stock = getStockByStockCode(stockCode);
 
         UserStockLike userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
@@ -68,14 +69,6 @@ public class UserStockLikeService {
             return true;
         }
         return false;
-    }
-
-    private User getUserFromToken(UserDetailsImpl userDetails) {
-        User user = userDetails.getUser();
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "[Token] 유효하지 않은 사용자입니다.");
-        }
-        return user;
     }
 
     private Stock getStockByStockCode(String stockCode) {
