@@ -37,16 +37,4 @@ public class StockController {
 
         return new ResponseEntity<>(corpSearchList, HttpStatus.OK);
     }
-
-    @GetMapping("/stock/info")
-    public ResponseEntity stockInfoAdd() {
-        stockService.getStockInfo();
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/stock/logo")
-    public ResponseEntity stockLogoUrlAdd() {
-        stockService.getStockLogoUrl();
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

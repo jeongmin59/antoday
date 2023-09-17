@@ -51,7 +51,8 @@ public class UserStockLikeService {
         return userStockLikes.map(userStock -> new UserStockListResponseDto(
                 userStock.getStock().getStockCode(),
                 userStock.getStock().getCorpName(),
-                userStock.getStock().getLogo_url()
+                userStock.getStock().getLogo_url(),
+                true
         ));
     }
 
@@ -63,6 +64,7 @@ public class UserStockLikeService {
         UserStockLike userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
         if (userStockLike != null) {
             userStockLikeRepository.deleteById(userStockLike.getUserStockLikePk());
+            log.info("[UserStock] 관심기업 등록 취소했습니다.");
             return true;
         }
         return false;
