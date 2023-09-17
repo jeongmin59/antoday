@@ -1,6 +1,12 @@
+import React from "react";
+import StockSearchBar from "../components/StockInfo/atoms/StockSearchBar";
+
 const StockSearchPage = () => {
     return (
-        <>여기는 종목정보 검색 페이지</>
+        <React.Fragment>
+            <StockSearchBar/>
+            <span>여기는 리액트</span>
+        </React.Fragment>
     );
 }
 
