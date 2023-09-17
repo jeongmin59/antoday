@@ -5,7 +5,6 @@ const StockSearchPage = () => {
     return (
         <React.Fragment>
             <StockSearchBar/>
-            <span>여기는 리액트</span>
         </React.Fragment>
     );
 }
