@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-const CompanyInfoPage = () => {
+const StockInfoPage = () => {
   return (
     <>
       종목정보검색
@@ -10,4 +10,4 @@ const CompanyInfoPage = () => {
   );
 };
 
-export default CompanyInfoPage;
+export default StockInfoPage;
