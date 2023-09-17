@@ -1,9 +1,11 @@
+import React from 'react';
 import { AntDefault } from '../../../assets/img/ant';
 import { headerImage } from '../../../assets/img/common';
 import styles from './HomeHeader.module.css'
 
-const HomeHeader = () => {
+const HomeHeader : React.FC = () => {
     return ( 
+        
         <div className={styles.headerContainer}>
             <div className = {styles.headerText}>
                 오늘의 키워드를 눌러<br/>
@@ -15,6 +17,7 @@ const HomeHeader = () => {
             </div>
             <img className = {styles.AntImage} src={AntDefault} alt='개미이미지'></img>
         </div>
+        
     );
 }
  

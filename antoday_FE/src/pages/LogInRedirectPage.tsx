@@ -18,7 +18,7 @@ const LogInRedirectPage : React.FC = () => {
 				try {
 					const response = await axios({
 						method: "GET",
-            url: `http://j9e107.p.ssafy.io:8080/api/user/login?code=${code}`,
+            url: import.meta.env.VITE_BACK_API_URL + `/api/user/login?code=${code}`,
             headers: {
             "Content-Type": "application/json;charset=utf-8", //json형태로 데이터를 보내겠다는뜻
             "Access-Control-Allow-Origin": "*", //이건 cors 에러때문에 넣어둔것. 당신의 프로젝트에 맞게 지워도됨

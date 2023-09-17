@@ -4,7 +4,7 @@ import { companyImage } from "../../../assets/img/common";
 
 const Companyinfo = () => {
     return (
-        <Link to='/companysearch'>
+        <Link to='/stocksearch'>
         <div>
             <img src={companyImage} alt="" />
             <div>기업 정보</div>

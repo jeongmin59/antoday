@@ -1,5 +1,5 @@
 .App {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   margin: 0 0;
@@ -15,7 +15,7 @@ body {
 
 @media screen and (max-width: 380px) {
   .App {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     height: 100vh;
   }
 
