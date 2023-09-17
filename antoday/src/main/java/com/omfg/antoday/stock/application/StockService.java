@@ -86,9 +86,11 @@ public class StockService {
 
     private boolean isStockLikedByUser(Stock stock, Long socialId) {
         Optional<User> optionalUser = userRepository.findById(socialId);
-        User user = optionalUser.get();
-
-        UserStockLike userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
+        UserStockLike userStockLike = null;
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
+        }
         return userStockLike != null;
     }
 
