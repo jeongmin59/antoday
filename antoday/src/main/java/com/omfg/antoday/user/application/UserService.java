@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.omfg.antoday.config.jwt.JwtTokenProvider;
 import com.omfg.antoday.config.jwt.TokenDto;
+import com.omfg.antoday.memo.application.MemoService;
 import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.domain.User;
 import com.omfg.antoday.user.dto.UserInfoDto;
@@ -29,6 +30,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final MemoService memoService;
 
     @Value("${kakao.client_id}")
     private String client_id;
@@ -127,6 +129,9 @@ public class UserService {
                     .userName(userInfoDto.getUserName())
                     .build();
             userRepository.save(user);
+
+            // 회원가입시 사용자의 메모장 생성
+            memoService.addMemo(user);
         }
         return user;
     }

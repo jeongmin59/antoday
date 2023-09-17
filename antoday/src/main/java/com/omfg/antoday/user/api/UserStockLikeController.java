@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/userstock")
@@ -23,7 +24,7 @@ public class UserStockLikeController {
     @PostMapping
     @ApiOperation(value = "관심 기업 등록", notes = "토큰, stockCode 필요" )
     public ResponseEntity<String> userStockAdd(@RequestParam String stockCode,
-                                               @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                               @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
         userStockLikeService.adduserStockLike(stockCode, userDetails);
         return new ResponseEntity<>("[UserStock] 관심 기업으로 등록되었습니다.", HttpStatus.CREATED);
     }
@@ -31,7 +32,7 @@ public class UserStockLikeController {
     @GetMapping
     @ApiOperation(value = "관심 기업 조회", notes = "토큰, page 필요(0부터 시작)" )
     public ResponseEntity<?> userStockGet(@RequestParam(name = "page", defaultValue = "0") int page,
-                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                          @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
         Page<UserStockListResponseDto> userStockList = userStockLikeService.getUserStockList(page, userDetails);
         return new ResponseEntity<>(userStockList, HttpStatus.OK);
     }
@@ -39,9 +40,10 @@ public class UserStockLikeController {
     @DeleteMapping("/{stockCode}")
     @ApiOperation(value = "관심 기업 등록 취소", notes = "토큰, stockCode 필요")
     public ResponseEntity<String> userStockRemove(@PathVariable("stockCode") String stockCode,
-                                                  @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                                  @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
         if (userStockLikeService.deleteUserStock(stockCode, userDetails)) {
-            return new ResponseEntity<>("[UserStock] 관심기업 " + stockCode + "가 삭제되었습니다.", HttpStatus.OK);
+            return new ResponseEntity<>("[UserStock] 관심기업 " + stockCode + "가 등록 취소되었습니다.", HttpStatus.OK);
+
         } else {
             return new ResponseEntity<>("[UserStock] 관심기업 " + stockCode + "를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
         }

@@ -10,11 +10,13 @@ public class UserStockListResponseDto {
     private String stockCode;
     private String corpName;
     private String logoUrl;
+    private Boolean isLiked;
 
     @Builder
-    public UserStockListResponseDto(String stockCode, String corpName, String logoUrl) {
+    public UserStockListResponseDto(String stockCode, String corpName, String logoUrl, Boolean isLiked) {
         this.stockCode = stockCode;
         this.corpName = corpName;
         this.logoUrl = logoUrl;
+        this.isLiked = isLiked;
     }
 }
