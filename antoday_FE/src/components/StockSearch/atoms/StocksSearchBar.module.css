@@ -1,0 +1,29 @@
+.searchBarContainer {
+    border: 0px solid var(--main-white-color);
+    padding: 0.3rem 0.3rem;
+    margin: 1rem auto;
+    border-radius: 50px;
+    background-color: var(--main-white-color);
+}
+
+.inputBox{
+    outline: none;
+    width: 70%;
+    border: 0;
+
+    &::placeholder {
+        color: #00000080;
+        font-family: var(--main-font-family);
+        font-size: 0.6rem;
+    }
+}
+
+.searchButton {
+    border-radius: 50px;
+    height: 100%;
+    background-color: var(--main-blue-color);
+    outline: none;
+    border: 0;
+    color: white;
+    cursor: pointer;
+}

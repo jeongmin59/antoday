@@ -1,50 +1,38 @@
 import React from 'react';
+import { TradingRecordPageType } from '../../../pages/TradingRecordPage'; 
+import InfiniteScroll from 'react-infinite-scroll-component'; 
+import LoadingSpinner from '../../Common/atoms/LoadingSpinner';
 
 interface TradingRecordListProps {
-    records?: TradingRecord[];
-}
-interface TradingRecord {
-    stock_code: string;
-    corp_name: string;
-    logo_url: string;
-    trade_at: string;
-    price: number;
-    cnt: number;
-    키워드_작성_여부: boolean;
+  records: TradingRecordPageType[];
+  hasMore: boolean;
+  fetchMoreData: () => void;
 }
 
-
-const TradingRecordList: React.FC<TradingRecordListProps> = ({ records }) => {
-    if (!records) {
-        return (
-            <div>
-                초기화면이지롱
-            </div>
-        );
-    }
-
-    if (records.length > 0) {
-        // 검색 결과가 있는 경우
-        return (
-            <div>
-                <h2>검색 결과</h2>
-                <ul>
-                    {records.map((record, index) => (
-                        <li key={index}>
-                            {/* 레코드 데이터를 표시 */}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        );
-    } else {
-        // 검색 결과가 없는 경우
-        return (
-            <div>
-                <p>검색 결과가 없습니다.</p>
-            </div>
-        );
-    }
+const TradingRecordList: React.FC<TradingRecordListProps> = ({ records, hasMore, fetchMoreData }) => {
+  return (
+    <div>
+      <InfiniteScroll
+        dataLength={records.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={records.length > 0 ? <LoadingSpinner /> : null}
+      >
+        {records.map((record) => (
+          <div key={record.tradePk}>
+            <p>Trade PK: {record.tradePk}</p>
+            <p>Price: {record.price}</p>
+            <p>Count: {record.cnt}</p>
+            <p>Option Buy/Sell: {record.optionBuySell ? 'Buy' : 'Sell'}</p>
+            <p>Trade At: {record.tradeAt}</p>
+            <p>Stock Code: {record.stockCode}</p>
+            <p>Corp Name: {record.corpName}</p>
+          </div>
+        ))}
+      </InfiniteScroll>
+      {records.length === 0 && <h2>검색 결과가 없습니다.</h2>}
+    </div>
+  );
 };
 
 export default TradingRecordList;

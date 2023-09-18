@@ -1,0 +1,25 @@
+.headerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    background-color: var(--main-yellow-color);
+    padding: 4rem 2rem;
+}
+
+.headerText {
+    flex: 5;
+}
+
+.headerImage{
+    flex: 5;
+}
+
+.WordImage {
+    width: 5rem;
+}
+
+.AntImage {
+    width: 5rem;
+    height: fit-content;
+}

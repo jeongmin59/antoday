@@ -1,0 +1,49 @@
+.navigation {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  background-color: var(--main-yellow-color);
+  max-width: 100%;
+  color: var(--main-white-color);
+  align-items: center; 
+}
+
+.navItemHome {
+  display: block;
+  grid-column-start: 1;
+  width: 100px;
+}
+
+.navItemCompanyInfo {
+  display: block; 
+  grid-column-start: 5;
+  grid-column-end: 7;
+  font-size: 0.9rem;
+}
+
+.navItemTradingRecord {
+  display: block; 
+  grid-column-start: 7;
+  grid-column-end: 9;
+  font-size: 0.9rem;
+}
+
+.navItemLogin {
+  grid-column-start: 9;
+  grid-column-end: 11;
+  font-size: 0.9rem;
+}
+
+/* 웹 화면에 대한 미디어 쿼리 */
+@media screen and (max-width: 380px) {
+  .navItem {
+    display: none; /* 모바일 화면에서는 안보이게 설정 */
+  }
+
+  .navItemCompanyInfo {
+    display: none; 
+  }
+  
+  .navItemTradingRecord {
+    display: none;
+  }
+}
