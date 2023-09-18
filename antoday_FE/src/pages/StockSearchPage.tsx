@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./StockSearchPage.module.css";
-import StockSearchBar from "../components/StockInfo/atoms/StockSearchBar";
+import StockSearchBar from "../components/StockSearch/atoms/StockSearchBar";
 
 const StockSearchPage = () => {
   return (

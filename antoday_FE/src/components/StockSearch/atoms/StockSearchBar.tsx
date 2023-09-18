@@ -3,6 +3,7 @@ import StockSearchResults from "./StockSearchResults";
 import { useQuery, useQueryClient } from "react-query";
 import styles from "./StocksSearchBar.module.css";
 import axios from "axios";
+import SearchBottomSheet from "./SearchBottomSheet";
 
 const StockSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -13,6 +14,7 @@ const StockSearchBar: React.FC = () => {
     // console.log('입력값이 변경되었습니다:', inputValue);
     // console.log('전체페이지수는',totalPage);
     queryClient.invalidateQueries("searchResults");
+    console.log("제발나와줘", totalPage);
   }, [inputValue, totalPage]);
 
   const {
@@ -38,6 +40,7 @@ const StockSearchBar: React.FC = () => {
       console.log("키워드는", inputValue);
       console.log("전체페이지는", response.data.totalPages);
       console.log("검색결과는", response.data.content);
+      setTotalPage(response.data.totalPages);
 
       return response.data; // inputValue 값이 변경될 때만 실행
     },
@@ -76,7 +79,9 @@ const StockSearchBar: React.FC = () => {
           search
         </button>
       </form>
-      {inputValue && <StockSearchResults keyword={inputValue} />}
+      {inputValue && (
+        <SearchBottomSheet keyword={inputValue} totalPage={totalPage} />
+      )}
     </React.Fragment>
   );
 };
