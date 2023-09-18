@@ -8,7 +8,7 @@ interface WriteTradingRecordButtonProps {
   const WriteTradingRecordButton: React.FC<WriteTradingRecordButtonProps> = ({ onClick }) => {
     return (
       <button onClick={onClick} className={styles.button}>
-       <p>매매 이유 작성하기</p>
+       <p>매매 기록 추가</p>
       </button>
     );
   };
