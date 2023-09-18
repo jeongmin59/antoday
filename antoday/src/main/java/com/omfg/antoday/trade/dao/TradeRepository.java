@@ -1,9 +1,7 @@
 package com.omfg.antoday.trade.dao;
 
-import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.stock.domain.StockInterface;
 import com.omfg.antoday.trade.domain.Trade;
-import com.omfg.antoday.trade.dto.TradeListResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseInterface;
 import com.omfg.antoday.user.domain.User;
 import org.springframework.data.domain.Page;
@@ -49,7 +47,7 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
 //
 //    Page<Trade> findByUserAndStockAndTradeAtBetweenAndIsDeletedFalse(User user, Stock stock, LocalDateTime start, LocalDateTime end, PageRequest pageRequest);
 
-    @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName\n" +
+    @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
             "from trade t, user u, stock s\n" +
             "where t.social_id = u.social_id\n" +
             "and t.stock_code = s.stock_code\n" +
@@ -57,4 +55,13 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             , nativeQuery = true)
     Set<StockInterface> findDistintStockByUser(@Param("userPk") Long user);
 
+    Trade findFirstByUserAndStock_StockCodeAndOptionBuySellOrderByTradeAtDesc(User user, String stock_stockCode, byte optionBuySell);
+
+
+    @Query("SELECT SUM(t.cnt) FROM Trade t WHERE t.user = :user AND t.stock.stockCode = :stockCode AND t.optionBuySell = :optionBuySell")
+    int getTotalCountForUserAndStock(
+            @Param("user") User user,
+            @Param("stockCode") String stockCode,
+            @Param("optionBuySell") byte optionBuySell
+    );
 }
