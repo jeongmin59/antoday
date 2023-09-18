@@ -13,4 +13,4 @@ spring:
 
 kakao:
   client_id: ef1dbd44e7ef6634e3fec53570d8fd11
-  redirect_uri: https://antoday.com/oauth/callback/kakao
+  redirect_uri: https://antoday.site/oauth/callback/kakao
