@@ -1,7 +1,9 @@
 package com.omfg.antoday.trade.dao;
 
+import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.stock.domain.StockInterface;
 import com.omfg.antoday.trade.domain.Trade;
+import com.omfg.antoday.trade.dto.RoiResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseInterface;
 import com.omfg.antoday.user.domain.User;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public interface TradeRepository extends JpaRepository<Trade,Long> {
@@ -64,4 +67,7 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             @Param("stockCode") String stockCode,
             @Param("optionBuySell") byte optionBuySell
     );
+
+
+    List<Trade> findByUserAndStockAndIsDeletedFalse(User user, Stock stock);
 }
