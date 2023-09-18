@@ -47,7 +47,7 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
 //
 //    Page<Trade> findByUserAndStockAndTradeAtBetweenAndIsDeletedFalse(User user, Stock stock, LocalDateTime start, LocalDateTime end, PageRequest pageRequest);
 
-    @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName\n" +
+    @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
             "from trade t, user u, stock s\n" +
             "where t.social_id = u.social_id\n" +
             "and t.stock_code = s.stock_code\n" +
