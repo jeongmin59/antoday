@@ -3,6 +3,7 @@ package com.omfg.antoday.trade.api;
 import com.omfg.antoday.stock.dto.StockListResponseDto;
 import com.omfg.antoday.trade.application.TradeService;
 import com.omfg.antoday.trade.domain.Trade;
+import com.omfg.antoday.trade.dto.RoiResponseDto;
 import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseDto;
 import com.omfg.antoday.trade.dto.TradeRequestDto;
@@ -98,9 +99,10 @@ public class TradeController {
 
     // 기업 수익률 계산
     @GetMapping("/roi")
-    @ApiOperation(value = "해당 기업/전체 수익률 계산", notes = " 안넣으면 전체 수익률.")
-    public ResponseEntity<Object> roiStockGet(@RequestParam String stock_code) {
-        return new ResponseEntity<>("1", HttpStatus.OK);
+    @ApiOperation(value = "해당 기업/전체 수익률 계산", notes = " 안넣으면 전체 수익률. 일단 지금은 스톡코드 넣어서! 뭔가 완벽하진 않음.")
+    public ResponseEntity<RoiResponseDto> roiStockGet(@RequestParam(required = true) String stock_code) {
+        Optional<User> dummyUser = userRepository.findById(1L);
+        return new ResponseEntity<>(tradeService.getRoiStock(dummyUser.get(), stock_code), HttpStatus.OK);
     }
 
     @GetMapping("/makeDummyStock/{stock_code}")

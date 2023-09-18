@@ -9,10 +9,7 @@ import com.omfg.antoday.trade.dao.TradeRepository;
 import com.omfg.antoday.trade.domain.Keyword;
 import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
-import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
-import com.omfg.antoday.trade.dto.TradeListResponseDto;
-import com.omfg.antoday.trade.dto.TradeListResponseInterface;
-import com.omfg.antoday.trade.dto.TradeRequestDto;
+import com.omfg.antoday.trade.dto.*;
 import com.omfg.antoday.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -127,5 +125,39 @@ public class TradeService {
             System.out.println(d);
             return d;
         }).collect(Collectors.toSet());
+    }
+
+    public RoiResponseDto getRoiStock(User user, String stockCode) {
+        Stock stock = stockRepository.findByStockCode(stockCode);
+        List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
+
+        int sumCnt = 0;
+        double total = 0;
+        double avgPrice = 0;
+        double profit = 0;
+
+        List<Double> profits = new ArrayList<>();
+        List<Double> rois = new ArrayList<>();
+
+        for (Trade trade : trades) {
+            if (trade.getOptionBuySell() == 0) {
+                sumCnt += trade.getCnt();
+                total += trade.getCnt() * trade.getPrice();
+                avgPrice = total / sumCnt;
+            } else {
+                sumCnt -= trade.getCnt();
+                total -= trade.getCnt() * avgPrice;
+                profit = trade.getCnt() * (trade.getPrice() - avgPrice);
+                profits.add(profit);
+                rois.add(profit / (avgPrice * trade.getCnt()) * 100 - 0.23);
+            }
+        }
+
+        int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
+        double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+        double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
+
+
+        return new RoiResponseDto(sumProfit, roundedAvgRoi);
     }
 }
