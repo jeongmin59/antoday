@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import styles from './SearchingDate.module.css'
 
 interface SearchInputProps {
     onSearch: (startDate: string, endDate: string) => void; 
@@ -33,7 +34,8 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
                 selectsStart
                 startDate={startDate}
                 endDate={endDate}
-                placeholderText="시작 날짜 선택"
+                placeholderText="시작 날짜"
+                className = {styles.datepicker}
             />
             <DatePicker
                 selected={endDate}
@@ -42,7 +44,8 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
                 startDate={startDate}
                 endDate={endDate}
                 minDate={startDate}
-                placeholderText="종료 날짜 선택"
+                placeholderText="종료 날짜"
+                className = {styles.datepicker}
             />
         </div>
     );
