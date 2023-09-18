@@ -42,7 +42,7 @@ public class StockListResponseDto{
         return StockListResponseDto.builder()
                 .stockCode(stock.getStockCode())
                 .corpName(stock.getCorpName())
-                .logo_url(stock.getLogo_url())
+                .logo_url(stock.getLogoUrl())
                 .build();
     }
 }

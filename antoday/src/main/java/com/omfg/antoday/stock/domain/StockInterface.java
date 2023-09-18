@@ -9,5 +9,5 @@ public interface StockInterface {
     String getCorpName();
     String getMarket();
     Long getStocks();
-    String getLogo_url();
+    String getLogoUrl();
 }
