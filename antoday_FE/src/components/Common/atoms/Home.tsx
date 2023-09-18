@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { homeImage } from '../../../assets/img/common';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faHouse} from '@fortawesome/free-solid-svg-icons'
 
 const Home = () => {
     return (
         <Link to='/'>
-            <img src={homeImage} alt="" color='var(--main-yellow-color)'/>
+            <FontAwesomeIcon icon={faHouse} style={{ color: 'var(--main-yellow-color)' }}/>
             <div>Home</div>
         </Link>
     )

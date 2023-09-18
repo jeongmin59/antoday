@@ -1,13 +1,23 @@
 import React from 'react';
-import NavbarSquare from '../atoms/NavbarSquare';
 import styles from './BottomNavbar.module.css';
+import Companyinfo from '../atoms/Companyinfo';
+import Home from '../atoms/Home';
+import TradeHistory from '../atoms/TradeHistory';
 
 
 function BottomNavbar() {
 
     return (
-        <div className={styles['navigationbar_bottom']}>
-            <NavbarSquare /> 
+        <div className={styles['wrap']}>
+            <div className={styles['square_bottom_item']}>
+                <Companyinfo />
+            </div>
+            <div className={styles['square_bottom_item']}>
+                <Home />
+            </div>
+            <div className={styles['square_bottom_item']}>
+                <TradeHistory />
+            </div>
         </div>
     );
 }
