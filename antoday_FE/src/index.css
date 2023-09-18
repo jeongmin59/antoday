@@ -11,7 +11,7 @@
   --main-white-color: #FFFDF7;
   --main-blue-color: #6798C0;
   --sub-blue-color: #99D6EA;
-  
+  --main-font-family : 'NanumSquareRound';
   font-size: 20px;
   /* color-scheme: light dark; */
   font-synthesis: none;
