@@ -9,3 +9,7 @@ spring:
     url: jdbc:mysql://localhost:3306/antoday?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=true&serverTimezone=Asia/Seoul
     username: root
     password: root
+
+kakao:
+  client_id: ef1dbd44e7ef6634e3fec53570d8fd11
+  redirect_uri: http://localhost:5173/oauth/callback/kakao

@@ -24,9 +24,7 @@ logging:
           descriptor:
             sql: trace
 
-kakao:
-  client_id: ef1dbd44e7ef6634e3fec53570d8fd11
-  redirect_uri: http://localhost:5173/oauth/callback/kakao
+
 
 jwt:
   secretKey: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
