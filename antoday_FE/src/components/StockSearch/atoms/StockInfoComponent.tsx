@@ -1,14 +1,7 @@
 import React from "react";
 
-interface companyinfo {
-  corpCode: string;
-  corpName: string;
-  isLiked: any;
-  logoUrl: string;
-}
-
 interface StockSearchResultProps {
-  companyInfo: string; // 기업 정보를 받을 prop
+  companyInfo: CompanyInfo; // 기업 정보를 받을 prop
 }
 
 const StockInfoComponent: React.FC<StockSearchResultProps> = ({
@@ -16,8 +9,8 @@ const StockInfoComponent: React.FC<StockSearchResultProps> = ({
 }) => {
   return (
     <div className="stockSearchResult">
-      <h2>기업 정보</h2>
-      <p>{companyInfo}</p>
+      <img src={companyInfo.logoUrl} alt="기업이미지" />
+      <p>{companyInfo.corpName}</p>
     </div>
   );
 };
