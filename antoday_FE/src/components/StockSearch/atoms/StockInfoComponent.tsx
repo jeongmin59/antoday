@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./StockInfoComponent.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface StockSearchResultProps {
   companyInfo: CompanyInfo; // 기업 정보를 받을 prop
@@ -8,8 +9,15 @@ interface StockSearchResultProps {
 const StockInfoComponent: React.FC<StockSearchResultProps> = ({
   companyInfo,
 }) => {
+  const navigator = useNavigate();
+
+  const handleClick = () => {
+    const stockCode = companyInfo.stockCode;
+    navigator(`/stockinfo/${stockCode}`);
+  };
+
   return (
-    <div className={styles.stockSearchResult}>
+    <div className={styles.stockSearchResult} onClick={handleClick}>
       {companyInfo ? (
         <React.Fragment>
           <img
