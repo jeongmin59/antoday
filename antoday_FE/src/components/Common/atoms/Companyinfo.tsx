@@ -8,7 +8,7 @@ const Companyinfo = () => {
         <Link to='/stocksearch'>
         <div>
             <FontAwesomeIcon icon={faNewspaper} />
-            <div>기업 정보</div>
+            <div>종목 정보</div>
         </div>
         </Link>
     )

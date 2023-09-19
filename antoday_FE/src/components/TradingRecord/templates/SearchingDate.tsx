@@ -7,14 +7,22 @@ interface SearchInputProps {
     onSearch: (startDate: string, endDate: string) => void; 
 }
 
+const formatDate = (date: Date) => {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+  
+    return `${yyyy}-${mm}-${dd}`;
+};
+
 const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
 
     const handleSearch = () => {
         if (startDate && endDate) {
-            const startStr = startDate.toISOString().split('T')[0];
-            const endStr = endDate.toISOString().split('T')[0];
+            const startStr = formatDate(startDate);
+            const endStr = formatDate(endDate);
             onSearch(startStr, endStr);
         }
     };
@@ -24,7 +32,6 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
             handleSearch();
         }
     }, [startDate, endDate]);
-    
 
     return (
         <div>
