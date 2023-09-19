@@ -1,33 +1,44 @@
-import axios from "axios";
 import React from "react";
-import { useQuery } from "react-query";
+import StockInfoComponent from "./StockInfoComponent";
 
 interface StockSearchResultsProps {
-  keyword: string;
+  searchResults: string[];
+  isLoading: boolean;
+  isPreviousData: boolean;
+  isError: boolean;
 }
 
-const StockSearchResults : React.FC<StockSearchResultsProps> = ({keyword}) => {
-    
-		const { data : searchResults , isLoading, isError } = useQuery(
-			'searchResults',
-			async () => {
-					const params = new URLSearchParams();
-					params.append('keyword', keyword);
-					params.append('page', '0');
-					const response = await axios.get(import.meta.env.VITE_BACK_API_URL + `/api/corp/search?${params.toString()}`);
-					
-					return response.data;
-			},
-			{
-					enabled: !!keyword,
-			}
-	)
+const StockSearchResults: React.FC<StockSearchResultsProps> = ({
+  searchResults,
+  isLoading,
+  isPreviousData,
+  isError,
+}) => {
+  console.log("결과는", searchResults);
+  console.log("나머지는", isLoading, isPreviousData, isError);
 
-    return ( 
-        <React.Fragment>
-					<h1>검색결과</h1>
-        </React.Fragment>
-    );
-}
+  // searchResults 배열을 돌면서
+  searchResults?.map((result, index) => {
+    console.log(`Result ${index + 1}: ${result}`, typeof result);
+    return null; // map 함수에서는 반드시 반환값이 있어야 함
+  });
+
+  return (
+    <React.Fragment>
+      <h1>검색결과</h1>
+      {isLoading ? (
+        "로딩 중..."
+      ) : isError ? (
+        "에러 발생"
+      ) : (
+        <div>
+          {/* {searchResults?.map((result, index) => (
+            <StockInfoComponent key={index} companyInfo={result} />
+          ))} */}
+        </div>
+      )}
+    </React.Fragment>
+  );
+};
 
 export default StockSearchResults;
