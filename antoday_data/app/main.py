@@ -1,8 +1,9 @@
 from fastapi import FastAPI
+from app.routers import price, corp
+from app.models.database import SessionLocal, engine, Base
+from app.models import models
 from starlette.middleware.cors import CORSMiddleware
-
-from app.routers import price
-from app.routers import corp
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
