@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './SearchInput.module.css';
 
 interface SearchInputProps {
     onSearch: (keyword: string) => void; 
@@ -12,7 +13,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
     };
 
     return (
-        <div>
+        <div className={styles.div}>
             <input
                 type="text"
                 placeholder="키워드, 종목명 검색"

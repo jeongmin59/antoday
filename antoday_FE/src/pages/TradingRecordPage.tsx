@@ -35,37 +35,57 @@ const TradingRecordPage: React.FC = () => {
     return `${date} 23:59:59`;
   };
 
-  const createURL = () => {
-    const params = new URLSearchParams();
-    params.append("page", page.toString());
+  // const createURL = () => {
+  //   const params = new URLSearchParams();
+  //   params.append("page", page.toString());
   
+  //   if (startDate && startDate !== "") {
+  //     params.append("start", formatDateString(startDate));
+  //   }
+    
+  //   if (endDate && endDate !== "") {
+  //     // console.log(endDate)
+  //     params.append("end", formatDateString2(endDate));
+  //   }
+  
+  //   if (searchKeyword && searchKeyword !== "") {
+  //     params.append("keyword", searchKeyword);
+  //   }
+  
+  //   return `${import.meta.env.VITE_BACK_API_URL}/api/trade?${params.toString()}`;
+  // };
+
+  useEffect(() => {
+    console.log('useEffect is running', page, searchKeyword, startDate, endDate);
+    const params: any = {
+      page: page
+    };
+    // console.log("useEffect triggered", startDate, endDate);
     if (startDate && startDate !== "") {
-      params.append("start", formatDateString(startDate));
+      // console.log(startDate)
+      params.start = formatDateString(startDate);
     }
     
     if (endDate && endDate !== "") {
-      params.append("end", formatDateString2(endDate));
+      params.end = formatDateString2(endDate);
     }
-  
+
     if (searchKeyword && searchKeyword !== "") {
-      params.append("keyword", searchKeyword);
+      params.keyword = searchKeyword;
     }
-  
-    return `${import.meta.env.VITE_BACK_API_URL}/api/trade?${params.toString()}`;
-  };
 
-  useEffect(() => {
-    const url = createURL();
-    console.log("Current page: ", page); 
-    console.log("Current records: ", records); 
-
-    axios.get(url)
+    axios.get(`${import.meta.env.VITE_BACK_API_URL}/api/trade`, {
+      params: params
+    })
     .then((response) => {
+      console.log("API response:", response);
       const newData = response.data.content;
+      console.log(newData)
       if (newData.length === 0) {
         setHasMore(false);
-        // console.log("hasMore: ", hasMore);
+        // setRecords([]);
       } else {
+        setHasMore(true);
         setRecords(page === 0 ? newData : [...records, ...newData]);
         setPage(page + 1);
       }
@@ -75,6 +95,8 @@ const TradingRecordPage: React.FC = () => {
     });
   }, [page, searchKeyword, startDate, endDate]);
 
+
+
   const fetchMoreData = () => {
     console.log("Fetching more data!");
     setPage(page + 1);
@@ -83,13 +105,17 @@ const TradingRecordPage: React.FC = () => {
   
   const handleSearchKeyword = (keyword: string) => {
     setSearchKeyword(keyword);
-    setPage(0); 
+    setPage(0);  
+    setRecords([]);  
+    setHasMore(true);  
   };
   
   const handleSearchDate = (startDate: string, endDate: string) => {
     setStartDate(startDate);
     setEndDate(endDate);
-    setPage(0); 
+    setPage(0);  
+    setRecords([]);  
+    setHasMore(true);  
   };
 
   return (
