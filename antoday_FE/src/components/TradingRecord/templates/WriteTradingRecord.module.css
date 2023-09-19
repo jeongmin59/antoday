@@ -15,3 +15,17 @@
     display: flex;
     justify-content: center;
 }
+
+.resultcontainer img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.corpcontainer {
+    display: flex;
+}
+
+.searchresults {
+    display: flex;
+    flex-direction: column;
+}
