@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "./StockSearchList.module.css";
 import StockInfoComponent from "../atoms/StockInfoComponent";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface StockSearchListProps {
   searchResults: string[];
@@ -39,9 +44,11 @@ const StockSearchList: React.FC<StockSearchListProps> = ({
     <React.Fragment>
       <div>
         {searchResults?.length === 0 ? (
-          <p>검색결과가 없습니다?</p>
+          <div className={styles.stockSearchListContainer}>
+            검색 결과가 없습니다
+          </div>
         ) : (
-          <div>
+          <div className={styles.stockSearchListContainer}>
             {searchResults?.map((result, index) => (
               <StockInfoComponent
                 key={index}
@@ -49,19 +56,26 @@ const StockSearchList: React.FC<StockSearchListProps> = ({
                 companyInfo={result}
               />
             ))}
+            <div>
+              <button
+                className={styles.button}
+                onClick={loadPrevious}
+                disabled={nowPage === 0}
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <span style={{ fontSize: "var(--font-h6)" }}>{nowPage + 1}</span>
+              <button
+                className={styles.button}
+                onClick={loadMore}
+                disabled={nowPage >= totalPage - 1}
+              >
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </div>
           </div>
         )}
       </div>
-      {searchResults && (
-        <div>
-          <button onClick={loadPrevious} disabled={nowPage === 0}>
-            이전
-          </button>
-          <button onClick={loadMore} disabled={nowPage >= totalPage - 1}>
-            다음
-          </button>
-        </div>
-      )}
     </React.Fragment>
   );
 };

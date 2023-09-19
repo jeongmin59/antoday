@@ -99,7 +99,7 @@ const StockSearchBar: React.FC = () => {
           search
         </button>
       </form>
-      {!isSubmit && (
+      {!isSubmit && searchResults && (
         <StockSearchResults
           searchResults={searchResults?.content}
           isLoading={isLoading}
@@ -120,6 +120,12 @@ const StockSearchBar: React.FC = () => {
           setNowPage={setNowPage}
           totalPage={totalPage}
         />
+      )}
+      {!inputValue && (
+        <>
+          <h1>관심기업</h1>
+          <h1>투자한기업</h1>
+        </>
       )}
     </React.Fragment>
   );

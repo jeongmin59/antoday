@@ -1,5 +1,6 @@
 import React from "react";
 import StockInfoComponent from "../atoms/StockInfoComponent";
+import styles from "./StockSearchResults.module.css";
 
 interface StockSearchResultsProps {
   searchResults: string[];
@@ -20,7 +21,7 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
   totalPage,
   setNowPage,
 }) => {
-  // console.log("결과는", searchResults);
+  console.log("결과는", searchResults);
 
   // map 함수에서는 반드시 반환값이 있어야 함!
   // searchResults?.map((result, index) => {
@@ -28,27 +29,15 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
   //   return null;
   // });
 
-  const loadMore = () => {
-    // 다음 페이지로 이동하는 함수
-    if (nowPage < totalPage) {
-      setNowPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  const loadPrevious = () => {
-    // 이전 페이지로 이동하는 함수
-    if (nowPage > 0) {
-      setNowPage((prevPage) => prevPage - 1);
-    }
-  };
-
   return (
     <React.Fragment>
       <div>
         {searchResults?.length === 0 ? (
-          <p>검색결과가 없습니다.</p>
+          <div className={styles.stockSearchResultsContainer}>
+            검색결과가 없습니다.
+          </div>
         ) : (
-          <div>
+          <div className={styles.stockSearchResultsContainer}>
             {searchResults?.map((result, index) => (
               <StockInfoComponent
                 key={index}
@@ -59,16 +48,6 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
           </div>
         )}
       </div>
-      {searchResults && (
-        <div>
-          <button onClick={loadPrevious} disabled={nowPage === 0}>
-            이전
-          </button>
-          <button onClick={loadMore} disabled={nowPage >= totalPage - 1}>
-            다음
-          </button>
-        </div>
-      )}
     </React.Fragment>
   );
 };
