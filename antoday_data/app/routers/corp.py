@@ -1,9 +1,6 @@
 from fastapi import APIRouter, Query
-from app.schemas.price import MarketInfoDTO
-from app.services.price_service import get_market_info
 from app.services.stock_info_service import get_stock_price
 from app.services.corp_service import get_hot_corp_list
-
 
 router = APIRouter(
     prefix="/info/corp",

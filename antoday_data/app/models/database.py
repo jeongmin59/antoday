@@ -16,6 +16,6 @@ DB_URL = f"mysql+pymysql://{DB['user']}:{DB['password']}@{DB['host']}:{DB['port'
 print(DB_URL)
 engine = create_engine(DB_URL)
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
