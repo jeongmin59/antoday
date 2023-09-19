@@ -20,7 +20,7 @@ const StockSearchBar: React.FC = () => {
   });
 
   useEffect(() => {
-    //이게 무슨 함수였더라...
+    //"searchResults"라는 키에 해당하는 쿼리의 캐시가 무효화되고, 새로운 데이터를 가져오게 하는 함수
     queryClient.invalidateQueries("searchResults");
   }, [debouncedInputValue, nowPage]);
 
@@ -64,6 +64,8 @@ const StockSearchBar: React.FC = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+    // 검색창에 다시 검색할 때, isSubmit을 false로 초기화해야하나
+    setIsSubmit(false);
   };
 
   const search = () => {
@@ -74,21 +76,10 @@ const StockSearchBar: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     //기본 제출 동작 방지
     event.preventDefault();
-    await search();
-    await setIsSubmit(true);
-  };
 
-  const loadMore = () => {
-    // 다음 페이지로 이동하는 함수
-    if (nowPage < totalPage) {
-      setNowPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  const loadPrevious = () => {
-    // 이전 페이지로 이동하는 함수
-    if (nowPage > 0) {
-      setNowPage((prevPage) => prevPage - 1);
+    // 검색 키워드가 null이 아니면 submit이 가능하게 하고, submit true로 인식하게 하기
+    if (inputValue) {
+      setIsSubmit(true);
     }
   };
 
@@ -107,22 +98,18 @@ const StockSearchBar: React.FC = () => {
           search
         </button>
       </form>
-      <StockSearchResults
-        searchResults={searchResults?.content}
-        isLoading={isLoading}
-        isPreviousData={isPreviousData}
-        isError={isError}
-      />
-      {searchResults && (
-        <div>
-          <button onClick={loadPrevious} disabled={nowPage === 0}>
-            이전
-          </button>
-          <button onClick={loadMore} disabled={nowPage >= totalPage - 1}>
-            다음
-          </button>
-        </div>
+      {!isSubmit && (
+        <StockSearchResults
+          searchResults={searchResults?.content}
+          isLoading={isLoading}
+          isPreviousData={isPreviousData}
+          isError={isError}
+          nowPage={nowPage}
+          setNowPage={setNowPage}
+          totalPage={totalPage}
+        />
       )}
+      {isSubmit && <p>검색결과 이게 진짜다</p>}
     </React.Fragment>
   );
 };
