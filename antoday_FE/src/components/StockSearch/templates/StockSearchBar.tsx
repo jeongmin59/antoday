@@ -6,6 +6,7 @@ import useDebounce from "../../../utils/useDebounce";
 import StockSearchResults from "../modules/StockSearchResults";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import StockSearchList from "../modules/StockSearchList";
 
 const StockSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -109,7 +110,17 @@ const StockSearchBar: React.FC = () => {
           totalPage={totalPage}
         />
       )}
-      {isSubmit && <p>검색결과 이게 진짜다</p>}
+      {isSubmit && (
+        <StockSearchList
+          searchResults={searchResults?.content}
+          isLoading={isLoading}
+          isPreviousData={isPreviousData}
+          isError={isError}
+          nowPage={nowPage}
+          setNowPage={setNowPage}
+          totalPage={totalPage}
+        />
+      )}
     </React.Fragment>
   );
 };

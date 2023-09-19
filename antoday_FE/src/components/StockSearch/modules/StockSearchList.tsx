@@ -1,7 +1,8 @@
 import React from "react";
+import styles from "./StockSearchList.module.css";
 import StockInfoComponent from "../atoms/StockInfoComponent";
 
-interface StockSearchResultsProps {
+interface StockSearchListProps {
   searchResults: string[];
   isLoading: boolean;
   isPreviousData: boolean;
@@ -11,7 +12,7 @@ interface StockSearchResultsProps {
   setNowPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const StockSearchResults: React.FC<StockSearchResultsProps> = ({
+const StockSearchList: React.FC<StockSearchListProps> = ({
   searchResults,
   isLoading,
   isPreviousData,
@@ -20,14 +21,6 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
   totalPage,
   setNowPage,
 }) => {
-  // console.log("결과는", searchResults);
-
-  // map 함수에서는 반드시 반환값이 있어야 함!
-  // searchResults?.map((result, index) => {
-  //   console.log(`Result ${index + 1}: ${result}`, result);
-  //   return null;
-  // });
-
   const loadMore = () => {
     // 다음 페이지로 이동하는 함수
     if (nowPage < totalPage) {
@@ -46,7 +39,7 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
     <React.Fragment>
       <div>
         {searchResults?.length === 0 ? (
-          <p>검색결과가 없습니다.</p>
+          <p>검색결과가 없습니다?</p>
         ) : (
           <div>
             {searchResults?.map((result, index) => (
@@ -72,5 +65,5 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
     </React.Fragment>
   );
 };
-//알수없는 빨간줄...
-export default StockSearchResults;
+
+export default StockSearchList;
