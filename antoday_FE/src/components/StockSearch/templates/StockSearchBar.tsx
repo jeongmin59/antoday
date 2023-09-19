@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "react-query";
 import styles from "./StocksSearchBar.module.css";
 import axios from "axios";
 import useDebounce from "../../../utils/useDebounce";
-import StockSearchResults from "../atoms/StockSearchResults";
+import StockSearchResults from "../modules/StockSearchResults";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 

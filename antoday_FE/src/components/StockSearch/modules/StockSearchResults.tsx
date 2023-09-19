@@ -1,5 +1,5 @@
 import React from "react";
-import StockInfoComponent from "./StockInfoComponent";
+import StockInfoComponent from "../atoms/StockInfoComponent";
 
 interface StockSearchResultsProps {
   searchResults: string[];
