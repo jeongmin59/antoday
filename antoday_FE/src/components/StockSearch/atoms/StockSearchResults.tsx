@@ -25,17 +25,6 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
 
   return (
     <React.Fragment>
-      {/* {isLoading ? (
-        "로딩 중..."
-      ) : isError ? (
-        "에러 발생"
-      ) : (
-        <div>
-          {searchResults?.map((result, index) => (
-            <StockInfoComponent key={index} companyInfo={result} />
-          ))}
-        </div>
-      )} */}
       <div>
         {searchResults?.map((result, index) => (
           <StockInfoComponent
