@@ -51,24 +51,30 @@ const KospiKosdakIndex = () => {
 
   return (
     <React.Fragment>
-      <div className={styles.container}>
-        <div className={styles.title}>오늘의 지수</div>
+      <div className={styles.title}>오늘의 지수</div>
+        <div className={styles.container}>
         <div className={styles.indexContainer}>
           <div className={styles.indexTitle}>코스피</div>
           <div className={styles.indexContent}>
             {/* <p>기준일자: {indexData.KOSPI.base_date}</p> */}
-            <p>현재지수: {indexData.KOSPI.price}</p>
-            <p>등락률: {indexData.KOSPI.percentage_change}</p>
-            <p>변화지수: {indexData.KOSPI.price_change}</p>
+            {/* 현재 지수 */}
+            <p>{indexData.KOSPI.price}</p>
+            {/* 변화 지수 */}
+            <p>{indexData.KOSPI.price_change}</p>
+            {/* 등락률 */}
+            <p>{indexData.KOSPI.percentage_change}%</p>
           </div>
         </div>
         <div className={styles.indexContainer}>
           <div className={styles.indexTitle}>코스닥</div>
           <div className={styles.indexContent}>
             {/* <p>기준일자: {indexData.KOSDAQ.base_date}</p> */}
-            <p>현재지수: {indexData.KOSDAQ.price}</p>
-            <p>등락률: {indexData.KOSDAQ.percentage_change}</p>
-            <p>변화지수: {indexData.KOSDAQ.price_change}</p>
+            {/* 현재 지수 */}
+            <p>{indexData.KOSDAQ.price}</p>
+            {/* 변화 지수 */}
+            <p>{indexData.KOSDAQ.price_change}</p>
+            {/* 등락률 */}
+            <p>{indexData.KOSDAQ.percentage_change}%</p>
           </div>
         </div>
       </div>
