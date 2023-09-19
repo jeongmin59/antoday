@@ -1,0 +1,56 @@
+.indexContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px auto;
+    width: 80%;
+    height: fit-content;
+}
+
+.title {
+    font-size: 1rem;
+}
+
+.indexTitle {
+    font-size: 1.2rem;
+    height: 3rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 1.5;
+}
+
+.indexContent {
+    font-size: 1.2rem;
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 8;
+}
+
+/* 데스크탑 화면일 때 */
+@media (min-width: 381px) {
+    .indexContainer {
+      flex-direction: row;
+    }
+  }
+  
+/* 모바일 화면일 때 */
+@media (max-width: 380px) {
+    .container {
+      flex-direction: column;
+    }
+    .indexContainer {
+      flex-direction: column;
+      /* font-size: 0.5rem; */
+    }
+    .indexTitle {
+      font-size: 0.5rem;
+    }
+    .indexContent {
+      font-size: 0.5rem;
+      /* flex-direction: column; */
+    }
+}
+  
