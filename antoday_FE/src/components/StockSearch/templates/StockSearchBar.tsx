@@ -11,6 +11,7 @@ const StockSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [totalPage, setTotalPage] = useState<number>(0);
   const [nowPage, setNowPage] = useState<number>(0);
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const debouncedInputValue = useDebounce({
@@ -74,6 +75,7 @@ const StockSearchBar: React.FC = () => {
     //기본 제출 동작 방지
     event.preventDefault();
     await search();
+    await setIsSubmit(true);
   };
 
   const loadMore = () => {
