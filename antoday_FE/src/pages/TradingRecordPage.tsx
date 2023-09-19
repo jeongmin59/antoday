@@ -5,6 +5,7 @@ import WriteTradingRecordButton from '../components/TradingRecord/atoms/WriteTra
 import WriteTradingRecordPage from '../components/TradingRecord/templates/WriteTradingRecord';
 import SearchInput from '../components/TradingRecord/templates/SearchInput';
 import SearchingDate from '../components/TradingRecord/templates/SearchingDate';
+import styles from './TradingRecordPage.module.css';
 
 
 export interface TradingRecordPageType {
@@ -30,6 +31,9 @@ const TradingRecordPage: React.FC = () => {
   const formatDateString = (date: string) => {
     return `${date} 00:00:00`;
   };
+  const formatDateString2 = (date: string) => {
+    return `${date} 23:59:59`;
+  };
 
   const createURL = () => {
     const params = new URLSearchParams();
@@ -40,7 +44,7 @@ const TradingRecordPage: React.FC = () => {
     }
     
     if (endDate && endDate !== "") {
-      params.append("end", formatDateString(endDate));
+      params.append("end", formatDateString2(endDate));
     }
   
     if (searchKeyword && searchKeyword !== "") {
@@ -52,12 +56,15 @@ const TradingRecordPage: React.FC = () => {
 
   useEffect(() => {
     const url = createURL();
+    console.log("Current page: ", page); 
+    console.log("Current records: ", records); 
 
     axios.get(url)
     .then((response) => {
       const newData = response.data.content;
       if (newData.length === 0) {
         setHasMore(false);
+        // console.log("hasMore: ", hasMore);
       } else {
         setRecords(page === 0 ? newData : [...records, ...newData]);
         setPage(page + 1);
@@ -68,7 +75,11 @@ const TradingRecordPage: React.FC = () => {
     });
   }, [page, searchKeyword, startDate, endDate]);
 
-  const fetchMoreData = () => setPage(page + 1);
+  const fetchMoreData = () => {
+    console.log("Fetching more data!");
+    setPage(page + 1);
+  };
+  
   
   const handleSearchKeyword = (keyword: string) => {
     setSearchKeyword(keyword);
@@ -84,9 +95,12 @@ const TradingRecordPage: React.FC = () => {
   return (
     <div>
       <SearchInput onSearch={handleSearchKeyword} />
-      <h3>매매 이유를 작성하면 AI 분석을 받을 수 있어요!</h3>
-      <SearchingDate onSearch={handleSearchDate} />
-      <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
+      <h5>매매 이유를 작성하면 AI 분석을 받을 수 있어요!</h5>
+      <div className={styles.datebuttoncontainer}>
+        <h5>기간</h5>
+        <SearchingDate onSearch={handleSearchDate} />
+        <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
+      </div>
       {showWrite ? (
         <WriteTradingRecordPage closeWritePage={() => setShowWrite(false)} />
       ) : (

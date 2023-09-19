@@ -1,8 +1,9 @@
 .button {
     background-color: var(--main-yellow-color);
-    width: 5rem;
-    padding: 0.5rem;
+    /* width: 5rem; */
+    /* padding: 0.5rem; */
     border-radius: 3rem;
+    height: 2rem;
 }
 
 .button > p {

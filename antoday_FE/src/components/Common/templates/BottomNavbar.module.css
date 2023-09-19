@@ -1,25 +1,27 @@
-.navigationbar_bottom {
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
+@media screen and (min-width: 385px) {
+  .navigationbar_bottom {
+    display: none;
+  }
+}
+
+.wrap {
+  position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   height: 3em;
   border-top: 0.5px solid black;
-  padding: 0 1rem;
   background-color: white;
   z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  width: 100%; 
+  overflow-x: hidden;
 }
 
-.nav_bottom_icons {
-  position: relative;
-  margin-top: auto;
-  margin-bottom: 0.3rem;
-}
-
-@media screen and (min-width: 385px) {
-  .navigationbar_bottom {
-    display: none;
-  }
+.square_bottom_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
