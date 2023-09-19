@@ -78,9 +78,9 @@ const TradingRecordPage: React.FC = () => {
       params: params
     })
     .then((response) => {
-      console.log("API response:", response);
+      // console.log("API response:", response);
       const newData = response.data.content;
-      console.log(newData)
+      // console.log(newData)
       if (newData.length === 0) {
         setHasMore(false);
         // setRecords([]);
