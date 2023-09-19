@@ -1,4 +1,5 @@
 .searchBarContainer {
+    display: flex;
     border: 0px solid var(--main-white-color);
     padding: 0.3rem 0.3rem;
     margin: 1rem auto;
