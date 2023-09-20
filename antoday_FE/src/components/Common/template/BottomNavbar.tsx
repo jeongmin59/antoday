@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './BottomNavbar.module.css';
-import Companyinfo from '../atoms/Companyinfo';
-import Home from '../atoms/Home';
-import TradeHistory from '../atoms/TradeHistory';
+import Companyinfo from '../atom/Companyinfo';
+import Home from '../atom/Home';
+import TradeHistory from '../atom/TradeHistory';
 
 
 function BottomNavbar() {

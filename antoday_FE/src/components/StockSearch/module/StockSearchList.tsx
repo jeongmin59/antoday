@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./StockSearchList.module.css";
-import StockInfoComponent from "../atoms/StockInfoComponent";
+import StockInfoComponent from "../atom/StockInfoComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,

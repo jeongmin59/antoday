@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import TradingRecordList from "../../components/TradingRecord/templates/TradingRecordList";
-import WriteTradingRecordButton from "../../components/TradingRecord/atoms/WriteTradingRecordButton";
-import WriteTradingRecordPage from "../../components/TradingRecord/templates/WriteTradingRecord";
-import SearchInput from "../../components/TradingRecord/templates/SearchInput";
-import SearchingDate from "../../components/TradingRecord/templates/SearchingDate";
+import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
+import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
+import WriteTradingRecordPage from "../../components/TradingRecord/template/WriteTradingRecord";
+import SearchInput from "../../components/TradingRecord/template/SearchInput";
+import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
 import styles from "./TradingRecordPage.module.css";
 
 export interface TradingRecordPageType {
@@ -26,7 +26,9 @@ const TradingRecordPage: React.FC = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [stockPrice, setStockPrice] = useState(0); 
 
+  
   const formatDateString = (date: string) => {
     return `${date} 00:00:00`;
   };
@@ -55,13 +57,13 @@ const TradingRecordPage: React.FC = () => {
   // };
 
   useEffect(() => {
-    console.log(
-      "useEffect is running",
-      page,
-      searchKeyword,
-      startDate,
-      endDate
-    );
+    // console.log(
+    //   "useEffect is running",
+    //   page,
+    //   searchKeyword,
+    //   startDate,
+    //   endDate
+    // );
     const params: any = {
       page: page,
     };
@@ -102,7 +104,7 @@ const TradingRecordPage: React.FC = () => {
   }, [page, searchKeyword, startDate, endDate]);
 
   const fetchMoreData = () => {
-    console.log("Fetching more data!");
+    // console.log("Fetching more data!");
     setPage(page + 1);
   };
 
@@ -125,20 +127,22 @@ const TradingRecordPage: React.FC = () => {
     <div>
       <SearchInput onSearch={handleSearchKeyword} />
       <h5>매매 이유를 작성하면 AI 분석을 받을 수 있어요!</h5>
-      <div className={styles.datebuttoncontainer}>
+      
+      {showWrite ? (
+        <WriteTradingRecordPage closeWritePage={() => setShowWrite(false)} />
+      ) : (
+        <div>
+        <div className={styles.datebuttoncontainer}>
         <h5>기간</h5>
         <SearchingDate onSearch={handleSearchDate} />
         <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
       </div>
-      {showWrite ? (
-        <WriteTradingRecordPage closeWritePage={() => setShowWrite(false)} />
-      ) : (
         <TradingRecordList
           records={records}
           hasMore={hasMore}
           fetchMoreData={fetchMoreData}
         />
-      )}
+      </div>)}
     </div>
   );
 };

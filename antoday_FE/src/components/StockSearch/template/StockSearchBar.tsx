@@ -3,10 +3,10 @@ import { useQuery, useQueryClient } from "react-query";
 import styles from "./StocksSearchBar.module.css";
 import axios from "axios";
 import useDebounce from "../../../utils/useDebounce";
-import StockSearchResults from "../modules/StockSearchResults";
+import StockSearchResults from "../module/StockSearchResults";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import StockSearchList from "../modules/StockSearchList";
+import StockSearchList from "../module/StockSearchList";
 
 const StockSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
