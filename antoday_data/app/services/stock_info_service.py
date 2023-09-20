@@ -4,6 +4,13 @@ from dateutil.relativedelta import relativedelta
 from app.schemas.stocks import StocksDTO
 import pandas as pd
 
+def get_stock_info(stock_code) : 
+
+    response_data = {
+        "msg" : "하고싶어ㅜㅜ" 
+    }
+
+    return response_data
 
 def get_stock_price(stock_code, date_option) :
     start_date = get_start_date(date_option)
