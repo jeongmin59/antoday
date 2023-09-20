@@ -2,7 +2,9 @@ import React from 'react';
 // import { useLocation } from 'react-router';
 import styles from './WriteTradingRecordPage.module.css'
 import CheckTradingRecord from '../../components/TradingDairy/template/CheckTradingRecord';
-
+import HomeKeyWords from '../../components/WordCloud/module/HomeKeyWords'
+import KeywordInput from '../../components/TradingDairy/template/KeywordInput';
+import RecordReason from '../../components/TradingDairy/template/RecordReason';
 
 const WriteTradingRecordPage = () => {
   // 여기에 글 작성 로직
@@ -12,9 +14,10 @@ const WriteTradingRecordPage = () => {
   return (
     <React.Fragment>
       <CheckTradingRecord />
-      {/* <p>{tradingdata}</p> */}
-
-      {/* <button>닫기</button> */}
+      {/* 워드클라우드 완성 시에 갈아끼우기 */}
+      <HomeKeyWords/>
+      <KeywordInput />
+      <RecordReason />
     </React.Fragment>
   );
 };
