@@ -3,7 +3,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useParams } from "react-router-dom";
 import styles from "./StockInfoPage.module.css";
-import InfoPageSearchBar from "../../components/StockInfo/module/InfoPageSearchBar";
+import InfoPageSearchBar from "../../components/StockInfo/template/InfoPageSearchBar";
 import StockInfoBasic from "../../components/StockInfo/template/StockInfoBasic";
 import StockInfoSummary from "../../components/StockInfo/template/StockInfoSummary";
 import StockInfoDetail from "../../components/StockInfo/template/StockInfoDetail";
