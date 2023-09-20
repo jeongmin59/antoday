@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query
-from app.services.stock_info_service import get_stock_price
+from app.services.stock_info_service import get_stock_price, get_stock_info
 from app.services.corp_service import get_hot_corp_list, get_cold_corp_list
 
 router = APIRouter(
@@ -23,4 +23,11 @@ async def get_stock_pricedata(
     date_option: str = Query()
 ):
     response_data = get_stock_price(stock_code, date_option)
+    return response_data
+
+@router.get("/overview")
+async def get_cold_corps(
+    stock_code: str = Query(regex="^[0-9]+$"),
+):
+    response_data = get_stock_info(stock_code)
     return response_data
