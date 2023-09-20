@@ -72,97 +72,56 @@ def scraping_hot_corp(status):
     
     return corpList
 
-
 def sample_cold_corp():
     sample = [
         {
             "stock_code": "078150",
             "corp_name": "HB테크놀러지",
-            "price": 3315,
-            "change": 100,
-            "change_percent": -2.93,
-            "volume": 24982187,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-078150.png"
         },
         {
             "stock_code": "088800",
             "corp_name": "에이스테크",
-            "price": 3800,
-            "change": 875,
-            "change_percent": 29.91,
-            "volume": 23046585,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-088800.png"
         },
         {
             "stock_code": "380540",
             "corp_name": "옵티코어",
-            "price": 1889,
-            "change": 181,
-            "change_percent": 10.6,
-            "volume": 22348490,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-380540.png"
         },
         {
             "stock_code": "100590",
             "corp_name": "머큐리",
-            "price": 8900,
-            "change": 10,
-            "change_percent": 0.11,
-            "volume": 21866026,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-100590.png"
         },
         {
             "stock_code": "050890",
             "corp_name": "쏠리드",
-            "price": 6960,
-            "change": 1120,
-            "change_percent": 19.18,
-            "volume": 21746873,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-050890.png"
         },
         {
             "stock_code": "034020",
             "corp_name": "두산에너빌리티",
-            "price": 17900,
-            "change": 880,
-            "change_percent": 5.17,
-            "volume": 16985221,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-034020.png"
         },
         {
             "stock_code": "214610",
             "corp_name": "미코바이오메드",
-            "price": 5890,
-            "change": 320,
-            "change_percent": 5.75,
-            "volume": 16269238,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-214610.png"
         },
         {
             "stock_code": "042370",
             "corp_name": "비츠로테크",
-            "price": 8470,
-            "change": 1350,
-            "change_percent": 18.96,
-            "volume": 15165567,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-042370.png"
         },
         {
             "stock_code": "226340",
             "corp_name": "본느",
-            "price": 2710,
-            "change": 70,
-            "change_percent": 2.65,
-            "volume": 15048847,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-226340.png"
         },
         {
             "stock_code": "010170",
             "corp_name": "대한광통신",
-            "price": 1839,
-            "change": 198,
-            "change_percent": 12.07,
-            "volume": 14380184,
             "logo_url": "https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-010170.png"
         }
     ]
