@@ -1,8 +1,10 @@
+from datetime import date, timedelta
 from app.models.database import SessionLocal
 from app.models.stock_models import Stock
-from app.schemas.corp import CorpListDTO
+from app.schemas.corp import CorpListDTO, DefaultPriceDTO
 import requests
 from bs4 import BeautifulSoup
+import FinanceDataReader as fdr
 
 def get_hot_corp_list():
     kospi_corp_list = scraping_hot_corp("KOSPI")
@@ -35,6 +37,15 @@ def get_cold_corp_list():
     corpList = sample_cold_corp()
     corpListDTO = [CorpListDTO(**corp) for corp in corpList]
     return corpListDTO
+
+# 기본 매수가 조회 API
+def get_price_info(stock_code: str, target_date: date):
+    start_date = target_date - timedelta(days=1)
+    df = fdr.DataReader(stock_code, start_date.strftime('%Y-%m-%d'), target_date.strftime('%Y-%m-%d'))
+    
+    # 해당 날짜 종가 반환 (해당 날짜 데이터가 없으면 전일종가 반환)
+    price = int(df.iloc[-1]["Close"]) if target_date.strftime('%Y-%m-%d') in df.index else int(df.iloc[-2]["Close"])    
+    return DefaultPriceDTO(stock_code=stock_code, price=price)
 
 # 네이버페이 증권 스크래핑
 def scraping_hot_corp(status):  
