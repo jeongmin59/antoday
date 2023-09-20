@@ -1,0 +1,17 @@
+.pageTitle {
+    display: flex;
+    font-size: var(--font-h5);
+    width: 80%;
+    margin: 0px auto;
+}
+
+.recordContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto;
+    width: 80%;
+    /* height: fit-content; */
+    border: 0.1rem solid var(--main-yellow-color);
+}
