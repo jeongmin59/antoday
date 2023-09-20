@@ -18,9 +18,10 @@ public class TradeListResponseDto {
     private String stockCode;
     private String corpName;
     private String logoUrl;
+    private boolean isReasonExist;
 
     @Builder
-    public TradeListResponseDto(Long tradePk, int price, int cnt, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String corpName, String logoUrl) {
+    public TradeListResponseDto(Long tradePk, int price, int cnt, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String corpName, String logoUrl, boolean isReasonExist) {
         this.tradePk = tradePk;
         this.price = price;
         this.cnt = cnt;
@@ -29,6 +30,7 @@ public class TradeListResponseDto {
         this.stockCode = stockCode;
         this.corpName = corpName;
         this.logoUrl = logoUrl;
+        this.isReasonExist = isReasonExist;
     }
 
 
@@ -54,6 +56,7 @@ public class TradeListResponseDto {
                 .corpName(trade.getCorpName())
                 .stockCode(trade.getStockCode())
                 .logoUrl(trade.getLogoUrl())
+                .isReasonExist(trade.getReason().length() != 0)
                 .build();
     }
 }

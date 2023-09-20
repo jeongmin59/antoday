@@ -36,8 +36,8 @@ public class TradeService {
     @Autowired
     private StockRepository stockRepository;
 
-    public Trade addTrade(TradeRequestDto dto,User user) {
-        Trade trade = TradeRequestDto.toTrade(dto, user);
+    public Trade addTrade(TradeSaveRequestDto dto,User user) {
+        Trade trade = TradeSaveRequestDto.toTrade(dto, user);
         Trade t =  tradeRepository.save(trade);
 
         // 키워드 저장
@@ -92,6 +92,7 @@ public class TradeService {
 
         Page<TradeListResponseInterface> trades = tradeRepository.findTradeByNativeQuery(user.getSocialId()
                 , keyword, st, ed,pageRequest);
+
         return trades.map(trade -> TradeListResponseDto.toDto(trade));
     }
 
