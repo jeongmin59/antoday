@@ -414,7 +414,16 @@ const StockInfoDetail = () => {
   //   });
   // }, []);
 
-  return <div id="chart-timeline">{/* 그래프가 여기에 렌더링 됩니다. */}</div>;
+  return (
+    <React.Fragment>
+      {/* <StockInfoTab />
+      <StockChart/>
+      <CompanyOverview/>
+      <StockInformation/>
+      <RevenueAndProfit/>
+      <StockWordCloud/> */}
+    </React.Fragment>
+  );
 };
 
 export default StockInfoDetail;
