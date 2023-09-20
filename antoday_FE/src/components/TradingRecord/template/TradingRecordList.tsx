@@ -1,7 +1,7 @@
 import React from "react";
 import { TradingRecordPageType } from "../../../pages/TradePage/TradingRecordPage";
 import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingSpinner from "../../Common/atoms/LoadingSpinner";
+import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 import styles from "./TradingRecordList.module.css";
 
 interface TradingRecordListProps {
@@ -31,6 +31,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
             <p>Price: {record.price}</p>
             <p>Count: {record.cnt}</p>
             <p>Stock Code: {record.stockCode}</p>
+            <p>{record.tradePk}</p>
             <hr />
           </div>
         ))}

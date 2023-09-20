@@ -1,4 +1,4 @@
-import HomeKeyWordsCompany from '../atoms/HomeKeyWordsCompany';
+import HomeKeyWordsCompany from '../atom/HomeKeyWordsCompany';
 import styles from './HomeKeyWordsCompanys.module.css'
 
 const HomeKeyWordsCompanys = () => {

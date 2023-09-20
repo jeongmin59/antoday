@@ -14,13 +14,16 @@ const SearchInput: React.FC<SearchInputProps> = ({ onSearch }) => {
 
     return (
         <div className={styles.div}>
+            <div className={styles.container}>
             <input
                 type="text"
                 placeholder="키워드, 종목명 검색"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
+                className={styles.input}
             />
-            <button onClick={handleSearch}>검색</button>
+            <button onClick={handleSearch}>Search</button>
+            </div>
         </div>
     );
 };

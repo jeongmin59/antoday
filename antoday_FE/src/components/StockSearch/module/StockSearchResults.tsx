@@ -1,5 +1,5 @@
 import React from "react";
-import StockInfoComponent from "../atoms/StockInfoComponent";
+import StockInfoComponent from "../atom/StockInfoComponent";
 import styles from "./StockSearchResults.module.css";
 
 interface StockSearchResultsProps {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { accessTokenAtom } from "../../recoil/auth";
 import { userNameAtom } from "../../recoil/user";
-import LoadingSpinner from "../../components/Common/atoms/LoadingSpinner";
+import LoadingSpinner from "../../components/Common/atom/LoadingSpinner";
 
 const LogInRedirectPage: React.FC = () => {
   const code = new URL(window.location.href).searchParams.get("code");

@@ -3,10 +3,10 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { useParams } from "react-router-dom";
 import styles from "./StockInfoPage.module.css";
-import InfoPageSearchBar from "../../components/StockInfo/modules/InfoPageSearchBar";
-import StockInfoBasic from "../../components/StockInfo/templates/StockInfoBasic";
-import StockInfoSummary from "../../components/StockInfo/templates/StockInfoSummary";
-import StockInfoDetail from "../../components/StockInfo/templates/StockInfoDetail";
+import InfoPageSearchBar from "../../components/StockInfo/module/InfoPageSearchBar";
+import StockInfoBasic from "../../components/StockInfo/template/StockInfoBasic";
+import StockInfoSummary from "../../components/StockInfo/template/StockInfoSummary";
+import StockInfoDetail from "../../components/StockInfo/template/StockInfoDetail";
 
 const StockInfoPage: React.FC = () => {
   const { stockPk } = useParams();

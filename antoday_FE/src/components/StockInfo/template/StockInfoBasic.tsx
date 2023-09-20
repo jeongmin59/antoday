@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+const StockInfoBasic = () => {
+  return <div>기본정보</div>;
+=======
 import React from "react";
 import styles from "./StockInfoBasic.module.css";
 import FavoriteCompanyButton from "../atoms/FavoriteCompanyButton";
@@ -38,6 +42,7 @@ const StockInfoBasic: React.FC = ({ stockPk }) => {
       </div>
     </div>
   );
+>>>>>>> abe1b244a9b6ebdd7a46594af52303d21d978b2e
 };
 
 export default StockInfoBasic;
