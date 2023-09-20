@@ -4,7 +4,7 @@ import styles from './CheckTradingRecord.module.css'
 // 타입 정의하기
 
 
-const CheckTradingRecord = () => {
+const CheckTradingRecord: React.FC = () => {
 
   return (
     <React.Fragment>
