@@ -3,7 +3,6 @@ package com.omfg.antoday.trade.dao;
 import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.stock.domain.StockInterface;
 import com.omfg.antoday.trade.domain.Trade;
-import com.omfg.antoday.trade.dto.RoiResponseDto;
 import com.omfg.antoday.trade.dto.TradeListResponseInterface;
 import com.omfg.antoday.user.domain.User;
 import org.springframework.data.domain.Page;
@@ -58,16 +57,13 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             , nativeQuery = true)
     Set<StockInterface> findDistintStockByUser(@Param("userPk") Long user);
 
-    Trade findFirstByUserAndStock_StockCodeAndOptionBuySellOrderByTradeAtDesc(User user, String stock_stockCode, byte optionBuySell);
-
-
-    @Query("SELECT SUM(t.cnt) FROM Trade t WHERE t.user = :user AND t.stock.stockCode = :stockCode AND t.optionBuySell = :optionBuySell")
-    int getTotalCountForUserAndStock(
+    @Query("SELECT SUM(CASE WHEN t.optionBuySell = 0 THEN t.cnt ELSE -t.cnt END) FROM Trade t WHERE t.user = :user AND t.stock.stockCode = :stockCode")
+    Integer getNetCountForUserAndStock(
             @Param("user") User user,
-            @Param("stockCode") String stockCode,
-            @Param("optionBuySell") byte optionBuySell
+            @Param("stockCode") String stockCode
     );
 
-
     List<Trade> findByUserAndStockAndIsDeletedFalse(User user, Stock stock);
+
+    List<Trade> findByUserAndOptionBuySell(User user, byte optionBuySell);
 }

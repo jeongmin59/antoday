@@ -4,7 +4,7 @@ import com.omfg.antoday.config.UserDetailsImpl;
 import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.stock.dto.CorpListResponseDto;
-import com.omfg.antoday.stock.dto.StockPriceResponseDto;
+import com.omfg.antoday.stock.dto.StockPriceListResponseDto;
 import com.omfg.antoday.trade.dao.TradeRepository;
 import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.user.dao.UserRepository;
@@ -14,18 +14,16 @@ import com.omfg.antoday.user.domain.UserStockLike;
 import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -80,25 +78,56 @@ public class StockService {
         });
     }
 
-    public StockPriceResponseDto getStockDefaultPrice(String stockCode, String status, UserDetailsImpl userDetails) {
-        int price = 0;
-        int totalCount = -1;
-        if (Objects.equals(status, "매수")) {
-            price = getPreviousClosingPrice(stockCode);
-        } else if (Objects.equals(status, "매도")) {
-            User user = UserUtils.getUserFromToken(userDetails);
-
-            byte optionBuySell = 0; // 수정 필요(0이 매도인지 매수인지 확인 필요)
-            price = getPreviousBuyPrice(stockCode, user, optionBuySell);
-            totalCount = tradeRepository.getTotalCountForUserAndStock(user, stockCode, optionBuySell);
+    public List<StockPriceListResponseDto> getStockPriceList(String status, UserDetailsImpl userDetails) {
+        if (status.equals("매수")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "[Corp] 매도 요청만 가능합니다.");
         }
 
-        return StockPriceResponseDto.builder()
-                .status(status)
-                .stockCode(stockCode)
-                .price(price)
-                .totalCnt(totalCount)
-                .build();
+        User user = UserUtils.getUserFromToken(userDetails);
+
+        Map<String, StockPriceListResponseDto> stockInfoMap = new HashMap<>();
+
+        byte optionBuySell = 0;
+        List<Trade> userTrades = tradeRepository.findByUserAndOptionBuySell(user, optionBuySell);
+
+        for (Trade trade : userTrades) {
+            String stockCode = trade.getStock().getStockCode();
+
+            // 이미 해당 종목에 대한 정보가 있는지 확인
+            StockPriceListResponseDto stockInfo = stockInfoMap.get(stockCode);
+            if (stockInfo == null) {
+                Stock stock = stockRepository.findByStockCode(stockCode);
+
+                Integer netCountObj = tradeRepository.getNetCountForUserAndStock(user, stockCode);
+                int netCount = (netCountObj != null) ? netCountObj : 0;
+
+                int lastBuyPriceUpdated;
+                if(trade.getOptionBuySell() == 0){
+                    lastBuyPriceUpdated=trade.getPrice();
+                }else{
+                    lastBuyPriceUpdated=0;
+                }
+
+                StockPriceListResponseDto newStockInfo =
+                        StockPriceListResponseDto.builder()
+                                .stockCode(stockCode)
+                                .corpName(stock.getCorpName())
+                                .logoUrl(stock.getLogo_url())
+                                .lastBuyPrice(lastBuyPriceUpdated)
+                                .netCount(netCount)
+                                .build();
+
+                // Map에 업데이트된 객체 저장
+                stockInfoMap.put(newStockInfo.getStockCode(), newStockInfo);
+            }
+            else {
+                updateLastBuyPriceAndNetCount(trade, user, stockInfo);
+            }
+        }
+
+        List<StockPriceListResponseDto> stockInfoList = new ArrayList<>(stockInfoMap.values());
+
+        return stockInfoList;
     }
 
     private boolean isStockLikedByUser(Stock stock, Long socialId) {
@@ -111,34 +140,12 @@ public class StockService {
         return userStockLike != null;
     }
 
-    // 전일종가 불러오기
-    private int getPreviousClosingPrice(String stockCode) {
-        String baseUrl = "https://finance.naver.com/item/main.naver?code=" + stockCode;
-
-        try {
-            Document document = Jsoup.connect(baseUrl).get();
-
-            Element table = document.select("table:has(caption:contains(외국인 기관))").first();
-
-            assert table != null;
-            Elements rows = table.select("tr");
-            Element priceCell = rows.get(2).selectFirst("td em");
-
-            if (priceCell != null) {
-                String priceSt = priceCell.text().replace(",", "");
-                int price = Integer.parseInt(priceSt);
-                log.info("[Corp] 전일 종가 조회");
-                return price;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void updateLastBuyPriceAndNetCount(Trade trade, User user, StockPriceListResponseDto stockInfo){
+        if(trade.getOptionBuySell() == 0){
+            stockInfo.setLastBuyPrice(trade.getPrice());
         }
-        return 0;
-    }
-
-    // 직전 매수가 조회
-    private int getPreviousBuyPrice(String stockCode, User user, byte optionBuySell) {
-        Trade lastTrade = tradeRepository.findFirstByUserAndStock_StockCodeAndOptionBuySellOrderByTradeAtDesc(user, stockCode, optionBuySell);
-        return lastTrade != null ? lastTrade.getPrice() : 0;
+        Integer netCountObj = tradeRepository.getNetCountForUserAndStock(user, trade.getStock().getStockCode());
+        int netCount = (netCountObj != null) ? netCountObj : 0;
+        stockInfo.setNetCount(netCount);
     }
 }
