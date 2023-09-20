@@ -2,11 +2,12 @@ import React from "react";
 import styles from "./StockInfoComponent.module.css";
 import { useNavigate } from "react-router-dom";
 
-interface StockSearchResultProps {
+interface StockInfoComponentProps {
   companyInfo: CompanyInfo; // 기업 정보를 받을 prop
+  isLoading: boolean;
 }
 
-const StockInfoComponent: React.FC<StockSearchResultProps> = ({
+const StockInfoComponent: React.FC<StockInfoComponentProps> = ({
   companyInfo,
 }) => {
   const navigator = useNavigate();

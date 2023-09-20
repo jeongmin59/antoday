@@ -1,0 +1,25 @@
+.logInContainer {
+  /* border: 1px solid orange; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-yellow-color);
+  width: auto;
+  height: 100vh;
+  gap: 2rem;
+}
+
+.logInButton {
+  margin: 0 auto;
+}
+
+.antImage {
+  width: 7rem;
+  height: fit-content;
+}
+
+.welcomeText {
+  font-size: var(--font-h6);
+  color: var(--main-white-color);
+}
