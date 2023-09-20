@@ -1,0 +1,33 @@
+.stockInfoBasicContainer {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+  margin: 1rem 0;
+  padding: 0 0.5rem;
+}
+
+.LeftContainer,
+.RightContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stockCode {
+  font-size: var(--font-h6);
+  color: gray;
+  display: flex;
+  justify-self: start;
+}
+
+.stockNameContainer {
+  font-size: var(--font-h5);
+  display: flex;
+  justify-self: start;
+}
+
+.stocPrice {
+  font-size: var(--font-h4);
+  display: flex;
+  justify-self: start;
+}
