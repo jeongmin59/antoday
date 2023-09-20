@@ -12,4 +12,5 @@ public interface TradeListResponseInterface {
     String getStockCode();
     String getCorpName();
     String getLogoUrl();
+    String getReason();
 }

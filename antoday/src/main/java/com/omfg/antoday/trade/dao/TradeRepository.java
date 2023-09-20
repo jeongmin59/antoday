@@ -25,7 +25,7 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
 
     Trade findByTradePk(Long tradePk);
 
-    @Query(value = "SELECT t.trade_pk AS tradePk, t.price AS price, t.cnt AS cnt, t.option_buy_sell AS optionBuySell, " +
+    @Query(value = "SELECT DISTINCT t.trade_pk AS tradePk, t.price AS price, t.cnt AS cnt, t.option_buy_sell AS optionBuySell, " +
             "t.reason AS reason, t.trade_at AS tradeAt, t.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl " +
             "FROM trade t " +
             "INNER JOIN stock s ON t.stock_code = s.stock_code " +

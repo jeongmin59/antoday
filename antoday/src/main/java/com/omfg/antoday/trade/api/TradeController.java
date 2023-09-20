@@ -3,10 +3,7 @@ package com.omfg.antoday.trade.api;
 import com.omfg.antoday.stock.dto.StockListResponseDto;
 import com.omfg.antoday.trade.application.TradeService;
 import com.omfg.antoday.trade.domain.Trade;
-import com.omfg.antoday.trade.dto.RoiResponseDto;
-import com.omfg.antoday.trade.dto.TradeDetailResponseDto;
-import com.omfg.antoday.trade.dto.TradeListResponseDto;
-import com.omfg.antoday.trade.dto.TradeRequestDto;
+import com.omfg.antoday.trade.dto.*;
 import com.omfg.antoday.user.dao.UserRepository;
 import com.omfg.antoday.user.domain.User;
 import io.swagger.annotations.Api;
@@ -38,7 +35,7 @@ public class TradeController {
 
     @PostMapping
     @ApiOperation(value = "매매기록 추가", notes = "tradePk는 입력하지 말것.")
-    public ResponseEntity<Trade> tradeAdd(@RequestBody TradeRequestDto trade) {
+    public ResponseEntity<Trade> tradeAdd(@RequestBody TradeSaveRequestDto trade) {
         // 키워드 들어오면 어떻게 할지
         Optional<User> dummyUser = userRepository.findById(1L);
         return new ResponseEntity<>(tradeService.addTrade(trade, dummyUser.get()),HttpStatus.OK);
