@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import TradingRecordList from '../components/TradingRecord/templates/TradingRecordList';
-import WriteTradingRecordButton from '../components/TradingRecord/atoms/WriteTradingRecordButton';
-import WriteTradingRecordPage from '../components/TradingRecord/templates/WriteTradingRecord';
-import SearchInput from '../components/TradingRecord/templates/SearchInput';
-import SearchingDate from '../components/TradingRecord/templates/SearchingDate';
-import styles from './TradingRecordPage.module.css';
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import TradingRecordList from "../../components/TradingRecord/templates/TradingRecordList";
+import WriteTradingRecordButton from "../../components/TradingRecord/atoms/WriteTradingRecordButton";
+import WriteTradingRecordPage from "../../components/TradingRecord/templates/WriteTradingRecord";
+import SearchInput from "../../components/TradingRecord/templates/SearchInput";
+import SearchingDate from "../../components/TradingRecord/templates/SearchingDate";
+import styles from "./TradingRecordPage.module.css";
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -38,34 +37,40 @@ const TradingRecordPage: React.FC = () => {
   // const createURL = () => {
   //   const params = new URLSearchParams();
   //   params.append("page", page.toString());
-  
+
   //   if (startDate && startDate !== "") {
   //     params.append("start", formatDateString(startDate));
   //   }
-    
+
   //   if (endDate && endDate !== "") {
   //     // console.log(endDate)
   //     params.append("end", formatDateString2(endDate));
   //   }
-  
+
   //   if (searchKeyword && searchKeyword !== "") {
   //     params.append("keyword", searchKeyword);
   //   }
-  
+
   //   return `${import.meta.env.VITE_BACK_API_URL}/api/trade?${params.toString()}`;
   // };
 
   useEffect(() => {
-    console.log('useEffect is running', page, searchKeyword, startDate, endDate);
+    console.log(
+      "useEffect is running",
+      page,
+      searchKeyword,
+      startDate,
+      endDate
+    );
     const params: any = {
-      page: page
+      page: page,
     };
     // console.log("useEffect triggered", startDate, endDate);
     if (startDate && startDate !== "") {
       // console.log(startDate)
       params.start = formatDateString(startDate);
     }
-    
+
     if (endDate && endDate !== "") {
       params.end = formatDateString2(endDate);
     }
@@ -74,48 +79,46 @@ const TradingRecordPage: React.FC = () => {
       params.keyword = searchKeyword;
     }
 
-    axios.get(`${import.meta.env.VITE_BACK_API_URL}/api/trade`, {
-      params: params
-    })
-    .then((response) => {
-      // console.log("API response:", response);
-      const newData = response.data.content;
-      // console.log(newData)
-      if (newData.length === 0) {
-        setHasMore(false);
-        // setRecords([]);
-      } else {
-        setHasMore(true);
-        setRecords(page === 0 ? newData : [...records, ...newData]);
-        setPage(page + 1);
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    axios
+      .get(`${import.meta.env.VITE_BACK_API_URL}/api/trade`, {
+        params: params,
+      })
+      .then((response) => {
+        // console.log("API response:", response);
+        const newData = response.data.content;
+        // console.log(newData)
+        if (newData.length === 0) {
+          setHasMore(false);
+          // setRecords([]);
+        } else {
+          setHasMore(true);
+          setRecords(page === 0 ? newData : [...records, ...newData]);
+          setPage(page + 1);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [page, searchKeyword, startDate, endDate]);
-
-
 
   const fetchMoreData = () => {
     console.log("Fetching more data!");
     setPage(page + 1);
   };
-  
-  
+
   const handleSearchKeyword = (keyword: string) => {
     setSearchKeyword(keyword);
-    setPage(0);  
-    setRecords([]);  
-    setHasMore(true);  
+    setPage(0);
+    setRecords([]);
+    setHasMore(true);
   };
-  
+
   const handleSearchDate = (startDate: string, endDate: string) => {
     setStartDate(startDate);
     setEndDate(endDate);
-    setPage(0);  
-    setRecords([]);  
-    setHasMore(true);  
+    setPage(0);
+    setRecords([]);
+    setHasMore(true);
   };
 
   return (
@@ -130,7 +133,11 @@ const TradingRecordPage: React.FC = () => {
       {showWrite ? (
         <WriteTradingRecordPage closeWritePage={() => setShowWrite(false)} />
       ) : (
-        <TradingRecordList records={records} hasMore={hasMore} fetchMoreData={fetchMoreData} />
+        <TradingRecordList
+          records={records}
+          hasMore={hasMore}
+          fetchMoreData={fetchMoreData}
+        />
       )}
     </div>
   );

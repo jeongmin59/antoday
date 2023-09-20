@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LoginPage.module.css";
-import { kakaoLoginButton } from "../assets/img/login";
-import { AntDefault } from "../assets/img/ant";
+import { kakaoLoginButton } from "../../assets/img/login";
+import { AntDefault } from "../../assets/img/ant";
 
 const LoginPage: React.FC = () => {
   // Kakao OAuth 2.0 인증 서버의 인증 요청 URL
