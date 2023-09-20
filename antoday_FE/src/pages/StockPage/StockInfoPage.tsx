@@ -42,7 +42,7 @@ const StockInfoPage: React.FC = () => {
   return (
     <div className={styles.stockInfoPageContainer}>
       <InfoPageSearchBar />
-      <StockInfoBasic />
+      <StockInfoBasic stockPk={stockPk} />
       <StockInfoSummary />
       <StockInfoDetail />
     </div>
