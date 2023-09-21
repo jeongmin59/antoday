@@ -4,6 +4,7 @@ import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.stock.domain.StockInterface;
 import com.omfg.antoday.stock.dto.StockListResponseDto;
+import com.omfg.antoday.trade.dao.KeywordRepository;
 import com.omfg.antoday.trade.dao.TradeKeywordRepository;
 import com.omfg.antoday.trade.dao.TradeRepository;
 import com.omfg.antoday.trade.domain.Keyword;
@@ -11,48 +12,55 @@ import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.*;
 import com.omfg.antoday.user.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TradeService {
 
-    @Autowired
-    private TradeRepository tradeRepository;
-
-    @Autowired
-    private TradeKeywordRepository tradeKeywordRepository;
-
-    @Autowired
-    private StockRepository stockRepository;
-
+    private final TradeRepository tradeRepository;
+    private final TradeKeywordRepository tradeKeywordRepository;
+    private final StockRepository stockRepository;
+    private final KeywordRepository keywordRepository;
+    @Transactional
     public Trade addTrade(TradeSaveRequestDto dto,User user) {
         Trade trade = TradeSaveRequestDto.toTrade(dto, user);
         Trade t =  tradeRepository.save(trade);
 
         // 키워드 저장
         // 비효율적인 것 같긴 한데 일단은 돌아감
+        // keyword 중복생성 수정
         dto.getKeywords().stream().forEach(word -> {
+            Keyword keyword;
+            if (keywordRepository.existsById(word)) {
+                keyword = keywordRepository.findById(word).get();
+            }else {
+                keyword = Keyword.builder().keyword(word).build();
+            }
             TradeKeyword tk = TradeKeyword.builder()
-                    .keyword(Keyword.builder().keyword(word).build())
+                    .keyword(keyword)
                     .trade(t)
                     .build();
-
             tradeKeywordRepository.save(tk);
         });
         return t;
     }
 
+    @Transactional
     public Trade updateTrade(TradeRequestDto dto,User user) {
 
         // 기존 trade 가져오기
@@ -76,6 +84,7 @@ public class TradeService {
         // isDeleted만 바꾸면 된다.
         return tradeRepository.deleteByTradePk(tradePk);
     }
+
 
     public Page<TradeListResponseDto> getTrade(User user, int page, String start, String end, String keyword) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("tradePk").descending());

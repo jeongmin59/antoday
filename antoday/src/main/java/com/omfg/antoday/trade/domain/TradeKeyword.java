@@ -23,7 +23,7 @@ public class TradeKeyword {
     private Trade trade;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "keword_pk")
+    @JoinColumn(name = "keyword")
     private Keyword keyword;
 
     @CreationTimestamp
@@ -37,7 +37,7 @@ public class TradeKeyword {
         this.tradeKeywordPk = tradeKeywordPk;
         this.trade = trade;
         this.keyword = keyword;
-         this.createdAt = createdAt;
+        this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 }
