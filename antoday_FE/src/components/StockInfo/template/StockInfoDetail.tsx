@@ -71,13 +71,17 @@ const StockInfoDetail: React.FC = () => {
       <div ref={tab1Ref}>
         <StockChart />
       </div>
+      <hr />
       <div ref={tab2Ref}>
         <CompanyOverview />
       </div>
+      <hr />
       <StockInformation />
+      <hr />
       <div ref={tab3Ref}>
         <RevenueAndProfit />
       </div>
+      <hr />
       <div ref={tab4Ref}>
         <StockWordCloud />
       </div>
