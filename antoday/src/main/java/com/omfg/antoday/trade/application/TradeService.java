@@ -1,5 +1,6 @@
 package com.omfg.antoday.trade.application;
 
+import com.omfg.antoday.config.UserDetailsImpl;
 import com.omfg.antoday.stock.dao.StockRepository;
 import com.omfg.antoday.stock.domain.Stock;
 import com.omfg.antoday.stock.domain.StockInterface;
@@ -12,8 +13,8 @@ import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.*;
 import com.omfg.antoday.user.domain.User;
+import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -24,7 +25,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,8 +36,11 @@ public class TradeService {
     private final TradeKeywordRepository tradeKeywordRepository;
     private final StockRepository stockRepository;
     private final KeywordRepository keywordRepository;
+
     @Transactional
-    public Trade addTrade(TradeSaveRequestDto dto,User user) {
+    public Trade addTrade(TradeSaveRequestDto dto, UserDetailsImpl userDetails) {
+        User user = UserUtils.getUserFromToken(userDetails);
+
         Trade trade = TradeSaveRequestDto.toTrade(dto, user);
         Trade t =  tradeRepository.save(trade);
 
@@ -48,6 +51,7 @@ public class TradeService {
             Keyword keyword;
             if (keywordRepository.existsById(word)) {
                 keyword = keywordRepository.findById(word).get();
+//                keyword = keywordRepository.findById(wo)
             }else {
                 keyword = Keyword.builder().keyword(word).build();
             }
@@ -86,7 +90,9 @@ public class TradeService {
     }
 
 
-    public Page<TradeListResponseDto> getTrade(User user, int page, String start, String end, String keyword) {
+    public Page<TradeListResponseDto> getTrade(UserDetailsImpl userDetails, int page, String start, String end, String keyword) {
+        User user = UserUtils.getUserFromToken(userDetails);
+
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("tradePk").descending());
 //        Stock stock = Stock.builder().stockCode(stockCode).build();
 
@@ -128,7 +134,9 @@ public class TradeService {
                 .build());
     }
 
-    public Set<StockListResponseDto> getTradeCorp(User user) {
+    public Set<StockListResponseDto> getTradeCorp(UserDetailsImpl userDetails) {
+        User user = UserUtils.getUserFromToken(userDetails);
+
         Set<StockInterface> set = tradeRepository.findDistintStockByUser(user.getSocialId());
         return set.stream().map(trade -> {
             StockListResponseDto d = StockListResponseDto.toDto(trade);
@@ -137,7 +145,9 @@ public class TradeService {
         }).collect(Collectors.toSet());
     }
 
-    public RoiResponseDto getRoiStock(User user, String stockCode) {
+    public RoiResponseDto getRoiStock(UserDetailsImpl userDetails, String stockCode) {
+        User user = UserUtils.getUserFromToken(userDetails);
+
         Stock stock = stockRepository.findByStockCode(stockCode);
         List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
 
@@ -166,8 +176,7 @@ public class TradeService {
         int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
         double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
         double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
-
-
+        
         return new RoiResponseDto(sumProfit, roundedAvgRoi);
     }
 }
