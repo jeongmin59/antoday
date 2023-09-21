@@ -36,7 +36,7 @@ const KospiKosdakIndex = () => {
     const getMarketData = async () => {
       try {
         const response = await axios.get<MarketData>(
-          import.meta.env.VITE_DATA_API_URL + '/info/price/KSQSTK'
+          import.meta.env.VITE_DATA_API_URL + '/price/KSQSTK'
           );
         const data = response.data;
         setIndexData(data);
