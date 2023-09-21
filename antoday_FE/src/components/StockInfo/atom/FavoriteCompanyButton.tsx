@@ -41,6 +41,7 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
     }
   };
 
+  console.log('뭐야',isFavorite)
   return (
     <div>
       <span onClick={isFavorite ? removeFavoriteCompany : addFavoriteCompany}>
