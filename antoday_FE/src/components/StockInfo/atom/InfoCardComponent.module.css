@@ -1,0 +1,13 @@
+.cardContainer {
+  width: 3.5rem;
+  height: 4.5rem;
+  border-radius: 15px;
+  background-color: coral;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-white-color);
+  gap: 1rem;
+  font-size: var(--font-h6);
+}

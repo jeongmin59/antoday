@@ -1,0 +1,15 @@
+.tabContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.tab {
+  font-size: var(--font-h6);
+  cursor: pointer;
+}
+
+.activeTab {
+  color: var(--main-blue-color);
+}

@@ -28,3 +28,11 @@
   color: white;
   cursor: pointer;
 }
+
+.subContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 3rem;
+}

@@ -1,9 +1,9 @@
 .stockInfoBasicContainer {
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 1rem 0;
-  padding: 0 0.5rem;
+  padding: 0 0;
 }
 
 .LeftContainer,
@@ -30,4 +30,8 @@
   font-size: var(--font-h4);
   display: flex;
   justify-self: start;
+}
+
+.tradeRecord {
+  font-size: var(--font-h6);
 }
