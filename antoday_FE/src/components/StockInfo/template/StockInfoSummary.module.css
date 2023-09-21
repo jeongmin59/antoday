@@ -1,0 +1,4 @@
+.summaryContainer {
+  display: flex;
+  font-size: var(--font-h6);
+}
