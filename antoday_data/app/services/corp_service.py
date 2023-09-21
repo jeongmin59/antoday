@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import FinanceDataReader as fdr
 from app.models.database import SessionLocal
-from app.models.stock_models import Stock
+from app.models.models import Stock
 from app.schemas.corp import CorpListDTO, DefaultPriceDTO
 
 def get_hot_corp_list():
