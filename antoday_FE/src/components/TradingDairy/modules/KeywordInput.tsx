@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import styles from './CheckTradingRecord.module.css';
+import styles from '../modules/KeywordInput.module.css';
 
 interface KeywordInputProps {}
 
@@ -26,13 +26,20 @@ const KeywordInput: React.FC<KeywordInputProps> = () => {
           <span key={index}>{tag}&nbsp;</span>
         ))}
       </div>
+      <div className={styles.keywordContainer}>
       <input
         type="text"
-        className={styles.recordContainer}
+        // className={styles.KeywordInput}
         value={keyword}
         onChange={handleInputChange}
+        style={{border: 'none', 
+          height: '70%', 
+          width: '75%'}}
       />
-      <button onClick={handleTagButtonClick}>확인</button>
+      <button 
+        className={styles.confirmButton}
+        onClick={handleTagButtonClick}>확인</button>
+      </div>
     </React.Fragment>
   );
 };

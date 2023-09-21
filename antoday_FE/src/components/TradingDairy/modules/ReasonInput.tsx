@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
-import styles from './CheckTradingRecord.module.css';
+import styles from '../template/CheckTradingRecord.module.css';
 
-const RecordReason: React.FC = () => {
+const ReasonInput: React.FC = () => {
   const [record, setRecord] = useState<string>('');
 
   const handleRecordChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -10,18 +10,21 @@ const RecordReason: React.FC = () => {
 
   return (
     <React.Fragment>
-      <div className={styles.pageTitle}>매수/매도 이유</div>
+      <div className={styles.pageTitle}>매수/매도 이유 (선택)</div>
       <div className={styles.recordContainer}>
         <textarea
           value={record}
           onChange={handleRecordChange}
-          placeholder="매매 이유 입력하세요"
-          rows={5} // 원하는 행 수
-          cols={40} // 원하는 열 수
+          placeholder="이유를 입력해주세요."
+          rows={5} // 행 수
+          cols={40} // 열 수
+          style={{border: 'none', 
+          height: '80%', 
+          width: '90%'}}
         />
       </div>
     </React.Fragment>
   );
 };
 
-export default RecordReason;
+export default ReasonInput;
