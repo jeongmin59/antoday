@@ -26,12 +26,14 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
     if (response.ok) {
       console.log("관심기업에 등록되었습니다:)");
       setIsFavorite(true);
+    } else {
+      console.error(await response.text());
     }
   };
 
   // 관심 기업 등록 취소 API 호출
   const removeFavoriteCompany = async () => {
-    const url = `https://antoday.site/api/userstock/${stockPk}`;
+    const url = import.meta.env.VITE_BACK_API_URL + `/api/userstock/${stockPk}`;
     const response = await fetch(url, {
       method: "DELETE",
       headers: {
@@ -42,6 +44,8 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
     if (response.ok) {
       console.log("관심기업등록이 취소되었습니다:(");
       setIsFavorite(false);
+    } else {
+      console.error(await response.text());
     }
   };
 
