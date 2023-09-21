@@ -10,6 +10,7 @@ interface StockInfoBasicProps {
 const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
+  // console.log("이것은 관심등록에 담기는 토큰", token);
 
   // 관심 기업 등록 API 호출
   const addFavoriteCompany = async () => {

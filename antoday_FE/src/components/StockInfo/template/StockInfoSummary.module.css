@@ -1,4 +1,6 @@
 .summaryContainer {
   display: flex;
   font-size: var(--font-h6);
+  color: var(--main-yellow-color);
+  margin-bottom: 1rem;
 }
