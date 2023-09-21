@@ -88,7 +88,7 @@ const StockChart = () => {
       size: 0,
     },
     title: {
-      text: "주식차트",
+      text: "",
       align: "center",
     },
     fill: {
@@ -135,7 +135,7 @@ const StockChart = () => {
           options={options}
           series={series}
           type="area"
-          height={350}
+          height={300}
         />
       </div>
     </div>

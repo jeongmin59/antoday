@@ -6,7 +6,7 @@
 .companyInfoContainer {
   display: flex;
   flex-direction: column;
-  font-size: var(--font-h5);
+  font-size: var(--font-h6);
   align-items: start;
 }
 
