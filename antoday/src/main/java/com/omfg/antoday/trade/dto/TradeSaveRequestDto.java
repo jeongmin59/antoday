@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,10 +21,10 @@ public class TradeSaveRequestDto {
     private LocalDateTime tradeAt;
     private String stockCode;
     private String reason;
-    private List<String> keywords;
+    private HashSet<String> keywords;
 
     @Builder
-    public TradeSaveRequestDto(int cnt, int price, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String reason, List<String> keywords) {
+    public TradeSaveRequestDto(int cnt, int price, byte optionBuySell, LocalDateTime tradeAt, String stockCode, String reason, HashSet<String> keywords) {
         this.cnt = cnt;
         this.price = price;
         this.optionBuySell = optionBuySell;

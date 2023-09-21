@@ -6,20 +6,15 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class Keyword {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long keywordPk;
 
+    @Id
     private String keyword;
 
     @CreationTimestamp
@@ -29,8 +24,7 @@ public class Keyword {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Keyword(long keywordPk, String keyword, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.keywordPk = keywordPk;
+    public Keyword(String keyword, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.keyword = keyword;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
