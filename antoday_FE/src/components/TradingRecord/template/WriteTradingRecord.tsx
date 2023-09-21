@@ -5,6 +5,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from './WriteTradingRecord.module.css';
 import SearchingCompany from './SearchingCompany';
 import axios from 'axios';
+import { accessTokenAtom } from '../../../recoil/auth';
+import { useRecoilState } from 'recoil';
+
 
 interface WriteTradingRecordPageProps {
   closeWritePage: () => void;
@@ -12,10 +15,8 @@ interface WriteTradingRecordPageProps {
 
 interface Company {
   stockCode: number;
-  corpCode: string;
   corpName: string;
   logoUrl: string;
-  isLiked: boolean | null;
 }
 
 const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
@@ -31,6 +32,7 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
   const [adjustedPrice, setAdjustedPrice] = useState<number | null>(null);
   const [stockQuantity, setStockQuantity] = useState(0);
   const [ownedCompanies, setOwnedCompanies] = useState<Company[]>([]);
+  const [token,setToken] = useRecoilState(accessTokenAtom)
 
   const tradingData = {
     selectedDate,
@@ -46,10 +48,20 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
      } });
   };
 
+  const getIncrementValue = () => {
+    if (adjustedPrice === null) return 0;
+
+    if (adjustedPrice < 5000) return 5;
+    if (adjustedPrice >= 5000 && adjustedPrice < 20000) return 10;
+    if (adjustedPrice >= 20000 && adjustedPrice < 50000) return 50;
+    if (adjustedPrice >= 50000) return 100;
+};
+
   const fetchOwnedCompanies = () => {
     axios.get(`${import.meta.env.VITE_BACK_API_URL}/api/trade/corp`)
     .then((response) => {
       setOwnedCompanies(response.data);
+      // console.log(ownedCompanies)
     })
     .catch((error) => {
       console.error('Fetch owned companies error:', error);
@@ -61,26 +73,50 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
     const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
 
     if (status === '매수') {
-      apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/corp/${stockCode}`;
+      apiUrl = `${import.meta.env.VITE_BACK_API_URL}/info/corp/price/${stockCode}`; 
+      axios.get(apiUrl, {
+        params: {
+          target_date: formattedDate
+        }
+      })
+      .then((response) => {
+        const fetchedPrice = response.data.price;
+        setStockPrice(fetchedPrice);
+        setAdjustedPrice(fetchedPrice);
+        console.log(fetchedPrice);
+      })
+      .catch((error) => {
+        console.error('Fetch stock price error:', error);
+      });
     } else if (status === '매도') {
-      apiUrl = `${import.meta.env.VITE_SPRING_API_URL}/api/corp/${stockCode}`; // 이 부분 수정해야함
+      apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/corp/price`; 
+      axios.get(apiUrl, {
+        params: {
+          status: status,
+        },
+        headers: {
+          Authorization : `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        const fetchedPrice = response.data.price;
+        setStockPrice(fetchedPrice);
+        setAdjustedPrice(fetchedPrice);
+        console.log(fetchedPrice);
+      })
+      .catch((error) => {
+        console.error('Fetch stock price error:', error);
+      });
     }
 
-    axios.get(apiUrl, {
-      params: {
-        status: status,
-        date: formattedDate
-      },
-    })
-    .then((response) => {
-      const fetchedPrice = response.data.price;
-      setStockPrice(fetchedPrice);
-      setAdjustedPrice(fetchedPrice);
-      console.log(fetchedPrice);
-    })
-    .catch((error) => {
-      console.error('Fetch stock price error:', error);
-    });
+    
+  };
+
+  const handleOptionChange = (option: string) => {
+    if (selectedOption !== option) {
+      setSelectedOption(option);
+      setSelectedCompany(null);
+    }
   };
 
   useEffect(() => {
@@ -105,6 +141,7 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
     .then((response) => {
       const { content, totalPages } = response.data;
       setSearchResults(content);
+      console.log(response.data)
       setTotalPages(totalPages);
     })
     .catch((error) => {
@@ -130,8 +167,12 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
   };
 
   const handleClick = (option: string) => {
+    // console.log('Before:', selectedOption);
     setSelectedOption(option);
+    // console.log('After:', selectedOption);
   };
+
+  
 
   const handleSelectCompany = (company: Company) => {
     setSelectedCompany(company);
@@ -148,6 +189,9 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
               setSelectedDate(date);
             }
           }}
+          filterDate={(date: Date) => {
+            return date.getDay() !== 0 && date.getDay() !== 6;
+          }}
         />
         <button
           className={`${selectedOption === '매수' ? styles.bold : styles.normal} ${styles.button}`}
@@ -162,43 +206,57 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
           매도
         </button>
       </div>
+  
       <div>
-        <SearchingCompany onSearch={handleSearchCompany} />
-        <div className={styles.searchresults}>
-          {selectedCompany ? (
-            <div key={selectedCompany.stockCode} className={styles.corpcontainer}>
-              <img src={selectedCompany.logoUrl} alt={selectedCompany.corpName} />
-              <span>{selectedCompany.corpName}</span>
-            </div>
-          ) : (
-            searchResults.length > 0 && (
-              <div className={styles.resultcontainer}>
-                {searchResults.map((result) => (
-                  <div
-                    key={result.stockCode}
-                    className={styles.corpcontainer}
-                    onClick={() => handleSelectCompany(result)}
-                  >
-                    <img src={result.logoUrl} alt={result.corpName} />
-                    <span>{result.corpName}</span>
-                  </div>
-                ))}
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button key={index} onClick={() => handlePageChange(index + 1)}>
-                    {index + 1}
-                  </button>
-                ))}
-              </div>
-            )
-          )}
+        {ownedCompanies.length > 0 && !selectedCompany ? (
           <div>
-            <input
-              type="number"
-              value={stockQuantity}
-              onChange={(e) => setStockQuantity(Number(e.target.value))}
-            />
-            주
+            <h2>보유한 주식</h2>
+            {ownedCompanies.map((company) => (
+              <div 
+                key={company.stockCode} 
+                className={styles.corpcontainer}
+                onClick={() => handleSelectCompany(company)}
+              >
+                <img src={company.logoUrl} alt={company.corpName} />
+                <span>{company.corpName}</span>
+              </div>
+            ))}
           </div>
+        ) : !selectedCompany ? (
+          <div>
+            <SearchingCompany onSearch={handleSearchCompany} />
+            <div className={styles.searchresults}>
+              {searchResults.map((result) => (
+                <div
+                  key={result.stockCode}
+                  className={styles.corpcontainer}
+                  onClick={() => handleSelectCompany(result)}
+                >
+                  <img src={result.logoUrl} alt={result.corpName} />
+                  <span>{result.corpName}</span>
+                </div>
+              ))}
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button key={index} onClick={() => handlePageChange(index + 1)}>
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div key={selectedCompany.stockCode} className={styles.corpcontainer}>
+            <img src={selectedCompany.logoUrl} alt={selectedCompany.corpName} />
+            <span>{selectedCompany.corpName}</span>
+          </div>
+        )}
+  
+        <div>
+          <input
+            type="number"
+            value={stockQuantity}
+            onChange={(e) => setStockQuantity(Number(e.target.value))}
+          />
+          주
         </div>
         <div className={styles.horizontal}>
           <div>평단가</div>
@@ -213,7 +271,6 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
       </div>
     </div>
   );
-
 };
 
 export default WriteTradingRecordPage;
