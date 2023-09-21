@@ -23,7 +23,7 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
     });
 
     if (response.ok) {
-      console.log("d", response);
+      console.log("관심기업에 등록되었습니다:)");
       setIsFavorite(true);
     }
   };
@@ -39,6 +39,7 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
     });
 
     if (response.ok) {
+      console.log("관심기업등록이 취소되었습니다:(");
       setIsFavorite(false);
     }
   };
