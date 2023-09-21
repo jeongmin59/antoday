@@ -7,6 +7,8 @@ import StockSearchResults from "../module/StockSearchResults";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import StockSearchList from "../module/StockSearchList";
+import FavoriteCompany from "../module/FavoriteCompany";
+import MyInvestmentCompany from "../module/MyInvestmentCompany";
 
 const StockSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -122,10 +124,10 @@ const StockSearchBar: React.FC = () => {
         />
       )}
       {!inputValue && (
-        <>
-          <h1>관심기업</h1>
-          <h1>투자한기업</h1>
-        </>
+        <div className={styles.subContainer}>
+          <FavoriteCompany />
+          <MyInvestmentCompany />
+        </div>
       )}
     </React.Fragment>
   );

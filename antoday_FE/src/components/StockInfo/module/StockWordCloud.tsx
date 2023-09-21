@@ -5,7 +5,7 @@ import HomeKeyWords from "../../WordCloud/module/HomeKeyWords";
 const StockWordCloud: React.FC = () => {
   return (
     <div className={styles.stockWordsContainer}>
-      <div>종목 워드클라우드</div>
+      <div className={styles.title}>종목 워드클라우드</div>
       <HomeKeyWords />
     </div>
   );

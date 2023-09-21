@@ -51,7 +51,10 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
 
   return (
     <div>
-      <span onClick={isFavorite ? removeFavoriteCompany : addFavoriteCompany}>
+      <span
+        className={styles.heartIcon}
+        onClick={isFavorite ? removeFavoriteCompany : addFavoriteCompany}
+      >
         {isFavorite ? "♥" : "♡"}
       </span>
     </div>
