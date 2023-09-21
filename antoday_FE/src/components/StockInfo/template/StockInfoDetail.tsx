@@ -40,7 +40,7 @@ const StockInfoDetail: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.DetailContainer}>
       <div className={styles.tabContainer}>
         <span
           className={`${styles.tab} ${activeTab === 1 ? styles.activeTab : ""}`}
