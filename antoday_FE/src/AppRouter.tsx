@@ -26,7 +26,7 @@ const AppRouter = () => {
           element={<TradingRecordDetailPage />}
         />
         <Route
-          path="/writetradingrecord"
+          path="/writetradingrecord/:recordPk"
           element={<WriteTradingRecordPage />}
         />
       </Routes>

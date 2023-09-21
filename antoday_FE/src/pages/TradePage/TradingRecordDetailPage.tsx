@@ -1,7 +1,5 @@
 const TradingRecordDetailPage = () => {
-    return ( 
-        <>매매일지디테일페이지</>
-    );
-}
+  return <>매매일지디테일조회</>;
+};
 
 export default TradingRecordDetailPage;

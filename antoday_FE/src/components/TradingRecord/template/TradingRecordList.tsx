@@ -3,6 +3,7 @@ import { TradingRecordPageType } from "../../../pages/TradePage/TradingRecordPag
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 import styles from "./TradingRecordList.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface TradingRecordListProps {
   records: TradingRecordPageType[];
@@ -15,6 +16,16 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   hasMore,
   fetchMoreData,
 }) => {
+  const navigator = useNavigate();
+
+  const handleClick = (reasonExist: boolean, tradePk: number) => {
+    console.log("뛰뛰", reasonExist, tradePk);
+    if (reasonExist == true) {
+      navigator(`/tradingrecord/${tradePk}`);
+    } else {
+      navigator(`/writetradingrecord/${tradePk}`);
+    }
+  };
   return (
     <div>
       <InfiniteScroll
@@ -24,7 +35,11 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
         loader={records.length > 0 ? <LoadingSpinner /> : null}
       >
         {records.map((record) => (
-          <div key={record.tradePk} className={styles.container}>
+          <div
+            key={record.tradePk}
+            className={styles.container}
+            onClick={() => handleClick(record.reasonExist, record.tradePk)}
+          >
             <p>Trade At: {record.tradeAt}</p>
             <p>Corp Name: {record.corpName}</p>
             <p>Option Buy/Sell: {record.optionBuySell ? "Buy" : "Sell"}</p>
