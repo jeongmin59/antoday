@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { accessTokenAtom } from "../../../recoil/auth";
 
 interface StockInfoBasicProps {
-  stockPk: number;
+  stockPk?: string;
 }
 
 const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
@@ -13,7 +13,8 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
 
   // 관심 기업 등록 API 호출
   const addFavoriteCompany = async () => {
-    const url = `https://antoday.site/api/userstock?stockCode=${stockPk}`;
+    const url =
+      import.meta.env.VITE_BACK_API_URL + `/api/userstock?stockCode=${stockPk}`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -22,6 +23,7 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
     });
 
     if (response.ok) {
+      console.log("d", response);
       setIsFavorite(true);
     }
   };
