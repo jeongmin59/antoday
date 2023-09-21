@@ -16,6 +16,7 @@ export interface TradingRecordPageType {
   stockCode: string;
   tradeAt: string;
   tradePk: number;
+  reasonExist: boolean;
 }
 
 const TradingRecordPage: React.FC = () => {
@@ -26,9 +27,8 @@ const TradingRecordPage: React.FC = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [stockPrice, setStockPrice] = useState(0); 
+  const [stockPrice, setStockPrice] = useState(0);
 
-  
   const formatDateString = (date: string) => {
     return `${date} 00:00:00`;
   };
@@ -127,22 +127,23 @@ const TradingRecordPage: React.FC = () => {
     <div>
       <SearchInput onSearch={handleSearchKeyword} />
       <h5>매매 이유를 작성하면 AI 분석을 받을 수 있어요!</h5>
-      
+
       {showWrite ? (
         <WriteTradingRecordPage closeWritePage={() => setShowWrite(false)} />
       ) : (
         <div>
-        <div className={styles.datebuttoncontainer}>
-        <h5>기간</h5>
-        <SearchingDate onSearch={handleSearchDate} />
-        <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
-      </div>
-        <TradingRecordList
-          records={records}
-          hasMore={hasMore}
-          fetchMoreData={fetchMoreData}
-        />
-      </div>)}
+          <div className={styles.datebuttoncontainer}>
+            <h5>기간</h5>
+            <SearchingDate onSearch={handleSearchDate} />
+            <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
+          </div>
+          <TradingRecordList
+            records={records}
+            hasMore={hasMore}
+            fetchMoreData={fetchMoreData}
+          />
+        </div>
+      )}
     </div>
   );
 };
