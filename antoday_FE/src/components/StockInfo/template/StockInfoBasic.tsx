@@ -3,7 +3,7 @@ import styles from "./StockInfoBasic.module.css";
 import FavoriteCompanyButton from "../atom/FavoriteCompanyButton";
 
 interface StockInfoBasicProps {
-  stockPk: number;
+  stockPk?: string;
 }
 
 const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
