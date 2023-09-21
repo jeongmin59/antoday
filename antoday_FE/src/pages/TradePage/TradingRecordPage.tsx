@@ -6,6 +6,8 @@ import WriteTradingRecordPage from "../../components/TradingRecord/template/Writ
 import SearchInput from "../../components/TradingRecord/template/SearchInput";
 import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
 import styles from "./TradingRecordPage.module.css";
+import { accessTokenAtom } from "../../recoil/auth";
+import { useRecoilState } from 'recoil';
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -28,6 +30,7 @@ const TradingRecordPage: React.FC = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [stockPrice, setStockPrice] = useState(0);
+  const [token,setToken] = useRecoilState(accessTokenAtom);
 
   const formatDateString = (date: string) => {
     return `${date} 00:00:00`;
@@ -84,6 +87,9 @@ const TradingRecordPage: React.FC = () => {
     axios
       .get(`${import.meta.env.VITE_BACK_API_URL}/api/trade`, {
         params: params,
+        headers: {
+          Authorization : `Bearer ${token}`
+        }
       })
       .then((response) => {
         // console.log("API response:", response);

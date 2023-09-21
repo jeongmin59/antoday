@@ -32,7 +32,9 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
   const [adjustedPrice, setAdjustedPrice] = useState<number | null>(null);
   const [stockQuantity, setStockQuantity] = useState(0);
   const [ownedCompanies, setOwnedCompanies] = useState<Company[]>([]);
-  const [token,setToken] = useRecoilState(accessTokenAtom)
+  const [token,setToken] = useRecoilState(accessTokenAtom);
+  const [forceRender, setForceRender] = useState(0);
+
 
   const tradingData = {
     selectedDate,
@@ -77,6 +79,9 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
       axios.get(apiUrl, {
         params: {
           target_date: formattedDate
+        },
+        headers: {
+          Authorization : `Bearer ${token}`
         }
       })
       .then((response) => {
@@ -112,12 +117,12 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
     
   };
 
-  const handleOptionChange = (option: string) => {
-    if (selectedOption !== option) {
-      setSelectedOption(option);
-      setSelectedCompany(null);
-    }
-  };
+  // const handleOptionChange = (option: string) => {
+  //   if (selectedOption !== option) {
+  //     setSelectedOption(option);
+  //     setSelectedCompany(null);
+  //   }
+  // };
 
   useEffect(() => {
     if (selectedOption === '매도') {
@@ -137,6 +142,9 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
         keyword: keyword,
         page: currentPage - 1,
       },
+      headers: {
+        Authorization : `Bearer ${token}`
+      }
     })
     .then((response) => {
       const { content, totalPages } = response.data;
@@ -167,10 +175,12 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
   };
 
   const handleClick = (option: string) => {
-    // console.log('Before:', selectedOption);
-    setSelectedOption(option);
-    // console.log('After:', selectedOption);
-  };
+    if (selectedOption !== option) {
+        setSelectedOption(option);
+        setSelectedCompany(null);
+        setForceRender((prev) => prev + 1);
+    }
+};
 
   
 
