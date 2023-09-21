@@ -37,7 +37,7 @@ public class TradeKeyword {
         this.tradeKeywordPk = tradeKeywordPk;
         this.trade = trade;
         this.keyword = keyword;
-         this.createdAt = createdAt;
+        this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 }

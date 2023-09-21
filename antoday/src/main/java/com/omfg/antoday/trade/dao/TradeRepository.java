@@ -29,7 +29,7 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             "FROM trade t " +
             "INNER JOIN stock s ON t.stock_code = s.stock_code " +
             "LEFT OUTER JOIN trade_keyword tk ON t.trade_pk = tk.trade_pk " +
-            "LEFT OUTER JOIN keyword k ON tk.keword_pk = k.keyword_pk " +
+            "LEFT OUTER JOIN keyword k ON tk.keyword = k.keyword " +
             "WHERE t.social_id = :socialId " +
             "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) " +
             "AND t.trade_at BETWEEN :startDate AND :endDate " +
