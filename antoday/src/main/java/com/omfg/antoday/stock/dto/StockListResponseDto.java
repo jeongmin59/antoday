@@ -14,13 +14,13 @@ import lombok.ToString;
 public class StockListResponseDto{
     private String corpName;
     private String stockCode;
-    private String logo_url;
+    private String logoUrl;
 
     @Builder
-    public StockListResponseDto(String corpName, String stockCode, String logo_url) {
+    public StockListResponseDto(String corpName, String stockCode, String logoUrl) {
         this.corpName = corpName;
         this.stockCode = stockCode;
-        this.logo_url = logo_url;
+        this.logoUrl = logoUrl;
     }
 //    public static StockListResponseDto toDto(Trade trade) {
 //        Stock stock = trade.getStock();
@@ -42,7 +42,7 @@ public class StockListResponseDto{
         return StockListResponseDto.builder()
                 .stockCode(stock.getStockCode())
                 .corpName(stock.getCorpName())
-                .logo_url(stock.getLogoUrl())
+                .logoUrl(stock.getLogoUrl())
                 .build();
     }
 }
