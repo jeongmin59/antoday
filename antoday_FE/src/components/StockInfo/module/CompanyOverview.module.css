@@ -1,0 +1,21 @@
+.companyInfoContainer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.companyInfoContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-h6);
+  align-items: start;
+}
+
+.companyInfoContentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.strongText {
+  color: var(--main-blue-color);
+}

@@ -1,0 +1,19 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-size: var(--font-h6);
+}
+
+.graph {
+  background-color: lightgray;
+  color: var(--main-white-color);
+  font-size: var(--font-h6);
+  width: 60%;
+  height: 8rem;
+  border-radius: 20px;
+  margin: 0 auto;
+}

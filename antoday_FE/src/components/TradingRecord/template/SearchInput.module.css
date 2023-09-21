@@ -1,0 +1,30 @@
+.div {
+    background-color: var(--main-yellow-color);
+    padding: 1rem;
+}
+
+.container {
+    background-color: var(--main-white-color);
+    padding: 0.2rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.input {
+    border: none;
+    background-color: none;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.container > button {
+    background-color: var(--main-blue-color);
+    border: none;
+    border-radius: 2rem;
+    color: var(--main-white-color);
+    padding: 0.5rem 1rem;
+
+}

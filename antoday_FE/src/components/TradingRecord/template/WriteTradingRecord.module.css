@@ -1,0 +1,31 @@
+.bold {
+    font-weight: 800;
+}
+
+.normal {
+    font-weight: 100;
+}
+
+.button {
+    border: none;
+    background-color: none;
+}
+
+.horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.resultcontainer img{
+    width: 3rem;
+    height: 3rem;
+}
+
+.corpcontainer {
+    display: flex;
+}
+
+.searchresults {
+    display: flex;
+    flex-direction: column;
+}

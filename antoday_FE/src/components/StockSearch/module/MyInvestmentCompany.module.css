@@ -1,0 +1,6 @@
+.mainContainer {
+  width: 40%;
+  height: 9rem;
+  background-color: var(--main-white-color);
+  border-radius: 15px;
+}

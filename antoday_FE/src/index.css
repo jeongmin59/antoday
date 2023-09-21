@@ -1,26 +1,33 @@
 @font-face {
-  font-family: 'NanumSquareRound';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 :root {
-  --main-yellow-color: #FDC921;
-  --sub-yellow-color: #FDD85D;
-  --main-white-color: #FFFDF7;
-  --main-blue-color: #6798C0;
-  --sub-blue-color: #99D6EA;
-  --main-font-family : 'NanumSquareRound';
+  --main-yellow-color: #fdc921;
+  --sub-yellow-color: #fdd85d;
+  --main-white-color: #fffdf7;
+  --main-blue-color: #6798c0;
+  --sub-blue-color: #99d6ea;
+  --main-font-family: "NanumSquareRound";
   font-size: 20px;
   /* color-scheme: light dark; */
   font-synthesis: none;
-  font-family: 'NanumSquareRound';
+  font-family: "NanumSquareRound";
+  --font-h1: 1.75rem;
+  --font-h2: 1.55rem;
+  --font-h3: 1.35rem;
+  --font-h4: 1.15rem;
+  --font-h5: 0.95rem;
+  --font-h6: 0.75rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  border: 2px solid rebeccapurple;
+  /* border: 2px solid rebeccapurple; */
 }
 
 a {

@@ -1,0 +1,17 @@
+.stockSearchListContainer {
+  background-color: var(--main-white-color);
+  border-radius: 20px;
+  padding: 1rem 1rem;
+  width: 13rem;
+  height: 32rem;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  gap: 0.5rem;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  margin: 0 0.3rem;
+}
