@@ -62,7 +62,7 @@ class NewsKeyword(Base) :
     __tablename__ = "news_keyword"
     news_keyword_pk = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     weight = Column(Float)
-    keyword = Column(String(255), ForeignKey("keyword.keyword"))
+    keyword_word = Column(String(255), ForeignKey("keyword.keyword"))
     new_pk = Column(BigInteger, ForeignKey("news.news_pk"))
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, onupdate=datetime.now)
