@@ -20,6 +20,7 @@ mypy-extensions==1.0.0
 mysql==0.0.3
 mysqlclient==2.2.0
 numpy==1.26.0
+OpenDartReader==0.2.3
 packaging==23.1
 pandas==2.1.0
 pathspec==0.11.2
