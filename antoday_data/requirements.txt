@@ -1,6 +1,7 @@
 annotated-types==0.5.0
 anyio==3.7.1
 beautifulsoup4==4.12.2
+black==23.9.1
 certifi==2023.7.22
 cffi==1.15.1
 charset-normalizer==3.2.0
@@ -15,11 +16,15 @@ h11==0.14.0
 httptools==0.6.0
 idna==3.4
 lxml==4.9.3
+mypy-extensions==1.0.0
 mysql==0.0.3
 mysqlclient==2.2.0
 numpy==1.26.0
 OpenDartReader==0.2.3
+packaging==23.1
 pandas==2.1.0
+pathspec==0.11.2
+platformdirs==3.10.0
 pycparser==2.21
 pydantic==2.3.0
 pydantic_core==2.6.3
