@@ -261,11 +261,19 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
         )}
   
         <div>
-          <input
-            type="number"
-            value={stockQuantity}
-            onChange={(e) => setStockQuantity(Number(e.target.value))}
-          />
+        <input
+          type="number"
+          value={stockQuantity === 0 ? "" : stockQuantity}
+          onChange={(e) => {
+              const value = e.target.value;
+              if (value === "") {
+                  setStockQuantity(0);
+              } else {
+                  setStockQuantity(parseInt(value, 10));
+              }
+          }}
+          // placeholder="0"
+      />
           주
         </div>
         <div className={styles.horizontal}>
