@@ -21,6 +21,7 @@ venv
 docs.zip
 archive.zip
 secrets.json
+docs_cache
 
 # vim temporary files
 *~
