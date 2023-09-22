@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import price, corp
+from app.routers import price, corp, keyword
 from app.models.database import SessionLocal, engine, Base
 from app.models import models
 from starlette.middleware.cors import CORSMiddleware
@@ -18,7 +18,7 @@ app.add_middleware(
 
 app.include_router(price.router)
 app.include_router(corp.router)
-
+app.include_router(keyword.router)
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
