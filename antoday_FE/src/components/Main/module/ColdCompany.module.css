@@ -1,0 +1,39 @@
+.companyContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px auto;
+    width: 80%;
+    height: fit-content;
+}
+
+.companyImage {
+    margin-top: 1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    overflow-x: auto;
+    padding: 0;
+    margin: 0; 
+}
+
+li {
+    margin-right: 1rem;
+    border-radius: 20px;
+    border: 1px solid #ECECEC;
+  }
+
+.companyList {
+    width: 5.5rem;
+  }
+
+p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
