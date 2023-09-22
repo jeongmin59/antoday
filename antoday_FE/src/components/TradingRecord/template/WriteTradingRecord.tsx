@@ -45,7 +45,7 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
   };
 
   const gotowritetradingrecord = () => {
-    navigate('/writetradingrecord', { state: { 
+    navigate('/writetradingrecord/:recordPk', { state: { 
       tradingdata: tradingData,
      } });
   };
@@ -75,7 +75,7 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
     const formattedDate = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
 
     if (status === '매수') {
-      apiUrl = `${import.meta.env.VITE_BACK_API_URL}/info/corp/price/${stockCode}`; 
+      apiUrl = `${import.meta.env.VITE_DATA_API_URL}/corp/price/${stockCode}`; 
       axios.get(apiUrl, {
         params: {
           target_date: formattedDate
