@@ -1,5 +1,6 @@
 package com.omfg.antoday.trade.api;
 
+import com.omfg.antoday.config.UserDetailsImpl;
 import com.omfg.antoday.stock.dto.StockListResponseDto;
 import com.omfg.antoday.trade.application.TradeService;
 import com.omfg.antoday.trade.domain.Trade;
@@ -14,11 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,10 +36,10 @@ public class TradeController {
 
     @PostMapping
     @ApiOperation(value = "매매기록 추가", notes = "tradePk는 입력하지 말것.")
-    public ResponseEntity<Trade> tradeAdd(@RequestBody TradeSaveRequestDto trade) {
+    public ResponseEntity<Trade> tradeAdd(@RequestBody TradeSaveRequestDto trade,
+                                          @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
         // 키워드 들어오면 어떻게 할지
-        Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.addTrade(trade, dummyUser.get()),HttpStatus.OK);
+        return new ResponseEntity<>(tradeService.addTrade(trade, userDetails),HttpStatus.OK);
     }
 
     @PutMapping
@@ -66,10 +67,12 @@ public class TradeController {
     //매매기록 기간별, 종목별 조회
     @GetMapping
     @ApiOperation(value = "매매 기록 list", notes = "page필수(0부터), start(형식 : yyyy-MM-dd HH:mm:ss), end, keyword(검색 키워드 또는 기업명) 선택")
-    public ResponseEntity<Page<TradeListResponseDto>> tradeOptionGet(@RequestParam String page, @RequestParam(required = false) String start , @RequestParam(required = false) String end, @RequestParam(required = false) String keyword) {
+    public ResponseEntity<Page<TradeListResponseDto>> tradeOptionGet(@RequestParam String page, @RequestParam(required = false) String start,
+                                                                     @RequestParam(required = false) String end,
+                                                                     @RequestParam(required = false) String keyword,
+                                                                     @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.getTrade(dummyUser.get(), Integer.parseInt(page), start,end, keyword), HttpStatus.OK);
+        return new ResponseEntity<>(tradeService.getTrade(userDetails, Integer.parseInt(page), start,end, keyword), HttpStatus.OK);
     }
 
     //매매기록 개별 조회
@@ -89,17 +92,16 @@ public class TradeController {
 
     @GetMapping( "/corp")
     @ApiOperation(value = "사용자가 투자한 기업 리스트", notes = "")
-    public ResponseEntity<Set<StockListResponseDto>> tradeCorpGet() {
-        Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.getTradeCorp(dummyUser.get()), HttpStatus.OK);
+    public ResponseEntity<Set<StockListResponseDto>> tradeCorpGet(@ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new ResponseEntity<>(tradeService.getTradeCorp(userDetails), HttpStatus.OK);
     }
 
     // 기업 수익률 계산
     @GetMapping("/roi")
     @ApiOperation(value = "해당 기업/전체 수익률 계산", notes = " 안넣으면 전체 수익률. 일단 지금은 스톡코드 넣어서! 뭔가 완벽하진 않음.")
-    public ResponseEntity<RoiResponseDto> roiStockGet(@RequestParam(required = true) String stock_code) {
-        Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.getRoiStock(dummyUser.get(), stock_code), HttpStatus.OK);
+    public ResponseEntity<RoiResponseDto> roiStockGet(@RequestParam(required = true) String stock_code,
+                                                      @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new ResponseEntity<>(tradeService.getRoiStock(userDetails, stock_code), HttpStatus.OK);
     }
 
     @GetMapping("/makeDummyStock/{stock_code}")
