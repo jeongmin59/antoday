@@ -9,16 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CorpListResponseDto {
     private String stockCode;
-    private String corpCode;
     private String corpName;
+    private String market;
     private String logoUrl;
     private Boolean isLiked;
 
     @Builder
-    public CorpListResponseDto(String stockCode, String corpCode, String corpName, String logoUrl, Boolean isLiked) {
+    public CorpListResponseDto(String stockCode, String corpName, String market, String logoUrl, Boolean isLiked) {
         this.stockCode = stockCode;
-        this.corpCode = corpCode;
         this.corpName = corpName;
+        this.market = market;
         this.logoUrl = logoUrl;
         this.isLiked = isLiked;
     }
@@ -26,8 +26,8 @@ public class CorpListResponseDto {
     public static CorpListResponseDto toEntity(Stock stock, Boolean isLiked) {
         return CorpListResponseDto.builder()
                 .stockCode(stock.getStockCode())
-                .corpCode(stock.getCorpCode())
                 .corpName(stock.getCorpName())
+                .market(stock.getMarket())
                 .logoUrl(stock.getLogo_url())
                 .isLiked(isLiked)
                 .build();
