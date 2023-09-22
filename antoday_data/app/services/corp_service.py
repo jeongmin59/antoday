@@ -1,11 +1,12 @@
 from datetime import date, timedelta
+import datetime
 import json
 import requests
 from bs4 import BeautifulSoup
 import FinanceDataReader as fdr
 from app.models.database import SessionLocal
 from app.models.models import Stock
-from app.schemas.corp import CorpListDTO, DefaultPriceDTO
+from app.schemas.corp import CorpListDTO, DefaultPriceDTO, CorpIndexInfoDTO
 
 def get_hot_corp_list():
     kospi_corp_list = scrape_hot_corp("KOSPI")
@@ -28,6 +29,23 @@ def get_price_info(stock_code: str, target_date: date):
     # 해당 날짜 종가 반환 (해당 날짜 데이터가 없으면 전일종가 반환)
     price = int(df.iloc[-1]["Close"]) if target_date.strftime('%Y-%m-%d') in df.index else int(df.iloc[-2]["Close"])    
     return DefaultPriceDTO(stock_code=stock_code, price=price)
+
+def get_current_index_info(stock_code: str):
+    today_date = datetime.date.today()
+    start_date = today_date - timedelta(days=3)
+
+    df = fdr.DataReader(stock_code, start_date, today_date)
+    index = int(df.iloc[-1]["Close"])
+    change = int(df.iloc[-1]["Close"] - df.iloc[-2]["Close"])
+    percentage_change = round(df.iloc[-1]["Change"] * 100, 2)
+
+    data = CorpIndexInfoDTO(
+        stock_code=stock_code,
+        index=index,
+        change=change,
+        percentage_change=percentage_change
+        )
+    return data
 
 # 거래량순 스크래핑
 def scrape_hot_corp(status):

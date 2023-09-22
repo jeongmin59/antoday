@@ -1,7 +1,7 @@
 from datetime import date
 from fastapi import APIRouter, Query, Path
 from app.services.stock_info_service import get_stock_price, get_stock_info
-from app.services.corp_service import get_hot_corp_list, get_cold_corp_list, get_price_info
+from app.services.corp_service import get_hot_corp_list, get_cold_corp_list, get_price_info, get_current_index_info
 
 router = APIRouter(
     prefix="/info/corp",
@@ -34,3 +34,7 @@ async def get_cold_corps(
 ):
     response_data = get_stock_info(stock_code)
     return response_data
+
+@router.get("/index/{stockCode}")
+async def get_current_stock_index(stockCode: str = Path(..., min_length=6, max_length=6)):
+    return get_current_index_info(stockCode)

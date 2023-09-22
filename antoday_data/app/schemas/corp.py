@@ -8,3 +8,9 @@ class CorpListDTO(BaseModel):
 class DefaultPriceDTO(BaseModel):
     stock_code: str
     price: int
+    
+class CorpIndexInfoDTO(BaseModel):
+    stock_code: str
+    index: int
+    change: int
+    percentage_change: float
