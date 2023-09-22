@@ -9,5 +9,5 @@ const StockSearchPage = () => {
     </div>
   );
 };
-
+//
 export default StockSearchPage;
