@@ -93,7 +93,8 @@ def get_financ_state(stock_code, dart):
     # 현재년도
     cur_year = datetime.datetime.now().year
 
-    result = []
+    takes = []
+    profits = []
 
     # 3년+현재년도의 데이터에 접근
     for year in range(cur_year - 3, cur_year + 1):
@@ -116,16 +117,21 @@ def get_financ_state(stock_code, dart):
             .replace(",", "")
         )
 
-        cur = {
+        cur_t = {
             "year": year,
             "take": take,
             "take_kr": get_kor_amount_string_no_change(take),
+        }
+        cur_p = {
+            "year": year,
             "prpfit": profit,
             "profit_kr": get_kor_amount_string_no_change(profit),
         }
-        result.append(cur)
 
-    return result
+        takes.append(cur_t)
+        profits.append(cur_p)
+
+    return {"takes": takes, "profits": profits}
 
 
 # stock
