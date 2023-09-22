@@ -2,7 +2,6 @@ import React from 'react';
 import TitleTextComponent from '../atom/TitleTextComponent';
 import HomeKeyWords from '../module/HomeKeyWords';
 import HomeKeyWordsCompanys from '../module/HomeKeyWordsCompanys';
-import KospiKosdakIndex from '../module/KospiKosdakIndex';
 import styles from './HomeWordCloud.module.css'
 
 const HomeWordCloud : React.FC = () => {
@@ -11,7 +10,6 @@ const HomeWordCloud : React.FC = () => {
             <TitleTextComponent/>
             <HomeKeyWords/>
             <HomeKeyWordsCompanys/>
-            <KospiKosdakIndex/>
         </React.Fragment>
     );
 }

@@ -15,7 +15,7 @@ interface MarketData {
     KOSDAQ: IndexData;
 }
 
-const KospiKosdakIndex = () => {
+const KospiKosdakIndex : React.FC = () => {
   const [indexData, setIndexData] = useState<MarketData>({
     KOSPI: {
       base_date: '',
