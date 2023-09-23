@@ -2,8 +2,8 @@ import React from 'react';
 // import { useLocation } from 'react-router';
 import styles from './WriteTradingRecordPage.module.css'
 import CheckTradingRecord from '../../components/TradingDairy/template/CheckTradingRecord';
-import HomeKeyWords from '../../components/WordCloud/module/HomeKeyWords'
-import InputConfirm from '../../components/TradingDairy/template/InputConfirm';
+// import HomeKeyWords from '../../components/WordCloud/module/HomeKeyWords'
+// import InputConfirm from '../../components/TradingDairy/template/InputConfirm';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import axios from 'axios';
@@ -41,6 +41,7 @@ const WriteTradingRecordPage :React.FC = () => {
   );
 
   const tradeAt = tradeResults?.data.tradeAt;
+  const stockCode = tradeResults?.data.stockCode;
   const corpName = tradeResults?.data.corpName;
   const logoUrl = tradeResults?.data.logoUrl;
   const optionBuySell = tradeResults?.data.optionBuySell;
@@ -55,17 +56,17 @@ const WriteTradingRecordPage :React.FC = () => {
         <LoadingSpinner/>
       ) : (
         <div className={styles.mainContainer}>
-          {/* 데이터 로딩이 완료된 후에 실제 내용을 표시 */}
           <CheckTradingRecord
             tradeAt={tradeAt}
-            corpName={corpName}
+            stockCode={stockCode}
             logoUrl={logoUrl}
             optionBuySell={optionBuySell}
             price={price}
             cnt={cnt}
+            corpName={corpName}
           />
-          <HomeKeyWords />
-          <InputConfirm />
+          {/* <HomeKeyWords />
+          <InputConfirm /> */}
         </div>
       )}
     </div>

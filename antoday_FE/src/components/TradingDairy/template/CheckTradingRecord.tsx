@@ -1,41 +1,52 @@
 import React from 'react';
 import styles from './CheckTradingRecord.module.css'
+import HomeKeyWords from '../../WordCloud/module/HomeKeyWords';
+import InputForm from './InputForm';
 
-// 타입 정의하기
-interface CheckTradingRecordProps {
-  tradeAt: string; // 예를 들어 문자열로 정의
-  corpName: string;
-  logoUrl: string;
-  optionBuySell: string;
-  price: number; // 숫자로 정의
-  cnt: number;
-}
-
-
-const CheckTradingRecord: React.FC<CheckTradingRecordProps> = ({
+const CheckTradingRecord: React.FC<TradingRecord> = ({
   tradeAt,
-  corpName,
+  stockCode,
   logoUrl,
   optionBuySell,
   price,
   cnt,
+  corpName
 }) => {
 
-  console.log('잘넘어오나?',
-  tradeAt,
-  corpName,
-  logoUrl,
-  optionBuySell,
-  price,
-  cnt,)
   return (
-    <React.Fragment>
-      <div className={styles.pageTitle}>거래 주식</div>
-      <div className={styles.recordContainer}>
-        매매 기록 넣을 공간
-      </div>
+    <div>
 
-    </React.Fragment>
+    <div className={styles.mainContainer}>
+
+      <div className={styles.title}>거래 주식</div>
+      <div className={styles.subContainer}>
+        <div className={styles.tradeAt}>
+          {tradeAt}
+        </div>
+        <div className={styles.contentContainer}>
+          <div className={styles.leftContainer}>
+            <img className={styles.corpimage} src={logoUrl} alt='' />
+            <div>{corpName}</div>
+            {optionBuySell? (<div>매수</div>):(<div>매도</div>)}
+          </div>
+          <div className={styles.rightContainer}>
+            <div>{price}</div>
+            <div>{cnt}주</div>
+          </div>
+        </div>
+        </div>
+    </div>
+
+    <HomeKeyWords/>
+    <InputForm
+    tradeAt={tradeAt}
+    stockCode={stockCode}
+    logoUrl={logoUrl}
+    optionBuySell={optionBuySell}
+    price={price}
+    cnt={cnt}
+    />
+    </div>
   );
 };
 
