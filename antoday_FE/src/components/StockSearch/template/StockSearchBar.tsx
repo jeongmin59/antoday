@@ -130,7 +130,7 @@ const StockSearchBar: React.FC = () => {
       {!inputValue && (
         <div className={styles.subContainer}>
           <FavoriteCompany />
-          <MyInvestmentCompany />
+          <MyInvestmentCompany/>
         </div>
       )}
     </React.Fragment>
