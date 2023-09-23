@@ -1,11 +1,20 @@
 import React, { useState, ChangeEvent } from 'react';
 import styles from '../template/CheckTradingRecord.module.css';
+import SaveBtn from '../atoms/SaveBtn';
 
-const ReasonInput: React.FC = () => {
-  const [record, setRecord] = useState<string>('');
+const ReasonInput: React.FC<TradingRecord> = ({
+  tradeAt,
+  stockCode,
+  logoUrl,
+  optionBuySell,
+  price,
+  cnt,
+  keywordList,
+}) => {
+  const [reason, setReason] = useState<string>('');
 
   const handleRecordChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setRecord(event.target.value);
+    setReason(event.target.value);
   };
 
   return (
@@ -13,7 +22,7 @@ const ReasonInput: React.FC = () => {
       <div className={styles.pageTitle}>매수/매도 이유 (선택)</div>
       <div className={styles.recordContainer}>
         <textarea
-          value={record}
+          value={reason}
           onChange={handleRecordChange}
           placeholder="이유를 입력해주세요."
           rows={5} // 행 수
@@ -23,6 +32,16 @@ const ReasonInput: React.FC = () => {
           width: '90%'}}
         />
       </div>
+      <SaveBtn
+      tradeAt={tradeAt}
+      stockCode={stockCode}
+      logoUrl={logoUrl}
+      optionBuySell={optionBuySell}
+      price={price}
+      cnt={cnt}
+      keywordList={keywordList}
+      reason={reason}
+      />
     </React.Fragment>
   );
 };
