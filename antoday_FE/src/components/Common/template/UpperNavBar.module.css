@@ -33,7 +33,22 @@
   font-size: 0.9rem;
 }
 
-/* 웹 화면에 대한 미디어 쿼리 */
+.logoDefault {
+  width: 200px;
+}
+
+.logoMobile {
+  width: 50px;
+}
+
+@media screen and (min-width: 381px) {
+  .logoMobile {
+    display: none;
+    /* width: 50px; */
+  }
+}
+
+
 @media screen and (max-width: 380px) {
   .navItem {
     display: none; /* 모바일 화면에서는 안보이게 설정 */
@@ -45,5 +60,10 @@
   
   .navItemTradingRecord {
     display: none;
+  }
+
+  .logoDefault {
+    display: none;
+    /* width: 200px; */
   }
 }
