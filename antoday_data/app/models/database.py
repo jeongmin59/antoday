@@ -6,7 +6,7 @@ import json
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_FILE = os.path.join(BASE_DIR, 'secrets.json')
+SECRET_FILE = os.path.join(BASE_DIR, "secrets.json")
 
 secrets = json.loads(open(SECRET_FILE).read())
 
@@ -19,3 +19,11 @@ engine = create_engine(DB_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
