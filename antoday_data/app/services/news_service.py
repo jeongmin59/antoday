@@ -23,22 +23,28 @@ def get_news_list():
                 .split("..")[0]
                 + ".."
             )
-            image = article.find("img", src=True)["src"]
             press = article.find("span", class_="press").get_text(strip=True)
             date = article.find("span", class_="wdate").get_text(strip=True)
 
-            part = image.split("thumb70/")[1].split("/")[0]
-            match = re.search(r"/(\d+)\.jpg$", image).group(1).zfill(10)
+            thumb_image = article.find("img", src=True)["src"]
+
+            part = thumb_image.split("thumb70/")[1].split("/")[0]
+            match = re.search(r"/(\d+)\.jpg$", thumb_image).group(1).zfill(10)
 
             link = f"https://n.news.naver.com/mnews/article/{part}/{match}"
+
+            img_response = requests.get(link)
+            if img_response.status_code == 200:
+                temp_soup = BeautifulSoup(img_response.text, "html.parser")
+                image = temp_soup.find("img", id="img1").get("data-src")
 
             news_item = NewsListDTO(
                 title=title,
                 content=content,
-                image=image,
                 press=press,
                 date=date,
                 link=link,
+                image=image
             )
 
             news_data.append(news_item)
