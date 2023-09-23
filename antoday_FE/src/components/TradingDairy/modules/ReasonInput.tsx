@@ -16,7 +16,7 @@ const ReasonInput: React.FC<TradingRecord> = ({
   const handleRecordChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setReason(event.target.value);
   };
-
+//
   return (
     <React.Fragment>
       <div className={styles.pageTitle}>매수/매도 이유 (선택)</div>
