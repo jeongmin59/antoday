@@ -22,11 +22,11 @@ const AppRouter = () => {
         <Route path="/stockinfo/:stockPk" element={<StockInfoPage />} />
         <Route path="/tradingrecord" element={<TradingRecordPage />} />
         <Route
-          path="/tradingrecord/:recordPk"
+          path="/tradingrecord/:tradePk"
           element={<TradingRecordDetailPage />}
         />
         <Route
-          path="/writetradingrecord/:recordPk"
+          path="/writetradingrecord/:tradePk"
           element={<WriteTradingRecordPage />}
         />
       </Routes>

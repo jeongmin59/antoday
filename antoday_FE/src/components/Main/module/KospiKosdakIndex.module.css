@@ -5,6 +5,8 @@
     margin: 0px auto;
     width: 80%;
     height: fit-content;
+    border-radius: 20px;
+    border: 1px solid #ECECEC;
 }
 
 .indexTitle {
@@ -48,20 +50,19 @@
     }
     .container {
         display: flex;
-        flex-direction: row;        
+        flex-direction: row;
     }
     .indexContainer {
         display: flex;
         flex-direction: column;
+        width: 40%;        
     }
     .indexTitle {
-        font-size: var(--font-h6);
+        font-size: var(--font-h5);
     }
     .indexContent {
-        font-size: var(--font-h6);
+        font-size: var(--font-h5);
         display: flex;
-
-
     }
 }
   

@@ -1,8 +1,4 @@
-@media screen and (min-width: 385px) {
-  .navigationbar_bottom {
-    display: none;
-  }
-}
+
 
 .wrap {
   position: fixed;
@@ -24,4 +20,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (min-width: 385px) {
+  .wrap {
+    display: none;
+  }
 }

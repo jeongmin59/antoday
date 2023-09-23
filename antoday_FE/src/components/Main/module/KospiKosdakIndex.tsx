@@ -62,7 +62,7 @@ const KospiKosdakIndex : React.FC = () => {
             {/* 변화 지수 */}
             <p>{indexData.KOSPI.price_change}</p>
             {/* 등락률 */}
-            <p>{indexData.KOSPI.percentage_change}%</p>
+            {/* <p>{indexData.KOSPI.percentage_change}%</p> */}
           </div>
         </div>
         <div className={styles.indexContainer}>
@@ -74,7 +74,7 @@ const KospiKosdakIndex : React.FC = () => {
             {/* 변화 지수 */}
             <p>{indexData.KOSDAQ.price_change}</p>
             {/* 등락률 */}
-            <p>{indexData.KOSDAQ.percentage_change}%</p>
+            {/* <p>{indexData.KOSDAQ.percentage_change}%</p> */}
           </div>
         </div>
       </div>
