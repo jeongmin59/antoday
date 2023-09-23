@@ -2,9 +2,18 @@ import string
 from typing import Optional
 from bs4 import BeautifulSoup
 import requests
-from app.models.models import Keyword, News, Textmining
+from app.models.models import Keyword, News, Stopword, Textmining
 from app.schemas.keyword import KeywordDTO
 from sqlalchemy.orm import Session
+
+
+def create_stopword(db: Session, word: str) -> None :
+    db_stopword = Stopword(word=word)
+    existing_keyword = db.query(Stopword).filter_by(word=word).first()
+    if not existing_keyword:
+        db_stopword = Stopword(word=word)
+        db.add(db_stopword)
+    db.commit()
 
 
 def get_keywords(db: Session) -> list[KeywordDTO]:

@@ -8,6 +8,15 @@ from sqlalchemy.orm import Session
 router = APIRouter(prefix="/info/keyword", tags=["keyword"])
 
 
+@router.post("/stopword")
+async def save_stopword(word: str, db: Session = Depends(get_db)) -> Optional[dict|HTTPStatus]:
+    try :
+        create_stopword(db, word)
+        return {"status": "success"}
+    except Exception as e:
+        raise HTTPStatus(status_code=500, detail=str(e))
+
+
 # @router.get("")
 # async def get_wordcloud(db: Session = Depends(get_db)) -> list[KeywordDTO]:
 #     return get_keywords(db)

@@ -109,3 +109,14 @@ class NewsKeyword(Base):
 
     news = relationship("News", back_populates="news_keywords")
     keyword = relationship("Keyword", back_populates="keyword_news")
+
+
+class Stopword(Base) :
+    __tablename__ = "stop_word"
+    word: Union[str, Column] = Column(
+        String(255), primary_key=True, unique=True, index=True
+    )
+    created_at: Union[datetime, Column] = Column(DateTime, default=datetime.now)
+    updated_at: Union[datetime, Column] = Column(
+        DateTime, default=datetime.now, onupdate=datetime.now
+    )
