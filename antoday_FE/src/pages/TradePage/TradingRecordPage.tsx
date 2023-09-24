@@ -129,13 +129,14 @@ const TradingRecordPage: React.FC = () => {
         const newData = response.data.content;
         const firstStockCode = response.data.content[0]?.stockCode;
         setStockCode(firstStockCode);
-        // console.log(newData)
+        console.log(newData)
 
         if (newData.length === 0) {
           setHasMore(false);
         } else {
           setHasMore(true);
           setRecords(prevRecords => page === 0 ? newData : [...prevRecords, ...newData]);
+          // console.log(records)
           setPage(prevPage => prevPage + 1);
           setIsSubmit(true)
         }
@@ -210,7 +211,7 @@ return (
       {showWrite ? (
           <WriteTradingRecord closeWritePage={() => setShowWrite(false)} />
       ) : (
-          <>
+          <><div className={styles.form}>
               <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
                   <FontAwesomeIcon icon={faSearch} color={"var(--main-blue-color)"} />
                   <input
@@ -224,7 +225,8 @@ return (
                       search
                   </button>
               </form>
-                <h5>매매 이유를 작성하면 AI 분석을 받을 수 있어요!</h5>
+              </div>
+                <div className={styles.p}>매매 이유를 작성하면 <div className={styles.yellow}>AI 분석</div>을 받을 수 있어요!</div>
               <div className={styles.datebuttoncontainer}>
                   <h5>기간</h5>
                   <SearchingDate onSearch={handleSearchDate} />
