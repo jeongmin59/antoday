@@ -26,7 +26,7 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("관심기업목록", data.content);
+      
       // 관심 기업 목록을 상태에 저장
       setFavoriteCompanies(data.content.map((company: any) => company.stockCode));
     } else {
