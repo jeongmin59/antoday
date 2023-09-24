@@ -1,0 +1,29 @@
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.antimage {
+  width: 3.5rem;
+  height: 5rem;
+}
+
+.antbutton 
+{
+  width: 3.5rem;
+  height: 5rem;
+  cursor: pointer;
+}
+
+.feedback {
+  width: 80%;
+  height: fit-content;
+  border-radius: 50px;
+  background-color: var(--sub-blue-color);
+}

@@ -91,7 +91,7 @@ const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWr
         },
       });
       const tradePk = response.data.tradePk;
-      console.log("확인", tradePk)
+      
       navigate(`/writetradingrecord/${tradePk}`);
       setAlertMessage(null);
       return true;
