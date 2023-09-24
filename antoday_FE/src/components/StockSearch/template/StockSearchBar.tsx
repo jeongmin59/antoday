@@ -10,12 +10,15 @@ import StockSearchList from "../module/StockSearchList";
 import FavoriteCompany from "../module/FavoriteCompany";
 import MyInvestmentCompany from "../module/MyInvestmentCompany";
 
+
 const StockSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [totalPage, setTotalPage] = useState<number>(0);
   const [nowPage, setNowPage] = useState<number>(0);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const queryClient = useQueryClient();
+  const [favoriteCompanies, setFavoriteCompanies] = useState<CompanyInfo[]>([]);
+ 
 
   const debouncedInputValue = useDebounce({
     value: inputValue,
@@ -64,6 +67,7 @@ const StockSearchBar: React.FC = () => {
       enabled: !!inputValue, // inputValue 값이 변경될 때만 실행
     }
   );
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -126,7 +130,7 @@ const StockSearchBar: React.FC = () => {
       {!inputValue && (
         <div className={styles.subContainer}>
           <FavoriteCompany />
-          <MyInvestmentCompany />
+          <MyInvestmentCompany/>
         </div>
       )}
     </React.Fragment>

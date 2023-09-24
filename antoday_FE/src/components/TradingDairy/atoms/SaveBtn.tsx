@@ -2,30 +2,32 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './SaveBtn.module.css';
 import { accessTokenAtom } from '../../../recoil/auth';
-import { useRecoilState } from 'recoil';
-import { useLocation } from 'react-router-dom';
-// import { useRoute } from '@react-navigation/native';
+import { useRecoilValue } from 'recoil';
 
-const SaveBtn: React.FC = () => {
+const SaveBtn: React.FC<TradingRecord> = ({
+  tradeAt,
+  stockCode,
+  price,
+  cnt,
+  keywordList,
+  reason,
+  optionBuySell
+}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [token,setToken] = useRecoilState(accessTokenAtom);
-  // const location = useLocation();
-  // const tradingData = location.state;
-  // const route = useRoute();
-  // const { tradingdata } = route.params.state;
-  
+  const token = useRecoilValue(accessTokenAtom);
 
   const handleSaveClick = async () => {
     setIsLoading(true);
     // console.log(tradingData)
     // 로직 수정 필요
     const requestBody = {
-      cnt: 0,
-      keywords: ["string"],
-      price: 0,
-      reason: "string",
-      stockCode: "string",
-      tradeAt: "2023-09-13T01:04:06.982Z"
+      cnt: cnt,
+      keywords: keywordList,
+      price: price,
+      reason: reason,
+      stockCode: stockCode,
+      tradeAt: tradeAt,
+      optionBuySell: optionBuySell
     };
 
     try {
@@ -36,27 +38,31 @@ const SaveBtn: React.FC = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log('API 호출 성공', response.data);
+      console.log('매매이유작성 성공', response.data);
     } catch (error) {
-      console.error('API 호출 실패', error);
+      console.error('매매이유작성 실패', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleFormSubmit = (event: React.FormEvent) => {
+    event.preventDefault(); // 기본 제출 동작 막음
+    handleSaveClick(); // 클릭 이벤트 핸들러 호출
+  };
+
   return (
+    <form onSubmit={handleFormSubmit}>
     <button
+      type='submit'
       className={styles.saveButton}
       onClick={handleSaveClick}
       disabled={isLoading}
     >
       {isLoading ? '등록 중...' : '등록하기'}
     </button>
+    </form>
   );
 };
 
 export default SaveBtn;
-function useRoute() {
-  throw new Error('Function not implemented.');
-}
-
