@@ -6,13 +6,13 @@ import styles from "./TradingRecordList.module.css";
 import { useNavigate } from "react-router-dom";
 
 interface TradingRecordListProps {
-  records: TradingRecordPageType[];
+  records?: TradingRecordPageType[];
   hasMore: boolean;
   fetchMoreData: () => void;
 }
 
 const TradingRecordList: React.FC<TradingRecordListProps> = ({
-  records,
+  records = [],
   hasMore,
   fetchMoreData,
 }) => {
@@ -29,14 +29,14 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   return (
     <div>
       <InfiniteScroll
-        dataLength={records.length}
+        dataLength={records?.length}
         next={fetchMoreData}
         hasMore={hasMore}
-        loader={records.length > 0 ? <LoadingSpinner /> : null}
+        loader={records?.length > 0 ? <LoadingSpinner /> : null}
       >
-        {records.map((record) => (
+        {records?.map((record, index) => (
           <div
-            key={record.tradePk}
+            key={index}
             className={styles.container}
             onClick={() => handleClick(record.reasonExist, record.tradePk)}
           >
@@ -51,7 +51,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
           </div>
         ))}
       </InfiniteScroll>
-      {records.length === 0 && <h2>검색 결과가 없습니다.</h2>}
+      {records?.length === 0 && <h2>검색 결과가 없습니다.</h2>}
     </div>
   );
 };

@@ -19,9 +19,22 @@
     logoUrl: string;
   }
 
-  const WriteTradingRecordPage: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
+  const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
     const navigate = useNavigate();
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+    const adjustInitialDate = (date: Date): Date => {
+      let adjusted = new Date(date);
+      if (adjusted.getDay() !== 0 && adjusted.getDay() !== 6 && date.getHours() < 9) {
+        adjusted.setDate(adjusted.getDate() - 1);
+      }
+      while (adjusted.getDay() === 0 || adjusted.getDay() === 6) {
+        adjusted.setDate(adjusted.getDate() - 1);
+      }
+      
+      return adjusted;
+    }
+    const today = new Date();
+    const initialAdjustedDate = adjustInitialDate(today);
+    const [selectedDate, setSelectedDate] = useState<Date>(initialAdjustedDate);
     const [selectedOption, setSelectedOption] = useState<string>('매수');
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -57,7 +70,7 @@
       return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
     }
     
-    const today = new Date();
+
 
     const gotowritetradingrecord = async () => {
       let errorMessage = null;
@@ -261,12 +274,12 @@
           <p>날짜</p>
           <DatePicker
             selected={selectedDate}
-            onChange={(date: Date | null) => setSelectedDate(date)}
+            onChange={(date: Date) => setSelectedDate(date)}
             filterDate={(date: Date) => {
                 return date.getDay() !== 0 && date.getDay() !== 6;
             }}
             placeholderText="날짜 선택"
-            maxDate={today}
+            maxDate={initialAdjustedDate}
           />  
 
           <button
@@ -284,52 +297,63 @@
         </div>
     
         <div>
-        {selectedCompany ? (
-    <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
-      <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
-      <span>{selectedCompany?.corpName}</span>
-    </div>
-  ) : ownedCompanies.length > 0 && selectedOption === '매도' ? (
-    <div>
-      <h2>보유한 주식</h2>
-      {ownedCompanies.map((company) => (
-        <div 
-          key={company.stockCode} 
-          className={styles.corpcontainer}
-          onClick={() => handleSelectCompany(company)}
-        >
-          <img src={company.logoUrl} alt={company.corpName} />
-          <span>{company.corpName}</span>
-        </div>
-      ))}
-    </div>
-  ) : !selectedCompany && selectedOption === '매수' ? (
-    <div>
-      <SearchingCompany onSearch={handleSearchCompany} />
-      <div className={styles.searchresults}>
-        {searchResults.map((result) => (
-          <div
-            key={result.stockCode}
-            className={styles.corpcontainer}
-            onClick={() => handleSelectCompany(result)}
-          >
-            <img src={result.logoUrl} alt={result.corpName} />
-            <span>{result.corpName}</span>
+        {selectedCompany && selectedOption === '매수' ? (
+          <div>
+            <SearchingCompany onSearch={handleSearchCompany} />
+            <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
+              <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
+              <span>{selectedCompany?.corpName}</span>
+            </div>
           </div>
-        ))}
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index} onClick={() => handlePageChange(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-      </div>
-    </div>
-  ) : (
-    <div>보유주식이 없습니다.</div>
-  )}
+        ) : null}
+        {selectedOption === '매수' && !selectedCompany ? (
+          <div>
+            <SearchingCompany onSearch={handleSearchCompany} />
+            <div className={styles.searchresults}>
+              {searchResults.map((result) => (
+                <div
+                  key={result.stockCode}
+                  className={styles.corpcontainer}
+                  onClick={() => handleSelectCompany(result)}
+                >
+                  <img src={result.logoUrl} alt={result.corpName} />
+                  <span>{result.corpName}</span>
+                </div>
+              ))}
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button key={index} onClick={() => handlePageChange(index + 1)}>
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
+        {selectedCompany && selectedOption === '매도' ? (
+          <div>
+            <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
+              <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
+              <span>{selectedCompany?.corpName}</span>
+            </div>
+          </div>
+        ) : null}
+        {ownedCompanies.length > 0 && selectedOption === '매도' && !selectedCompany ? (
+          <div>
+            <h2>보유한 주식</h2>
+            {ownedCompanies.map((company) => (
+              <div 
+                key={company.stockCode} 
+                className={styles.corpcontainer}
+                onClick={() => handleSelectCompany(company)}
+              >
+                <img src={company.logoUrl} alt={company.corpName} />
+                <span>{company.corpName}</span>
+              </div>
+            ))}
+          </div>
+        ) : (selectedOption === '매도' && ownedCompanies.length === 0 ? (
+          <div>보유주식이 없습니다.</div>
+        ) : null)}
 
-    
-    {!(selectedOption === '매도' && ownedCompanies.length === 0) && (
     <>
       <div>
         <input
@@ -358,11 +382,10 @@
       <button onClick={handleButtonClick}>추가</button>
       {alertMessage && <p>{alertMessage}</p>}
     </>
-  )}
 
         </div>
       </div>
     );
   };
 
-  export default WriteTradingRecordPage;
+  export default WriteTradingRecord;
