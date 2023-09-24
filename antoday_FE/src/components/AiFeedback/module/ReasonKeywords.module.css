@@ -1,0 +1,9 @@
+.keywordstyles {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--main-blue-color);
+  padding: 0.2rem 0.2rem;
+  font-size: var(--font-h5);
+  color: var(--main-white-color);
+  border-radius: 50px;
+}

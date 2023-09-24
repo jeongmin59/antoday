@@ -55,8 +55,41 @@
       
       return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
     }
-    
-    const today = new Date();
+
+    if (errorMessage) {
+      setAlertMessage(errorMessage);
+      // return;
+    }
+  
+    const apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/trade`;
+    console.log(tradingData.stockQuantity,  selectedOption === '매도' ? 1 : 0, tradingData.adjustedPrice, selectedCompany?.stockCode, formatDateToCustom(selectedDate))
+    try {
+      const response = await axios.post(apiUrl, {
+        cnt: tradingData.stockQuantity,
+        optionBuySell: selectedOption === '매도' ? 1 : 0,
+        price: tradingData.adjustedPrice,
+        stockCode: selectedCompany?.stockCode,
+        tradeAt: formatDateToCustom(selectedDate),
+        keywords: [
+          "string"
+        ],
+        reason: "string",
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+      const tradePk = response.data.tradePk;
+      
+      navigate(`/writetradingrecord/${tradePk}`);
+      setAlertMessage(null);
+      return true;
+    } catch (error) {
+      console.error('Fetch stock price error:', error);
+      return false;
+    }
+  };
+  
 
     const gotowritetradingrecord = async () => {
       let errorMessage = null;

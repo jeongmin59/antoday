@@ -1,0 +1,24 @@
+.mainContainer{
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.leftContainer{
+  border: 1px dotted blue;
+  flex: 1;
+}
+
+.rightContainer{
+  border: 1px dashed red;
+  flex: 1;
+}
+
+@media screen and (max-width: 380px) {
+  .mainContainer{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+  }
+
+}

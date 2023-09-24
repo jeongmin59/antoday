@@ -19,7 +19,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   const navigator = useNavigate();
 
   const handleClick = (reasonExist: boolean, tradePk: number) => {
-    console.log("뛰뛰", reasonExist, tradePk);
+    
     if (reasonExist == true) {
       navigator(`/tradingrecord/${tradePk}`);
     } else {

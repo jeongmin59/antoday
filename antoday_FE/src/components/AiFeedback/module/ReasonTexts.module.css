@@ -1,0 +1,6 @@
+.content {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--sub-blue-color);
+  border-radius: 10px;
+}
