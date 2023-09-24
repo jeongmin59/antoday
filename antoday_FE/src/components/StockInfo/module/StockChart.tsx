@@ -1,71 +1,50 @@
 import React, { useState, useEffect } from "react";
 import styles from "./StockChart.module.css";
 import ReactApexChart from "react-apexcharts";
+import { useQuery } from "react-query";
+import axios from "axios";
 
-const StockChart = () => {
-  const [series, setSeries] = useState([
-    {
-      name: "XYZ MOTORS",
-      data: [
-        {
-          x: new Date("2023-01-01").getTime(),
-          y: 100,
-        },
-        {
-          x: new Date("2023-01-02").getTime(),
-          y: 110,
-        },
-        {
-          x: new Date("2023-01-03").getTime(),
-          y: 130,
-        },
-        {
-          x: new Date("2023-01-04").getTime(),
-          y: 90,
-        },
-        {
-          x: new Date("2023-01-05").getTime(),
-          y: 80,
-        },
-        {
-          x: new Date("2023-01-06").getTime(),
-          y: 210,
-        },
-        {
-          x: new Date("2023-01-07").getTime(),
-          y: 110,
-        },
-        {
-          x: new Date("2023-01-08").getTime(),
-          y: 150,
-        },
-        {
-          x: new Date("2023-01-09").getTime(),
-          y: 120,
-        },
-        {
-          x: new Date("2023-01-10").getTime(),
-          y: 160,
-        },
-        {
-          x: new Date("2023-01-11").getTime(),
-          y: 220,
-        },
-        {
-          x: new Date("2023-01-12").getTime(),
-          y: 180,
-        },
-        {
-          x: new Date("2023-01-13").getTime(),
-          y: 240,
-        },
-        {
-          x: new Date("2023-01-14").getTime(),
-          y: 250,
-        },
-      ],
-    },
-  ]);
+interface StockChartProps{
+  stockPk : string;
+}
+
+const StockChart : React.FC<StockChartProps>= ({stockPk}) => {
+
+  const {
+    data: chartData,
+    isLoading,
+    isError,
+  } = useQuery(
+    "chartData",
+    async () => {
+
+      const params = new URLSearchParams();
+      params.append("stock_code", stockPk);
+      params.append("date_option", '1 개월');
+      
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_DATA_API_URL +
+            `/corp/stock?${params.toString()}`
+        );
+
+        return response.data;
+      } catch (error) {
+        console.error("에러:", error);
+        throw error;
+      }
+    }
+  );
+
+  const transformedData = {
+    name: "주식 차트",
+    data: chartData.date.map((dateString : string, index: number) => ({
+      x: new Date(dateString).getTime(),
+      y: chartData.close[index]
+    }))
+  };
+
+  const [tempData, setTempData] = useState([transformedData]);
 
   const [options, setOptions] = useState({
     chart: {
@@ -124,16 +103,12 @@ const StockChart = () => {
     },
   });
 
-  useEffect(() => {
-    // 데이터를 가져오거나 처리하는 코드를 이곳에 추가할 수 있습니다.
-  }, []);
-
   return (
     <div className={styles.chartContainer}>
       <div id="chart">
         <ReactApexChart
           options={options}
-          series={series}
+          series={tempData}
           type="area"
           height={300}
         />
