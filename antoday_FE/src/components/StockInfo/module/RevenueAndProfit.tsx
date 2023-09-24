@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RevenueAndProfit.module.css";
 import ReactApexChart from 'react-apexcharts';
-import axios from 'axios';
-import { useParams } from "react-router-dom";
 
 interface StockInfoDetailProps {
   graphValue?: { takes: { year: number; take: number }[], profits: { year: number; profit: number }[] };
