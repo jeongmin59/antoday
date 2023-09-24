@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./FavoriteCompanyButton.module.css";
 import { useRecoilState } from "recoil";
 import { accessTokenAtom } from "../../../recoil/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as solidHeart} from "@fortawesome/free-solid-svg-icons";
+import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 interface StockInfoBasicProps {
   stockPk?: string;
@@ -90,7 +93,11 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
         className={styles.heartIcon}
         onClick={isFavorite ? removeFavoriteCompany : addFavoriteCompany}
       >
-        {isFavorite ? "♥" : "♡"}
+        {isFavorite ? 
+        <FontAwesomeIcon icon={solidHeart} style={{ color: 'pink' }} />
+        : 
+        <FontAwesomeIcon icon={regularHeart} style={{ color: 'pink' }} />
+        }
       </span>
     </div>
   );

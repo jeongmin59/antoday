@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  width: 80%s;
+  margin: 0 auto;
 }
 
 .leftContainer{
