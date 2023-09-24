@@ -23,7 +23,7 @@
 
 .feedback {
   width: 80%;
-  height: fit-content;
+  height: 8rem;
   border-radius: 50px;
   background-color: var(--sub-blue-color);
 }

@@ -1,0 +1,10 @@
+.button {
+    font-size: var(--font-h6);
+    border-radius: 0.5rem;
+    width: 5rem;
+    height: 1.5rem;
+    background-color: var(--main-yellow-color);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
