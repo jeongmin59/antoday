@@ -4,7 +4,7 @@ import json
 import os
 from app.models.database import SessionLocal
 from app.models.models import Stock
-import datetime
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from app.schemas.stocks import StocksDTO
 import pandas as pd
@@ -33,10 +33,11 @@ def get_dart_api():
 
 # 종목정보
 def get_financ_info(stock_code, dart):
-    cur_year = datetime.datetime.now().year
+    cur_year = datetime.now().year
+    cur_day = datetime.now() - timedelta(days=3)    # 토,일은 주식이 없으니까 3일 여유를 두고 마지막 row 출력
 
-    df = fdr.DataReader(stock_code, datetime.datetime.now().strftime("%Y-%m-%d"))
-    juga = int(df.head()["Close"].values[0])
+    df = fdr.DataReader(stock_code, cur_day.strftime("%Y-%m-%d"))
+    juga = int(df.head()["Close"].values[-1])
 
     cnt = get_stock_num(stock_code)
 
@@ -91,14 +92,14 @@ def get_stock_num(stock_code):
 # 3년치 정보
 def get_financ_state(stock_code, dart):
     # 현재년도
-    cur_year = datetime.datetime.now().year
+    cur_year = datetime.now().year
 
     takes = []
     profits = []
 
     # 3년+현재년도의 데이터에 접근
     for year in range(cur_year - 3, cur_year + 1):
-        df = dart.finstate(stock_code, year, reprt_code="11011")
+        df = dart.finstate(corp=stock_code, bsns_year=year, reprt_code="11011")
         if df.empty:
             continue
 
@@ -155,7 +156,7 @@ def get_stock_price(stock_code, date_option):
 
 # 현재로부터 date option(3개월, 1년...)전의 날짜를 계산하는 함수
 def get_start_date(date_option):
-    cur_date = datetime.datetime.now()
+    cur_date = datetime.now()
 
     date_option = date_option.split(" ")
     num = int(date_option[0])
