@@ -2012,6 +2012,11 @@ react-router@6.15.0:
   dependencies:
     "@remix-run/router" "1.8.0"
 
+react-sticky-notes@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-sticky-notes/-/react-sticky-notes-0.1.0.tgz#2b98732071961bd49bf85d94611a857024a0dda6"
+  integrity sha512-xI1DHGgGjJ2WwY2rMz3hKxLU3PU3+JrLrEani0k9J2egvCb2RY59UFteIi42vya20yNW/GqYRv+MofJdCEFMGA==
+
 react-wordcloud@^1.2.7:
   version "1.2.7"
   resolved "https://registry.npmjs.org/react-wordcloud/-/react-wordcloud-1.2.7.tgz"

@@ -35,3 +35,8 @@
     align-items: center;
     font-size: var(--font-h6);
 }
+
+.newsImage {
+    width: 6rem;
+    height: 4rem;
+}
