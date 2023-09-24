@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import styles from '../template/CheckTradingRecord.module.css';
 import SaveBtn from '../atoms/SaveBtn';
+import SkipBtn from '../atoms/SkipBtn';
 
 const ReasonInput: React.FC<TradingRecord> = ({
   tradeAt,
@@ -32,6 +33,7 @@ const ReasonInput: React.FC<TradingRecord> = ({
           width: '90%'}}
         />
       </div>
+      <SkipBtn  />
       <SaveBtn
       tradeAt={tradeAt}
       stockCode={stockCode}

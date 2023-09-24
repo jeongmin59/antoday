@@ -1,24 +1,31 @@
 .mainContainer{
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   flex-direction: row;
+  gap: 1rem;
 }
 
 .leftContainer{
-  border: 1px dotted blue;
+  /* border: 1px dotted blue; */
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .rightContainer{
-  border: 1px dashed red;
+  /* border: 1px dashed red; */
   flex: 1;
+  display: flex;
+  flex-direction: column;
+
 }
 
 @media screen and (max-width: 380px) {
   .mainContainer{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
 
 }

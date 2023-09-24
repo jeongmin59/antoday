@@ -1,9 +1,21 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: start;
+}
+
 .keywordstyles {
   width: fit-content;
   height: fit-content;
   background-color: var(--main-blue-color);
-  padding: 0.2rem 0.2rem;
-  font-size: var(--font-h5);
+  padding: 0.3rem 0.5rem;
+  font-size: var(--font-h6);
   color: var(--main-white-color);
   border-radius: 50px;
+  margin: 0 0.2rem;
+}
+
+.title {
+  font-size: var(--font-h5);
 }

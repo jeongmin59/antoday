@@ -23,6 +23,7 @@
   --font-h4: 1.15rem;
   --font-h5: 0.95rem;
   --font-h6: 0.75rem;
+  --font-h7: 0.65rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
