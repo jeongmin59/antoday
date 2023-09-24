@@ -23,7 +23,7 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
                 fontSize: "var(--font-h6)",
                 color: "white",
                 backgroundColor: "var(--main-blue-color)",
-                borderRadius: "5PX",
+                borderRadius: "5px",
                 padding: "0.8px",
               }}
             >
