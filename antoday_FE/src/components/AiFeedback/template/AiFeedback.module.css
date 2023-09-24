@@ -26,4 +26,9 @@
   height: 8rem;
   border-radius: 50px;
   background-color: var(--sub-blue-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-h6);
 }

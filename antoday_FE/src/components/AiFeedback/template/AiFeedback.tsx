@@ -18,7 +18,7 @@ const AiFeedback : React.FC<AiFeedbackProps> = ({aiAnalyze}) => {
     try {
       const response = await axios.patch(import.meta.env.VITE_BACK_API_URL +
         `/api/trade/${tradePk}`);
-        console.log('AI 결과분석 완료');
+        console.log('AI 결과분석 완료',response.data);
         setResults(response.data)
       return response.data;
     } catch (error) {
@@ -62,7 +62,7 @@ const AiFeedback : React.FC<AiFeedbackProps> = ({aiAnalyze}) => {
             ) : (
               <>
               <img className={styles.antbutton} src={AntDefault} alt='개미'onClick={handleClick}/>
-              <div className={styles.feedback}>개미에게 피드백을 받아보세요</div>
+              <div className={styles.feedback}>개미를 눌러 피드백을 받아보세요</div>
               </>
             )}
           </>
