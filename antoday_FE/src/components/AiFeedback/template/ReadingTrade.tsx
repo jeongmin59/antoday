@@ -11,8 +11,8 @@ const ReadingTrade = () => {
 
     const {
       data: tradeResults,
-      isLoading,
-      isError,
+      // isLoading,
+      // isError,
     } = useQuery(
       "tradeResults",
       async () => {
@@ -35,7 +35,8 @@ const ReadingTrade = () => {
     );
   
     const tradeAt = tradeResults?.data.tradeAt;
-    const stockCode = tradeResults?.data.stockCode;
+    const reason = tradeResults?.data.reason;
+    const keyword = tradeResults?.data.keyword;
     const corpName = tradeResults?.data.corpName;
     const logoUrl = tradeResults?.data.logoUrl;
     const optionBuySell = tradeResults?.data.optionBuySell;
@@ -49,9 +50,20 @@ const ReadingTrade = () => {
         {/* <BasicButton content={'수정'}/> */}
         {/* <BasicButton content={'삭제'}/> */}
       </div>
-      <BasicInfo  />
-      <ReasonKeywords  />
-      <ReasonTexts  />
+      <BasicInfo 
+      corpName={corpName}
+      tradeAt={tradeAt}
+      logoUrl={logoUrl}
+      optionBuySell={optionBuySell}
+      price={price}
+      cnt={cnt}
+      />
+      <ReasonKeywords
+      keywordList={keyword}
+      />
+      <ReasonTexts
+      reason={reason}
+      />
     </div>
   );
 }
