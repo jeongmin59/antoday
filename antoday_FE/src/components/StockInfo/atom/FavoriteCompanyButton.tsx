@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./FavoriteCompanyButton.module.css";
 import { useRecoilState } from "recoil";
 import { accessTokenAtom } from "../../../recoil/auth";
@@ -10,7 +10,42 @@ interface StockInfoBasicProps {
 const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
+  const [favoriteCompanies, setFavoriteCompanies] = useState<string[]>([]);
   // console.log("이것은 관심등록에 담기는 토큰", token);
+
+  // 관심 기업 조회 API 호출
+  const readFavoriteCompany = async () => {
+    const url =
+      import.meta.env.VITE_BACK_API_URL + `/api/userstock?page=0`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("관심기업목록", data.content);
+      // 관심 기업 목록을 상태에 저장
+      setFavoriteCompanies(data.content.map((company: any) => company.stockCode));
+    } else {
+      console.error(await response.text());
+    }
+  };
+
+  useEffect(()=>{
+    readFavoriteCompany();
+  },[])
+
+  // isFavorite 변수의 초기 값을 설정
+  useEffect(() => {
+    if (favoriteCompanies.includes(stockPk)) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [favoriteCompanies, stockPk]);
 
   // 관심 기업 등록 API 호출
   const addFavoriteCompany = async () => {

@@ -24,6 +24,7 @@ const FavoriteCompany: React.FC = () => {
             Authorization: `Bearer ${token}`
           }
         });
+        console.log('여기는된다?',response)
         setFavoriteCompanies(response.data.content);
         setCompanyCountOnCurrentPage(response.data.content.length); // 현재 페이지의 기업 개수 저장
       } catch (error) {
