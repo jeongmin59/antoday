@@ -27,7 +27,7 @@ const handleNewsItemClick = (link: string) => {
   <div>
     <div>오늘의 뉴스</div>
     <div className={styles.newsContainer}>
-      {News.map((news, index) => (
+      {News?.map((news, index) => (
       <div key={index} className={styles.newsItem}>
         <div className={styles.imgtitle}>
         <img 

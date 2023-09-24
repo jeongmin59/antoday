@@ -1,0 +1,8 @@
+.icon {
+  width: 1.5rem;
+  height: 1rem;
+}
+
+.text {
+  font-size: var(--font-h7);
+}

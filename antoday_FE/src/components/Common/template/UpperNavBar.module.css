@@ -54,6 +54,12 @@
     display: none; /* 모바일 화면에서는 안보이게 설정 */
   }
 
+  .navItemLogin {
+    grid-column-start: 8;
+    grid-column-end: 11;
+    font-size: var(--font-h7);
+  }
+
   .navItemCompanyInfo {
     display: none; 
   }

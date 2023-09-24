@@ -1,0 +1,40 @@
+.memo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.memoContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.memoContent textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.memoContent button {
+  padding: 10px 20px;
+}
+
+
+.memo {
+  display: inline-block;
+  cursor: pointer;
+  transition: transform 0.3s ease-out; /* 트랜지션 효과: 0.3초 동안 변화를 부드럽게 적용 */
+}
+
+.modal:hover {
+  transform: translateY(5px); /* 마우스를 올렸을 때 아래로 5px 이동하는 효과 */
+}

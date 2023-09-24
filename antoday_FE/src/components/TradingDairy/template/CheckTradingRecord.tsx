@@ -34,7 +34,7 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
             <div>{cnt}주</div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
 
     <HomeKeyWords/>

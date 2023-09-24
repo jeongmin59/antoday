@@ -1,71 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./StockChart.module.css";
 import ReactApexChart from "react-apexcharts";
+import { useQuery } from "react-query";
+import axios from "axios";
 
-const StockChart = () => {
-  const [series, setSeries] = useState([
-    {
-      name: "XYZ MOTORS",
-      data: [
-        {
-          x: new Date("2023-01-01").getTime(),
-          y: 100,
-        },
-        {
-          x: new Date("2023-01-02").getTime(),
-          y: 110,
-        },
-        {
-          x: new Date("2023-01-03").getTime(),
-          y: 130,
-        },
-        {
-          x: new Date("2023-01-04").getTime(),
-          y: 90,
-        },
-        {
-          x: new Date("2023-01-05").getTime(),
-          y: 80,
-        },
-        {
-          x: new Date("2023-01-06").getTime(),
-          y: 210,
-        },
-        {
-          x: new Date("2023-01-07").getTime(),
-          y: 110,
-        },
-        {
-          x: new Date("2023-01-08").getTime(),
-          y: 150,
-        },
-        {
-          x: new Date("2023-01-09").getTime(),
-          y: 120,
-        },
-        {
-          x: new Date("2023-01-10").getTime(),
-          y: 160,
-        },
-        {
-          x: new Date("2023-01-11").getTime(),
-          y: 220,
-        },
-        {
-          x: new Date("2023-01-12").getTime(),
-          y: 180,
-        },
-        {
-          x: new Date("2023-01-13").getTime(),
-          y: 240,
-        },
-        {
-          x: new Date("2023-01-14").getTime(),
-          y: 250,
-        },
-      ],
+interface StockChartProps{
+  stockPk : string;
+}
+
+const StockChart : React.FC<StockChartProps>= ({stockPk}) => {
+  const [dateOption, setDateOption] = useState<string>("1 개월"); // 초기값 설정
+
+  const {
+    data: chartData,
+    // isLoading,
+    // isError,
+  } = useQuery(
+    ["chartData", dateOption],
+    async () => {
+
+      const params = new URLSearchParams();
+      params.append("stock_code", stockPk);
+      params.append("date_option", dateOption);
+      
+      try {
+        const response = await axios.get(
+          import.meta.env.VITE_DATA_API_URL +
+            `/corp/stock?${params.toString()}`
+        );
+
+        const responseData = response.data;
+
+        const transformedData = {
+          name: "주식 차트",
+          data: responseData.date.map((dateString: string, index: number) => ({
+            x: new Date(dateString).getTime(),
+            y: responseData.close[index],
+          })),
+        };
+
+        return transformedData;
+      } catch (error) {
+        console.error("에러:", error);
+        throw error;
+      }
     },
-  ]);
+    {
+      enabled: !!dateOption, // dateOption 변경될 때 실행
+    }
+  );
+
+  // const [stockData, setStockData] = useState([transformedData]);
 
   const [options, setOptions] = useState({
     chart: {
@@ -103,7 +88,7 @@ const StockChart = () => {
     },
     yaxis: {
       labels: {
-        formatter: function (val: any) {
+        formatter: function (val: number) {
           return (val / 1000000).toFixed(0);
         },
       },
@@ -117,29 +102,66 @@ const StockChart = () => {
     tooltip: {
       shared: false,
       y: {
-        formatter: function (val: any) {
+        formatter: function (val: number) {
           return (val / 1000000).toFixed(0);
         },
       },
     },
   });
 
-  useEffect(() => {
-    // 데이터를 가져오거나 처리하는 코드를 이곳에 추가할 수 있습니다.
-  }, []);
+  const handleButtonClick = (option: string) => {
+    setDateOption(option);
+  };
 
   return (
     <div className={styles.chartContainer}>
+      {chartData ? (
       <div id="chart">
         <ReactApexChart
           options={options}
-          series={series}
+          series={[chartData]}
           type="area"
           height={300}
         />
+        <div className={styles.buttonsContainer}>
+        <button
+          className={dateOption === "1 개월" ? styles.selectedButton : styles.button}
+          onClick={() => handleButtonClick("1 개월")}
+        >
+          1 개월
+        </button>
+        <button
+          className={dateOption === "3 개월" ? styles.selectedButton : styles.button}
+          onClick={() => handleButtonClick("3 개월")}
+        >
+          3 개월
+        </button>
+        <button
+          className={dateOption === "1 년" ? styles.selectedButton : styles.button}
+          onClick={() => handleButtonClick("1 년")}
+        >
+          1 년
+        </button>
+        <button
+          className={dateOption === "3 년" ? styles.selectedButton : styles.button}
+          onClick={() => handleButtonClick("3 년")}
+        >
+          3 년
+        </button>
+        <button
+          className={dateOption === "5 년" ? styles.selectedButton : styles.button}
+          onClick={() => handleButtonClick("5 년")}
+        >
+          5 년
+        </button>
       </div>
+        </div>
+        ):(
+          <div>Loading...</div>
+        )
+        }
     </div>
   );
 };
-
+//
 export default StockChart;

@@ -1,22 +1,22 @@
-import React from 'react';
 import styles from './BottomNavbar.module.css';
-import Companyinfo from '../atom/Companyinfo';
-import Home from '../atom/Home';
-import TradeHistory from '../atom/TradeHistory';
+import BottomIcon from '../atom/BottomIcon';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faNewspaper} from '@fortawesome/free-solid-svg-icons'
+import {faHouse} from '@fortawesome/free-solid-svg-icons'
+import {faUser} from '@fortawesome/free-solid-svg-icons'
 
-
-function BottomNavbar() {
+const BottomNavbar = () => {
 
     return (
-        <div className={styles['wrap']}>
+        <div className={styles['bottomNavwrap']}>
             <div className={styles['square_bottom_item']}>
-                <Companyinfo />
+                <BottomIcon icon={faNewspaper} text='Stock' url='/stocksearch'/>
             </div>
             <div className={styles['square_bottom_item']}>
-                <Home />
+                <BottomIcon icon={faHouse} text='Home' url='/'/>
             </div>
             <div className={styles['square_bottom_item']}>
-                <TradeHistory />
+                <BottomIcon icon={faUser} text='record' url='/tradingrecord'/>
             </div>
         </div>
     );
