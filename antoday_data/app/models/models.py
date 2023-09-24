@@ -111,7 +111,7 @@ class NewsKeyword(Base):
     keyword = relationship("Keyword", back_populates="keyword_news")
 
 
-class Stopword(Base) :
+class Stopword(Base):
     __tablename__ = "stop_word"
     word: Union[str, Column] = Column(
         String(255), primary_key=True, unique=True, index=True
