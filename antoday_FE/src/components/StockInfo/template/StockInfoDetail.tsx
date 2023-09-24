@@ -8,6 +8,7 @@ import StockWordCloud from "../module/StockWordCloud";
 
 interface StockInfoDetailProps {
   stockPk? : string;
+  graphValue? : string;
 }
 
 const StockInfoDetail: React.FC<StockInfoDetailProps> = ({stockPk}) => {
@@ -83,7 +84,7 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({stockPk}) => {
       <StockInformation />
       <hr />
       <div ref={tab3Ref}>
-        <RevenueAndProfit />
+        <RevenueAndProfit graphValue={graphValue}/>
       </div>
       <hr />
       <div ref={tab4Ref}>

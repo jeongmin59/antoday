@@ -2,40 +2,41 @@ import React, { useEffect, useState } from "react";
 import styles from "./RevenueAndProfit.module.css";
 import ReactApexChart from 'react-apexcharts';
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 
-const RevenueAndProfit: React.FC = () => {
+interface StockInfoDetailProps {
+  graphValue?: { takes: { year: number; take: number }[], profits: { year: number; profit: number }[] };
+}
+
+const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
   const [chartData, setChartData] = useState<any>({
     takes: [],
     profits: []
   });
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(
-          import.meta.env.VITE_DATA_API_URL + '/corp/overview', 
-        {
-          params: {
-            stock_code: `${stock_code}`
-          }
-        });
-        setChartData(response.data.value);
-        console.log(response)
-
-      } catch (error) {
-        console.error('에러', error);
-      }
-    };
-
-    getData();
-  }, []);
+    if (graphValue) {
+      const takesData = graphValue.takes.map(item => ({
+        x: item.year,
+        y: item.take
+      }));
+      const profitsData = graphValue.profits.map(item => ({
+        x: item.year,
+        y: item.profit
+      }));
+      setChartData({
+        takes: takesData,
+        profits: profitsData
+      });
+    }
+  }, [graphValue]);
 
   const chartOptions = {
     chart: {
       type: 'bar'
     },
     xaxis: {
-      categories: chartData.takes.map((item: any) => item.year)
+      categories: graphValue?.takes.map(item => item.year)
     }
   };
 
@@ -43,16 +44,25 @@ const RevenueAndProfit: React.FC = () => {
     <div className={styles.mainContainer}>
       <div className={styles.title}>매출액 및 영업이익</div>
       <div className={styles.graph}>
-        <ReactApexChart options={chartOptions} series={[{
-          name: '매출',
-          data: chartData.takes.map((item: any) => item.take)
-        }, {
-          name: '영업이익',
-          data: chartData.profits.map((item: any) => item.prpfit)
-        }]} type="bar" />
+        <ReactApexChart
+          options={chartOptions}
+          series={[
+            {
+              name: '매출',
+              data: chartData.takes
+            },
+            {
+              name: '영업이익',
+              data: chartData.profits
+            }
+          ]}
+          type="bar"
+        />
       </div>
     </div>
   );
 };
 
 export default RevenueAndProfit;
+
+// help
