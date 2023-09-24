@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './SaveBtn.module.css';
 import { accessTokenAtom } from '../../../recoil/auth';
 import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 const SaveBtn: React.FC<TradingRecord> = ({
   tradeAt,
@@ -15,7 +16,7 @@ const SaveBtn: React.FC<TradingRecord> = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const token = useRecoilValue(accessTokenAtom);
-
+  const navigator = useNavigate();
   const handleSaveClick = async () => {
     setIsLoading(true);
     // console.log(tradingData)
@@ -39,6 +40,7 @@ const SaveBtn: React.FC<TradingRecord> = ({
         }
       });
       console.log('매매이유작성 성공', response.data);
+      navigator("/tradingrecord")
     } catch (error) {
       console.error('매매이유작성 실패', error);
     } finally {
