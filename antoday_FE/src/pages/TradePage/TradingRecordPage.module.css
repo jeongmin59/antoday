@@ -1,9 +1,14 @@
 .bigcontainer {
-    background-color: var(--main-yellow-color);
+    /* background-color: var(--main-yellow-color); */
     width: auto;
     height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.form {
+    background-color: var(--main-yellow-color);
+    padding: 1.3rem 0.5rem 1.7rem; 
 }
 
 .datebuttoncontainer {
@@ -20,3 +25,14 @@
 .searchcompanylist {
     z-index: 1000;
 }
+
+.p {
+    font-size: var(--font-h6);
+    color: var(--main-blue-color);
+    padding-top: 0.6rem;
+  }
+
+  .yellow {
+    display: inline-block;
+    color: var(--main-yellow-color);
+  }

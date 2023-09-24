@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { TradingRecordPageType } from "../../../pages/TradePage/TradingRecordPage";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingSpinner from "../../Common/atom/LoadingSpinner";
@@ -17,39 +17,52 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   fetchMoreData,
 }) => {
   const navigator = useNavigate();
+  const [reasonExist, setReasonExist] = useState<Boolean>(false)
 
   const handleClick = (reasonExist: boolean, tradePk: number) => {
     
     if (reasonExist == true) {
+      setReasonExist(true)
       navigator(`/tradingrecord/${tradePk}`);
     } else {
+      setReasonExist(false)
       navigator(`/writetradingrecord/${tradePk}`);
     }
   };
+
   return (
-    <div>
+    <div className={styles.div}>
       <InfiniteScroll
         dataLength={records?.length}
         next={fetchMoreData}
         hasMore={hasMore}
         loader={records?.length > 0 ? <LoadingSpinner /> : null}
       >
-        {records?.map((record, index) => (
-          <div
-            key={index}
-            className={styles.container}
-            onClick={() => handleClick(record.reasonExist, record.tradePk)}
-          >
-            <p>Trade At: {record.tradeAt}</p>
-            <p>Corp Name: {record.corpName}</p>
-            <p>Option Buy/Sell: {record.optionBuySell ? "Buy" : "Sell"}</p>
-            <p>Price: {record.price}</p>
-            <p>Count: {record.cnt}</p>
-            <p>Stock Code: {record.stockCode}</p>
-            <p>{record.tradePk}</p>
-            <hr />
-          </div>
-        ))}
+        {records?.map((record, index) => {
+          const dateOnly = record.tradeAt.split("T")[0];
+
+          return (
+            <div
+              key={index}
+              className={styles.container}
+              onClick={() => handleClick(record.reasonExist, record.tradePk)}
+            >
+              <div><p>{dateOnly}</p></div>  
+              <div className={styles.smallcontainer}>
+                <img src="https://thumb.tossinvest.com/image/resized-webp/144x0/https%3A%2F%2Fstatic.toss.im%2Fpng-icons%2Fsecurities%2Ficn-sec-fill-021050.png" alt="" />
+                <div className={styles.corpnameoption}>
+                  <p>{record.corpName}</p>
+                  <p>{record.optionBuySell ? "매수" : "매도"}</p>
+                </div>
+                <div className={styles.pricecount}>
+                  <p>{record.price}원</p>
+                  <p>{record.cnt}주</p>
+                </div>
+                {record.reasonExist ? <button className={styles.button1}>매매일지 조회</button> : <button className={styles.button2}>매매일지 작성</button>}
+              </div>
+            </div>
+          );
+        })}
       </InfiniteScroll>
       {records?.length === 0 && <h2>검색 결과가 없습니다.</h2>}
     </div>
