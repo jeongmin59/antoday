@@ -116,5 +116,5 @@ const StockChart : React.FC<StockChartProps>= ({stockPk}) => {
     </div>
   );
 };
-
+//
 export default StockChart;
