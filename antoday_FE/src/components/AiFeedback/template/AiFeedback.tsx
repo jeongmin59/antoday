@@ -36,7 +36,7 @@ const AiFeedback: React.FC<AiFeedbackProps> = ({ aiAnalyze }) => {
   });
 
   const handleClick = () => {
-    queryClient.refetchQueries("aiFeedback"); // queryClient는 React Query의 QueryClient 인스턴스여야 함
+    queryClient.refetchQueries("aiFeedback");
   };
 
   // console.log('왜!!',results)
