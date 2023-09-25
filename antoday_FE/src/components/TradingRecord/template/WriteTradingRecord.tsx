@@ -218,7 +218,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
 
 
     const handleSearchCompany = (keyword: string) => {
-      setSearchKeyword(keyword);
+      // setSearchKeyword(keyword);
       // setSelectedCompany(null);
       
       if (keyword !== '') {
@@ -239,6 +239,8 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
         .catch((error) => {
           console.error('Search error:', error);
         });
+      } else {
+        // setSearchResults([]);
       }
     };
     
@@ -273,12 +275,14 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
 
     
 
-    const handleSelectCompany = (company: Company) => {
-      setSelectedCompany(company);
-      // setSearchKeyword('')
-      console.log('company', company)
-      
-    };
+  const handleSelectCompany = (event, company: Company) => {
+    event.stopPropagation();
+
+    setSelectedCompany(company);
+    console.log('company', company);
+    setSearchResults([]);      
+    setSearchKeyword('');      
+};
 
     return (
       <div>
@@ -309,63 +313,43 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
         </div>
     
         <div>
-        {selectedCompany && selectedOption === '매수' ? (
-  <div>
-    <SearchingCompany onSearch={handleSearchCompany} />
+        <div>
+  {selectedOption === '매수' && (
+    <div>
+      <SearchingCompany onSearch={handleSearchCompany} />
 
-    {!searchKeyword ? (
-      // searchKeyword가 없을 때
-      <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
-        <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
-        <span>{selectedCompany?.corpName}</span>
-      </div>
-    ) : (
-      // searchKeyword가 있을 때
-      <div className={styles.searchresults}>
-        {searchResults?.map((result) => (
-          <div
-            key={result.stockCode}
-            className={styles.corpcontainer}
-            onClick={() => handleSelectCompany(result)}
-          >
-            <img src={result.logoUrl} alt={result.corpName} />
-            <span>{result.corpName}</span>
+      {searchResults && searchResults.length > 0 ? (
+        // searchResults가 있을 때
+        <div className={styles.searchresults}>
+          {searchResults.map((result) => (
+            <div
+              key={result.stockCode}
+              className={styles.corpcontainer}
+              onClick={(event) => handleSelectCompany(event, result)}
+            >
+              <img src={result.logoUrl} alt={result.corpName} />
+              <span>{result.corpName}</span>
+            </div>
+          ))}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button key={index} onClick={() => handlePageChange(index + 1)}>
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      ) : (
+        // searchResults가 없을 때
+        selectedCompany ? (
+          <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
+            <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
+            <span>{selectedCompany?.corpName}</span>
           </div>
-        ))}
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index} onClick={() => handlePageChange(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-      </div>
-    )}
-  </div>
-) : null}
+        ) : null
+      )}
+    </div>
+  )}
+</div>
 
-        {(selectedOption === '매수' && !selectedCompany) ? (
-          <div>
-            <SearchingCompany onSearch={handleSearchCompany} />
-            {!searchKeyword ? <div></div> : 
-              <div className={styles.searchresults}>
-                {searchResults?.map((result) => (
-                  <div
-                    key={result.stockCode}
-                    className={styles.corpcontainer}
-                    onClick={() => handleSelectCompany(result)}
-                  >
-                    <img src={result.logoUrl} alt={result.corpName} />
-                    <span>{result.corpName}</span>
-                  </div>
-                ))}
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button key={index} onClick={() => handlePageChange(index + 1)}>
-                    {index + 1}
-                  </button>
-                ))}
-              </div>
-              }
-          </div>
-        ) : null}
         {selectedCompany && selectedOption === '매도' ? (
           <div>
             <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
@@ -381,7 +365,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
               <div 
                 key={company.stockCode} 
                 className={styles.corpcontainer}
-                onClick={() => handleSelectCompany(company)}
+                onClick={(event) => handleSelectCompany(event, company)}
               >
                 <img src={company.logoUrl} alt={company.corpName} />
                 <span>{company.corpName}</span>
