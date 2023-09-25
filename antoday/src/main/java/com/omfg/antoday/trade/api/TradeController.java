@@ -56,13 +56,6 @@ public class TradeController {
         return new ResponseEntity<>(tradeService.deleteTrade(Long.parseLong(tradePk)), HttpStatus.OK);
     }
 
-    @PatchMapping("/{trade_pk}")
-    @ApiOperation(value = "매매 AI분석 결과 요청", notes = "매매 정보 pk입력")
-    public ResponseEntity<String> tradeAnalyzeAdd(@PathVariable("trade_pk") String tradePk) {
-        return new ResponseEntity<>("결과분석 완료되었습니당",HttpStatus.OK);
-    }
-
-
     //매매기록 전체 조회 Option이 없으면 그냥 get
     //매매기록 기간별, 종목별 조회
     @GetMapping
