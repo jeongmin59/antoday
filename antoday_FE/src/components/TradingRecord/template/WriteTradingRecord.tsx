@@ -20,6 +20,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
     logoUrl: string;
   }
 
+
   const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
     const navigate = useNavigate();
     const adjustInitialDate = (date: Date): Date => {
@@ -49,6 +50,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
     const [token, setToken] = useRecoilState(accessTokenAtom);
     const [forceRender, setForceRender] = useState(0);
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
+    const [isChoose,setIsChoose] = useState<boolean>(false);
 
 
     const tradingData = {
@@ -85,7 +87,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
       }
       if (errorMessage) {
         setAlertMessage(errorMessage);
-        // return;
+        return;
       }
     
       const apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/trade`;
@@ -210,15 +212,19 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
       if (selectedDate && selectedOption && selectedCompany) {
         fetchStockPrice(selectedCompany.stockCode, selectedOption);
         // setSelectedCompany(selectedCompany)
-      }
-      console.log('handleselectcompany',selectedCompany)
+      } if (selectedCompany == null) {
+        setStockPrice(null);
+        setAdjustedPrice(null);
+        console.log('test',stockPrice, adjustedPrice);
+      };
+      
       
     }, [selectedDate, selectedOption, selectedCompany]);
 
 
 
     const handleSearchCompany = (keyword: string) => {
-      setSearchKeyword(keyword);
+      // setSearchKeyword(keyword);
       // setSelectedCompany(null);
       
       if (keyword !== '') {
@@ -239,6 +245,8 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
         .catch((error) => {
           console.error('Search error:', error);
         });
+      } else {
+        // setSearchResults([]);
       }
     };
     
@@ -273,13 +281,18 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
 
     
 
-    const handleSelectCompany = (company: Company) => {
-      setSelectedCompany(company);
-      // setSearchKeyword('')
-      console.log('company', company)
-      
-    };
+  const handleSelectCompany = (company: Company) => {
+    setSelectedCompany(company);
+    setSearchResults([]);      
+    setSearchKeyword(''); 
+    setIsChoose(true);     
+};
 
+const resetChooseState = () => {
+  setIsChoose(false);
+};
+
+    // console.log(searchResults);
     return (
       <div>
         <div className={styles.horizontal}>
@@ -309,63 +322,10 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
         </div>
     
         <div>
-        {selectedCompany && selectedOption === '매수' ? (
-  <div>
-    <SearchingCompany onSearch={handleSearchCompany} />
-
-    {!searchKeyword ? (
-      // searchKeyword가 없을 때
-      <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
-        <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
-        <span>{selectedCompany?.corpName}</span>
-      </div>
-    ) : (
-      // searchKeyword가 있을 때
-      <div className={styles.searchresults}>
-        {searchResults?.map((result) => (
-          <div
-            key={result.stockCode}
-            className={styles.corpcontainer}
-            onClick={() => handleSelectCompany(result)}
-          >
-            <img src={result.logoUrl} alt={result.corpName} />
-            <span>{result.corpName}</span>
-          </div>
-        ))}
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button key={index} onClick={() => handlePageChange(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-      </div>
-    )}
-  </div>
-) : null}
-
-        {(selectedOption === '매수' && !selectedCompany) ? (
-          <div>
-            <SearchingCompany onSearch={handleSearchCompany} />
-            {!searchKeyword ? <div></div> : 
-              <div className={styles.searchresults}>
-                {searchResults?.map((result) => (
-                  <div
-                    key={result.stockCode}
-                    className={styles.corpcontainer}
-                    onClick={() => handleSelectCompany(result)}
-                  >
-                    <img src={result.logoUrl} alt={result.corpName} />
-                    <span>{result.corpName}</span>
-                  </div>
-                ))}
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button key={index} onClick={() => handlePageChange(index + 1)}>
-                    {index + 1}
-                  </button>
-                ))}
-              </div>
-              }
-          </div>
-        ) : null}
+        <div>
+  
+</div>
+{selectedOption === '매수' && <SearchingCompany onSearch={handleSearchCompany} resetChoose={resetChooseState} searchResults={searchResults} selectedCompany={selectedCompany} setSelectedCompany={setSelectedCompany} choose={isChoose} handleSelectCompany={handleSelectCompany} handlePageChange= {handlePageChange} totalPages={totalPages}/>}
         {selectedCompany && selectedOption === '매도' ? (
           <div>
             <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
