@@ -1,5 +1,5 @@
-import string
-from typing import Optional
+import re
+from typing import Optional, Pattern, Match
 from bs4 import BeautifulSoup
 import requests
 from sqlalchemy import Transaction
@@ -14,9 +14,7 @@ from app.models.models import (
 )
 from app.schemas.keyword import KeywordDTO
 from sqlalchemy.orm import Session
-from requests.models import Response
 from konlpy.tag import Okt
-from tqdm import tqdm
 
 
 def create_stopword(db: Session, word: str) -> None:
@@ -35,32 +33,26 @@ def get_keywords(db: Session) -> list[KeywordDTO]:
 
 
 def create_textmining(db: Session) -> None:
-    try:
-        db_textmining: Textmining = Textmining()
-        db.add(db_textmining)
-        db.commit()  # 텍스트마이닝 단위 생성
-        textmining_pk = (
-            db.query(Textmining)
-            .order_by(Textmining.textmining_pk.desc())
-            .first()
-            .textmining_pk
-        )
-        # 가장 최근 뉴스의 url을 가져옴
-        temp_news: str = db.query(News).order_by(News.news_pk.desc()).first()
-        if temp_news:
-            pre_article_url: str = (
-                db.query(News).order_by(News.news_pk.desc()).first().url
-            )
-        else:
-            pre_article_url = "dd"
-        print("여기야 여기!!!", pre_article_url)
-        articles: list[dict] = crawl(pre_article_url)  # 해당 뉴스 전까지의 모든 뉴스 크롤링
-        print("크롤완료", articles)
-        for article in articles:
-            create_news(db, article, textmining_pk)  # 뉴스별로 텍스트 추출
-    except Exception as e:
-        db.rollback()
-        raise e
+    db_textmining: Textmining = Textmining()
+    db.add(db_textmining)
+    textmining_pk = (
+        db.query(Textmining)
+        .order_by(Textmining.textmining_pk.desc())
+        .first()
+        .textmining_pk
+    )
+    # 가장 최근 뉴스의 url을 가져옴
+    temp_news: str = db.query(News).order_by(News.news_pk.desc()).first()
+    if temp_news:
+        pre_article_url: str = db.query(News).order_by(News.news_pk.desc()).first().url
+    else:
+        pre_article_url = "dd"
+    print("여기야 여기!!!", pre_article_url)
+    articles: list[dict] = crawl(pre_article_url)  # 해당 뉴스 전까지의 모든 뉴스 크롤링
+    print("크롤완료", articles)
+    for article in articles:
+        create_news(db, article, textmining_pk)  # 뉴스별로 텍스트 추출
+    db.commit()
 
 
 def create_news(db: Session, article: dict, textmining_pk: str) -> None:  # 뉴스 하나 만드는 함수
@@ -68,7 +60,6 @@ def create_news(db: Session, article: dict, textmining_pk: str) -> None:  # 뉴�
     url: str = article["url"]
     db_news: News = News(url=url, textmining_pk=textmining_pk)
     db.add(db_news)
-    db.commit()
     news_pk: int = db.query(News).order_by(News.news_pk.desc()).first()
     okt: Okt = Okt()
     poss: list[tuple[str, str]] = okt.pos(
@@ -87,7 +78,7 @@ def create_keyword(db: Session, word: str, news_pk: int) -> None:
         db.query(Keyword).filter_by(keyword=word).first()
     )
     existing_stopword: Optional[Stopword] = (
-        db.query(Keyword).filter_by(word=word).first()
+        db.query(Stopword).filter_by(word=word).first()
     )
     if not existing_keyword and not existing_stopword:
         existing_stock: Optional[Stock] = (
@@ -98,7 +89,6 @@ def create_keyword(db: Session, word: str, news_pk: int) -> None:
                 news_pk=news_pk, stock_code=existing_stock.stock_code
             )
             db.add(db_news_stock)
-            db.commit()
         else:
             db_keyword: Keyword = Keyword(keyword=word)
             db.add(db_keyword)
@@ -106,12 +96,12 @@ def create_keyword(db: Session, word: str, news_pk: int) -> None:
                 keyword_word=word, new_pk=news_pk, weight=1
             )
             db.add(db_news_keyword)
-            db.commit()
 
 
-def crawl(pre_article_url: string) -> list[dict]:
+def crawl(pre_article_url: str) -> list[dict]:
     # 크롤링할 페이지 URL 설정
-    origin_url = "https://finance.naver.com/news/mainnews.naver?&page="
+    url_pattern: Pattern[str] = re.compile(r"https://[^;" "]+")
+    origin_url: str = "https://finance.naver.com/news/mainnews.naver?&page="
     articles: list[dict] = []
     for page in range(1, 2):  # 한번의 시도에 최대 9페이지의 뉴스만 크롤링함
         url = origin_url + str(page)
@@ -129,33 +119,44 @@ def crawl(pre_article_url: string) -> list[dict]:
 
             for article in news_articles:
                 # 뉴스 제목 추출
-                print(article)
                 title: str = article.find("dd").text.strip()
                 # 뉴스 본문 링크 가져오기
                 article_link: str = article.find("a")["href"]
                 # 뉴스 본문 페이지에 접근
                 article_url: str = f"https://finance.naver.com{article_link}"
-                article_response: Response = requests.get(article_url)
+                pre_article_response: requests = requests.get(article_url)
+                pre_article_soup: BeautifulSoup = BeautifulSoup(
+                    pre_article_response.text, "html.parser"
+                )
+                href_url: str = pre_article_soup.find("script").text
 
-                if article_url[0:-2] == pre_article_url[0:-2]:  # 페이지 무시
+                match: Optional[Match[str]] = url_pattern.search(href_url)
+                if match:
+                    urls = match.group().rstrip("'")
+                    print("href_url", urls)
+                new_article_url = urls
+                pre_article_url = (
+                    "https://n.news.naver.com/mnews/article/009/0005191455"
+                )
+                article_response = requests.get(new_article_url)
+                article_soup = BeautifulSoup(article_response.text, "html.parser")
+
+                if new_article_url == pre_article_url:  # 페이지 무시
                     return articles
                 if article_response.status_code == 200:
                     article_soup: BeautifulSoup = BeautifulSoup(
                         article_response.text, "html.parser"
                     )
-                    print("아티클수프", article_soup.find_all("div"))
                     # "link_news" 클래스를 가진 요소를 찾아서 제거합니다.
                     link_news_element_list: list[BeautifulSoup] = article_soup.find_all(
                         "div", class_="link_news"
                     )
                     for link_news_element in link_news_element_list:
                         link_news_element.decompose()
-                    print("링크뉴스", link_news_element_list)
                     # 뉴스 본문 추출 (articleCont 내부 텍스트만 추출)
-                    print(article_soup.find("div", id="content"))
                     try:
                         article_content: str = (
-                            article_soup.find("div", id="content")
+                            article_soup.find("div", id="newsct_article")
                             .get_text(separator=" ")
                             .strip()
                         )
@@ -169,9 +170,10 @@ def crawl(pre_article_url: string) -> list[dict]:
                         {
                             "title": title,
                             "content": article_content,
-                            "url": article_url[0:-2],
+                            "url": new_article_url,
                         }
                     )
+                    print("아티클스", articles)
                 else:
                     print(f"뉴스 본문 페이지에 접근할 수 없습니다: {article_url}")
         else:
