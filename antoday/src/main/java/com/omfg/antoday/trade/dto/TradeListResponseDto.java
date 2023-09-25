@@ -56,7 +56,7 @@ public class TradeListResponseDto {
                 .corpName(trade.getCorpName())
                 .stockCode(trade.getStockCode())
                 .logoUrl(trade.getLogoUrl())
-                .isReasonExist(trade != null && trade.getReason().length() != 0)
+                .isReasonExist(trade.getReason() != null && trade.getReason().length() != 0)
                 .build();
     }
 }
