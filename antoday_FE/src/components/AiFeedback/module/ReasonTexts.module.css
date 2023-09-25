@@ -10,10 +10,17 @@
 }
 
 .content {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
-  border: 1px solid var(--sub-blue-color);
+  box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   display: flex;
   justify-content: start;
+  padding: 0.5rem 0.5rem;
+}
+
+@media screen and (max-width: 380px) {
+  .title {
+    font-size: var(--font-h6);
+  }
 }
