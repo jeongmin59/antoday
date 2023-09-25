@@ -34,3 +34,16 @@
 .nullComment {
   color: black;
 }
+
+.tab {
+  cursor: pointer;
+  padding: 0.3rem 1.7rem;
+  margin: 0.03rem; 
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.activeTab {
+  background-color: var(--main-blue-color);
+  color: white;
+}
