@@ -39,7 +39,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
         loader={records?.length > 0 ? <LoadingSpinner /> : null}
       >
         {records?.map((record, index) => {
-          console.log(index, record.logoUrl);
+          // console.log(index, record.logoUrl);
           const dateOnly = record.tradeAt.split("T")[0];
 
           return (
@@ -53,7 +53,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
                 <img src={record.logoUrl} alt="" />
                 <div className={styles.corpnameoption}>
                   <p>{record.corpName}</p>
-                  <p>{record.optionBuySell ? "매수" : "매도"}</p>
+                  <p>{record.optionBuySell ? "매도" : "매수"}</p>
                 </div>
                 <div className={styles.pricecount}>
                   <p>{record.price}원</p>
