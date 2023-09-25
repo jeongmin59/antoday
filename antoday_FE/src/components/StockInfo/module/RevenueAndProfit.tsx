@@ -82,16 +82,20 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
         </div>
       </div>
       <div className={styles.graph}>
-        <ReactApexChart
-          options={chartOptions}
-          series={[
-            {
-              name: isRevenueTabSelected ? '매출' : '영업이익',
-              data: isRevenueTabSelected ? chartData.takes : chartData.profits
-            }
-          ]}
-          type="bar"
-        />
+        {graphValue ? (
+          <ReactApexChart
+            options={chartOptions}
+            series={[
+              {
+                name: isRevenueTabSelected ? '매출' : '영업이익',
+                data: isRevenueTabSelected ? chartData.takes : chartData.profits
+              }
+            ]}
+            type="bar"
+          />
+        ) : (
+          <div className={styles.nullComment}>현재 데이터를 불러올 수 없습니다.</div>
+        )}
       </div>
     </div>
   );
