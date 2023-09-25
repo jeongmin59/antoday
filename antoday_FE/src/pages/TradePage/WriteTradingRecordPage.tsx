@@ -61,8 +61,6 @@ const WriteTradingRecordPage: React.FC = () => {
             corpName={corpName}
             tradePk={tradePk}
           />
-          {/* <HomeKeyWords />
-          <InputConfirm /> */}
         </div>
       )}
     </div>
