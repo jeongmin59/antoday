@@ -70,14 +70,26 @@ public class TradeService {
         // 기존 trade 가져오기
         Trade trade = tradeRepository.findById(dto.getTradePk()).get();
 
+        // 기존 키워드 삭제
+        tradeKeywordRepository.deleteByTrade(trade);
+
+        // trade의 이유 update
         trade.update(dto);
         Trade t =  tradeRepository.save(trade);
         System.out.println("1번 완료!!!!!!!!!!!!!!!");
 
+        // 키워드 저장
+        // keyword 중복생성 수정
         dto.getKeywords().stream().forEach(word -> {
+            Keyword keyword;
+            if (keywordRepository.existsById(word)) {
+                keyword = keywordRepository.findById(word).get();
+            } else {
+                keyword = Keyword.builder().keyword(word).build();
+            }
             TradeKeyword tk = TradeKeyword.builder()
-                    .keyword(Keyword.builder().keyword(word).build())
-                    .trade(trade)
+                    .keyword(keyword)
+                    .trade(t)
                     .build();
             tradeKeywordRepository.save(tk);
         });
