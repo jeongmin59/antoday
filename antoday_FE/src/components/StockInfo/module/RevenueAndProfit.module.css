@@ -12,8 +12,17 @@
   background-color: lightgray;
   color: var(--main-white-color);
   font-size: var(--font-h6);
-  width: 80%;
-  height: 8rem;
+  /* width: 80%; */
+  height: 10rem;
   border-radius: 20px;
   margin: 0 auto;
+}
+
+.tabContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--main-blue-color)
 }
