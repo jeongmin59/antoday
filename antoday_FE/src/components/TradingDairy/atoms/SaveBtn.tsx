@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from './SaveBtn.module.css';
-import { accessTokenAtom } from '../../../recoil/auth';
-import { useRecoilValue } from 'recoil';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import styles from "./SaveBtn.module.css";
+import { accessTokenAtom } from "../../../recoil/auth";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const SaveBtn: React.FC<TradingRecord> = ({
   tradeAt,
@@ -12,7 +12,8 @@ const SaveBtn: React.FC<TradingRecord> = ({
   cnt,
   keywordList,
   reason,
-  optionBuySell
+  optionBuySell,
+  tradePk,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const token = useRecoilValue(accessTokenAtom);
@@ -28,21 +29,25 @@ const SaveBtn: React.FC<TradingRecord> = ({
       reason: reason,
       stockCode: stockCode,
       tradeAt: tradeAt,
-      optionBuySell: optionBuySell
+      optionBuySell: optionBuySell,
+      tradePk: tradePk,
     };
 
     try {
-      const response = await axios.post(
-        import.meta.env.VITE_BACK_API_URL +
-        `/api/trade`, requestBody, 
-        { headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await axios.put(
+        import.meta.env.VITE_BACK_API_URL + `/api/trade`,
+        requestBody,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-      console.log('매매이유작성 성공', response.data);
-      navigator("/tradingrecord")
+      );
+
+      console.log("매매이유작성 성공", response.data);
+      navigator("/tradingrecord");
     } catch (error) {
-      console.error('매매이유작성 실패', error);
+      console.error("매매이유작성 실패", error);
     } finally {
       setIsLoading(false);
     }
@@ -55,14 +60,14 @@ const SaveBtn: React.FC<TradingRecord> = ({
 
   return (
     <form onSubmit={handleFormSubmit}>
-    <button
-      type='submit'
-      className={styles.saveButton}
-      onClick={handleSaveClick}
-      disabled={isLoading}
-    >
-      {isLoading ? '등록 중...' : '등록하기'}
-    </button>
+      <button
+        type="submit"
+        className={styles.saveButton}
+        onClick={handleSaveClick}
+        disabled={isLoading}
+      >
+        {isLoading ? "등록 중..." : "등록하기"}
+      </button>
     </form>
   );
 };

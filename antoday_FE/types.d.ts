@@ -16,4 +16,5 @@ interface TradingRecord {
     keywordList? : string[];
     reason? : string;
     corpName? : string;
+    tradePk?: string;
 }
