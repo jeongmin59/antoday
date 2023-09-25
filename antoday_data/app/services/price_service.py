@@ -1,4 +1,5 @@
 import datetime
+import math
 from app.schemas.price import MarketInfoDTO, PriceDTO
 import FinanceDataReader as fdr
 
@@ -50,6 +51,9 @@ def get_calculate_KSQSTK(symbol):
 
     close_index = df.iloc[-1]["Close"]
     yesterday_close_index = df.iloc[-2]["Close"]
+
+    if math.isnan(yesterday_close_index):
+        yesterday_close_index = df.iloc[-3]["Close"]
     change = close_index - yesterday_close_index
     percentage_change = (change / yesterday_close_index) * 100
 
