@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import price, corp, trade
+from app.routers import price, corp, trade, keyword, news
 from app.models.database import SessionLocal, engine, Base
 from app.models import models
 from starlette.middleware.cors import CORSMiddleware
@@ -20,6 +20,8 @@ app.add_middleware(
 app.include_router(price.router)
 app.include_router(corp.router)
 app.include_router(trade.router)
+app.include_router(keyword.router)
+app.include_router(news.router)
 
 
 @app.get("/")
