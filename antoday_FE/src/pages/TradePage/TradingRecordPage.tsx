@@ -212,12 +212,13 @@ return (
       {showWrite ? (
           <WriteTradingRecord closeWritePage={() => setShowWrite(false)} />
       ) : (
-          <><div className={styles.form}>
+          <>
+            <div className={styles.form}>
               <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
                   <FontAwesomeIcon icon={faSearch} color={"var(--main-blue-color)"} />
                   <input
                       type="text"
-                      placeholder="매매한 종목 검색"
+                      placeholder="종목명, 키워드 검색"
                       value={searchKeyword}
                       onChange={handleChange}
                       className={styles.inputBox}
@@ -226,39 +227,41 @@ return (
                       search
                   </button>
               </form>
-              </div>
-                <div className={styles.p}>매매 이유를 작성하면 <div className={styles.yellow}>AI 분석</div>을 받을 수 있어요!</div>
+            </div>
+            <div className={styles.indexContainer}>
+              <div className={styles.p}>매매 이유를 작성하면 <div className={styles.yellow}>AI 분석</div>을 받을 수 있어요!</div>
               <div className={styles.datebuttoncontainer}>
-                  <h5>기간</h5>
-                  <SearchingDate onSearch={handleSearchDate} />
-                  <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
+                <h5>기간</h5>
+                <SearchingDate onSearch={handleSearchDate} />
+                <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
               {searchKeyword && stockCode ? <ProfitRate stockCode={stockCode} /> : null}
               {!isSubmit && searchResults && (
-                  <div className={styles.searchcompanylist}>
-                      <TradingCompanyList
-                          searchResults={searchResults}
-                          isLoading={isLoading}
-                          isPreviousData={isPreviousData}
-                          isError={isError}
-                          nowPage={page}
-                          setNowPage={setPage}
-                          totalPage={hasMore ? page + 1 : page}
-                          loadData={loadData}
-                          onSelectCompany={handleCompanySelection}
-                          sourcePage="TradingRecordPage"
-                      />
-                  </div>
+                <div className={styles.searchcompanylist}>
+                    <TradingCompanyList
+                        searchResults={searchResults}
+                        isLoading={isLoading}
+                        isPreviousData={isPreviousData}
+                        isError={isError}
+                        nowPage={page}
+                        setNowPage={setPage}
+                        totalPage={hasMore ? page + 1 : page}
+                        loadData={loadData}
+                        onSelectCompany={handleCompanySelection}
+                        sourcePage="TradingRecordPage"
+                    />
+                </div>
               )}
               {(isSubmit || searchKeyword == '') && (
-                  <div>
-                      <TradingRecordList
-                          records={records ? records : searchResults}
-                          hasMore={hasMore}
-                          fetchMoreData={fetchMoreData}
-                      />
-                  </div>
+                <div>
+                    <TradingRecordList
+                        records={records ? records : searchResults}
+                        hasMore={hasMore}
+                        fetchMoreData={fetchMoreData}
+                    />
+                </div>
               )}
+            </div>
           </>
       )}
   </div>
