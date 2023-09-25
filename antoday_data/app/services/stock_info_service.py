@@ -172,6 +172,11 @@ def get_start_date(date_option):
 
 # 잔돈은 자르고 숫자를 자릿수 한글단위와 함께 리턴한다
 def get_kor_amount_string_no_change(num_amount, ndigits_keep=3):
+    if num_amount < 0:
+        num_amount *= -1
+        return "-" + get_kor_amount_string(
+            num_amount, -(len(str(num_amount)) - ndigits_keep)
+        )
     return get_kor_amount_string(num_amount, -(len(str(num_amount)) - ndigits_keep))
 
 
