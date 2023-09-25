@@ -23,7 +23,7 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
             <div className={styles.leftContainer}>
               <img className={styles.corpimage} src={logoUrl} alt="" />
               <div>{corpName}</div>
-              {optionBuySell ? <div>매수</div> : <div>매도</div>}
+              {optionBuySell ? <div>매도</div> : <div>매수</div>}
             </div>
             <div className={styles.rightContainer}>
               <div>{price}</div>
