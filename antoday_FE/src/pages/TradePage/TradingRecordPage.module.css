@@ -50,11 +50,10 @@
 .datebuttoncontainer {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-}
-
-.datebuttoncontainer > h5 {
-	margin-right: 1rem;
+	justify-content: space-between;
+	width: 100%;
+	margin: 1rem 0;
+	font-size: var(--font-h6);
 }
 
 .searchcompanylist {

@@ -231,7 +231,7 @@ return (
             <div className={styles.indexContainer}>
               <div className={styles.p}>매매 이유를 작성하면 <div className={styles.yellow}>AI 분석</div>을 받을 수 있어요!</div>
               <div className={styles.datebuttoncontainer}>
-                <h5>기간</h5>
+                <span>기간</span>
                 <SearchingDate onSearch={handleSearchDate} />
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
@@ -263,9 +263,6 @@ return (
           </>
       )}
   </div>
-);
-
-
-};
+);};
 
 export default TradingRecordPage;

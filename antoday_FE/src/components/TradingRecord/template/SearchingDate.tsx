@@ -44,6 +44,7 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
                 placeholderText="시작 날짜"
                 className = {styles.datepicker}
             />
+            <span>~</span>
             <DatePicker
                 selected={endDate}
                 onChange={(date: Date | [Date, Date] | null) => setEndDate(date as Date)}
