@@ -21,7 +21,7 @@ from tqdm import tqdm
 
 def create_stopword(db: Session, word: str) -> None:
     db_stopword: Stopword = Stopword(word=word)
-    existing_keyword: Optional[Keyword] = (
+    existing_keyword: Optional[Stopword] = (
         db.query(Stopword).filter_by(word=word).first()
     )
     if not existing_keyword:
