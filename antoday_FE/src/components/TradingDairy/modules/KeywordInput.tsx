@@ -1,6 +1,6 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import styles from '../modules/KeywordInput.module.css';
-import ReasonInput from './ReasonInput';
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import styles from "../modules/KeywordInput.module.css";
+import ReasonInput from "./ReasonInput";
 
 const KeywordInput: React.FC<TradingRecord> = ({
   tradeAt,
@@ -9,8 +9,9 @@ const KeywordInput: React.FC<TradingRecord> = ({
   optionBuySell,
   price,
   cnt,
+  tradePk,
 }) => {
-  const [keyword, setKeyword] = useState<string>('');
+  const [keyword, setKeyword] = useState<string>("");
   const [keywordList, setKeywordList] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
 
@@ -23,8 +24,8 @@ const KeywordInput: React.FC<TradingRecord> = ({
 
     if (keyword) {
       setTags([...tags, `#${keyword}`]);
-      setKeyword('');
-      setKeywordList([...keywordList,keyword]);
+      setKeyword("");
+      setKeywordList([...keywordList, keyword]);
     }
   };
 
@@ -37,29 +38,24 @@ const KeywordInput: React.FC<TradingRecord> = ({
         ))}
       </div>
       <form className={styles.keywordContainer} onSubmit={handleTagButtonClick}>
-      <input
-        type="text"
-        // className={styles.KeywordInput}
-        value={keyword}
-        onChange={handleInputChange}
-        style={{border: 'none', 
-          height: '70%', 
-          width: '75%'}}
-      />
-      <input
-        type="submit"
-        value="등록"
-        className={styles.confirmButton}
+        <input
+          type="text"
+          // className={styles.KeywordInput}
+          value={keyword}
+          onChange={handleInputChange}
+          style={{ border: "none", height: "70%", width: "75%" }}
         />
+        <input type="submit" value="등록" className={styles.confirmButton} />
       </form>
-      <ReasonInput 
-      tradeAt={tradeAt}
-      stockCode={stockCode}
-      logoUrl={logoUrl}
-      optionBuySell={optionBuySell}
-      price={price}
-      cnt={cnt}
-      keywordList={keywordList}
+      <ReasonInput
+        tradeAt={tradeAt}
+        stockCode={stockCode}
+        logoUrl={logoUrl}
+        optionBuySell={optionBuySell}
+        price={price}
+        cnt={cnt}
+        keywordList={keywordList}
+        tradePk={tradePk}
       />
     </div>
   );
