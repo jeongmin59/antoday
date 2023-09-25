@@ -19,6 +19,7 @@ export interface TradingRecordPageType {
   cnt: number;
   corpName: string;
   logo_url: string;
+  logoUrl: string|null;
   optionBuySell: boolean;
   price: number;
   stockCode: string;
