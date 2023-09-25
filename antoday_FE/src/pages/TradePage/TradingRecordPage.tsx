@@ -130,7 +130,7 @@ const TradingRecordPage: React.FC = () => {
         const newData = response.data.content;
         const firstStockCode = response.data.content[0]?.stockCode;
         setStockCode(firstStockCode);
-        console.log(newData)
+        // console.log(newData)
 
         if (newData.length === 0) {
           setHasMore(false);

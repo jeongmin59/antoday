@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './SearchingCompany.module.css';
+import useDebounce from '../../../utils/useDebounce';
 
 
 interface SearchInputProps {
@@ -20,6 +21,16 @@ const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch }) => {
             setShouldClearOnNextFocus(false);
         }
     };
+
+    const debouncedInputValue = useDebounce({
+        value: keyword,
+        delay: 200, // 디바운스 딜레이 설정 (예: 300ms)
+      });
+
+      useEffect(() => {
+        onSearch(debouncedInputValue);
+    }, [debouncedInputValue, onSearch]);
+    
 
     return (
         <div className={styles.div}>
