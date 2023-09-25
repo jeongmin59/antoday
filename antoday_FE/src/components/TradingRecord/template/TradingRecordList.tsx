@@ -17,7 +17,27 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   fetchMoreData,
 }) => {
   const navigator = useNavigate();
-  const [reasonExist, setReasonExist] = useState<Boolean>(false)
+  const [reasonExist, setReasonExist] = useState<Boolean>(false);
+
+  const groupedRecords: { [date: string]: TradingRecordPageType[] } = {};
+
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}년 ${month}월 ${day}일`;
+  };
+
+  records.forEach((record) => {
+    const dateOnly = formatDate(record.tradeAt);
+    if (!groupedRecords[dateOnly]) {
+      groupedRecords[dateOnly] = [];
+    }
+    groupedRecords[dateOnly].push(record);
+  });
+
+  
 
   const handleClick = (reasonExist: boolean, tradePk: number) => {
     
@@ -40,6 +60,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
       >
         {records?.map((record, index) => {
           // console.log(index, record.logoUrl);
+          console.log(1313, record)
           const dateOnly = record.tradeAt.split("T")[0];
 
           return (

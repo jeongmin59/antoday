@@ -253,13 +253,11 @@ return (
                 </div>
               )}
               {(isSubmit || searchKeyword == '') && (
-                <div>
-                    <TradingRecordList
-                        records={records ? records : searchResults}
-                        hasMore={hasMore}
-                        fetchMoreData={fetchMoreData}
-                    />
-                </div>
+                <TradingRecordList
+                    records={records ? records : searchResults}
+                    hasMore={hasMore}
+                    fetchMoreData={fetchMoreData}
+                />
               )}
             </div>
           </>

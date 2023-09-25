@@ -1,3 +1,12 @@
+.indexContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0px auto;
+	width: 90%;
+	height: fit-content;
+}
+
 .form {
 	background-color: var(--main-yellow-color);
 	padding: 1.3rem 0.5rem 1.7rem;
@@ -38,25 +47,6 @@
 	cursor: pointer;
 }
 
-/* .bigcontainer {
-	background-color: var(--main-yellow-color);
-	width: auto;
-	height: 100vh;
-	display: flex;
-	flex-direction: column;
-} */
-
-.indexContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 0px auto;
-	width: 90%;
-	height: fit-content;
-	border-radius: 20px;
-	border: 1px solid #ececec;
-}
-
 .datebuttoncontainer {
 	display: flex;
 	align-items: center;
@@ -74,7 +64,7 @@
 .p {
 	font-size: var(--font-h6);
 	color: var(--main-blue-color);
-	padding-top: 0.6rem;
+	padding-top: 1.5rem;
 }
 
 .yellow {
