@@ -22,7 +22,7 @@
   const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
     const navigate = useNavigate();
     const adjustInitialDate = (date: Date): Date => {
-      let adjusted = new Date(date);
+      const adjusted = new Date(date);
       if (adjusted.getDay() !== 0 && adjusted.getDay() !== 6 && date.getHours() < 9) {
         adjusted.setDate(adjusted.getDate() - 1);
       }
