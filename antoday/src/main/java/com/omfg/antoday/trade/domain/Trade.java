@@ -104,4 +104,9 @@ public class Trade {
         this.stock = Stock.builder().stockCode(dto.getStockCode()).build();
     }
 
+    public int getCntByOption() {
+        if(this.optionBuySell == 0) return this.cnt;
+        else return this.cnt*-1;
+    }
+
 }
