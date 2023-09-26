@@ -9,17 +9,29 @@ router = APIRouter(prefix="/info/keyword", tags=["keyword"])
 
 
 @router.post("/stopword")
-async def save_stopword(word: str, db: Session = Depends(get_db)) -> Optional[dict|HTTPStatus]:
-    try :
-        create_stopword(db, word)
+async def save_stopword(
+    word: str, db: Session = Depends(get_db)
+) -> Optional[dict | HTTPStatus]:
+    try:
+        return create_stopword(db, word)
+    except Exception as e:
+        raise HTTPStatus(status_code=500, detail=str(e))
+
+
+@router.post("/keyword")
+async def save_keyword(
+    word: str, db: Session = Depends(get_db)
+) -> Optional[dict | HTTPStatus]:
+    try:
+        create_keyword(db, word, 10)
         return {"status": "success"}
     except Exception as e:
         raise HTTPStatus(status_code=500, detail=str(e))
 
 
-# @router.get("")
-# async def get_wordcloud(db: Session = Depends(get_db)) -> list[KeywordDTO]:
-#     return get_keywords(db)
+@router.get("")
+async def get_wordcloud(db: Session = Depends(get_db)) -> list[KeywordDTO]:
+    return get_keywords(db)
 
 
 # @router.post("")
@@ -31,10 +43,10 @@ async def save_stopword(word: str, db: Session = Depends(get_db)) -> Optional[di
 #         raise HTTPStatus(status_code=500, detail=str(e))
 
 
-# @router.post("/tm")
-# async def save_textmining(db: Session = Depends(get_db)) -> dict:
-#     try:
-#         create_textmining(db)
-#         return {"status": "success"}
-#     except Exception as e:
-#         raise HTTPStatus(status_code=500, detail=str(e))
+@router.post("/tm")
+async def save_textmining(db: Session = Depends(get_db)) -> Optional[dict | HTTPStatus]:
+    try:
+        create_textmining(db)
+        return {"status": "success"}
+    except Exception as e:
+        raise HTTPStatus(status_code=500, detail=str(e))
