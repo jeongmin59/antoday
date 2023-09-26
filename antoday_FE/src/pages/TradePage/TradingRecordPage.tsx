@@ -13,7 +13,8 @@ import { accessTokenAtom } from "../../recoil/auth";
 import { useRecoilState } from 'recoil';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import WriteTradingRecord from '../../components/TradingRecord/template/WriteTradingRecord'
+import WriteTradingRecord from '../../components/TradingRecord/template/WriteTradingRecord';
+import { useInView } from 'react-intersection-observer';
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -38,6 +39,8 @@ const TradingRecordPage: React.FC = () => {
   // const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
   const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>([]);
+  const [hasMore, sethasMore] = useState<boolean>(false);
+  const [ref, inView] = useInView();
   
 
   
@@ -60,9 +63,6 @@ const TradingRecordPage: React.FC = () => {
     const params: any = {
       page: pageParam,
     };
-
-    
-
     if (startDate) params.start = formatDateString(startDate);
     if (endDate) params.end = formatDateString(endDate, false);
     if (searchKeyword) params.keyword = searchKeyword;
@@ -85,21 +85,20 @@ const TradingRecordPage: React.FC = () => {
       setStockCode(null);
     }
     return {
-      data: responseData.content,
-      hasMore: !responseData.last,
-      pageable: responseData.pageable,
-      totalPages: responseData.totalPages
+      ...responseData,
+      nextPage: pageParam + 1,
     };
   };
+  
 
-  const { data, fetchNextPage, isLoading } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["tradeData", searchKeyword, startDate, endDate],
     fetchData,
     {
-      getNextPageParam: (lastPageData) => {
+      getNextPageParam: (lastPage) => {
         // 현재 페이지가 마지막 페이지보다 작다면 다음 페이지 번호 반환
-        if (lastPageData.pageable.pageNumber < lastPageData.totalPages - 1) {
-          return lastPageData.pageable.pageNumber + 1;
+        if (!lastPage.isLast) {
+          return !lastPage.last ? lastPage.nextPage : undefined;
         } 
         // 그렇지 않다면, undefined 반환하여 페이지 로딩 중지
         return undefined;
@@ -108,9 +107,13 @@ const TradingRecordPage: React.FC = () => {
     }
   );
 
-  // hasMore 값을 계산
-  const hasMore = data?.pageable?.pageNumber < data?.totalPages - 1;
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage]);
   
+
   
   const handleInputChange = (event) => {
     setSearchKeyword(event.target.value);
@@ -130,7 +133,8 @@ const handleSearchDate = (start: string, end: string) => {
   setEndDate(end);
   fetchNextPage({ pageParam: 0 });
 };
-// console.log(stockCode)
+// console.log('인뷰',searchResults)
+
 return (
   <div className={styles.bigcontainer}>
 
@@ -162,26 +166,11 @@ return (
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
               {stockCode ? <ProfitRate stockCode={stockCode} /> : null}
-              {/* {!isSubmit && searchResults && (
-                <div className={styles.searchcompanylist}>
-                    <TradingCompanyList
-                        searchResults={searchResults}
-                        isLoading={isLoading}
-                        isPreviousData={isPreviousData}
-                        isError={isError}
-                        nowPage={page}
-                        setNowPage={setPage}
-                        totalPage={hasMore ? page + 1 : page}
-                        loadData={loadData}
-                        onSelectCompany={handleCompanySelection}
-                        sourcePage="TradingRecordPage"
-                    />
-                </div>
-              )} */}
                   <TradingRecordList
                     records={searchResults}  // searchResults를 전달
                     hasMore={hasMore}
-                    fetchMoreData={fetchData}
+                    fetchMoreData={fetchNextPage}
+                    lastRecordRef={ref}
                   />
     </div>
 
