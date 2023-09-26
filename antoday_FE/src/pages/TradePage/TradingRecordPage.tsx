@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery, useInfiniteQuery, useQueryClient } from "react-query";
-import useDebounce from "../../utils/useDebounce";
+// import useDebounce from "../../utils/useDebounce";
 import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
 import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
-import SearchInput from "../../components/TradingRecord/template/SearchInput";
+// import SearchInput from "../../components/TradingRecord/template/SearchInput";
 import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
 import ProfitRate from "../../components/TradingRecord/template/ProfitRate";
-import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
+// import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
 import styles from "./TradingRecordPage.module.css";
 import { accessTokenAtom } from "../../recoil/auth";
 import { useRecoilState } from 'recoil';
@@ -34,10 +34,11 @@ const TradingRecordPage: React.FC = () => {
   const [endDate, setEndDate] = useState("");
   const [showWrite, setShowWrite] = useState(false);
   const [stockCode, setStockCode] = useState<string | null>(null);
-  const queryClient = useQueryClient();
-  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  // const queryClient = useQueryClient();
+  // const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
   const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>([]);
+  
 
   
 
@@ -50,15 +51,17 @@ const TradingRecordPage: React.FC = () => {
   //   loadData();
   // };
 
-  const debouncedInputValue = useDebounce({
-    value: searchKeyword,
-    delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
-  });
+  // const debouncedInputValue = useDebounce({
+  //   value: searchKeyword,
+  //   delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
+  // });
 
   const fetchData = async ({ pageParam = 0 }) => {
     const params: any = {
       page: pageParam,
     };
+
+    
 
     if (startDate) params.start = formatDateString(startDate);
     if (endDate) params.end = formatDateString(endDate, false);
@@ -83,36 +86,41 @@ const TradingRecordPage: React.FC = () => {
     }
     return {
       data: responseData.content,
-      hasMore: !responseData.last
+      hasMore: !responseData.last,
     };
   };
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, isLoading } = useInfiniteQuery(
     ["tradeData", searchKeyword, startDate, endDate],
     fetchData,
     {
-      getNextPageParam: (lastPageData, pages) => {
-        if(lastPageData.hasMore) {
-          return pages.length;
-        } else {
-          return undefined;
-        }
+      getNextPageParam: (lastPageData) => {
+        // 현재 페이지가 마지막 페이지보다 작다면 다음 페이지 번호 반환
+        if (lastPageData.pageable.pageNumber < lastPageData.totalPages - 1) {
+          return lastPageData.pageable.pageNumber + 1;
+        } 
+        // 그렇지 않다면, undefined 반환하여 페이지 로딩 중지
+        return undefined;
       },
       // enabled: searchKeyword,
     }
   );
+
+  // hasMore 값을 계산
+  const hasMore = data?.pageable?.pageNumber < data?.totalPages - 1;
+  
   
   const handleInputChange = (event) => {
     setSearchKeyword(event.target.value);
 };
 
 const handleSubmit = (event) => {
-    event.preventDefault();  // prevent the form from submitting
+    event.preventDefault();  
     fetchNextPage({ pageParam: 0 });
 };
 
 const handleInputClick = () => {
-    setSearchKeyword("");  // Clear the input when clicked
+    setSearchKeyword("");  
 };
 
 const handleSearchDate = (start: string, end: string) => {
@@ -170,7 +178,7 @@ return (
               )} */}
                   <TradingRecordList
                     records={searchResults}  // searchResults를 전달
-                    hasMore={hasNextPage}
+                    hasMore={hasMore}
                     fetchMoreData={fetchData}
                   />
     </div>

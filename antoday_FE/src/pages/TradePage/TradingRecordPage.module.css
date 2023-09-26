@@ -1,3 +1,7 @@
+.bigcontainer {
+	margin-top: 2rem;
+}
+
 .indexContainer {
 	display: flex;
 	flex-direction: column;
@@ -60,10 +64,10 @@
 .datebuttoncontainer > span {
 	white-space: nowrap;
 }
-
+/* 
 .searchcompanylist {
 	z-index: 1000;
-}
+} */
 
 .p {
 	font-size: var(--font-h6);
