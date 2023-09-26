@@ -15,7 +15,9 @@ const UpperNavBar: React.FC = () => {
   const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   const handleMemoClick = () => {
-    setIsMemoOpen(!isMemoOpen);
+    if (!isMemoOpen) {
+      setIsMemoOpen(!isMemoOpen);
+    }
   };
 
   const handleCloseMemo = () => {
@@ -30,11 +32,9 @@ const UpperNavBar: React.FC = () => {
     <nav className={styles.navigation}>
       <Link to="/" className={styles.navItemHome}>
         <img
-          src={window.innerWidth <= 380 ? logoIconMobile : logoDefaultWhite}
+          src={window.innerWidth <= 480 ? logoIconMobile : logoDefaultWhite}
           alt="로고 이미지"
-          className={
-            window.innerWidth <= 380 ? styles.logoMobile : styles.logoDefault
-          } // 클래스를 조건부로 적용
+          className={window.innerWidth <= 480 ? styles.logoMobile : styles.logoDefault} // 클래스를 조건부로 적용
         />
       </Link>
       <Link to="/stocksearch" className={styles.navItemCompanyInfo}>

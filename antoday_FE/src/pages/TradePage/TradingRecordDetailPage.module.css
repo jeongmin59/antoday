@@ -21,7 +21,7 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 480px) {
   .mainContainer {
     /* border: 1px solid black; */
     display: flex;

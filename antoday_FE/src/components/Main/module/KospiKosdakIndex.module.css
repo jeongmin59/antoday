@@ -27,7 +27,7 @@
 }
 
 /* 데스크탑 화면일 때 */
-@media (min-width: 381px) {
+@media (min-width: 481px) {
     .title {
         display: none;
     }
@@ -44,7 +44,7 @@
   }
   
 /* 모바일 화면일 때 */
-@media (max-width: 380px) {
+@media (max-width: 480px) {
     .title {
         font-size: var(--font-h5);
     }

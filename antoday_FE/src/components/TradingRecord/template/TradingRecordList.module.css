@@ -19,7 +19,7 @@
 
 .row {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     align-items: center;
 }
 

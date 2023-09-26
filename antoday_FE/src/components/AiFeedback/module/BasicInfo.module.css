@@ -55,7 +55,7 @@
   color: lightseagreen;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 480px) {
   .tradeAt {
     font-size: var(--font-h7);
   }

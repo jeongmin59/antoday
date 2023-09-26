@@ -7,7 +7,8 @@
   import axios from 'axios';
   import { accessTokenAtom } from '../../../recoil/auth';
   import { useRecoilState } from 'recoil';
-import KeywordInput from '../../TradingDairy/modules/KeywordInput';
+// import KeywordInput from '../../TradingDairy/modules/KeywordInput';
+import { ko } from "date-fns/esm/locale";
 
 
   interface WriteTradingRecordPageProps {
@@ -51,6 +52,8 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
     const [forceRender, setForceRender] = useState(0);
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [isChoose,setIsChoose] = useState<boolean>(false);
+    const [netCount, setNetCount] = useState<number>(0);
+
 
 
     const tradingData = {
@@ -82,9 +85,11 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
         errorMessage = "회사를 선택해주세요.";
         console.log('회사선택안함');
       } else if (stockQuantity <= 0) {
-        errorMessage = "주식 개수를 지정해주세요.";
+        
         console.log('주식개수안함');
-      }
+      } if (selectedOption === '매도' && selectedCompany && stockQuantity > netCount) {
+        errorMessage = `현재 보유 수량: ${netCount}`;
+    }
       if (errorMessage) {
         setAlertMessage(errorMessage);
         return;
@@ -185,6 +190,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
                 const fetchedPrice = companyData.lastBuyPrice;
                 setStockPrice(fetchedPrice);
                 setAdjustedPrice(fetchedPrice);
+                setNetCount(companyData.netCount)
             } else {
                 console.error("Couldn't find matching company data for selected company.");
             }
@@ -215,7 +221,7 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
       } if (selectedCompany == null) {
         setStockPrice(null);
         setAdjustedPrice(null);
-        console.log('test',stockPrice, adjustedPrice);
+        // console.log('test',stockPrice, adjustedPrice);
       };
       
       
@@ -274,8 +280,10 @@ import KeywordInput from '../../TradingDairy/modules/KeywordInput';
       if (selectedOption !== option) {
           setSelectedOption(option);
           setSelectedCompany(null);
+          setStockQuantity(0);
+          setNetCount(0)
           setForceRender((prev) => prev + 1);
-          console.log(selectedCompany)
+          // console.log(selectedCompany)
       }
   };
 
@@ -292,12 +300,14 @@ const resetChooseState = () => {
   setIsChoose(false);
 };
 
-    // console.log(searchResults);
+  // console.log(ownedCompanies)
     return (
-      <div>
+      <div className={styles.writecontainer}>
         <div className={styles.horizontal}>
           <p>날짜</p>
           <DatePicker
+            locale={ko}
+            dateFormat="yyyy.MM.dd"
             selected={selectedDate}
             onChange={(date: Date) => setSelectedDate(date)}
             filterDate={(date: Date) => {
