@@ -1,8 +1,8 @@
+from collections import defaultdict
 import re
 from typing import Optional, Pattern, Match
 from bs4 import BeautifulSoup
 import requests
-from sqlalchemy import Transaction
 from app.models.models import (
     Keyword,
     News,
@@ -17,7 +17,7 @@ from sqlalchemy.orm import Session
 from konlpy.tag import Okt
 
 
-def create_stopword(db: Session, word: str) -> None:
+def create_stopword(db: Session, word: str) -> dict:
     db_stopword: Stopword = Stopword(word=word)
     existing_keyword: Optional[Stopword] = (
         db.query(Stopword).filter_by(word=word).first()
@@ -25,34 +25,73 @@ def create_stopword(db: Session, word: str) -> None:
     if not existing_keyword:
         db_stopword = Stopword(word=word)
         db.add(db_stopword)
-    db.commit()
+        db.commit()
+        return {"status": "success"}
+    else:
+        return {"status": "already exist"}
 
 
 def get_keywords(db: Session) -> list[KeywordDTO]:
-    return
+    textminings: list[Textmining] = (
+        db.query(Textmining).order_by(Textmining.textmining_pk.desc()).limit(3).all()
+    )
+    word_cloud = []
+    word_dict: defaultdict = defaultdict(float)
+    text_mining_weight = 1
+    for textmining in textminings:
+        textmining_pk: int = textmining.textmining_pk
+        all_news: list[News] = (
+            db.query(News).filter_by(textmining_pk=textmining_pk).all()
+        )
+
+        for news in all_news:
+            news_pk = news.news_pk
+            news_word_dict: defaultdict = defaultdict(float)
+            keywords: list[Keyword] = (
+                db.query(NewsKeyword)
+                .filter_by(news_pk=news_pk)
+                .join(Keyword, NewsKeyword.word == Keyword.keyword)
+                .all()
+            )
+            for keyword in keywords:
+                news_word_dict[keyword.keyword.keyword] += (
+                    1 if keyword.keyword.keyword in news_word_dict else 0.2
+                )
+            for word, weight in news_word_dict.items():
+                word_dict[word] += weight * text_mining_weight
+        text_mining_weight -= 0.2
+    for word, weight in word_dict.items():
+        if weight >= 1:
+            word_cloud.append(KeywordDTO(text=word, value=weight))
+    return word_cloud
 
 
 def create_textmining(db: Session) -> None:
-    db_textmining: Textmining = Textmining()
-    db.add(db_textmining)
-    textmining_pk = (
-        db.query(Textmining)
-        .order_by(Textmining.textmining_pk.desc())
-        .first()
-        .textmining_pk
-    )
-    # 가장 최근 뉴스의 url을 가져옴
-    temp_news: str = db.query(News).order_by(News.news_pk.desc()).first()
-    if temp_news:
-        pre_article_url: str = db.query(News).order_by(News.news_pk.desc()).first().url
-    else:
-        pre_article_url = "dd"
-    print("여기야 여기!!!", pre_article_url)
-    articles: list[dict] = crawl(pre_article_url)  # 해당 뉴스 전까지의 모든 뉴스 크롤링
-    print("크롤완료", articles)
-    for article in articles:
-        create_news(db, article, textmining_pk)  # 뉴스별로 텍스트 추출
-    db.commit()
+    try:
+        db_textmining: Textmining = Textmining()
+        db.add(db_textmining)
+        db.commit()
+        textmining_pk = (
+            db.query(Textmining)
+            .order_by(Textmining.textmining_pk.desc())
+            .first()
+            .textmining_pk
+        )
+        # 가장 최근 뉴스의 url을 가져옴
+        temp_news: str = db.query(News).order_by(News.news_pk).first()
+        if temp_news:
+            pre_article_url: str = (
+                db.query(News).order_by(News.news_pk.desc()).first().url
+            )
+        else:
+            pre_article_url = "dd"
+        articles: list[dict] = crawl(pre_article_url)  # 해당 뉴스 전까지의 모든 뉴스 크롤링
+        articles.reverse()
+        for article in articles:
+            create_news(db, article, textmining_pk)  # 뉴스별로 텍스트 추출
+    except Exception as e:
+        print("에러 :", str(e))
+        db.rollback()
 
 
 def create_news(db: Session, article: dict, textmining_pk: str) -> None:  # 뉴스 하나 만드는 함수
@@ -60,7 +99,8 @@ def create_news(db: Session, article: dict, textmining_pk: str) -> None:  # 뉴�
     url: str = article["url"]
     db_news: News = News(url=url, textmining_pk=textmining_pk)
     db.add(db_news)
-    news_pk: int = db.query(News).order_by(News.news_pk.desc()).first()
+    db.commit()
+    news_pk: int = db.query(News).order_by(News.news_pk.desc()).first().news_pk
     okt: Okt = Okt()
     poss: list[tuple[str, str]] = okt.pos(
         article["content"] + article["title"], norm=True, stem=True
@@ -80,22 +120,25 @@ def create_keyword(db: Session, word: str, news_pk: int) -> None:
     existing_stopword: Optional[Stopword] = (
         db.query(Stopword).filter_by(word=word).first()
     )
-    if not existing_keyword and not existing_stopword:
-        existing_stock: Optional[Stock] = (
-            db.query(Stock).filter_by(corp_name=word).first()
+    existing_stock: Optional[Stock] = db.query(Stock).filter_by(corp_name=word).first()
+    if existing_stopword:
+        print("불용어입니다")
+        return
+    if existing_stock:
+        db_news_stock: NewsStock = NewsStock(
+            news_pk=news_pk, stock_code=existing_stock.stock_code
         )
-        if existing_stock:
-            db_news_stock: NewsStock = NewsStock(
-                news_pk=news_pk, stock_code=existing_stock.stock_code
-            )
-            db.add(db_news_stock)
-        else:
+        db.add(db_news_stock)
+        db.commit()
+    else:
+        if not existing_keyword:
             db_keyword: Keyword = Keyword(keyword=word)
             db.add(db_keyword)
-            db_news_keyword: NewsKeyword = NewsKeyword(
-                keyword_word=word, new_pk=news_pk, weight=1
-            )
-            db.add(db_news_keyword)
+            db.commit()
+
+        db_news_keyword: NewsKeyword = NewsKeyword(word=word, news_pk=news_pk, weight=1)
+        db.add(db_news_keyword)
+        db.commit()
 
 
 def crawl(pre_article_url: str) -> list[dict]:
@@ -103,7 +146,7 @@ def crawl(pre_article_url: str) -> list[dict]:
     url_pattern: Pattern[str] = re.compile(r"https://[^;" "]+")
     origin_url: str = "https://finance.naver.com/news/mainnews.naver?&page="
     articles: list[dict] = []
-    for page in range(1, 2):  # 한번의 시도에 최대 9페이지의 뉴스만 크롤링함
+    for page in range(1, 3):  # 한번의 시도에 최대 5페이지의 뉴스만 크롤링함
         url = origin_url + str(page)
         # 요청 시작
         response = requests.get(url)
@@ -135,13 +178,9 @@ def crawl(pre_article_url: str) -> list[dict]:
                     urls = match.group().rstrip("'")
                     print("href_url", urls)
                 new_article_url = urls
-                pre_article_url = (
-                    "https://n.news.naver.com/mnews/article/009/0005191455"
-                )
                 article_response = requests.get(new_article_url)
                 article_soup = BeautifulSoup(article_response.text, "html.parser")
-
-                if new_article_url == pre_article_url:  # 페이지 무시
+                if new_article_url == pre_article_url:
                     return articles
                 if article_response.status_code == 200:
                     article_soup: BeautifulSoup = BeautifulSoup(

@@ -98,10 +98,8 @@ class NewsKeyword(Base):
         BigInteger, primary_key=True, index=True, autoincrement=True
     )
     weight: Union[float, Column] = Column(Float)
-    keyword_word: Union[str, Column] = Column(
-        String(255), ForeignKey("keyword.keyword")
-    )
-    new_pk: Union[int, Column] = Column(BigInteger, ForeignKey("news.news_pk"))
+    word: Union[str, Column] = Column(String(255), ForeignKey("keyword.keyword"))
+    news_pk: Union[int, Column] = Column(BigInteger, ForeignKey("news.news_pk"))
     created_at: Union[datetime, Column] = Column(DateTime, default=datetime.now)
     updated_at: Union[datetime, Column] = Column(
         DateTime, default=datetime.now, onupdate=datetime.now
