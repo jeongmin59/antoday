@@ -9,11 +9,11 @@
 }
 
 body {
-  margin: 0 calc((100% - 380px) / 6);
+  margin: 0 calc((100% - 480px) / 3);
   padding: 0;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 480px) {
   .App {
     /* border: 1px solid blue; */
     height: 100vh;
@@ -21,7 +21,8 @@ body {
 
   body {
     /* margin: 0 0; */
-    margin-bottom: 65rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     margin-left: 0;
     margin-right: 0;
     padding: 0;

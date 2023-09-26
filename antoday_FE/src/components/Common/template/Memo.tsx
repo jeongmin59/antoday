@@ -59,15 +59,13 @@ const Memo: React.FC<MemoProps> = ({ onClose, isMemoVisible }) => {
     <div className={` ${isMemoVisible ? styles.active : ''}`} onClick={onClose}>
       <div className={`${styles.memo} `} onClick={(e) => e.stopPropagation()}>
         <div className={styles.memoContent}>
+          <button onClick={handleUpdateMemo}>X</button>
           <textarea
-            // placeholder="메모를 입력하세요"
             rows={5}
             cols={30}
             value={memoText}
             onChange={(e) => setMemoText(e.target.value)}
           />
-          <button onClick={handleUpdateMemo}>저장</button>
-          <button onClick={onClose}>닫기</button>
         </div>
       </div>
     </div>

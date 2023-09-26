@@ -84,7 +84,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, s
               className={styles.corpcontainer}
               onClick={() => handleSelectCompany(result)}
             >
-              <img src={result.logoUrl} alt={result.corpName} />
+              <img src={result.logoUrl} alt={result.corpName} className={styles.img}/>
               <span>{result.corpName}</span>
             </div>
           ))}
@@ -98,7 +98,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, s
         // searchResults가 없을 때
         (selectedCompany && choose)  ? (
           <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
-            <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} />
+            <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} className={styles.img}/>
             <span>{selectedCompany?.corpName}</span>
           </div>
         ) : null

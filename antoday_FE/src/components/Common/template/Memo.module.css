@@ -7,34 +7,51 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0);
+  transition: transform 3s ease-out;
+  /* background-color: rgba(0, 0, 0, 0); */
 }
 
 .memoContent {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--main-yellow-color);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  /* border-radius: 5px; */
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .memoContent textarea {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 0.5rem;
+  font-family: NanumSquareRound;
+  border: none;
+  font-size: var(--font-h6);
+  /* border: 1px solid var(--main-blue-color); */
+  background-color: var(--main-white-color);
+  /* background-color: var(--main-yellow-color); */
 }
 
 .memoContent button {
-  padding: 10px 20px;
-}
+  /* padding: 10px 20px; */
+  /* margin-left: 1rem;
+  margin-right: 1rem; */
+  font-family: NanumSquareRound;
+  background-color: transparent;
+  /* background-color: var(--main-white-color); */
+  /* border: 2px solid var(--main-white-color); */
+  /* border-radius: 1rem; */
+  width: 2rem;
+  /* height: 1.5rem; */
+  border: none;
+  font-size: var(--font-h6);
 
+}
 
 .memo {
   display: inline-block;
   cursor: pointer;
-  transition: transform 0.3s ease-out; /* 트랜지션 효과: 0.3초 동안 변화를 부드럽게 적용 */
-}
-
-.modal:hover {
-  transform: translateY(5px); /* 마우스를 올렸을 때 아래로 5px 이동하는 효과 */
+  margin-top: 3rem;
 }
