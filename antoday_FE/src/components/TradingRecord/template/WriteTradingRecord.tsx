@@ -7,7 +7,8 @@
   import axios from 'axios';
   import { accessTokenAtom } from '../../../recoil/auth';
   import { useRecoilState } from 'recoil';
-import KeywordInput from '../../TradingDairy/modules/KeywordInput';
+// import KeywordInput from '../../TradingDairy/modules/KeywordInput';
+import { ko } from "date-fns/esm/locale";
 
 
   interface WriteTradingRecordPageProps {
@@ -305,6 +306,8 @@ const resetChooseState = () => {
         <div className={styles.horizontal}>
           <p>날짜</p>
           <DatePicker
+            locale={ko}
+            dateFormat="yyyy.MM.dd"
             selected={selectedDate}
             onChange={(date: Date) => setSelectedDate(date)}
             filterDate={(date: Date) => {
