@@ -48,7 +48,7 @@ const TradingCompanyList: React.FC<StockSearchResultsProps> = ({
                 key={index}
                 companyInfo={result}
                 loadData={loadData}
-                onClick={() => handleStockClick(result.stockCode)}
+                handleStockClick={handleStockClick}
               />
             ))}
           </div>
