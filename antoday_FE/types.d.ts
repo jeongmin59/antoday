@@ -18,3 +18,12 @@ interface TradingRecord {
     corpName? : string;
     tradePk?: string;
 }
+
+interface stockIntro {
+    change? : number;
+    corpName? : string;
+    index?: number;
+    market? : string;
+    percentageChange? : number;
+    stockCode? : string
+}

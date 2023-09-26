@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./StockInfoPage.module.css";
 import InfoPageSearchBar from "../../components/StockInfo/template/InfoPageSearchBar";
@@ -7,48 +7,73 @@ import StockInfoSummary from "../../components/StockInfo/template/StockInfoSumma
 import StockInfoDetail from "../../components/StockInfo/template/StockInfoDetail";
 import { useQuery } from "react-query";
 import axios from "axios";
+import LoadingSpinner from "../../components/Common/atom/LoadingSpinner";
+
+interface Params {
+  [stockPk: string]: string | undefined;
+}
 
 const StockInfoPage: React.FC = () => {
-  const { stockPk } = useParams();
-  const [corpInfo,setCorpInfo] = useState(null);
-  const [graphValue,setGraphValue] = useState(null);
+  const stockPk = useParams<Params>()?.stockPk || "";
+  const [corpIntro, setCorpIntro] = useState<stockIntro>([]);
+  const [corpInfo, setCorpInfo] = useState<string[]>([]);
+  const [graphValue, setGraphValue] = useState(null);
 
   const {
     data: stockInfoResults,
-    isLoading,
-    isError,
-  } = useQuery(
-    "stockInfoResults",
-    async () => {
+    isLoading: isLoading1,
+    isError: isError1,
+  } = useQuery("stockInfoResults", async () => {
+    const params = new URLSearchParams();
+    params.append("stock_code", stockPk);
 
-      const params = new URLSearchParams();
-      params.append("stock_code", stockPk);
-      
-      try {
-        const response = await axios.get(
-          import.meta.env.VITE_DATA_API_URL +
-            `/corp/overview?${params.toString()}`
-        );
-        // console.log('결과값은',response.data);
-        setCorpInfo(response.data.info)
-        setGraphValue(response.data.value)
-        return response.data;
-      } catch (error) {
-        console.error("에러발생:", error);
-        throw error;
-      }
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_DATA_API_URL +
+          `/corp/overview?${params.toString()}`
+      );
+      // console.log("결과값은", response.data);
+      setCorpInfo(response.data.info);
+      setGraphValue(response.data.value);
+      return response.data;
+    } catch (error) {
+      console.error("overview 실패", error);
+      throw error;
     }
-  );
+  });
 
-  console.log('종목정보',corpInfo)
-  console.log('그래프그릴때쓸값',graphValue)
+  const {
+    data: stockIntro,
+    isLoading: isLoading2,
+    isError: isError2,
+  } = useQuery("stockIntro", async () => {
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_DATA_API_URL + `/corp/index/${stockPk}`
+      );
+      setCorpIntro(response.data);
+      console.log("이게 안나온다고?", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("기본정보 실패", error);
+      throw error;
+    }
+  });
+
+  useEffect(() => {
+    console.log("Count has changed");
+  }, [stockInfoResults, stockIntro]);
 
   return (
     <div className={styles.stockInfoPageContainer}>
       <InfoPageSearchBar />
-      <StockInfoBasic stockPk={stockPk} />
+      <StockInfoBasic corpIntro={corpIntro} />
       <StockInfoSummary />
-      <StockInfoDetail stockPk={stockPk} graphValue={graphValue} corpInfo={corpInfo}/>
+      <StockInfoDetail
+        stockPk={stockPk}
+        graphValue={graphValue}
+        corpInfo={corpInfo}
+      />
     </div>
   );
 };
