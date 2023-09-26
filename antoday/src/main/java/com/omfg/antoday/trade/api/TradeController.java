@@ -38,8 +38,9 @@ public class TradeController {
     @ApiOperation(value = "매매기록 추가", notes = "tradePk는 입력하지 말것.")
     public ResponseEntity<Trade> tradeAdd(@RequestBody TradeSaveRequestDto trade,
                                           @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        // 키워드 들어오면 어떻게 할지
-        return new ResponseEntity<>(tradeService.addTrade(trade, userDetails),HttpStatus.OK);
+        Trade result = tradeService.addTrade(trade, userDetails);
+        if(result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @PutMapping
