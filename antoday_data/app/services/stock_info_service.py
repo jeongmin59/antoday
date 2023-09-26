@@ -9,6 +9,7 @@ from dateutil.relativedelta import relativedelta
 from app.schemas.stocks import StocksDTO
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 
 
 ### overview
@@ -18,10 +19,19 @@ def get_stock_info(stock_code):
     corp_code = get_corp_code(stock_code)
 
     value = get_financ_state(corp_code, dart)
-    info = get_financ_info(stock_code, corp_code, dart)
+    indicator = get_financ_info(stock_code, corp_code, dart)
     disclosure = get_list(corp_code, 0)
 
-    response_data = {"value": value, "info": info, "disclosure": disclosure}
+    crawl = get_crwal_data(stock_code)
+
+    response_data = {
+        "value": value,
+        "indicator": indicator,
+        "disclosure": disclosure,
+        "info": crawl["info"],
+        "history": crawl["history"],
+        "product": crawl["product"],
+    }
 
     return response_data
 
@@ -239,6 +249,44 @@ def get_list(corp_code, page):
         "list": temp_list,
     }
     return result
+
+
+# 크롤링으로 정보 가져오기
+def get_crwal_data(stock_code):
+    url = f"https://comp.wisereport.co.kr/company/c1020001.aspx?cn=&cmp_cd={stock_code}"
+
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, "html.parser")
+
+    response = {
+        "info": get_table_data("#cTB201", soup),
+        "history": get_table_data("#cTB202", soup),
+        "product": get_table_data("#cTB203", soup),
+    }
+
+    return response
+
+
+def get_table_data(table_num, soup):
+    table = soup.select_one(table_num)
+    # 모든 행(<tr>) 요소 선택
+    rows = table.select("tr")
+    data_list = []
+
+    # 각 행을 순회하며 데이터 추출
+    for row in rows:
+        # 각 행에서 th와 td를 찾아서 저장
+        th_list = row.select("th")
+        td_list = row.select("td")
+        data = {}
+
+        # th와 td가 모두 존재하는 경우에만 저장
+        if th_list and td_list:
+            for th, td in zip(th_list, td_list):
+                # data[th.text.strip()] = td.text.strip()
+                data_list.append({th.text.strip(): td.text.strip()})
+
+    return data_list
 
 
 ### stock
