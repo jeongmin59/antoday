@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RevenueAndProfit.module.css";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, LabelList, Label } from 'recharts';
+import { Bar, BarChart, CartesianGrid, XAxis, LabelList, Label } from 'recharts';
 
 interface StockInfoDetailProps {
   graphValue?: {
@@ -48,16 +48,19 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
         </div>
       </div>
       <div className={styles.graph}>
-        <BarChart width={280} height={180} data={chartData} margin={{ top: 15, right: 20, left: 20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="year">
-            <Label  offset={0} position="insideBottom" />
-          </XAxis>
-          {/* <YAxis label={{ value: '금액', angle: -90, position: 'insideLeft' }} /> */}
-          <Bar dataKey="y" fill="#8884d8" barSize={50}>
-            <LabelList dataKey="text" position="top" fontSize={12}/>
-          </Bar>
-        </BarChart>
+        {chartData.length > 0 ? (
+          <BarChart width={280} height={180} data={chartData} margin={{ top: 15, right: 20, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="year">
+              <Label offset={0} position="insideBottom" />
+            </XAxis>
+            <Bar dataKey="y" fill="#8884d8" barSize={50}>
+              <LabelList dataKey="text" position="top" fontSize={12} />
+            </Bar>
+          </BarChart>
+        ) : (
+          <div className={styles.nullComment}>현재 데이터를 불러올 수 없습니다.</div>
+        )}
       </div>
     </div>
   );
