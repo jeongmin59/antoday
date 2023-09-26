@@ -48,9 +48,13 @@ def get_current_index_info(stock_code: str):
     index = int(df.iloc[-1]["Close"])
     change = int(df.iloc[-1]["Close"] - df.iloc[-2]["Close"])
     percentage_change = round(df.iloc[-1]["Change"] * 100, 2)
+    
+    stock_info = get_stock_name_market(stock_code)
 
     data = CorpIndexInfoDTO(
         stock_code=stock_code,
+        corp_name=stock_info["corp_name"],
+        market=stock_info["market"],
         index=index,
         change=change,
         percentage_change=percentage_change,
@@ -138,3 +142,15 @@ def get_stock_info(corp_list):
         corp_info_list = corp_info_list[:10]
 
     return corp_info_list
+
+# 종목코드로 기업명, market 조회
+def get_stock_name_market(stock_code):
+    corp_info_list = []
+
+    with SessionLocal() as db:
+        stock = db.query(Stock).filter_by(stock_code=stock_code).first()
+        stock_dict = {
+            "corp_name": stock.corp_name,
+            "market": stock.market,
+        }
+    return stock_dict

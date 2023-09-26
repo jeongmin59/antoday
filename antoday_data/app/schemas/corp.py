@@ -14,6 +14,8 @@ class DefaultPriceDTO(BaseModel):
 
 class CorpIndexInfoDTO(BaseModel):
     stock_code: str
+    corp_name: str
+    market: str
     index: int
     change: int
     percentage_change: float

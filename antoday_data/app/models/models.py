@@ -31,6 +31,7 @@ class Textmining(Base):
     )
 
 
+
 class News(Base):
     __tablename__ = "news"
     news_pk: Union[int, Column] = Column(
@@ -109,7 +110,22 @@ class NewsKeyword(Base):
     keyword = relationship("Keyword", back_populates="keyword_news")
 
 
-class Stopword(Base):
+class Trade(Base):
+    __tablename__ = "trade"
+
+    trade_pk = Column(BigInteger, primary_key=True, autoincrement=True)
+    ai_analyze = Column(String)
+    cnt = Column(Integer)
+    is_deleted = Column(Boolean)
+    option_buy_sell = Column(Boolean)
+    price = Column(Integer)
+    reason = Column(String)
+    trade_at = Column(DateTime)
+    updated_at = Column(DateTime, onupdate=datetime.now)
+    social_id = Column(BigInteger)
+    
+
+class Stopword(Base) :
     __tablename__ = "stop_word"
     word: Union[str, Column] = Column(
         String(255), primary_key=True, unique=True, index=True
