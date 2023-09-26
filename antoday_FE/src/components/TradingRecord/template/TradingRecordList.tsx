@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 interface TradingRecordListProps {
   records?: TradingRecordPageType[];
   hasMore: boolean;
-  fetchMoreData: () => void;
+  fetchMoreData: ({ pageParam }: { pageParam?: number | undefined; }) => Promise<{
+    data: any;
+    hasMore: boolean;
+}>
 }
 
 const TradingRecordList: React.FC<TradingRecordListProps> = ({
@@ -18,8 +21,16 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
 }) => {
   const navigator = useNavigate();
   const [reasonExist, setReasonExist] = useState<Boolean>(false);
-
+  const [currentPage, setCurrentPage] = useState(0);
   const groupedRecords: { [date: string]: TradingRecordPageType[] } = {};
+  const loadMore = async () => {
+    try {
+      await fetchMoreData({ pageParam: currentPage + 1 });
+      setCurrentPage(prev => prev + 1);
+    } catch (error) {
+      console.error("Failed to load more data:", error);
+    }
+  };
 
   const formatDate = (dateStr: string): string => {
     const date = new Date(dateStr);
@@ -48,13 +59,13 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
       setReasonExist(false)
       navigator(`/writetradingrecord/${tradePk}`);
     }
-  };
+  }
 
   return (
     <div className={styles.div}>
       <InfiniteScroll
         dataLength={records?.length}
-        next={fetchMoreData}
+        next={loadMore}
         hasMore={hasMore}
         loader={records?.length > 0 ? <LoadingSpinner /> : null}
       >
@@ -80,7 +91,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
                   </div>
                   <div className={styles.row}>
                     <div className={styles.pricecount}>
-                      <span>{record.price.toLocaleString()}원</span>
+                      <span>{record.price?.toLocaleString()}원</span>
                       <span>{record.cnt}주</span>
                     </div>
                     {record.reasonExist ? (

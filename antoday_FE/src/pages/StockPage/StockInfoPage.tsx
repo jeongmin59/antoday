@@ -29,6 +29,7 @@ const StockInfoPage: React.FC = () => {
           import.meta.env.VITE_DATA_API_URL +
             `/corp/overview?${params.toString()}`
         );
+        // console.log('결과값은',response.data);
         setCorpInfo(response.data.info)
         setGraphValue(response.data.value)
         return response.data;
@@ -47,7 +48,7 @@ const StockInfoPage: React.FC = () => {
       <InfoPageSearchBar />
       <StockInfoBasic stockPk={stockPk} />
       <StockInfoSummary />
-      <StockInfoDetail stockPk={stockPk} graphValue={graphValue} />
+      <StockInfoDetail stockPk={stockPk} graphValue={graphValue} corpInfo={corpInfo}/>
     </div>
   );
 };
