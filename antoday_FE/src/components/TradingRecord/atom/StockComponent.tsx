@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 interface StockInfoComponentProps {
   companyInfo: CompanyInfo; // 기업 정보를 받을 prop
   isLoading: boolean;
-  onSelectCompany: (stockCode: string) => void;
+  handleStockClick: (stockCode: string) => void;
 }
 
 const StockComponent: React.FC<StockInfoComponentProps> = ({
   companyInfo,
-  onSelectCompany
+  handleStockClick
 }) => {
 
 
   return (
-    <div className={styles.stockSearchResult} onClick={() => onSelectCompany(companyInfo.stockCode)}>
+    <div className={styles.stockSearchResult} onClick={() => handleStockClick(companyInfo.stockCode)}>
       {companyInfo ? (
         <React.Fragment>
           <img

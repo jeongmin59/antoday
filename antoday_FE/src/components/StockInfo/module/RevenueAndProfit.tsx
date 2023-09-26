@@ -1,68 +1,34 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RevenueAndProfit.module.css";
-import ReactApexChart from 'react-apexcharts';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, LabelList, Label } from 'recharts';
 
 interface StockInfoDetailProps {
-  graphValue?: { takes: { year: number; take: number }[], profits: { year: number; prpfit: number }[] };
+  graphValue?: {
+    takes: { year: number; take: number; take_kr: string }[];
+    profits: { year: number; prpfit: number; profit_kr: string }[];
+  };
 }
 
-const formatNumber = (number: number) => {
-  const absoluteNumber = Math.abs(number);
-
-  if (absoluteNumber < 10000) {
-    return `${number >= 0 ? '' : '-'}${absoluteNumber.toLocaleString()}원`;
-  } else if (absoluteNumber < 100000000) {
-    const unit = Math.floor(absoluteNumber / 10000);
-    const remainder = absoluteNumber % 10000;
-    return `${number >= 0 ? '' : '-'}${unit}조 ${remainder.toLocaleString()}원`;
-  } else {
-    const unit = Math.floor(absoluteNumber / 100000000);
-    const remainder = absoluteNumber % 100000000;
-    const thousand = Math.floor(remainder / 10000);
-    return `${number >= 0 ? '' : '-'}${unit}조 ${thousand}천 ${remainder.toLocaleString()}원`;
-  }
-};
-
 const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
-  const [chartData, setChartData] = useState<any>({
-    takes: [],
-    profits: []
-  });
-  const [selectedTab, setSelectedTab] = useState<string | null>(null);
+  const [selectedTab, setSelectedTab] = useState<'revenue' | 'profit'>('revenue');
 
-  useEffect(() => {
-    if (graphValue) {
-      const takesData = graphValue.takes.map(item => ({
-        x: item.year,
-        y: formatNumber(item.take)
-      }));
-
-      const profitsData = graphValue.profits.map(item => ({
-        x: item.year,
-        y: formatNumber(item.prpfit)
-      }));
-
-      setChartData({
-        takes: takesData,
-        profits: profitsData
-      });
-    }
-  }, [graphValue]);
-
-  const handleTabClick = (tab: string) => {
+  const handleTabClick = (tab: 'revenue' | 'profit') => {
     setSelectedTab(tab);
   };
 
   const isRevenueTabSelected = selectedTab === 'revenue';
 
-  const chartOptions = {
-    chart: {
-      type: 'bar'
-    },
-    xaxis: {
-      categories: isRevenueTabSelected ? graphValue?.takes.map(item => item.year) : graphValue?.profits.map(item => item.year)
+  const [chartData, setChartData] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (graphValue) {
+      const data = isRevenueTabSelected
+        ? graphValue.takes.map(item => ({ year: item.year, y: item.take, text: item.take_kr }))
+        : graphValue.profits.map(item => ({ year: item.year, y: item.prpfit, text: item.profit_kr }));
+
+      setChartData(data);
     }
-  };
+  }, [graphValue, isRevenueTabSelected]);
 
   return (
     <div className={styles.mainContainer}>
@@ -82,16 +48,16 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
         </div>
       </div>
       <div className={styles.graph}>
-        <ReactApexChart
-          options={chartOptions}
-          series={[
-            {
-              name: isRevenueTabSelected ? '매출' : '영업이익',
-              data: isRevenueTabSelected ? chartData.takes : chartData.profits
-            }
-          ]}
-          type="bar"
-        />
+        <BarChart width={280} height={180} data={chartData} margin={{ top: 15, right: 20, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year">
+            <Label  offset={0} position="insideBottom" />
+          </XAxis>
+          {/* <YAxis label={{ value: '금액', angle: -90, position: 'insideLeft' }} /> */}
+          <Bar dataKey="y" fill="#8884d8" barSize={50}>
+            <LabelList dataKey="text" position="top" fontSize={12}/>
+          </Bar>
+        </BarChart>
       </div>
     </div>
   );

@@ -19,9 +19,10 @@ const ReasonInput: React.FC<TradingRecord> = ({
     setReason(event.target.value);
   };
   //
+
   return (
     <React.Fragment>
-      <div className={styles.pageTitle}>매수/매도 이유 (선택)</div>
+      <div className={styles.pageTitle}>매수/매도 이유</div>
       <div className={styles.recordContainer}>
         <textarea
           value={reason}
@@ -32,7 +33,7 @@ const ReasonInput: React.FC<TradingRecord> = ({
           style={{ border: "none", height: "80%", width: "90%" }}
         />
       </div>
-      <SkipBtn />
+      <SkipBtn tradePk={tradePk} />
       <SaveBtn
         tradeAt={tradeAt}
         stockCode={stockCode}

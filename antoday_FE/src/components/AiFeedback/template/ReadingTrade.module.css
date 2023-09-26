@@ -1,5 +1,26 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.title {
+  font-size: var(--font-h5);
+}
+
+@media screen and (max-width: 380px) {
+  .title {
+    font-size: var(--font-h6);
+  }
 }
