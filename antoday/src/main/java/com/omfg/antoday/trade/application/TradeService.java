@@ -48,11 +48,10 @@ public class TradeService {
         }
         else {  //매도
             // 매도 가능 수량으로 매도 주문을 보냈는지 확인.
-            Stock stock = stockRepository.findByStockCode(dto.getStockCode());
-            List<Trade> list = tradeRepository.findByUserAndStockAndIsDeletedFalse(user,stock);
+            Integer netCountObj = tradeRepository.getNetCountForUserAndStock(user, dto.getStockCode());
+            int netCount = (netCountObj != null) ? netCountObj : 0;
 
-            int totalCnt = list.stream().mapToInt(Trade::getCntByOption).sum();
-            if(dto.getCnt() > totalCnt) return null;
+            if(dto.getCnt() > netCount) return null;
 
             Trade trade = TradeSaveRequestDto.toTrade(dto, user);
             Trade t =  tradeRepository.save(trade);
