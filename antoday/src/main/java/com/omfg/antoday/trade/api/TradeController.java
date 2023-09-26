@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -93,9 +94,9 @@ public class TradeController {
     // 기업 수익률 계산
     @GetMapping("/roi")
     @ApiOperation(value = "해당 기업/전체 수익률 계산", notes = " 안넣으면 전체 수익률. 일단 지금은 스톡코드 넣어서! 뭔가 완벽하진 않음.")
-    public ResponseEntity<RoiResponseDto> roiStockGet(@RequestParam(required = true) String stock_code,
-                                                      @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return new ResponseEntity<>(tradeService.getRoiStock(userDetails, stock_code), HttpStatus.OK);
+    public ResponseEntity<List<RoiResponseDto>> roiStockGet(@RequestParam(required = false) String keyword,
+                                                            @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new ResponseEntity<>(tradeService.getRoiStock(userDetails, keyword), HttpStatus.OK);
     }
 
     @GetMapping("/makeDummyStock/{stock_code}")

@@ -153,38 +153,57 @@ public class TradeService {
         }).collect(Collectors.toSet());
     }
 
-    public RoiResponseDto getRoiStock(UserDetailsImpl userDetails, String stockCode) {
+    public List<RoiResponseDto> getRoiStock(UserDetailsImpl userDetails, String keyword) {
         User user = UserUtils.getUserFromToken(userDetails);
 
-        Stock stock = stockRepository.findByStockCode(stockCode);
-        List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
+//        Stock stock = stockRepository.findByStockCode(stockCode);
+//        List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
 
-        int sumCnt = 0;
-        double total = 0;
-        double avgPrice = 0;
-        double profit = 0;
+        // 1. trade에서 기업이름이 keyword에 해당한다면 stockcode 가져오기
+        // 2. tradekeyword에서 keyword내용이 입력한 keyword에 해당한다면 stockcode 가져오기
+        Set<String> set = tradeRepository.findstockByNativeQuery(user.getSocialId(), keyword);
 
-        List<Double> profits = new ArrayList<>();
-        List<Double> rois = new ArrayList<>();
+        List<RoiResponseDto> result = new ArrayList<>();
 
-        for (Trade trade : trades) {
-            if (trade.getOptionBuySell() == 0) {
-                sumCnt += trade.getCnt();
-                total += trade.getCnt() * trade.getPrice();
-                avgPrice = total / sumCnt;
-            } else {
-                sumCnt -= trade.getCnt();
-                total -= trade.getCnt() * avgPrice;
-                profit = trade.getCnt() * (trade.getPrice() - avgPrice);
-                profits.add(profit);
-                rois.add(profit / (avgPrice * trade.getCnt()) * 100 - 0.23);
+        System.out.println("왜 여기로 안올까??");
+        System.out.println(set);
+        // 3. 각 stockcode에 대하여 trade list 가져오기
+        for(String stockCode : set) {
+            System.out.println("trade-stockcode : "+stockCode);
+            Stock stock = stockRepository.findByStockCode(stockCode);
+            List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
+
+            // 수익률 계산
+            int sumCnt = 0;
+            double total = 0;
+            double avgPrice = 0;
+            double profit = 0;
+
+
+            List<Double> profits = new ArrayList<>();
+            List<Double> rois = new ArrayList<>();
+
+            for (Trade trade : trades) {
+                if (trade.getOptionBuySell() == 0) {
+                    sumCnt += trade.getCnt();
+                    total += trade.getCnt() * trade.getPrice();
+                    avgPrice = total / sumCnt;
+                } else {
+                    sumCnt -= trade.getCnt();
+                    total -= trade.getCnt() * avgPrice;
+                    profit = trade.getCnt() * (trade.getPrice() - avgPrice);
+                    profits.add(profit);
+                    rois.add(profit / (avgPrice * trade.getCnt()) * 100 - 0.23);
+                }
             }
-        }
 
-        int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
-        double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
-        double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
+            int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
+            double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+            double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
+
+            new RoiResponseDto(sumProfit, roundedAvgRoi);
+        }
         
-        return new RoiResponseDto(sumProfit, roundedAvgRoi);
+        return result;
     }
 }

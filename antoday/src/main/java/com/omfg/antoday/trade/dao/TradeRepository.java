@@ -41,6 +41,17 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
                                           @Param("endDate") LocalDateTime endDate,
                                           PageRequest pageRequest);
 
+    @Query(value = "SELECT DISTINCT t.stock_code " +
+            "FROM trade t " +
+            "INNER JOIN stock s ON t.stock_code = s.stock_code " +
+            "LEFT OUTER JOIN trade_keyword tk ON t.trade_pk = tk.trade_pk " +
+            "LEFT OUTER JOIN keyword k ON tk.keyword = k.keyword " +
+            "WHERE t.social_id = :socialId " +
+            "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) "
+            , nativeQuery = true)
+    Set<String> findstockByNativeQuery(@Param("socialId") Long socialId,
+                                                            @Param("searchTerm") String searchTerm);
+
     //    Page<Trade> findByUserAndIsDeletedFalse(User u, PageRequest pageRequest);
 //
 //    Page<Trade> findByUserAndStockAndIsDeletedFalse(User user, Stock stock, PageRequest pageRequest);
