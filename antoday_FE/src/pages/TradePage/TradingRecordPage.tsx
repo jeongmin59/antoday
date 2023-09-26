@@ -75,15 +75,16 @@ const TradingRecordPage: React.FC = () => {
     });
     const responseData = response.data;
     if (pageParam === 0) {
-      setSearchResults(responseData.content);
+      //console.log(response.data)
+      setSearchResults(responseData.list.content);
     } else {
-      setSearchResults(prev => [...prev, ...responseData.content]);
+      setSearchResults(prev => [...prev, ...responseData.list.content]);
     }
-    if (responseData.content.length > 0) {
-      setStockCode(responseData.content[0].stockCode);
-    } else {
-      setStockCode(null);
-    }
+    // if (responseData.content.length > 0) {
+    //   setStockCode(responseData.content[0].stockCode);
+    // } else {
+    //   setStockCode(null);
+    // }
     return {
       ...responseData,
       nextPage: pageParam + 1,
@@ -110,6 +111,7 @@ const TradingRecordPage: React.FC = () => {
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
+      // console.log('다음페이지 가져오삼')
     }
   }, [inView, hasNextPage]);
   
@@ -133,7 +135,7 @@ const handleSearchDate = (start: string, end: string) => {
   setEndDate(end);
   fetchNextPage({ pageParam: 0 });
 };
-// console.log('인뷰',searchResults)
+// console.log('인뷰',inView )
 
 return (
   <div className={styles.bigcontainer}>
@@ -165,7 +167,7 @@ return (
                 <SearchingDate onSearch={handleSearchDate} />
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
-              {stockCode ? <ProfitRate stockCode={stockCode} /> : null}
+              {<ProfitRate/>}
                   <TradingRecordList
                     records={searchResults}  // searchResults를 전달
                     hasMore={hasMore}
