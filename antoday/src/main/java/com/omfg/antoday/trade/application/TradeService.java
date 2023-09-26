@@ -41,27 +41,24 @@ public class TradeService {
     public Trade addTrade(TradeSaveRequestDto dto, UserDetailsImpl userDetails) {
         User user = UserUtils.getUserFromToken(userDetails);
 
-        Trade trade = TradeSaveRequestDto.toTrade(dto, user);
-        Trade t =  tradeRepository.save(trade);
+        if(dto.getOptionBuySell() == 0) {   //매수
+            Trade trade = TradeSaveRequestDto.toTrade(dto, user);
+            Trade t =  tradeRepository.save(trade);
+            return t;
+        }
+        else {  //매도
+            // 매도 가능 수량으로 매도 주문을 보냈는지 확인.
+            Stock stock = stockRepository.findByStockCode(dto.getStockCode());
+            List<Trade> list = tradeRepository.findByUserAndStockAndIsDeletedFalse(user,stock);
 
-        // 키워드 저장
-        // 비효율적인 것 같긴 한데 일단은 돌아감
-        // keyword 중복생성 수정
-        dto.getKeywords().stream().forEach(word -> {
-            Keyword keyword;
-            if (keywordRepository.existsById(word)) {
-                keyword = keywordRepository.findById(word).get();
-//                keyword = keywordRepository.findById(wo)
-            }else {
-                keyword = Keyword.builder().keyword(word).build();
-            }
-            TradeKeyword tk = TradeKeyword.builder()
-                    .keyword(keyword)
-                    .trade(t)
-                    .build();
-            tradeKeywordRepository.save(tk);
-        });
-        return t;
+            int totalCnt = list.stream().mapToInt(Trade::getCntByOption).sum();
+            if(dto.getCnt() > totalCnt) return null;
+
+            Trade trade = TradeSaveRequestDto.toTrade(dto, user);
+            Trade t =  tradeRepository.save(trade);
+            return t;
+        }
+        // 키워드 저장은 필요 없음. 무조건 수정에서만 키워드 저장이 들어온다.
     }
 
     @Transactional
