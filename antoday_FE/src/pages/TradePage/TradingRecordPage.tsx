@@ -76,6 +76,11 @@ const TradingRecordPage: React.FC = () => {
     } else {
       setSearchResults(prev => [...prev, ...responseData.content]);
     }
+    if (responseData.content.length > 0) {
+      setStockCode(responseData.content[0].stockCode);
+    } else {
+      setStockCode(null);
+    }
     return {
       data: responseData.content,
       hasMore: !responseData.last
@@ -115,7 +120,7 @@ const handleSearchDate = (start: string, end: string) => {
   setEndDate(end);
   fetchNextPage({ pageParam: 0 });
 };
-
+// console.log(stockCode)
 return (
   <div className={styles.bigcontainer}>
 
@@ -146,7 +151,7 @@ return (
                 <SearchingDate onSearch={handleSearchDate} />
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
-              {searchKeyword && stockCode ? <ProfitRate stockCode={stockCode} /> : null}
+              {stockCode ? <ProfitRate stockCode={stockCode} /> : null}
               {/* {!isSubmit && searchResults && (
                 <div className={styles.searchcompanylist}>
                     <TradingCompanyList
