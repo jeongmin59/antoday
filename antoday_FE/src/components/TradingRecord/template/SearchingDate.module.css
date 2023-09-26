@@ -1,8 +1,8 @@
-.datepicker {
-    width: 3.5rem;
-    /* border: 1px solid black; */
-  }
-
-span {
-  margin: 0.2rem;
+.dateContainer {
+  width: 60%;
+  display: flex;
+  font-display: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 }
