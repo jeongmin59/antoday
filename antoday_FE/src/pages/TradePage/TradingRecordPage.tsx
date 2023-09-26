@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery, useInfiniteQuery, useQueryClient } from "react-query";
-import useDebounce from "../../utils/useDebounce";
+// import useDebounce from "../../utils/useDebounce";
 import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
 import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
-import SearchInput from "../../components/TradingRecord/template/SearchInput";
+// import SearchInput from "../../components/TradingRecord/template/SearchInput";
 import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
 import ProfitRate from "../../components/TradingRecord/template/ProfitRate";
-import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
+// import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
 import styles from "./TradingRecordPage.module.css";
 import { accessTokenAtom } from "../../recoil/auth";
 import { useRecoilState } from 'recoil';
@@ -34,8 +34,8 @@ const TradingRecordPage: React.FC = () => {
   const [endDate, setEndDate] = useState("");
   const [showWrite, setShowWrite] = useState(false);
   const [stockCode, setStockCode] = useState<string | null>(null);
-  const queryClient = useQueryClient();
-  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  // const queryClient = useQueryClient();
+  // const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
   const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>([]);
 
@@ -50,10 +50,10 @@ const TradingRecordPage: React.FC = () => {
   //   loadData();
   // };
 
-  const debouncedInputValue = useDebounce({
-    value: searchKeyword,
-    delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
-  });
+  // const debouncedInputValue = useDebounce({
+  //   value: searchKeyword,
+  //   delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
+  // });
 
   const fetchData = async ({ pageParam = 0 }) => {
     const params: any = {
@@ -107,12 +107,12 @@ const TradingRecordPage: React.FC = () => {
 };
 
 const handleSubmit = (event) => {
-    event.preventDefault();  // prevent the form from submitting
+    event.preventDefault();  
     fetchNextPage({ pageParam: 0 });
 };
 
 const handleInputClick = () => {
-    setSearchKeyword("");  // Clear the input when clicked
+    setSearchKeyword("");  
 };
 
 const handleSearchDate = (start: string, end: string) => {

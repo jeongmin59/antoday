@@ -8,7 +8,10 @@ import { useNavigate } from "react-router-dom";
 interface TradingRecordListProps {
   records?: TradingRecordPageType[];
   hasMore: boolean|undefined;
-  fetchMoreData: ({ pageParam }: { pageParam?: number | undefined; }) => Promise<void>;
+  fetchMoreData: ({ pageParam }: { pageParam?: number | undefined; }) => Promise<{
+    data: any;
+    hasMore: boolean;
+}>
 }
 
 const TradingRecordList: React.FC<TradingRecordListProps> = ({
