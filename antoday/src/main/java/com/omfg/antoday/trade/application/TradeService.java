@@ -98,7 +98,8 @@ public class TradeService {
     }
 
 
-    public Page<TradeListResponseDto> getTrade(UserDetailsImpl userDetails, int page, String start, String end, String keyword) {
+    public Page<TradeListResponseDto> getTrade(UserDetailsImpl userDetails, int page, String start, String end,
+                                               String keyword, TradeFilter tradeFilter, TradeOrderBy tradeOrderBy) {
         User user = UserUtils.getUserFromToken(userDetails);
 
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("tradePk").descending());
@@ -113,8 +114,11 @@ public class TradeService {
         if(keyword == null) keyword = "";
         keyword = '%'+keyword+'%';
 
-        Page<TradeListResponseInterface> trades = tradeRepository.findTradeByNativeQuery(user.getSocialId()
-                , keyword, st, ed,pageRequest);
+        if (tradeFilter == null) tradeFilter = TradeFilter.DEFAULT;
+
+        Page<TradeListResponseInterface> trades =
+                tradeRepository.findTradeByNativeQuery(user.getSocialId(), keyword,
+                        st ,ed , tradeFilter.toString(), tradeOrderBy.toString() ,pageRequest);
 
         return trades.map(trade -> TradeListResponseDto.toDto(trade));
     }

@@ -60,12 +60,14 @@ public class TradeController {
     //매매기록 기간별, 종목별 조회
     @GetMapping
     @ApiOperation(value = "매매 기록 list", notes = "page필수(0부터), start(형식 : yyyy-MM-dd HH:mm:ss), end, keyword(검색 키워드 또는 기업명) 선택")
-    public ResponseEntity<Map<String,Object>> tradeOptionGet(@RequestParam String page, @RequestParam(required = false) String start,
-                                                                     @RequestParam(required = false) String end,
-                                                                     @RequestParam(required = false) String keyword,
-                                                                     @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<Map<String,Object>> tradeOptionGet(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(required = false) String start,
+                                                             @RequestParam(required = false) String end,
+                                                             @RequestParam(required = false) String keyword,
+                                                             @RequestParam(required = false, defaultValue = "DEFAULT") TradeFilter tradeFilter,
+                                                             @RequestParam(required = false, defaultValue = "LATEST") TradeOrderBy tradeOrderBy,
+                                                             @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
-        Page<TradeListResponseDto> result = tradeService.getTrade(userDetails, Integer.parseInt(page), start,end, keyword);
+        Page<TradeListResponseDto> result = tradeService.getTrade(userDetails, page, start, end, keyword, tradeFilter, tradeOrderBy);
         // roi계산
         List<RoiResponseDto> roi = tradeService.getRoiStock(userDetails, keyword);
         Map<String, Object> response = new HashMap<>();
