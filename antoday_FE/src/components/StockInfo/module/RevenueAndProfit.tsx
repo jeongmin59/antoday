@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./RevenueAndProfit.module.css";
-import { Bar, BarChart, CartesianGrid, XAxis, LabelList, Label } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  LabelList,
+  Label,
+} from "recharts";
 
 interface StockInfoDetailProps {
   graphValue?: {
@@ -10,21 +17,31 @@ interface StockInfoDetailProps {
 }
 
 const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
-  const [selectedTab, setSelectedTab] = useState<'revenue' | 'profit'>('revenue');
+  const [selectedTab, setSelectedTab] = useState<"revenue" | "profit">(
+    "revenue"
+  );
 
-  const handleTabClick = (tab: 'revenue' | 'profit') => {
+  const handleTabClick = (tab: "revenue" | "profit") => {
     setSelectedTab(tab);
   };
 
-  const isRevenueTabSelected = selectedTab === 'revenue';
+  const isRevenueTabSelected = selectedTab === "revenue";
 
   const [chartData, setChartData] = useState<any[]>([]);
 
   useEffect(() => {
     if (graphValue) {
       const data = isRevenueTabSelected
-        ? graphValue.takes.map(item => ({ year: item.year, y: item.take, text: item.take_kr }))
-        : graphValue.profits.map(item => ({ year: item.year, y: item.prpfit, text: item.profit_kr }));
+        ? graphValue.takes.map((item) => ({
+            year: item.year,
+            y: item.take,
+            text: item.take_kr,
+          }))
+        : graphValue.profits.map((item) => ({
+            year: item.year,
+            y: item.prpfit,
+            text: item.profit_kr,
+          }));
 
       setChartData(data);
     }
@@ -35,21 +52,30 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
       <div className={styles.title}>매출액 및 영업이익</div>
       <div className={styles.tabContainer}>
         <div
-          className={`${styles.tab} ${isRevenueTabSelected ? styles.activeTab : ''}`}
-          onClick={() => handleTabClick('revenue')}
+          className={`${styles.tab} ${
+            isRevenueTabSelected ? styles.activeTab : ""
+          }`}
+          onClick={() => handleTabClick("revenue")}
         >
           매출액
         </div>
         <div
-          className={`${styles.tab} ${!isRevenueTabSelected ? styles.activeTab : ''}`}
-          onClick={() => handleTabClick('profit')}
+          className={`${styles.tab} ${
+            !isRevenueTabSelected ? styles.activeTab : ""
+          }`}
+          onClick={() => handleTabClick("profit")}
         >
           영업이익
         </div>
       </div>
       <div className={styles.graph}>
         {chartData.length > 0 ? (
-          <BarChart width={280} height={180} data={chartData} margin={{ top: 15, right: 20, left: 20, bottom: 5 }}>
+          <BarChart
+            width={280}
+            height={180}
+            data={chartData}
+            margin={{ top: 15, right: 20, left: 20, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year">
               <Label offset={0} position="insideBottom" />
@@ -59,7 +85,9 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
             </Bar>
           </BarChart>
         ) : (
-          <div className={styles.nullComment}>현재 데이터를 불러올 수 없습니다.</div>
+          <div className={styles.nullComment}>
+            현재 데이터를 불러올 수 없습니다.
+          </div>
         )}
       </div>
     </div>

@@ -13,7 +13,7 @@ const AiFeedback: React.FC<AiFeedbackProps> = ({ aiAnalyze }) => {
   const { tradePk } = useParams();
   const [results, setResults] = useState(aiAnalyze);
   const queryClient = useQueryClient();
-  console.log("!!", results);
+
   const fetchAiFeedback = async (tradePk: string | undefined) => {
     try {
       const response = await axios.patch(
@@ -39,7 +39,6 @@ const AiFeedback: React.FC<AiFeedbackProps> = ({ aiAnalyze }) => {
     queryClient.refetchQueries("aiFeedback");
   };
 
-  // console.log('왜!!',results)
   return (
     <div className={styles.mainContainer}>
       <div className={styles.title}>AI피드백</div>
