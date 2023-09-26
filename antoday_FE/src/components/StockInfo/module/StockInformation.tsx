@@ -7,11 +7,9 @@ interface StockInformationProps {
 }
 
 const StockInformation: React.FC<StockInformationProps> = ({ corpInfo }) => {
+  console.log("종목정보 컴포넌트에서", corpInfo);
   const [titleText, setTitle] = useState<string>("");
   const [contentText, setContent] = useState<number>(0);
-
-  // console.log("궁금해", corpInfo.EPS);
-  // console.log("궁금해", corpInfo.PBR);
 
   return (
     <div className={styles.mainContainer}>

@@ -33,7 +33,7 @@ const StockInfoPage: React.FC = () => {
           `/corp/overview?${params.toString()}`
       );
       // console.log("결과값은", response.data);
-      setCorpInfo(response.data.info);
+      setCorpInfo(response.data.indicator);
       setGraphValue(response.data.value);
       return response.data;
     } catch (error) {
@@ -52,7 +52,7 @@ const StockInfoPage: React.FC = () => {
         import.meta.env.VITE_DATA_API_URL + `/corp/index/${stockPk}`
       );
       setCorpIntro(response.data);
-      console.log("이게 안나온다고?", response.data);
+
       return response.data;
     } catch (error) {
       console.error("기본정보 실패", error);
@@ -60,9 +60,7 @@ const StockInfoPage: React.FC = () => {
     }
   });
 
-  useEffect(() => {
-    console.log("Count has changed");
-  }, [stockInfoResults, stockIntro]);
+  useEffect(() => {}, [stockInfoResults, stockIntro]);
 
   return (
     <div className={styles.stockInfoPageContainer}>
