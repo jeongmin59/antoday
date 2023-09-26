@@ -85,21 +85,20 @@ const TradingRecordPage: React.FC = () => {
       setStockCode(null);
     }
     return {
-      response: responseData,
+      ...responseData,
       nextPage: pageParam + 1,
-      isLast: responseData.last,
     };
   };
   
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["tradeData", searchKeyword, startDate, endDate],
-    ({ pageParam = 1 }) => fetchData(pageParam),
+    fetchData,
     {
       getNextPageParam: (lastPage) => {
         // 현재 페이지가 마지막 페이지보다 작다면 다음 페이지 번호 반환
         if (!lastPage.isLast) {
-          return lastPage.nextPage;
+          return !lastPage.last ? lastPage.nextPage : undefined;
         } 
         // 그렇지 않다면, undefined 반환하여 페이지 로딩 중지
         return undefined;
@@ -107,20 +106,6 @@ const TradingRecordPage: React.FC = () => {
       // enabled: searchKeyword,
     }
   );
-
-  // hasMore 값을 계산
-  // useEffect(() => {
-  //   const lastPage = data?.pages?.[data.pages.length - 1];
-  //   const pageable = lastPage?.pageable;
-  //   const totalPages = lastPage?.totalPages;
-  
-  //   if (pageable && typeof totalPages !== 'undefined') {
-  //     sethasMore(pageable.pageNumber < totalPages - 1);
-  //     console.log(hasMore, pageable.pageNumber, totalPages -1);
-  //   } else {
-  //     console.log("pageable or totalPages is undefined");
-  //   }
-  // }, [data, hasMore]);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -148,7 +133,7 @@ const handleSearchDate = (start: string, end: string) => {
   setEndDate(end);
   fetchNextPage({ pageParam: 0 });
 };
-// console.log('인뷰',inView)
+// console.log('인뷰',searchResults)
 
 return (
   <div className={styles.bigcontainer}>
@@ -181,26 +166,10 @@ return (
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
               {stockCode ? <ProfitRate stockCode={stockCode} /> : null}
-              {/* {!isSubmit && searchResults && (
-                <div className={styles.searchcompanylist}>
-                    <TradingCompanyList
-                        searchResults={searchResults}
-                        isLoading={isLoading}
-                        isPreviousData={isPreviousData}
-                        isError={isError}
-                        nowPage={page}
-                        setNowPage={setPage}
-                        totalPage={hasMore ? page + 1 : page}
-                        loadData={loadData}
-                        onSelectCompany={handleCompanySelection}
-                        sourcePage="TradingRecordPage"
-                    />
-                </div>
-              )} */}
                   <TradingRecordList
                     records={searchResults}  // searchResults를 전달
                     hasMore={hasMore}
-                    fetchMoreData={fetchData}
+                    fetchMoreData={fetchNextPage}
                     lastRecordRef={ref}
                   />
     </div>

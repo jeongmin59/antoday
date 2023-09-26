@@ -8,10 +8,7 @@ import { useNavigate } from "react-router-dom";
 interface TradingRecordListProps {
   records?: TradingRecordPageType[];
   hasMore: boolean;
-  fetchMoreData: ({ pageParam }: { pageParam?: number | undefined; }) => Promise<{
-    data: any;
-    hasMore: boolean;
-  }>;
+  fetchMoreData: any;
   lastRecordRef: (node?: Element | null | undefined) => void;
 }
 
@@ -26,14 +23,14 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   const [currentPage, setCurrentPage] = useState(0);
   const groupedRecords: { [date: string]: TradingRecordPageType[] } = {};
 
-  const loadMore = async () => {
-    try {
-      await fetchMoreData({ pageParam: currentPage + 1 });
-      setCurrentPage(prev => prev + 1);
-    } catch (error) {
-      console.error("Failed to load more data:", error);
-    }
-  };
+  // const loadMore = async () => {
+  //   try {
+  //     // fetchMoreData 호출 수정
+  //     await fetchMoreData();
+  //   } catch (error) {
+  //     console.error("Failed to load more data:", error);
+  //   }
+  // };
 
   const formatDate = (dateStr: string): string => {
     const date = new Date(dateStr);
@@ -64,7 +61,6 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   return (
     <div className={styles.div}>
       {Object.entries(groupedRecords).map(([date, dateRecords], groupIndex) => {
-        // Moved variable declarations inside the callback
         const isLastDateGroup = groupIndex === Object.entries(groupedRecords).length - 1;
 
         return (
