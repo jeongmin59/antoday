@@ -87,6 +87,8 @@ const TradingRecordPage: React.FC = () => {
     return {
       data: responseData.content,
       hasMore: !responseData.last,
+      pageable: responseData.pageable,
+      totalPages: responseData.totalPages
     };
   };
 
