@@ -2,6 +2,7 @@ from collections import defaultdict
 import re
 from typing import Optional, Pattern, Match
 from bs4 import BeautifulSoup
+from numpy import sort
 import requests
 from app.models.models import (
     Keyword,
@@ -54,15 +55,17 @@ def get_keywords(db: Session) -> list[KeywordDTO]:
                 .all()
             )
             for keyword in keywords:
-                news_word_dict[keyword.keyword.keyword] += (
-                    1 if keyword.keyword.keyword in news_word_dict else 0.2
-                )
+                kwd = keyword.keyword.keyword
+                news_word_dict[kwd] += 1 if kwd in news_word_dict else 0.2
             for word, weight in news_word_dict.items():
                 word_dict[word] += weight * text_mining_weight
         text_mining_weight -= 0.2
-    for word, weight in word_dict.items():
-        if weight >= 1:
-            word_cloud.append(KeywordDTO(text=word, value=weight))
+    cnt = 0
+    for word, weight in sorted(word_dict.items(), key=lambda x: -x[1]):
+        word_cloud.append(KeywordDTO(text=word, value=weight))
+        cnt += 1
+        if cnt > 50:
+            break
     return word_cloud
 
 

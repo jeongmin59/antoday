@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class KeywordDTO(BaseModel):
-    text : str
+    text: str
     value: float
