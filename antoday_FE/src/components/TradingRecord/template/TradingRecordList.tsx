@@ -17,7 +17,27 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   fetchMoreData,
 }) => {
   const navigator = useNavigate();
-  const [reasonExist, setReasonExist] = useState<Boolean>(false)
+  const [reasonExist, setReasonExist] = useState<Boolean>(false);
+
+  const groupedRecords: { [date: string]: TradingRecordPageType[] } = {};
+
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}년 ${month}월 ${day}일`;
+  };
+
+  records.forEach((record) => {
+    const dateOnly = formatDate(record.tradeAt);
+    if (!groupedRecords[dateOnly]) {
+      groupedRecords[dateOnly] = [];
+    }
+    groupedRecords[dateOnly].push(record);
+  });
+
+  
 
   const handleClick = (reasonExist: boolean, tradePk: number) => {
     
@@ -38,32 +58,42 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
         hasMore={hasMore}
         loader={records?.length > 0 ? <LoadingSpinner /> : null}
       >
-        {records?.map((record, index) => {
-          // console.log(index, record.logoUrl);
-          const dateOnly = record.tradeAt.split("T")[0];
-
-          return (
-            <div
-              key={index}
-              className={styles.container}
-              onClick={() => handleClick(record.reasonExist, record.tradePk)}
-            >
-              <div><p>{dateOnly}</p></div>  
-              <div className={styles.smallcontainer}>
-                <img src={record.logoUrl} alt="" />
-                <div className={styles.corpnameoption}>
-                  <p>{record.corpName}</p>
-                  <p>{record.optionBuySell ? "매도" : "매수"}</p>
+        {Object.entries(groupedRecords).map(([date, dateRecords]) => (
+          <div key={date} className={styles.container}>
+            <div className={styles.dateHeader}>{date}</div>
+            {dateRecords.map((record, index) => (
+              <div
+                key={index}
+                onClick={() => handleClick(record.reasonExist, record.tradePk)}
+              >
+                <div className={styles.listItem}>
+                  <div className={styles.row}>
+                    <img src={record.logoUrl} alt="" />
+                    <div className={styles.corpnameoption}>
+                      <span>{record.corpName}</span>
+                      {record.optionBuySell ? (
+                        <span className={styles.optionSell}>매도</span>
+                        ) : (
+                          <span className={styles.optionBuy}>매수</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className={styles.row}>
+                    <div className={styles.pricecount}>
+                      <span>{record.price.toLocaleString()}원</span>
+                      <span>{record.cnt}주</span>
+                    </div>
+                    {record.reasonExist ? (
+                      <button className={`${styles.btn} ${styles.button1}`}>일지 조회</button>
+                    ) : (
+                      <button className={`${styles.btn} ${styles.button2}`}>일지 작성</button>
+                    )}
+                  </div>
                 </div>
-                <div className={styles.pricecount}>
-                  <p>{record.price}원</p>
-                  <p>{record.cnt}주</p>
-                </div>
-                {record.reasonExist ? <button className={styles.button1}>매매일지 조회</button> : <button className={styles.button2}>매매일지 작성</button>}
               </div>
-            </div>
-          );
-        })}
+            ))}
+          </div>
+        ))}
       </InfiniteScroll>
       {records?.length === 0 && <h2>검색 결과가 없습니다.</h2>}
     </div>
