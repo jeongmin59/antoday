@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 interface TradingRecordListProps {
   records?: TradingRecordPageType[];
-  hasMore: boolean;
-  fetchMoreData: () => void;
+  hasMore: boolean|undefined;
+  fetchMoreData: ({ pageParam }: { pageParam?: number | undefined; }) => Promise<void>;
 }
 
 const TradingRecordList: React.FC<TradingRecordListProps> = ({
@@ -80,7 +80,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
                   </div>
                   <div className={styles.row}>
                     <div className={styles.pricecount}>
-                      <span>{record.price.toLocaleString()}원</span>
+                      <span>{record.price?.toLocaleString()}원</span>
                       <span>{record.cnt}주</span>
                     </div>
                     {record.reasonExist ? (

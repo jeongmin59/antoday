@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery, useInfiniteQuery, useQueryClient } from "react-query";
 import useDebounce from "../../utils/useDebounce";
 import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
 import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
@@ -29,182 +29,92 @@ export interface TradingRecordPageType {
 }
 
 const TradingRecordPage: React.FC = () => {
-  const [records, setRecords] = useState<TradingRecordPageType[]>([]);
-  const [page, setPage] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
-  const [showWrite, setShowWrite] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [stockPrice, setStockPrice] = useState(0);
-  const [token,setToken] = useRecoilState(accessTokenAtom);
+  const [showWrite, setShowWrite] = useState(false);
   const [stockCode, setStockCode] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [token, setToken] = useRecoilState(accessTokenAtom);
+  const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>([]);
+
   
 
-  const formatDateString = (date: string) => {
-    return `${date} 00:00:00`;
-  };
-  const formatDateString2 = (date: string) => {
-    return `${date} 23:59:59`;
+  const formatDateString = (date: string, isStart: boolean = true) => {
+    return isStart ? `${date} 00:00:00` : `${date} 23:59:59`;
   };
 
-  const handleCompanySelection = (stockCode: string) => {
-    setStockCode(stockCode);
-    loadData();
-  };
+  // const handleCompanySelection = (stockCode: string) => {
+  //   setStockCode(stockCode);
+  //   loadData();
+  // };
 
   const debouncedInputValue = useDebounce({
     value: searchKeyword,
     delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
   });
 
-  useEffect(() => {
-    //"searchResults"라는 키에 해당하는 쿼리의 캐시가 무효화되고, 새로운 데이터를 가져오게 하는 함수
-    queryClient.invalidateQueries("searchResults");
-  }, [debouncedInputValue, page]);
-
-  const {
-    data: searchResults,
-    isLoading,
-    isPreviousData,
-    isError,
-  } = useQuery(
-    ["searchResults", searchKeyword, page],
-    async () => {
-      if (!searchKeyword) {
-        return;
-      }
-      
-      try {
-        const response = await axios.get(
-          import.meta.env.VITE_BACK_API_URL +
-            `/api/trade/corp`,
-          {
-            params: { keyword: searchKeyword, page },
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          }
-        );
-  
-        // console.log(response.data);
-        return response.data;
-      } catch (error) {
-        console.error("에러발생:", error);
-        throw error;
-      }
-    },
-    {
-      enabled: !!searchKeyword, 
-    }
-  );
-
-
-  const loadData = () => {
+  const fetchData = async ({ pageParam = 0 }) => {
     const params: any = {
-      page: page,
+      page: pageParam,
     };
 
-    if (startDate && startDate !== "") {
-      params.start = formatDateString(startDate);
+    if (startDate) params.start = formatDateString(startDate);
+    if (endDate) params.end = formatDateString(endDate, false);
+    if (searchKeyword) params.keyword = searchKeyword;
+
+    const response = await axios.get(`${import.meta.env.VITE_BACK_API_URL}/api/trade`, {
+      params,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const responseData = response.data;
+    if (pageParam === 0) {
+      setSearchResults(responseData.content);
+    } else {
+      setSearchResults(prev => [...prev, ...responseData.content]);
     }
+    return {
+      data: responseData.content,
+      hasMore: !responseData.last
+    };
+  };
 
-    if (endDate && endDate !== "") {
-      params.end = formatDateString2(endDate);
-    }
-
-    if (searchKeyword && searchKeyword !== "") {
-      params.keyword = searchKeyword;
-    }
-
-    axios
-      .get(`${import.meta.env.VITE_BACK_API_URL}/api/trade`, {
-        params: params,
-        headers: {
-          Authorization : `Bearer ${token}`
-        }
-      })
-      .then((response) => {
-        const newData = response.data.content;
-        const firstStockCode = response.data.content[0]?.stockCode;
-        setStockCode(firstStockCode);
-        // console.log(newData)
-
-        if (newData.length === 0) {
-          setHasMore(false);
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+    ["tradeData", searchKeyword, startDate, endDate],
+    fetchData,
+    {
+      getNextPageParam: (lastPageData, pages) => {
+        if(lastPageData.hasMore) {
+          return pages.length;
         } else {
-          setHasMore(true);
-          setRecords(prevRecords => page === 0 ? newData : [...prevRecords, ...newData]);
-          // console.log(records)
-          setPage(prevPage => prevPage + 1);
-          setIsSubmit(true)
+          return undefined;
         }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-  useEffect(() => {
-    if (!searchKeyword) {
-      loadData();
+      },
+      // enabled: searchKeyword,
     }
-}, [searchKeyword, startDate, endDate, stockCode]); 
-
-  useEffect(() => {
-    setPage(0); 
-  }, [searchKeyword, startDate, endDate]);
-
-  const fetchMoreData = () => {
-    loadData();
-  };
-
-  const handleSearchKeyword = (keyword: string) => {
-    setSearchKeyword(keyword);
-    setRecords([]);
-    setHasMore(true);
-  };
-
-  const handleSearchDate = (startDate: string, endDate: string) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
-    setRecords([]);
-    setHasMore(true);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  );
+  
+  const handleInputChange = (event) => {
     setSearchKeyword(event.target.value);
-    // 검색창에 다시 검색할 때, isSubmit을 false로 초기화해야하나
-    setIsSubmit(false);
-  };
+};
 
-  const search = () => {
-    // useQuery 실행
-    queryClient.invalidateQueries("searchResults");
-  };
+const handleSubmit = (event) => {
+    event.preventDefault();  // prevent the form from submitting
+    fetchNextPage({ pageParam: 0 });
+};
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    //기본 제출 동작 방지
-    event.preventDefault();
-    if (searchKeyword) {
-      setIsSubmit(true);
-      loadData(); 
-    }
+const handleInputClick = () => {
+    setSearchKeyword("");  // Clear the input when clicked
+};
 
-    // 검색 키워드가 null이 아니면 submit이 가능하게 하고, submit true로 인식하게 하기
-    if (searchKeyword) {
-      setIsSubmit(true);
-    }
-  };
-
-  useEffect(() => {
-    // searchKeyword가 빈 문자열일 때 loadData 호출
-    if (searchKeyword === "") {
-        loadData();
-    }
-}, [searchKeyword]); // searchKeyword 값이 변경될 때마다 useEffect 내부 로직 실행
-
+const handleSearchDate = (start: string, end: string) => {
+  setStartDate(start);
+  setEndDate(end);
+  fetchNextPage({ pageParam: 0 });
+};
 
 return (
   <div className={styles.bigcontainer}>
@@ -214,13 +124,14 @@ return (
       ) : (
           <>
             <div className={styles.form}>
-              <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
+            <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
                   <FontAwesomeIcon icon={faSearch} color={"var(--main-blue-color)"} />
                   <input
                       type="text"
                       placeholder="종목명, 키워드 검색"
                       value={searchKeyword}
-                      onChange={handleChange}
+                      onChange={handleInputChange}
+                      onClick={handleInputClick}
                       className={styles.inputBox}
                       />
                   <button type="submit" className={styles.searchButton}>
@@ -236,7 +147,7 @@ return (
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
               {searchKeyword && stockCode ? <ProfitRate stockCode={stockCode} /> : null}
-              {!isSubmit && searchResults && (
+              {/* {!isSubmit && searchResults && (
                 <div className={styles.searchcompanylist}>
                     <TradingCompanyList
                         searchResults={searchResults}
@@ -251,15 +162,14 @@ return (
                         sourcePage="TradingRecordPage"
                     />
                 </div>
-              )}
-              {(isSubmit || searchKeyword == '') && (
-                <TradingRecordList
-                    records={records ? records : searchResults}
-                    hasMore={hasMore}
-                    fetchMoreData={fetchMoreData}
-                />
-              )}
-            </div>
+              )} */}
+                  <TradingRecordList
+                    records={searchResults}  // searchResults를 전달
+                    hasMore={hasNextPage}
+                    fetchMoreData={fetchData}
+                  />
+    </div>
+
           </>
       )}
   </div>
