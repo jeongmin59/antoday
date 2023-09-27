@@ -20,7 +20,7 @@
   align-items: center;
 }
 
-@media screen and (min-width: 385px) {
+@media screen and (min-width: 485px) {
   .wrap {
     display: none;
   }

@@ -7,16 +7,14 @@ interface StockInformationProps {
 }
 
 const StockInformation: React.FC<StockInformationProps> = ({ corpInfo }) => {
+  console.log("종목정보 컴포넌트에서", corpInfo);
   const [titleText, setTitle] = useState<string>("");
   const [contentText, setContent] = useState<number>(0);
-  console.log("궁금해", corpInfo);
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.title}>종목정보</div>
       <div className={styles.StockInfoContainer}>
-        {/* {corpInfo.map((res)=>(
-          //이거맞아?
-        ))} */}
         <InfoCardComponent title={titleText} number={contentText} />
         <InfoCardComponent title={titleText} number={contentText} />
         <InfoCardComponent title={titleText} number={contentText} />

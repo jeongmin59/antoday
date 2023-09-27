@@ -1,3 +1,88 @@
+.writecontainer {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+    width: 70%;
+    margin: 0 auto; 
+    padding: 2rem;
+    padding-right: 1rem;
+}
+
+.horizontal, .horizontal2 {
+    display: flex;
+    justify-content: space-between; /* 왼쪽과 오른쪽 컨테이너 사이에 최대한의 공간을 만듭니다 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.leftContainer {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 1rem; /* 요소들 사이에 간격을 주기 위해 사용 (원하는 값으로 조절 가능) */
+}
+
+.rightContainer {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    gap: 0.7rem; /* 버튼 사이의 간격 (원하는 값으로 조절 가능) */
+}
+
+.title {
+    font-size: var(--font-h6);
+    text-align: start;
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+.horizontalContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem; /* 각 줄 사이의 간격을 조절할 수 있습니다 */
+}
+
+.leftContent {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.rightContent {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.priceAdjust {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 버튼과 가격 사이의 간격을 조절합니다 */
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: end;
+    gap: 0.5rem;
+}
+
+.weather {
+    font-size: var(--font-h6);
+    margin-left: 0;
+}
+
+.react-datepicker__input-container input {
+    width: 4.5rem;
+}
+
 .bold {
     font-weight: 800;
 }
@@ -8,12 +93,31 @@
 
 .button {
     border: none;
-    background-color: none;
+    background-color: var(--main-white-color);
 }
 
-.horizontal {
-    display: flex;
-    justify-content: center;
+.button2 {
+    border: none;
+    background-color: var(--main-yellow-color);
+    border-radius: 50%;
+}
+
+.buttoncancel, .buttonadd {
+    border: none;
+    border-radius: 2rem;
+    padding: 0.2rem 0.7rem;
+    color: var(--main-white-color);
+}
+
+.buttoncancel {
+    background-color: var(--sub-blue-color);
+}
+.buttonadd {
+    background-color: var(--sub-yellow-color);
+}
+
+.horizontal2 {
+    margin: 1rem 0;
 }
 
 .resultcontainer img{
@@ -28,4 +132,22 @@
 .searchresults {
     display: flex;
     flex-direction: column;
+}
+
+.quantityinput {
+    width: 1.5rem;
+    border: 1px solid rgb(182, 181, 181);
+    border-radius: 0.3rem;
+    height: 1rem;
+}
+
+.parentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.inputContainer {
+    margin-left: auto;
 }

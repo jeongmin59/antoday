@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery, useInfiniteQuery, useQueryClient } from "react-query";
-import useDebounce from "../../utils/useDebounce";
+// import useDebounce from "../../utils/useDebounce";
 import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
 import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
-import SearchInput from "../../components/TradingRecord/template/SearchInput";
+// import SearchInput from "../../components/TradingRecord/template/SearchInput";
 import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
 import ProfitRate from "../../components/TradingRecord/template/ProfitRate";
-import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
+// import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
 import styles from "./TradingRecordPage.module.css";
 import { accessTokenAtom } from "../../recoil/auth";
 import { useRecoilState } from 'recoil';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import WriteTradingRecord from '../../components/TradingRecord/template/WriteTradingRecord'
+import WriteTradingRecord from '../../components/TradingRecord/template/WriteTradingRecord';
+import { useInView } from 'react-intersection-observer';
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -34,10 +35,13 @@ const TradingRecordPage: React.FC = () => {
   const [endDate, setEndDate] = useState("");
   const [showWrite, setShowWrite] = useState(false);
   const [stockCode, setStockCode] = useState<string | null>(null);
-  const queryClient = useQueryClient();
-  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  // const queryClient = useQueryClient();
+  // const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
   const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>([]);
+  const [hasMore, sethasMore] = useState<boolean>(false);
+  const [ref, inView] = useInView();
+  
 
   
 
@@ -50,16 +54,15 @@ const TradingRecordPage: React.FC = () => {
   //   loadData();
   // };
 
-  const debouncedInputValue = useDebounce({
-    value: searchKeyword,
-    delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
-  });
+  // const debouncedInputValue = useDebounce({
+  //   value: searchKeyword,
+  //   delay: 300, // 디바운스 딜레이 설정 (예: 300ms)
+  // });
 
   const fetchData = async ({ pageParam = 0 }) => {
     const params: any = {
       page: pageParam,
     };
-
     if (startDate) params.start = formatDateString(startDate);
     if (endDate) params.end = formatDateString(endDate, false);
     if (searchKeyword) params.keyword = searchKeyword;
@@ -72,47 +75,59 @@ const TradingRecordPage: React.FC = () => {
     });
     const responseData = response.data;
     if (pageParam === 0) {
-      setSearchResults(responseData.content);
+      //console.log(response.data)
+      setSearchResults(responseData.list.content);
     } else {
-      setSearchResults(prev => [...prev, ...responseData.content]);
+      setSearchResults(prev => [...prev, ...responseData.list.content]);
     }
-    if (responseData.content.length > 0) {
-      setStockCode(responseData.content[0].stockCode);
-    } else {
-      setStockCode(null);
-    }
+    // if (responseData.content.length > 0) {
+    //   setStockCode(responseData.content[0].stockCode);
+    // } else {
+    //   setStockCode(null);
+    // }
     return {
-      data: responseData.content,
-      hasMore: !responseData.last
+      ...responseData,
+      nextPage: pageParam + 1,
     };
   };
+  
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["tradeData", searchKeyword, startDate, endDate],
     fetchData,
     {
-      getNextPageParam: (lastPageData, pages) => {
-        if(lastPageData.hasMore) {
-          return pages.length;
-        } else {
-          return undefined;
-        }
+      getNextPageParam: (lastPage) => {
+        // 현재 페이지가 마지막 페이지보다 작다면 다음 페이지 번호 반환
+        if (!lastPage.isLast) {
+          return !lastPage.last ? lastPage.nextPage : undefined;
+        } 
+        // 그렇지 않다면, undefined 반환하여 페이지 로딩 중지
+        return undefined;
       },
       // enabled: searchKeyword,
     }
   );
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+      // console.log('다음페이지 가져오삼')
+    }
+  }, [inView, hasNextPage]);
+  
+
   
   const handleInputChange = (event) => {
     setSearchKeyword(event.target.value);
 };
 
 const handleSubmit = (event) => {
-    event.preventDefault();  // prevent the form from submitting
+    event.preventDefault();  
     fetchNextPage({ pageParam: 0 });
 };
 
 const handleInputClick = () => {
-    setSearchKeyword("");  // Clear the input when clicked
+    setSearchKeyword("");  
 };
 
 const handleSearchDate = (start: string, end: string) => {
@@ -120,7 +135,8 @@ const handleSearchDate = (start: string, end: string) => {
   setEndDate(end);
   fetchNextPage({ pageParam: 0 });
 };
-// console.log(stockCode)
+// console.log('인뷰',inView )
+
 return (
   <div className={styles.bigcontainer}>
 
@@ -151,27 +167,12 @@ return (
                 <SearchingDate onSearch={handleSearchDate} />
                 <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
               </div>
-              {stockCode ? <ProfitRate stockCode={stockCode} /> : null}
-              {/* {!isSubmit && searchResults && (
-                <div className={styles.searchcompanylist}>
-                    <TradingCompanyList
-                        searchResults={searchResults}
-                        isLoading={isLoading}
-                        isPreviousData={isPreviousData}
-                        isError={isError}
-                        nowPage={page}
-                        setNowPage={setPage}
-                        totalPage={hasMore ? page + 1 : page}
-                        loadData={loadData}
-                        onSelectCompany={handleCompanySelection}
-                        sourcePage="TradingRecordPage"
-                    />
-                </div>
-              )} */}
+              {<ProfitRate/>}
                   <TradingRecordList
                     records={searchResults}  // searchResults를 전달
-                    hasMore={hasNextPage}
-                    fetchMoreData={fetchData}
+                    hasMore={hasMore}
+                    fetchMoreData={fetchNextPage}
+                    lastRecordRef={ref}
                   />
     </div>
 
