@@ -24,22 +24,44 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
 
     Trade findByTradePk(Long tradePk);
 
-    @Query(value = "SELECT DISTINCT t.trade_pk AS tradePk, t.price AS price, t.cnt AS cnt, t.option_buy_sell AS optionBuySell, " +
-            "t.reason AS reason, t.trade_at AS tradeAt, t.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl " +
+    @Query(value =
+            "SELECT DISTINCT t.trade_pk AS tradePk, t.price AS price, t.cnt AS cnt, t.option_buy_sell AS optionBuySell, " +
+                    "t.reason AS reason, t.trade_at AS tradeAt, t.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl " +
+                    "FROM trade t " +
+                    "INNER JOIN stock s ON t.stock_code = s.stock_code " +
+                    "LEFT OUTER JOIN trade_keyword tk ON t.trade_pk = tk.trade_pk " +
+                    "LEFT OUTER JOIN keyword k ON tk.keyword = k.keyword " +
+                    "WHERE t.social_id = :socialId " +
+                    "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) " +
+                    "AND t.is_deleted = 0 " +
+                    "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) " +
+                    "AND t.trade_at BETWEEN :startDate AND :endDate " +
+
+                    "And CASE WHEN :filterType='buy' THEN (t.option_buy_sell=0) " +
+                    "WHEN :filterType='sell' THEN (t.option_buy_sell=1) " +
+                    "WHEN :filterType='unwritten' THEN ((LENGTH(t.reason)= 0 AND tk.keyword IS NULL)) ELSE TRUE END " +
+
+                    "ORDER BY CASE WHEN :orderBy='oldest' THEN t.trade_at END ASC," +
+                    "CASE WHEN :orderBy!='oldest' OR :orderBy IS NULL THEN t.trade_at END DESC",
+            nativeQuery = true)
+    Page<TradeListResponseInterface> findTradeByNativeQuery(@Param("socialId") Long socialId,
+                                                                 @Param("searchTerm") String searchTerm,
+                                                                 @Param("startDate") LocalDateTime startDate,
+                                                                 @Param("endDate") LocalDateTime endDate,
+                                                                 @Param("filterType") String filterType,
+                                                                 @Param("orderBy") String orderBy,
+                                                                 PageRequest pageRequest);
+
+    @Query(value = "SELECT DISTINCT s.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl " +
             "FROM trade t " +
             "INNER JOIN stock s ON t.stock_code = s.stock_code " +
             "LEFT OUTER JOIN trade_keyword tk ON t.trade_pk = tk.trade_pk " +
             "LEFT OUTER JOIN keyword k ON tk.keyword = k.keyword " +
             "WHERE t.social_id = :socialId " +
-            "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) " +
-            "AND t.trade_at BETWEEN :startDate AND :endDate " +
-            "ORDER BY t.trade_at DESC, t.trade_pk DESC",
-            nativeQuery = true)
-    Page<TradeListResponseInterface> findTradeByNativeQuery(@Param("socialId") Long socialId,
-                                          @Param("searchTerm") String searchTerm,
-                                          @Param("startDate") LocalDateTime startDate,
-                                          @Param("endDate") LocalDateTime endDate,
-                                          PageRequest pageRequest);
+            "AND t.is_deleted = 0 " +
+            "AND (s.corp_name LIKE :searchTerm OR k.keyword LIKE :searchTerm) "
+            , nativeQuery = true)
+    Set<StockInterface> findstockByNativeQuery(@Param("socialId") Long socialId, @Param("searchTerm") String searchTerm);
 
     //    Page<Trade> findByUserAndIsDeletedFalse(User u, PageRequest pageRequest);
 //
@@ -53,6 +75,7 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             "from trade t, user u, stock s\n" +
             "where t.social_id = u.social_id\n" +
             "and t.stock_code = s.stock_code\n" +
+            "AND t.is_deleted = 0 " +
             "and t.social_id = (:userPk);"
             , nativeQuery = true)
     Set<StockInterface> findDistintStockByUser(@Param("userPk") Long user);

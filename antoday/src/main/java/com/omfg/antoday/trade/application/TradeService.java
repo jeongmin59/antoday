@@ -98,7 +98,8 @@ public class TradeService {
     }
 
 
-    public Page<TradeListResponseDto> getTrade(UserDetailsImpl userDetails, int page, String start, String end, String keyword) {
+    public Page<TradeListResponseDto> getTrade(UserDetailsImpl userDetails, int page, String start, String end,
+                                               String keyword, TradeFilter tradeFilter, TradeOrderBy tradeOrderBy) {
         User user = UserUtils.getUserFromToken(userDetails);
 
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("tradePk").descending());
@@ -113,8 +114,11 @@ public class TradeService {
         if(keyword == null) keyword = "";
         keyword = '%'+keyword+'%';
 
-        Page<TradeListResponseInterface> trades = tradeRepository.findTradeByNativeQuery(user.getSocialId()
-                , keyword, st, ed,pageRequest);
+        if (tradeFilter == null) tradeFilter = TradeFilter.DEFAULT;
+
+        Page<TradeListResponseInterface> trades =
+                tradeRepository.findTradeByNativeQuery(user.getSocialId(), keyword,
+                        st ,ed , tradeFilter.toString(), tradeOrderBy.toString() ,pageRequest);
 
         return trades.map(trade -> TradeListResponseDto.toDto(trade));
     }
@@ -153,38 +157,58 @@ public class TradeService {
         }).collect(Collectors.toSet());
     }
 
-    public RoiResponseDto getRoiStock(UserDetailsImpl userDetails, String stockCode) {
+    public List<RoiResponseDto> getRoiStock(UserDetailsImpl userDetails, String keyword) {
         User user = UserUtils.getUserFromToken(userDetails);
 
-        Stock stock = stockRepository.findByStockCode(stockCode);
-        List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
+        if(keyword == null) keyword = "";
+        keyword = '%'+keyword+'%';
+        // 1. trade에서 기업이름이 keyword에 해당한다면 stockcode 가져오기
+        // 2. tradekeyword에서 keyword내용이 입력한 keyword에 해당한다면 stockcode 가져오기
+        Set<StockInterface> set = tradeRepository.findstockByNativeQuery(user.getSocialId(), keyword);
 
-        int sumCnt = 0;
-        double total = 0;
-        double avgPrice = 0;
-        double profit = 0;
+        List<RoiResponseDto> result = new ArrayList<>();
 
-        List<Double> profits = new ArrayList<>();
-        List<Double> rois = new ArrayList<>();
+        // 3. 각 stockcode에 대하여 trade list 가져오기
+        for(StockInterface stocki : set) {
+            System.out.println("trade-stockcode : "+stocki.getStockCode());
+            Stock stock = stockRepository.findByStockCode(stocki.getStockCode());
+            List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
 
-        for (Trade trade : trades) {
-            if (trade.getOptionBuySell() == 0) {
-                sumCnt += trade.getCnt();
-                total += trade.getCnt() * trade.getPrice();
-                avgPrice = total / sumCnt;
-            } else {
-                sumCnt -= trade.getCnt();
-                total -= trade.getCnt() * avgPrice;
-                profit = trade.getCnt() * (trade.getPrice() - avgPrice);
-                profits.add(profit);
-                rois.add(profit / (avgPrice * trade.getCnt()) * 100 - 0.23);
+            // 수익률 계산
+            int sumCnt = 0;
+            double total = 0;
+            double avgPrice = 0;
+            double profit = 0;
+
+            List<Double> profits = new ArrayList<>();
+            List<Double> rois = new ArrayList<>();
+
+            for (Trade trade : trades) {
+                if (trade.getOptionBuySell() == 0) {
+                    sumCnt += trade.getCnt();
+                    total += trade.getCnt() * trade.getPrice();
+                    avgPrice = total / sumCnt;
+                } else {
+                    sumCnt -= trade.getCnt();
+                    total -= trade.getCnt() * avgPrice;
+                    profit = trade.getCnt() * (trade.getPrice() - avgPrice);
+                    profits.add(profit);
+                    rois.add(profit / (avgPrice * trade.getCnt()) * 100 - 0.23);
+                }
             }
-        }
 
-        int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
-        double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
-        double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
+            int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
+            double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+            double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
+
+            result.add(RoiResponseDto.builder()
+                    .totalProfit(sumProfit)
+                    .avgRoi(roundedAvgRoi)
+                    .stockCode(stock.getStockCode())
+                    .corpName(stock.getCorpName())
+                    .logoUrl(stock.getLogo_url()).build());
+        }
         
-        return new RoiResponseDto(sumProfit, roundedAvgRoi);
+        return result;
     }
 }
