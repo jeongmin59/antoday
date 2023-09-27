@@ -7,7 +7,6 @@ interface StockInformationProps {
 }
 
 const StockInformation: React.FC<StockInformationProps> = ({ corpInfo }) => {
-  console.log("종목정보 컴포넌트에서", corpInfo);
   const BPS = corpInfo.BPS;
   const EPS = corpInfo.EPS;
   const PBR = corpInfo.PBR;

@@ -9,7 +9,7 @@ import StockWordCloud from "../module/StockWordCloud";
 interface StockInfoDetailProps {
   stockPk?: string;
   graphValue?: string;
-  corpInfo?: string[];
+  corpInfo?: stockInfo[];
 }
 
 const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
@@ -22,7 +22,6 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
   const tab3Ref = useRef<HTMLDivElement>(null);
   const tab4Ref = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState(1); // 선택된 탭 찾을때 쓸 예정
-  console.log("종목정보 부모 컴포넌트에서", corpInfo);
 
   const handleTabClick = (tabNumber: number) => {
     let targetRef;
