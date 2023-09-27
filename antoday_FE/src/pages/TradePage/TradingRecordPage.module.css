@@ -1,64 +1,64 @@
 .indexContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin: 0px auto;
-	width: 90%;
-	height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  width: 90%;
+  height: fit-content;
 }
 
 .form {
-	background-color: var(--main-yellow-color);
-	padding: 1.3rem 0.5rem 1.7rem;
+  background-color: var(--main-yellow-color);
+  padding: 1.3rem 0.5rem 1.7rem;
 }
 
 .searchBarContainer {
-	display: flex;
-	border: 0px solid var(--main-white-color);
-	padding: 0.3rem 0.3rem;
-	margin: 1rem auto 0.2rem;
-	border-radius: 50px;
-	background-color: var(--main-white-color);
-	min-width: 250px;
-	max-width: 570px;
-	width: 50%;
+  display: flex;
+  border: 0px solid var(--main-white-color);
+  padding: 0.3rem 0.3rem;
+  margin: 1rem auto 0.2rem;
+  border-radius: 50px;
+  background-color: var(--main-white-color);
+  min-width: 250px;
+  max-width: 570px;
+  width: 50%;
 }
 
 .inputBox {
-	outline: none;
-	width: 90%;
-	border: 0;
-	margin-left: 2%;
+  outline: none;
+  width: 90%;
+  border: 0;
+  margin-left: 2%;
 
-	&::placeholder {
-		color: #00000080;
-		font-family: var(--main-font-family);
-		font-size: 0.6rem;
-	}
+  &::placeholder {
+    color: #00000080;
+    font-family: var(--main-font-family);
+    font-size: 0.6rem;
+  }
 }
 
 .searchButton {
-	border-radius: 50px;
-	height: 100%;
-	background-color: var(--main-blue-color);
-	outline: none;
-	border: 0;
-	color: white;
-	cursor: pointer;
+  border-radius: 50px;
+  height: 100%;
+  background-color: var(--main-blue-color);
+  outline: none;
+  border: 0;
+  color: white;
+  cursor: pointer;
 }
 
 .datebuttoncontainer {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	margin: 1rem 0;
-	font-size: var(--font-h6);
-	flex-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: var(--font-h2);
+  flex-wrap: nowrap;
 }
 
 .datebuttoncontainer > span {
-	white-space: nowrap;
+  white-space: nowrap;
 }
 /* 
 .searchcompanylist {
@@ -66,12 +66,12 @@
 } */
 
 .p {
-	font-size: var(--font-h6);
-	color: var(--main-blue-color);
-	padding-top: 1.5rem;
+  font-size: var(--font-h2);
+  color: var(--main-blue-color);
+  padding-top: 1.5rem;
 }
 
 .yellow {
-	display: inline-block;
-	color: var(--main-yellow-color);
+  display: inline-block;
+  color: var(--main-yellow-color);
 }

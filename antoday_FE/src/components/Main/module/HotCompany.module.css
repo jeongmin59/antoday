@@ -1,40 +1,40 @@
 .companyContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0px auto;
-    width: 90%;
-    height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0px auto;
+  width: 90%;
+  height: fit-content;
 }
 
 .companyImage {
-    margin-top: 1rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50px;
+  margin-top: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50px;
 }
 
 ul {
-    list-style: none;
-    display: flex;
-    overflow-x: auto;
-    padding: 0;
-    margin: 0; 
-    font-size: var(--font-h5);
+  list-style: none;
+  display: flex;
+  overflow-x: auto;
+  padding: 0;
+  margin: 0;
+  font-size: var(--font-h1);
 }
 
 li {
-    margin-right: 1rem;
-    border-radius: 20px;
-    border: 1px solid #ECECEC;
-  }
+  margin-right: 1rem;
+  border-radius: 20px;
+  border: 1px solid #ececec;
+}
 
 .companyList {
-    width: 5.5rem;
-  }
+  width: 5.5rem;
+}
 
 p {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

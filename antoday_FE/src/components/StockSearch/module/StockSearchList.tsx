@@ -64,7 +64,7 @@ const StockSearchList: React.FC<StockSearchListProps> = ({
               >
                 <FontAwesomeIcon icon={faChevronLeft} />
               </button>
-              <span style={{ fontSize: "var(--font-h6)" }}>{nowPage + 1}</span>
+              <span style={{ fontSize: "var(--font-h2)" }}>{nowPage + 1}</span>
               <button
                 className={styles.button}
                 onClick={loadMore}

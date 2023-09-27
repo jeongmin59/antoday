@@ -6,13 +6,13 @@
 }
 
 .title {
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
 }
 
 .graph {
   background-color: lightgray;
   color: var(--main-white-color);
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   width: 95%;
   height: 10rem;
   border-radius: 20px;
@@ -28,7 +28,7 @@
   justify-content: space-evenly;
   gap: 1rem;
   border-radius: 20px;
-  border: 1px solid var(--main-blue-color)
+  border: 1px solid var(--main-blue-color);
 }
 
 .nullComment {
@@ -38,7 +38,7 @@
 .tab {
   cursor: pointer;
   padding: 0.3rem 1.7rem;
-  margin: 0.03rem; 
+  margin: 0.03rem;
   border-radius: 20px;
   font-weight: bold;
 }

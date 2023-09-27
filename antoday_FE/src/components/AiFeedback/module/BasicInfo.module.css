@@ -4,13 +4,13 @@
   gap: 0.5rem;
   box-shadow: 0px 0px 25px 1px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  font-size: var(--font-h5);
+  font-size: var(--font-h1);
   justify-content: start;
   padding: 0.5rem 0.5rem;
 }
 
 .tradeAt {
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   display: flex;
 }
 
@@ -18,7 +18,7 @@
   display: flex;
   gap: 1rem;
   /* border: 1px solid orange; */
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   justify-content: space-between;
 }
 
@@ -57,6 +57,6 @@
 
 @media screen and (max-width: 480px) {
   .tradeAt {
-    font-size: var(--font-h7);
+    font-size: var(--font-h3);
   }
 }

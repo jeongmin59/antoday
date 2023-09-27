@@ -21,19 +21,19 @@
 }
 
 .title {
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   margin-left: 1rem;
 }
 
 .content {
-  font-size: var(--font-h5);
+  font-size: var(--font-h1);
 }
 
 .pressDate {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: var(--font-h7);
+  font-size: var(--font-h3);
 }
 
 .newsImage {
