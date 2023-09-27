@@ -1,8 +1,16 @@
 @font-face {
-  font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+  font-family: "GmarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
     format("woff");
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -12,11 +20,11 @@
   --main-white-color: #fffdf7;
   --main-blue-color: #6798c0;
   --sub-blue-color: #99d6ea;
-  --main-font-family: "NanumSquareRound";
+  --main-font-family: "GmarketSans";
   font-size: 20px;
   /* color-scheme: light dark; */
   font-synthesis: none;
-  font-family: "NanumSquareRound";
+  font-family: "GmarketSans";
   --font-h1: 1.75rem;
   --font-h2: 1.55rem;
   --font-h3: 1.35rem;

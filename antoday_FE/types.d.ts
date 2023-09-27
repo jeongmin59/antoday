@@ -27,3 +27,12 @@ interface stockIntro {
     percentageChange? : number;
     stockCode? : string
 }
+
+interface stockInfo {
+    BPS : number;
+    EPS : number;
+    PBR : number;
+    PER : number;
+    ROA : number;
+    ROE : number;
+}
