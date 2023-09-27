@@ -28,7 +28,7 @@
   border-radius: 0.5rem;
   font-family: NanumSquareRound;
   border: none;
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   /* border: 1px solid var(--main-blue-color); */
   background-color: var(--main-white-color);
   /* background-color: var(--main-yellow-color); */
@@ -46,8 +46,7 @@
   width: 2rem;
   /* height: 1.5rem; */
   border: none;
-  font-size: var(--font-h6);
-
+  font-size: var(--font-h2);
 }
 
 .memo {

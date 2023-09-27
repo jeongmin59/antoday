@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 0.5rem;
   align-items: start;
-  font-size: var(--font-h5);
+  font-size: var(--font-h1);
 }
 
 .content {
@@ -39,13 +39,13 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   padding: 4rem 2rem;
 }
 
 @media screen and (max-width: 480px) {
   .mainContainer {
-    font-size: var(--font-h6);
+    font-size: var(--font-h2);
   }
 
   .antimage {

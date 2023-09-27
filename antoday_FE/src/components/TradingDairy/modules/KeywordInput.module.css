@@ -1,29 +1,29 @@
 .pageTitle {
-    display: flex;
-    font-size: var(--font-h5);
-    width: 80%;
-    margin: 0 auto;
+  display: flex;
+  font-size: var(--font-h1);
+  width: 80%;
+  margin: 0 auto;
 }
 
 .keywordContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0 auto;
-    width: 80%;
-    height: 5%;
-    border: 0.1rem solid var(--main-yellow-color);
-    border-radius: 0.5rem;
-    justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0 auto;
+  width: 80%;
+  height: 5%;
+  border: 0.1rem solid var(--main-yellow-color);
+  border-radius: 0.5rem;
+  justify-content: space-evenly;
 }
 
 .confirmButton {
-    font-size: var(--font-h6);
-    font-family: "NanumSquareRound";
-    border-radius: 0.5rem;
-    width: 2rem;
-    background-color: var(--main-yellow-color);
-    border: none;
-    color: white;
-    cursor: pointer;
+  font-size: var(--font-h2);
+  font-family: "NanumSquareRound";
+  border-radius: 0.5rem;
+  width: 2rem;
+  background-color: var(--main-yellow-color);
+  border: none;
+  color: white;
+  cursor: pointer;
 }

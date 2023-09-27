@@ -14,14 +14,14 @@
 }
 
 .stockCode {
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
   color: gray;
   display: flex;
   justify-self: start;
 }
 
 .stockNameContainer {
-  font-size: var(--font-h5);
+  font-size: var(--font-h1);
   display: flex;
   justify-self: start;
 }
@@ -33,5 +33,5 @@
 }
 
 .tradeRecord {
-  font-size: var(--font-h6);
+  font-size: var(--font-h2);
 }

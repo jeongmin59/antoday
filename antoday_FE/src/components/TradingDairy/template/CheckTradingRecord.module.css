@@ -1,44 +1,44 @@
-.mainContainer{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .title {
-    font-size: var(--font-h5);
+  font-size: var(--font-h1);
 }
 
 .subContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    border: 1px solid var(--main-yellow-color);
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--main-yellow-color);
+  border-radius: 10px;
 }
 
 .contentContainer {
-    display: flex;
-    gap: 1rem;
-    /* border: 1px solid orange; */
+  display: flex;
+  gap: 1rem;
+  /* border: 1px solid orange; */
 }
 
 .corpimage {
-    width: 2rem;
-    height: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
 
 .leftContainer {
-    display: flex;
+  display: flex;
 }
 
 .recordContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: 0px auto;
-    width: 80%;
-    /* height: fit-content; */
-    border: 0.1rem solid var(--main-yellow-color);
-    border-radius: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto;
+  width: 80%;
+  /* height: fit-content; */
+  border: 0.1rem solid var(--main-yellow-color);
+  border-radius: 0.5rem;
 }
