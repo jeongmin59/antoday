@@ -1,11 +1,11 @@
 .saveButton {
-    font-size: var(--font-h6);
-    font-family: "NanumSquareRound";
-    border-radius: 0.5rem;
-    width: 5rem;
-    height: 1.5rem;
-    background-color: var(--main-yellow-color);
-    border: none;
-    color: white;
-    cursor: pointer;
+  font-size: var(--font-h2);
+  font-family: "NanumSquareRound";
+  border-radius: 0.5rem;
+  width: 5rem;
+  height: 1.5rem;
+  background-color: var(--main-yellow-color);
+  border: none;
+  color: white;
+  cursor: pointer;
 }

@@ -22,7 +22,7 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
           {corpName}
           <span
             style={{
-              fontSize: "var(--font-h6)",
+              fontSize: "var(--font-h2)",
               color: "white",
               backgroundColor: "var(--main-blue-color)",
               borderRadius: "5px",
@@ -34,7 +34,7 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
         </div>
         <div className={styles.stocPrice}>
           {price}원
-          <span style={{ fontSize: "var(--font-h6)", color: "red" }}>
+          <span style={{ fontSize: "var(--font-h2)", color: "red" }}>
             어제보다{change}원
           </span>
         </div>

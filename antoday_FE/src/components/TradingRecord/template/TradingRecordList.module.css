@@ -1,70 +1,70 @@
 .div {
-    width: 100%;
+  width: 100%;
 }
 
 .container {
-    font-size: var(--font-h6);
-    color: #A3A3A3;
-    text-align: start;
-    margin-bottom: 1.5rem;
+  font-size: var(--font-h2);
+  color: #a3a3a3;
+  text-align: start;
+  margin-bottom: 1.5rem;
 }
 
 .listItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: black;
-    margin: 1.2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  margin: 1.2rem 0;
 }
 
 .row {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .listItem > div > img {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
 }
 
 .corpnameoption {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .optionSell {
-    color: var(--main-blue-color);
+  color: var(--main-blue-color);
 }
 
 .optionBuy {
-    color:#ED6868;
+  color: #ed6868;
 }
 
 .pricecount {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 .btn {
-    display: flex;
-    align-items: center;
-    border-radius: 5rem;
-    height: 1.2rem;
-    border: none;
-    color: var(--main-white-color);
-    font-size: var(--font-h6);
-    padding: 0.2rem 0.5rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 5rem;
+  height: 1.2rem;
+  border: none;
+  color: var(--main-white-color);
+  font-size: var(--font-h2);
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
 }
 
 .button1 {
-    background-color: var(--sub-blue-color);
+  background-color: var(--sub-blue-color);
 }
 
 .button2 {
-    background-color: #ED6868;
+  background-color: #ed6868;
 }
