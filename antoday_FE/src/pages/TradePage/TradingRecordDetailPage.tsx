@@ -14,7 +14,7 @@ const TradingRecordDetailPage = () => {
     // isError,
   } = useQuery("tradeResults", async () => {
     if (!tradePk) {
-      // tradePk가 nul인 경우 요청 보내지 않기
+      // tradePk가 null인 경우 요청 보내지 않기
       return;
     }
 
