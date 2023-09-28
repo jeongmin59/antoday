@@ -63,7 +63,7 @@
 }
 
 .optionPlus {
-  color: #ed6868;
+  color: var(--sub-red-color);
 }
 
 .optionMinus {

@@ -5,8 +5,7 @@ import { useQuery, useInfiniteQuery, useQueryClient } from "react-query";
 import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
 import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
 // import SearchInput from "../../components/TradingRecord/template/SearchInput";
-import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
-import ProfitRate from "../../components/TradingRecord/template/ProfitRate";
+// import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
 // import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
 import styles from "./TradingRecordPage.module.css";
 import { accessTokenAtom } from "../../recoil/auth";
@@ -15,6 +14,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import WriteTradingRecord from "../../components/TradingRecord/template/WriteTradingRecord";
 import { useInView } from "react-intersection-observer";
+
+import filterimg from "../../assets/img/trade/filter.png";
+import TradeFilter from "../../components/TradingRecord/atom/TradeFilter";
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -39,18 +41,23 @@ export interface StockRoiType {
 }
 
 const TradingRecordPage: React.FC = () => {
+  // list 검색 filter 관련
   const [searchKeyword, setSearchKeyword] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [showWrite, setShowWrite] = useState(false);
-  const [stockCode, setStockCode] = useState<string | null>(null);
-  // const queryClient = useQueryClient();
-  // const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [filteroption, setFilterOption] = useState("");
+  const [order, setOrder] = useState("");
   const [token, setToken] = useRecoilState(accessTokenAtom);
+  const [isOpenFilter, setOpenFilter] = useState<Boolean>(false);
+  // list 결과
   const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>(
     []
   );
   const [roiList, setRoiList] = useState<StockRoiType[]>([]);
+
+  const [showWrite, setShowWrite] = useState(false);
+  // const queryClient = useQueryClient();
+  // const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [hasMore, sethasMore] = useState<boolean>(false);
   const [ref, inView] = useInView();
 
@@ -75,6 +82,8 @@ const TradingRecordPage: React.FC = () => {
     if (startDate) params.start = formatDateString(startDate);
     if (endDate) params.end = formatDateString(endDate, false);
     if (searchKeyword) params.keyword = searchKeyword;
+    if (filteroption) params.tradeFilter = filteroption;
+    if (order) params.tradeOrderBy = order;
 
     const response = await axios.get(
       `${import.meta.env.VITE_BACK_API_URL}/api/trade`,
@@ -122,7 +131,7 @@ const TradingRecordPage: React.FC = () => {
   };
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ["tradeData", searchKeyword, startDate, endDate],
+    ["tradeData", searchKeyword, startDate, endDate, filteroption, order],
     fetchData,
     {
       getNextPageParam: (lastPage) => {
@@ -174,9 +183,22 @@ const TradingRecordPage: React.FC = () => {
   const handleSearchDate = (start: string, end: string) => {
     setStartDate(start);
     setEndDate(end);
+    console.log("!!!!!!");
     fetchNextPage({ pageParam: 0 });
   };
   // console.log('인뷰',inView )
+
+  const handleOpenFilter = (cur: Boolean) => {
+    setOpenFilter(!cur);
+  };
+
+  const handleFilterOption = (option: string) => {
+    setFilterOption(option);
+  };
+
+  const handleOrder = (option: string) => {
+    setOrder(option);
+  };
 
   return (
     <div className={styles.bigcontainer}>
@@ -204,16 +226,27 @@ const TradingRecordPage: React.FC = () => {
             </form>
           </div>
           <div className={styles.indexContainer}>
-            <div className={styles.p}>
+            {/* <div className={styles.p}>
               매매 이유를 작성하면 <div className={styles.yellow}>AI 분석</div>
               을 받을 수 있어요!
-            </div>
+            </div> */}
             <div className={styles.datebuttoncontainer}>
-              <span>기간</span>
-              <SearchingDate onSearch={handleSearchDate} />
+              <div
+                className={styles.filter}
+                onClick={() => handleOpenFilter(isOpenFilter)}
+              >
+                <img src={filterimg}></img>
+              </div>
+              {/* <SearchingDate onSearch={handleSearchDate} /> */}
               <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
             </div>
-            {<ProfitRate />}
+            {isOpenFilter ? (
+              <TradeFilter
+                handleSearchDate={handleSearchDate}
+                handleFilterOption={handleFilterOption}
+                handleOrder={handleOrder}
+              />
+            ) : null}
             <TradingRecordList
               records={searchResults} // searchResults를 전달
               hasMore={hasMore}
