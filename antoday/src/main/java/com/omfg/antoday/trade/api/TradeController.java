@@ -60,7 +60,7 @@ public class TradeController {
     //매매기록 기간별, 종목별 조회
     @GetMapping
     @ApiOperation(value = "매매 기록 list", notes = "page필수(0부터), start(형식 : yyyy-MM-dd HH:mm:ss), end, keyword(검색 키워드 또는 기업명) 선택")
-    public ResponseEntity<Map<String,Object>> tradeOptionGet(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(required = false) String start,
+    public ResponseEntity<Page<TradeListResponseDto>> tradeOptionGet(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(required = false) String start,
                                                              @RequestParam(required = false) String end,
                                                              @RequestParam(required = false) String keyword,
                                                              @RequestParam(required = false, defaultValue = "DEFAULT") TradeFilter tradeFilter,
@@ -68,13 +68,7 @@ public class TradeController {
                                                              @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         Page<TradeListResponseDto> result = tradeService.getTrade(userDetails, page, start, end, keyword, tradeFilter, tradeOrderBy);
-        // roi계산
-        List<RoiResponseDto> roi = tradeService.getRoiStock(userDetails, keyword);
-        Map<String, Object> response = new HashMap<>();
-
-        response.put("list", result);
-        response.put("roi", roi);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //매매기록 개별 조회
@@ -98,17 +92,15 @@ public class TradeController {
         return new ResponseEntity<>(tradeService.getTradeCorp(userDetails), HttpStatus.OK);
     }
 
-    // 기업 수익률 계산
-    @GetMapping("/roi")
-    @ApiOperation(value = "해당 기업/전체 수익률 계산", notes = " 안넣으면 전체 수익률. 일단 지금은 스톡코드 넣어서! 뭔가 완벽하진 않음.")
-    public ResponseEntity<List<RoiResponseDto>> roiStockGet(@RequestParam(required = false) String keyword,
-                                                            @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return new ResponseEntity<>(tradeService.getRoiStock(userDetails, keyword), HttpStatus.OK);
-    }
-
     @GetMapping("/makeDummyStock/{stock_code}")
     public ResponseEntity<Object> makeDummy(@RequestParam String stock_code) {
         tradeService.makeDummy(stock_code);
         return new ResponseEntity<>(1, HttpStatus.OK);
+    }
+
+    @GetMapping("/corp/roi")
+    @ApiOperation(value = "모든 기업에 대한 사용자의 투자 정보")
+    public ResponseEntity<List<StockRoiResponseDto>> tradeCorpDetailGet(@ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new ResponseEntity<>(tradeService.getTradeCorpDetail(userDetails), HttpStatus.OK);
     }
 }
