@@ -16,8 +16,8 @@ import logging
 from typing import Union
 
 # SQLAlchemy 로깅 활성화
-logging.basicConfig()
-logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
+# logging.basicConfig()
+# logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
 
 class Textmining(Base):
@@ -29,7 +29,6 @@ class Textmining(Base):
     updated_at: Union[datetime, Column] = Column(
         DateTime, default=datetime.now, onupdate=datetime.now
     )
-
 
 
 class News(Base):
@@ -99,10 +98,8 @@ class NewsKeyword(Base):
         BigInteger, primary_key=True, index=True, autoincrement=True
     )
     weight: Union[float, Column] = Column(Float)
-    keyword_word: Union[str, Column] = Column(
-        String(255), ForeignKey("keyword.keyword")
-    )
-    new_pk: Union[int, Column] = Column(BigInteger, ForeignKey("news.news_pk"))
+    word: Union[str, Column] = Column(String(255), ForeignKey("keyword.keyword"))
+    news_pk: Union[int, Column] = Column(BigInteger, ForeignKey("news.news_pk"))
     created_at: Union[datetime, Column] = Column(DateTime, default=datetime.now)
     updated_at: Union[datetime, Column] = Column(
         DateTime, default=datetime.now, onupdate=datetime.now
@@ -125,9 +122,9 @@ class Trade(Base):
     trade_at = Column(DateTime)
     updated_at = Column(DateTime, onupdate=datetime.now)
     social_id = Column(BigInteger)
-    
 
-class Stopword(Base) :
+
+class Stopword(Base):
     __tablename__ = "stop_word"
     word: Union[str, Column] = Column(
         String(255), primary_key=True, unique=True, index=True
