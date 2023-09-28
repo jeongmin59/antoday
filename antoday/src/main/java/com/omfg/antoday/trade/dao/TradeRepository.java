@@ -89,4 +89,5 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
     List<Trade> findByUserAndStockAndIsDeletedFalse(User user, Stock stock);
 
     List<Trade> findByUserAndOptionBuySell(User user, byte optionBuySell);
+
 }

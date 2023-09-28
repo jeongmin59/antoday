@@ -211,4 +211,59 @@ public class TradeService {
         
         return result;
     }
+
+    public List<StockRoiResponseDto> getTradeCorpDetail(UserDetailsImpl userDetails) {
+        User user = UserUtils.getUserFromToken(userDetails);
+
+        // 현재 사용자의 모든 거래 종목들 가져오기
+        Set<StockInterface> stocks = tradeRepository.findDistintStockByUser(user.getSocialId());
+
+        List<StockRoiResponseDto> result = new ArrayList<>();
+
+        System.out.println("모든 거래 종목들 가져오기!!!!!!!!!!!!!!!!!!");
+        for(StockInterface stocki : stocks) {
+            System.out.println(stocki.getStockCode());
+
+            Stock stock = stockRepository.findByStockCode(stocki.getStockCode());
+            List<Trade> trades = tradeRepository.findByUserAndStockAndIsDeletedFalse(user, stock);
+
+            // 보유량, 평단가, 수익, 수익률 계산
+            int sumCnt = 0;
+            double total = 0;
+            double avgPrice = 0;
+            double profit = 0;
+
+            List<Double> profits = new ArrayList<>();
+            List<Double> rois = new ArrayList<>();
+
+            for (Trade trade : trades) {
+                if (trade.getOptionBuySell() == 0) {
+                    sumCnt += trade.getCnt();
+                    total += trade.getCnt() * trade.getPrice();
+                    avgPrice = total / sumCnt;
+                } else {
+                    sumCnt -= trade.getCnt();
+                    total -= trade.getCnt() * avgPrice;
+                    profit = trade.getCnt() * (trade.getPrice() - avgPrice);
+                    profits.add(profit);
+                    rois.add(profit / (avgPrice * trade.getCnt()) * 100 - 0.23);
+                }
+            }
+
+            int sumProfit = (int)profits.stream().mapToDouble(Double::doubleValue).sum();
+            double avgRoiValue = rois.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+            double roundedAvgRoi= Math.round(avgRoiValue*100.0)/100.0;
+
+            result.add(StockRoiResponseDto.builder()
+                    .stockCode(stock.getStockCode())
+                    .corpName(stock.getCorpName())
+                    .cnt(sumCnt)
+                    .avgPrice((int)avgPrice)
+                    .profit(sumProfit)
+                    .roi(roundedAvgRoi).build());
+
+
+        }
+        return result;
+    }
 }
