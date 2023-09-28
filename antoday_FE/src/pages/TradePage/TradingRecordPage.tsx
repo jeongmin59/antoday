@@ -90,7 +90,7 @@ const TradingRecordPage: React.FC = () => {
       //console.log(response.data)
       setSearchResults(responseData.content);
     } else {
-      setSearchResults((prev) => [...prev, ...responseData.list.content]);
+      setSearchResults((prev) => [...prev, ...responseData.content]);
     }
     // if (responseData.content.length > 0) {
     //   setStockCode(responseData.content[0].stockCode);
