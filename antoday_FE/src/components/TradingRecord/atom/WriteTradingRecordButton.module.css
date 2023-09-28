@@ -2,12 +2,15 @@
   border-radius: 5rem;
   height: 1.6rem;
   padding: 0.3rem;
-  border: none;
-  background-color: var(--main-yellow-color);
-  color: var(--main-white-color);
+  border: solid 2px var(--sub-red-color);
+  background-color: var(--main-white-color);
   color: black;
   font-size: var(--font-h3);
-  font-weight: 900;
   margin-left: 1rem;
   margin: 0;
+}
+
+.image {
+  width: 50px;
+  height: 50px;
 }
