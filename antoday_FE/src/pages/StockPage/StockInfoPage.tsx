@@ -61,8 +61,6 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
     }
   });
 
-  console.log('뭘까',stockInfoResults)
-
   useEffect(() => {}, [stockInfoResults, stockIntro]);
 
   if (isLoading1 || isLoading2) {

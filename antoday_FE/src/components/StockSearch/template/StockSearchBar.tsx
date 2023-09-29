@@ -69,11 +69,6 @@ const StockSearchBar: React.FC = () => {
     setIsSubmit(false);
   };
 
-  const search = () => {
-    // useQuery 실행
-    queryClient.invalidateQueries("searchResults");
-  };
-
   const handleSubmit = async (event: React.FormEvent) => {
     //기본 제출 동작 방지
     event.preventDefault();
