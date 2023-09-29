@@ -21,13 +21,6 @@ const StockSearchResults: React.FC<StockSearchResultsProps> = ({
   totalPage,
   setNowPage,
 }) => {
-  // console.log("결과는", searchResults);
-
-  // map 함수에서는 반드시 반환값이 있어야 함!
-  // searchResults?.map((result, index) => {
-  //   console.log(`Result ${index + 1}: ${result}`, result);
-  //   return null;
-  // });
 
   return (
     <React.Fragment>

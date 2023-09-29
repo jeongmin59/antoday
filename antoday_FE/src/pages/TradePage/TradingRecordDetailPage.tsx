@@ -1,11 +1,13 @@
 import AiFeedback from "../../components/AiFeedback/template/AiFeedback";
 import ReadingTrade from "../../components/AiFeedback/template/ReadingTrade";
 import styles from "./TradingRecordDetailPage.module.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "../../recoil/auth";
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
@@ -41,8 +43,29 @@ const TradingRecordDetailPage = () => {
   const cnt = tradeResults?.cnt;
   const aiAnalyze = tradeResults?.aiAnalyze;
   const stockCode = tradeResults?.stockCode;
+  const navigator = useNavigate();
+  const token = useRecoilValue(accessTokenAtom);
 
-  console.log('결과는?',aiAnalyze)
+  const handleEdit = () => {
+    //수정로직
+  }
+
+  const handleDelete = async () => {
+    const url = import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      console.log("삭제 완료!");
+      navigator("/tradingrecord");
+    } else {
+      console.error(await response.text());
+    }
+  };
 
   if (isLoading) {
     return (
@@ -65,6 +88,10 @@ const TradingRecordDetailPage = () => {
           keywordList={keyword}
           reason={reason}
         />
+      <div>
+        <button  onClick={handleEdit}>수정</button>
+        <button onClick={handleDelete}>삭제</button>
+      </div>
       </div>
       <div className={styles.rightContainer}>
         <AiFeedback

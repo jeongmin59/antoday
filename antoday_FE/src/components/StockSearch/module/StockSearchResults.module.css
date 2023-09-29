@@ -1,12 +1,12 @@
 .stockSearchResultsContainer {
   background-color: var(--main-white-color);
   border-radius: 20px;
-  padding: 1rem 1rem;
+  padding: 0.5rem 1rem;
   width: 10rem;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  gap: 0.5rem;
+  gap: 0rem;
 }
 
 .button {
