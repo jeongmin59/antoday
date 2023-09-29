@@ -17,22 +17,14 @@ interface TradingRecord {
     reason? : string;
     corpName? : string;
     tradePk?: string;
+    aiAnalyze? : string;
 }
 
 interface stockIntro {
     change? : number;
-    corpName? : string;
+    corp_name? : string;
     index?: number;
     market? : string;
     percentageChange? : number;
-    stockCode? : string
-}
-
-interface stockInfo {
-    BPS : number;
-    EPS : number;
-    PBR : number;
-    PER : number;
-    ROA : number;
-    ROE : number;
+    stock_code? : string
 }

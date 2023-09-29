@@ -32,12 +32,12 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
   useEffect(() => {
     if (graphValue) {
       const data = isRevenueTabSelected
-        ? graphValue.takes.map((item) => ({
+        ? graphValue?.takes.map((item) => ({
             year: item.year,
             y: item.take,
             text: item.take_kr,
           }))
-        : graphValue.profits.map((item) => ({
+        : graphValue?.profits.map((item) => ({
             year: item.year,
             y: item.prpfit,
             text: item.profit_kr,

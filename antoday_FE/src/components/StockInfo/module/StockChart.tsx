@@ -3,6 +3,8 @@ import styles from "./StockChart.module.css";
 import ReactApexChart from "react-apexcharts";
 import { useQuery } from "react-query";
 import axios from "axios";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface StockChartProps{
   stockPk : string;
@@ -13,7 +15,7 @@ const StockChart : React.FC<StockChartProps>= ({stockPk}) => {
 
   const {
     data: chartData,
-    // isLoading,
+    isLoading,
     // isError,
   } = useQuery(
     ["chartData", dateOption],
@@ -112,6 +114,14 @@ const StockChart : React.FC<StockChartProps>= ({stockPk}) => {
   const handleButtonClick = (option: string) => {
     setDateOption(option);
   };
+
+  if (isLoading) {
+    return (
+      <div className={styles.stockInfoPageContainer}>
+        <Skeleton height={300}/>
+    </div>
+    );
+  }
 
   return (
     <div className={styles.chartContainer}>

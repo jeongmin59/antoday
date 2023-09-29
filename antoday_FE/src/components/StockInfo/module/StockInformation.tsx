@@ -7,12 +7,12 @@ interface StockInformationProps {
 }
 
 const StockInformation: React.FC<StockInformationProps> = ({ corpInfo }) => {
-  const BPS = corpInfo.BPS;
-  const EPS = corpInfo.EPS;
-  const PBR = corpInfo.PBR;
-  const PER = corpInfo.PER;
-  const ROA = corpInfo.ROA;
-  const ROE = corpInfo.ROE;
+  const BPS = corpInfo?.BPS;
+  const EPS = corpInfo?.EPS;
+  const PBR = corpInfo?.PBR;
+  const PER = corpInfo?.PER;
+  const ROA = corpInfo?.ROA;
+  const ROE = corpInfo?.ROE;
 
   return (
     <div className={styles.mainContainer}>

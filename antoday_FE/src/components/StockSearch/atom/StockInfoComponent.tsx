@@ -14,7 +14,8 @@ const StockInfoComponent: React.FC<StockInfoComponentProps> = ({
 
   const handleClick = () => {
     const stockCode = companyInfo.stockCode;
-    navigator(`/stockinfo/${stockCode}`);
+    // navigator(`/stockinfo/${stockCode}`);
+    window.location.href = `/stockinfo/${stockCode}`;  //새로고침
   };
 
   return (
