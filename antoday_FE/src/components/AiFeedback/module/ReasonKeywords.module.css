@@ -20,7 +20,7 @@
   font-size: var(--font-h1);
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .title {
     font-size: var(--font-h2);
   }

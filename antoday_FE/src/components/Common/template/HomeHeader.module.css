@@ -5,7 +5,7 @@
     height: fit-content;
     background-color: var(--main-yellow-color);
     padding: 4rem 2rem;
-    color: white;
+    color: var(--main-gray-color);
 }
 
 .headerText {

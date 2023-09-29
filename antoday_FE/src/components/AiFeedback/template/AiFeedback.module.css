@@ -43,7 +43,7 @@
   padding: 4rem 2rem;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .mainContainer {
     font-size: var(--font-h2);
   }
