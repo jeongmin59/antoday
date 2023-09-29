@@ -7,12 +7,13 @@ interface BottomIconProps{
     icon: IconDefinition;
     text: string;
     url: string;
+    inActive: boolean;
 }
 
-const BottomIcon :React.FC<BottomIconProps> = ({icon,text,url}) => {
+const BottomIcon :React.FC<BottomIconProps> = ({icon,text,url, isActive}) => {
     
     return (
-        <Link to={url}>
+        <Link to={url} className={isActive ? styles.activeTab : ''}>
             <FontAwesomeIcon className={styles.icon} icon={icon}/>
             <div className={styles.text} >{text}</div>
         </Link>

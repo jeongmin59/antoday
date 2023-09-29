@@ -6,3 +6,7 @@
 .text {
   font-size: var(--font-h3);
 }
+
+.activeTab {
+  color: var(--main-blue-color);
+}
