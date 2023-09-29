@@ -45,10 +45,17 @@ def get_current_index_info(stock_code: str):
     start_date = today_date - timedelta(days=3)
 
     df = fdr.DataReader(stock_code, start_date, today_date)
+    # 현재값, 등락률
     index = int(df.iloc[-1]["Close"])
     change = int(df.iloc[-1]["Close"] - df.iloc[-2]["Close"])
     percentage_change = round(df.iloc[-1]["Change"] * 100, 2)
-    
+
+    # 52주 최고가, 최저가
+    start_date = today_date - timedelta(days=365)
+    df = fdr.DataReader(stock_code, start_date, today_date)
+    high = int(df["High"].max())
+    low = int(df["Low"].min())
+
     stock_info = get_stock_name_market(stock_code)
 
     data = CorpIndexInfoDTO(
@@ -58,6 +65,8 @@ def get_current_index_info(stock_code: str):
         index=index,
         change=change,
         percentage_change=percentage_change,
+        high52=high,
+        low52=low,
     )
     return data
 
@@ -142,6 +151,7 @@ def get_stock_info(corp_list):
         corp_info_list = corp_info_list[:10]
 
     return corp_info_list
+
 
 # 종목코드로 기업명, market 조회
 def get_stock_name_market(stock_code):
