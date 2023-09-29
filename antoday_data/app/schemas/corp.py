@@ -19,3 +19,5 @@ class CorpIndexInfoDTO(BaseModel):
     index: int
     change: int
     percentage_change: float
+    high52: int
+    low52: int
