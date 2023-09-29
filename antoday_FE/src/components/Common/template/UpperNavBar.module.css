@@ -1,62 +1,76 @@
 .navigation {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  background-color: var(--main-yellow-color);
+  /* background-color: var(--main-yellow-color); */
   max-width: 100%;
-  color: var(--main-white-color);
+  color: var(--bold-blue-color);
   align-items: center;
+  margin: 0.2rem 0.5rem 0rem;
 }
 
 .navItemHome {
-  display: block;
   grid-column-start: 1;
-  width: 100px;
+  width: 120px;
+  height: 30px;
+  /* border: 1px solid black; */
+  background-image: url("../../../assets/img/logo/logo_default_white.png");
+  background-size: contain;
 }
 
 .navItemCompanyInfo {
   display: block;
   grid-column-start: 5;
   grid-column-end: 7;
-  font-size: 0.9rem;
+  font-size: var(--font-h3);
 }
 
 .navItemTradingRecord {
   display: block;
   grid-column-start: 7;
   grid-column-end: 9;
-  font-size: 0.9rem;
+  font-size: var(--font-h3);
 }
 
 .navItemLogin {
   grid-column-start: 9;
   grid-column-end: 11;
-  font-size: 0.9rem;
+  font-size: var(--font-h3);
 }
 
-.logoDefault {
-  width: 200px;
+.navItemMemoIcon{
+  grid-column-start: 12;
 }
 
-.logoMobile {
-  width: 50px;
+.memoContainer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease-in-out;
 }
 
-@media screen and (min-width: 481px) {
-  .logoMobile {
-    display: none;
-    /* width: 50px; */
-  }
+.memoContent {
+  padding: 0.1rem 0.2rem;
 }
 
-@media screen and (max-width: 480px) {
+.open {
+  max-height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+
   .navItem {
-    display: none; /* 모바일 화면에서는 안보이게 설정 */
+    display: none;
+  }
+
+  .navItemHome {
+    background-image: url("../../../assets/img/logo/Logo_icon_mobile.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center start;
   }
 
   .navItemLogin {
-    grid-column-start: 8;
+    grid-column-start: 9;
     grid-column-end: 11;
-    font-size: var(--font-h3);
   }
 
   .navItemCompanyInfo {
@@ -65,21 +79,5 @@
 
   .navItemTradingRecord {
     display: none;
-  }
-
-  .logoDefault {
-    display: none;
-    /* width: 200px; */
-  }
-  .navigation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    height: 3rem;
-    /* padding-bottom: 20px; */
-    /* padding-bottom: 2rem; */
-    /* margin-bottom: 3rem; */
   }
 }

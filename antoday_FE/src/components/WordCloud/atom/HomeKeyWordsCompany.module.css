@@ -8,21 +8,21 @@
 }
 
 .logoImage{
-    background-color: azure;
+    background-color: var(--sub-gray-color);
     flex: 3;
-    height: 3rem;
+    height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
+    border-radius: 100px;
+    font-size: var(--font-h3);
 }
 
 .companyName{
-    background-color: beige;
     flex: 7;
     height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: var(--font-h3);
 }

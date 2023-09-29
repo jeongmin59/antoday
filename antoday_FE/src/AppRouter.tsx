@@ -8,11 +8,14 @@ import LoginPage from "./pages/CommonPage/LoginPage";
 import LogInRedirectPage from "./pages/CommonPage/LogInRedirectPage";
 import WriteTradingRecordPage from "./pages/TradePage/WriteTradingRecordPage";
 import StockSearchPage from "./pages/StockPage/StockSearchPage";
-import StockInfoPage from "./pages/StockPage/StockInfoPage";
-import StockSearchBar from "./components/StockSearch/template/StockSearchBar";
 import InfoPageSearchBar from "./components/StockInfo/template/InfoPageSearchBar";
+import { useRecoilValue } from "recoil";
+import { isMemoOpenAtom } from "./recoil/memo";
 
 const AppRouter = () => {
+
+  const isMemoOpen = useRecoilValue(isMemoOpenAtom);
+
   return (
     <Router>
       <UpperNavBar />
