@@ -1,16 +1,20 @@
 import AiFeedback from "../../components/AiFeedback/template/AiFeedback";
 import ReadingTrade from "../../components/AiFeedback/template/ReadingTrade";
 import styles from "./TradingRecordDetailPage.module.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { useRecoilValue } from "recoil";
+import { accessTokenAtom } from "../../recoil/auth";
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
 
   const {
     data: tradeResults,
-    // isLoading,
+    isLoading,
     // isError,
   } = useQuery("tradeResults", async () => {
     if (!tradePk) {
@@ -22,22 +26,54 @@ const TradingRecordDetailPage = () => {
       const response = await axios.get(
         import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`
       );
-
-      return response;
+      
+      return response.data;
     } catch (error) {
       console.error("매매 기록 불러오는 axios 요청 실패", error);
     }
   });
 
-  const tradeAt = tradeResults?.data.tradeAt;
-  const reason = tradeResults?.data.reason;
-  const keyword = tradeResults?.data.keyword;
-  const corpName = tradeResults?.data.corpName;
-  const logoUrl = tradeResults?.data.logoUrl;
-  const optionBuySell = tradeResults?.data.optionBuySell;
-  const price = tradeResults?.data.price;
-  const cnt = tradeResults?.data.cnt;
-  const aiAnalyze = tradeResults?.data.aiAnalyze;
+  const tradeAt = tradeResults?.tradeAt;
+  const reason = tradeResults?.reason;
+  const keyword = tradeResults?.keyword;
+  const corpName = tradeResults?.corpName;
+  const logoUrl = tradeResults?.logoUrl;
+  const optionBuySell = tradeResults?.optionBuySell;
+  const price = tradeResults?.price;
+  const cnt = tradeResults?.cnt;
+  const aiAnalyze = tradeResults?.aiAnalyze;
+  const stockCode = tradeResults?.stockCode;
+  const navigator = useNavigate();
+  const token = useRecoilValue(accessTokenAtom);
+
+  const handleEdit = () => {
+    //수정로직
+  }
+
+  const handleDelete = async () => {
+    const url = import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      console.log("삭제 완료!");
+      navigator("/tradingrecord");
+    } else {
+      console.error(await response.text());
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className={styles.stockInfoPageContainer}>
+        <Skeleton />
+    </div>
+    );
+  }
 
   return (
     <div className={styles.mainContainer}>
@@ -52,9 +88,24 @@ const TradingRecordDetailPage = () => {
           keywordList={keyword}
           reason={reason}
         />
+      <div>
+        <button  onClick={handleEdit}>수정</button>
+        <button onClick={handleDelete}>삭제</button>
+      </div>
       </div>
       <div className={styles.rightContainer}>
-        <AiFeedback aiAnalyze={aiAnalyze} />
+        <AiFeedback
+        corpName={corpName}
+        tradeAt={tradeAt}
+        logoUrl={logoUrl}
+        optionBuySell={optionBuySell}
+        price={price}
+        cnt={cnt}
+        keywordList={keyword}
+        reason={reason}
+        stockCode={stockCode}
+        aiAnalyze={aiAnalyze}
+        />
       </div>
     </div>
   );

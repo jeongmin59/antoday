@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import styles from "./StockInfoPage.module.css";
-import InfoPageSearchBar from "../../components/StockInfo/template/InfoPageSearchBar";
 import StockInfoBasic from "../../components/StockInfo/template/StockInfoBasic";
 import StockInfoSummary from "../../components/StockInfo/template/StockInfoSummary";
 import StockInfoDetail from "../../components/StockInfo/template/StockInfoDetail";
 import { useQuery } from "react-query";
 import axios from "axios";
-import LoadingSpinner from "../../components/Common/atom/LoadingSpinner";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
-interface Params {
-  [stockPk: string]: string | undefined;
+interface StockInfoPageProps {
+  stockPk: string;
 }
 
-const StockInfoPage: React.FC = () => {
-  const stockPk = useParams<Params>()?.stockPk || "";
+const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
+  // const stockPk = useParams<Params>()?.stockPk || "";
   const [corpIntro, setCorpIntro] = useState<stockIntro>([]);
-  const [corpInfo, setCorpInfo] = useState<string[]>([]);
-  const [graphValue, setGraphValue] = useState(null);
+  const [corpInfo, setCorpInfo] = useState<any>(null);
+  const [graphValue, setGraphValue] = useState<any>(null);
+  const [corpOverview, setCorpOverview] = useState<any>(null);
 
   const {
     data: stockInfoResults,
@@ -35,6 +35,7 @@ const StockInfoPage: React.FC = () => {
       // console.log("결과값은", response.data);
       setCorpInfo(response.data.indicator);
       setGraphValue(response.data.value);
+      setCorpOverview(response.data.info);
       return response.data;
     } catch (error) {
       console.error("overview 실패", error);
@@ -62,15 +63,27 @@ const StockInfoPage: React.FC = () => {
 
   useEffect(() => {}, [stockInfoResults, stockIntro]);
 
+  if (isLoading1 || isLoading2) {
+    return (
+      <div className={styles.stockInfoPageContainer}>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+    </div>
+    );
+  }
+
   return (
     <div className={styles.stockInfoPageContainer}>
-      <InfoPageSearchBar />
       <StockInfoBasic corpIntro={corpIntro} />
       <StockInfoSummary />
       <StockInfoDetail
         stockPk={stockPk}
         graphValue={graphValue}
         corpInfo={corpInfo}
+        corpIntro={corpIntro}
+        corpOverview={corpOverview}
       />
     </div>
   );

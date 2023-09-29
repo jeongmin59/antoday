@@ -18,7 +18,7 @@ const MyInvestmentCompany: React.FC = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log(response.data)
+        // console.log(response.data)
         setMyInvestmentCompanies(response.data);
       } catch (error) {
         console.error("Error fetching favorite companies:", error);
@@ -29,7 +29,6 @@ const MyInvestmentCompany: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div>투자기업</div>
       {myInvestmentCompanies?.map(company => (
         <FavoriteStockComponent companyInfo={company} key={company.stockCode} />
       ))}

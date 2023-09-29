@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import styles from "./StockInfoBasic.module.css";
 import FavoriteCompanyButton from "../atom/FavoriteCompanyButton";
+import { addCommas } from "../../../utils/addCommas";
 
 interface StockInfoBasicProps {
   corpIntro?: stockIntro;
 }
 
 const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
-  console.log("###", corpIntro);
+  
   const corpName = corpIntro?.corp_name;
-  const price = corpIntro?.index;
+  const price = corpIntro ? addCommas(corpIntro.index) : '';  // addCommas 함수 적용
   const stockCode = corpIntro?.stock_code;
-  const change = corpIntro?.change;
+  const change = corpIntro ? addCommas(corpIntro.change) : ''; // addCommas 함수 적용
   const market = corpIntro?.market;
 
   return (
