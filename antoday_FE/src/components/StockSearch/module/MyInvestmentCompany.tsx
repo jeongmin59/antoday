@@ -29,7 +29,6 @@ const MyInvestmentCompany: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div>투자기업</div>
       {myInvestmentCompanies?.map(company => (
         <FavoriteStockComponent companyInfo={company} key={company.stockCode} />
       ))}

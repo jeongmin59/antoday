@@ -7,7 +7,7 @@ interface StockInfoBasicProps {
 }
 
 const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
-  console.log("###", corpIntro);
+  
   const corpName = corpIntro?.corp_name;
   const price = corpIntro?.index;
   const stockCode = corpIntro?.stock_code;

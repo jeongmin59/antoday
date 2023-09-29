@@ -9,6 +9,8 @@ import LogInRedirectPage from "./pages/CommonPage/LogInRedirectPage";
 import WriteTradingRecordPage from "./pages/TradePage/WriteTradingRecordPage";
 import StockSearchPage from "./pages/StockPage/StockSearchPage";
 import StockInfoPage from "./pages/StockPage/StockInfoPage";
+import StockSearchBar from "./components/StockSearch/template/StockSearchBar";
+import InfoPageSearchBar from "./components/StockInfo/template/InfoPageSearchBar";
 
 const AppRouter = () => {
   return (
@@ -19,7 +21,7 @@ const AppRouter = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/oauth/callback/kakao" element={<LogInRedirectPage />} />
         <Route path="/stocksearch" element={<StockSearchPage />} />
-        <Route path="/stockinfo/:stockPk" element={<StockInfoPage />} />
+        <Route path="/stockinfo/:stockPk" element={<InfoPageSearchBar />} />
         <Route path="/tradingrecord" element={<TradingRecordPage />} />
         <Route
           path="/tradingrecord/:tradePk"

@@ -8,14 +8,18 @@ import StockWordCloud from "../module/StockWordCloud";
 
 interface StockInfoDetailProps {
   stockPk?: string;
-  graphValue?: string;
-  corpInfo?: stockInfo[];
+  graphValue?: any;
+  corpInfo?: any;
+  corpIntro?: stockInfo;
+  corpOverview? :any;
 }
 
 const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
   stockPk,
   graphValue,
   corpInfo,
+  corpIntro,
+  corpOverview
 }) => {
   const tab1Ref = useRef<HTMLDivElement>(null);
   const tab2Ref = useRef<HTMLDivElement>(null);
@@ -83,7 +87,7 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
       </div>
       <hr />
       <div ref={tab2Ref}>
-        <CompanyOverview />
+        <CompanyOverview corpIntro={corpIntro} corpOverview={corpOverview}/>
       </div>
       <hr />
       <StockInformation corpInfo={corpInfo} />

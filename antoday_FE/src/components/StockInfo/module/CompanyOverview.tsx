@@ -1,28 +1,22 @@
 import React, { useState } from "react";
 import styles from "./CompanyOverview.module.css";
 
-interface BusinessDescription {
-  electronicsManufacturing: string;
-  displayManufacturing: string;
-  biopharmaceuticalsAndMedicalDevices: string;
+interface CompanyOverviewProps {
+  corpIntro: stockIntro;
+  corpOverview? : any;
 }
 
-const CompanyOverview: React.FC = () => {
-  const [companyName, setCompanyName] = useState<string>("삼성전자");
-  const [establishedDate, setEstablishedDate] = useState<string>("2020-01-01");
-  const [existencePeriod, setExistencePeriod] = useState<string>("10년 이상");
-  const [kospiKosdaq, setKospiKosdaq] = useState<string>("코스피");
-  const [smallVenture, setSmallVenture] = useState<string>("중소기업");
-  const businessDescription: BusinessDescription = {
-    electronicsManufacturing: "스마트폰, TV 및 가전제품 제조",
-    displayManufacturing: "AMOLED 및 LCD 디스플레이 제조",
-    biopharmaceuticalsAndMedicalDevices:
-      "의약품 및 바이오의약품, 의료 기기 개발 및 생산",
-  };
+const CompanyOverview: React.FC<CompanyOverviewProps> = ({corpOverview,corpIntro}) => {
+  
+  // const companyName = corpIntro?.corp_name;
+  // const establishedDate = corpOverview[3]?.설립일;
+  // const staffNumber = corpOverview[6]?.종업원수;
+  // const kospiKosdaq = corpIntro?.market;
+  // const homePage = corpOverview[1]?.홈페이지;
 
   return (
     <div className={styles.companyInfoContainer}>
-      <div>기업 개요</div>
+      {/* <div>기업 개요</div>
       <ul className={styles.companyInfoContentContainer}>
         <li>
           <strong className={styles.strongText}>기업명:</strong> {companyName}
@@ -32,16 +26,16 @@ const CompanyOverview: React.FC = () => {
           {establishedDate}
         </li>
         <li>
-          <strong className={styles.strongText}>존속기간:</strong>{" "}
-          {existencePeriod}
+          <strong className={styles.strongText}>종업원수:</strong>{" "}
+          {staffNumber}
         </li>
         <li>
           <strong className={styles.strongText}>코스피/코스닥 여부:</strong>{" "}
           {kospiKosdaq}
         </li>
         <li>
-          <strong className={styles.strongText}>중소/벤처 기업 여부:</strong>{" "}
-          {smallVenture}
+          <strong className={styles.strongText}>홈페이지주소:</strong>{" "}
+          {homePage}
         </li>
         <li>
           <strong className={styles.strongText}>주요사업 내용:</strong>
@@ -49,7 +43,7 @@ const CompanyOverview: React.FC = () => {
           <div>{businessDescription.displayManufacturing}</div>
           <div>{businessDescription.electronicsManufacturing}</div>
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 };
