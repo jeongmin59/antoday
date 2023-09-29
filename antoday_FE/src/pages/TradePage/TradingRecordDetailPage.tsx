@@ -4,13 +4,15 @@ import styles from "./TradingRecordDetailPage.module.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
 
   const {
     data: tradeResults,
-    // isLoading,
+    isLoading,
     // isError,
   } = useQuery("tradeResults", async () => {
     if (!tradePk) {
@@ -22,22 +24,33 @@ const TradingRecordDetailPage = () => {
       const response = await axios.get(
         import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`
       );
-
-      return response;
+      
+      return response.data;
     } catch (error) {
       console.error("매매 기록 불러오는 axios 요청 실패", error);
     }
   });
 
-  const tradeAt = tradeResults?.data.tradeAt;
-  const reason = tradeResults?.data.reason;
-  const keyword = tradeResults?.data.keyword;
-  const corpName = tradeResults?.data.corpName;
-  const logoUrl = tradeResults?.data.logoUrl;
-  const optionBuySell = tradeResults?.data.optionBuySell;
-  const price = tradeResults?.data.price;
-  const cnt = tradeResults?.data.cnt;
-  const aiAnalyze = tradeResults?.data.aiAnalyze;
+  const tradeAt = tradeResults?.tradeAt;
+  const reason = tradeResults?.reason;
+  const keyword = tradeResults?.keyword;
+  const corpName = tradeResults?.corpName;
+  const logoUrl = tradeResults?.logoUrl;
+  const optionBuySell = tradeResults?.optionBuySell;
+  const price = tradeResults?.price;
+  const cnt = tradeResults?.cnt;
+  const aiAnalyze = tradeResults?.aiAnalyze;
+  const stockCode = tradeResults?.stockCode;
+
+  console.log('결과는?',aiAnalyze)
+
+  if (isLoading) {
+    return (
+      <div className={styles.stockInfoPageContainer}>
+        <Skeleton />
+    </div>
+    );
+  }
 
   return (
     <div className={styles.mainContainer}>
@@ -54,7 +67,18 @@ const TradingRecordDetailPage = () => {
         />
       </div>
       <div className={styles.rightContainer}>
-        <AiFeedback aiAnalyze={aiAnalyze} />
+        <AiFeedback
+        corpName={corpName}
+        tradeAt={tradeAt}
+        logoUrl={logoUrl}
+        optionBuySell={optionBuySell}
+        price={price}
+        cnt={cnt}
+        keywordList={keyword}
+        reason={reason}
+        stockCode={stockCode}
+        aiAnalyze={aiAnalyze}
+        />
       </div>
     </div>
   );

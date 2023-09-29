@@ -11,7 +11,6 @@ interface StockInfoComponentProps {
 const FavoriteStockComponent: React.FC<StockInfoComponentProps> = ({
   companyInfo,
 }) => {
-  console.log('여기는 FavoriteCompanyComponent 컴포넌트')
   const navigator = useNavigate();
 
   const handleClick = () => {

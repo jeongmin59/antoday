@@ -6,7 +6,6 @@ import { useRecoilState } from "recoil";
 import axios from 'axios';
 
 const FavoriteCompany: React.FC = () => {
-  console.log('여기는 FavoriteCompany 컴포넌트')
   const [favoriteNowPage, setFavoriteNowPage] = useState<number>(0);
   const [favoriteCompanies, setFavoriteCompanies] = useState<CompanyInfo[]>([]);
   const [token, setToken] = useRecoilState(accessTokenAtom);

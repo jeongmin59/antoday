@@ -17,6 +17,7 @@ interface TradingRecord {
     reason? : string;
     corpName? : string;
     tradePk?: string;
+    aiAnalyze? : string;
 }
 
 interface stockIntro {

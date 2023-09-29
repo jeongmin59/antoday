@@ -4,20 +4,40 @@ import styles from "./AiFeedback.module.css";
 import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 
-interface AiFeedbackProps {
-  aiAnalyze: string | null;
-}
 
-const AiFeedback: React.FC<AiFeedbackProps> = ({ aiAnalyze }) => {
+const AiFeedback: React.FC<TradingRecord> = ({ 
+  corpName,
+  tradeAt,
+  optionBuySell,
+  price,
+  cnt,
+  keywordList,
+  reason,
+  aiAnalyze,
+  stockCode
+ }) => {
+  
   const { tradePk } = useParams();
   const [results, setResults] = useState(aiAnalyze);
   const queryClient = useQueryClient();
 
   const fetchAiFeedback = async (tradePk: string | undefined) => {
     try {
-      const response = await axios.patch(
-        import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`
+      const response = await axios.put(
+        import.meta.env.VITE_DATA_API_URL + `/trade/analyze`,
+        { 
+          tradePk: tradePk,
+          corpName: corpName,
+          stockCode: stockCode,
+          optionBuySell: optionBuySell,
+          price: price,
+          cnt: cnt,
+          tradeAt: tradeAt,
+          reason: reason,
+          keyword: keywordList
+        }
       );
       console.log("AI 결과분석 완료", response.data);
       setResults(response.data);
@@ -53,7 +73,9 @@ const AiFeedback: React.FC<AiFeedbackProps> = ({ aiAnalyze }) => {
             {isLoading ? (
               <>
                 <img className={styles.antimage} src={AntDefault} alt="개미" />
-                <div className={styles.feedback}>로딩 중...</div>
+                <div className={styles.feedback}>
+                  <LoadingSpinner  />
+                </div>
               </>
             ) : isError ? (
               <>

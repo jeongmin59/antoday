@@ -29,20 +29,20 @@ const WriteTradingRecordPage: React.FC = () => {
         import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`
       );
       console.log("axios 요청 성공", response.data);
-      return response;
+      return response.data;
     } catch (error) {
       console.error("axios 요청 실패", error);
       throw error;
     }
   });
 
-  const tradeAt = tradeResults?.data.tradeAt;
-  const stockCode = tradeResults?.data.stockCode;
-  const corpName = tradeResults?.data.corpName;
-  const logoUrl = tradeResults?.data.logoUrl;
-  const optionBuySell = tradeResults?.data.optionBuySell;
-  const price = tradeResults?.data.price;
-  const cnt = tradeResults?.data.cnt;
+  const tradeAt = tradeResults?.tradeAt;
+  const stockCode = tradeResults?.stockCode;
+  const corpName = tradeResults?.corpName;
+  const logoUrl = tradeResults?.logoUrl;
+  const optionBuySell = tradeResults?.optionBuySell;
+  const price = tradeResults?.price;
+  const cnt = tradeResults?.cnt;
 
   return (
     <div>

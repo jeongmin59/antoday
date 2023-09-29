@@ -18,7 +18,7 @@ const MyInvestmentCompany: React.FC = () => {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log(response.data)
+        // console.log(response.data)
         setMyInvestmentCompanies(response.data);
       } catch (error) {
         console.error("Error fetching favorite companies:", error);
