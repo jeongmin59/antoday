@@ -8,6 +8,7 @@ import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 import styles from "./TradingRecordList.module.css";
 import { useNavigate } from "react-router-dom";
 import StockProfit from "./StockProfit.tsx";
+import TradingRecordCardSkeleton from "./TradingRecordCardSkeleton.tsx";
 
 interface TradingRecordListProps {
   records?: TradingRecordPageType[];
@@ -15,6 +16,7 @@ interface TradingRecordListProps {
   hasMore: boolean;
   fetchMoreData: any;
   lastRecordRef: (node?: Element | null | undefined) => void;
+  isLoading: boolean;
 }
 
 const TradingRecordList: React.FC<TradingRecordListProps> = ({
@@ -23,6 +25,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   hasMore,
   fetchMoreData,
   lastRecordRef,
+  isLoading,
 }) => {
   const navigator = useNavigate();
   const [reasonExist, setReasonExist] = useState<Boolean>(false);
@@ -88,6 +91,8 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
 
   return (
     <div className={styles.div}>
+      {isLoading && <TradingRecordCardSkeleton cards={8} />}
+      {records?.length === 0 && <h2>검색 결과가 없습니다.</h2>}
       {Object.entries(groupedRecords).map(([date, dateRecords], groupIndex) => {
         const isLastDateGroup =
           groupIndex === Object.entries(groupedRecords).length - 1;
@@ -97,13 +102,13 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
             <div className={styles.dateHeader}>{date}</div>
             {dateRecords.map((record, index) => {
               const isLastRecordInGroup = index === dateRecords.length - 1;
-
+              
               return (
                 <div
-                  key={index}
-                  onClick={() =>
-                    handleDetail(record.reasonExist, record.tradePk)
-                  }
+                key={index}
+                onClick={() =>
+                  handleDetail(record.reasonExist, record.tradePk)
+                }
                 >
                   <div className={styles.listItem}>
                     <div className={styles.row}>
@@ -154,7 +159,6 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
       {selectedStock != null ? (
         <StockProfit info={selectedStock} onClose={setStockClose} />
       ) : null}
-      {records?.length === 0 && <h2>검색 결과가 없습니다.</h2>}
     </div>
   );
 };
