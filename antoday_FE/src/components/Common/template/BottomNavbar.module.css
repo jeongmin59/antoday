@@ -1,27 +1,19 @@
 .bottomNavwrap {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2.8em;
-  box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1); /* 수직 그림자 추가 */
-  background-color: rgba(255, 255, 255, 0.8);
-  z-index: 10;
-  display: flex;
-  justify-content: space-around;
-  width: 100%; 
-  overflow-x: hidden;
+  display: none;
 }
 
-.square_bottom_item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-@media screen and (min-width: 485px) {
-  .wrap {
-    display: none;
+@media screen and (max-width: 500px) {
+  .bottomNavwrap {
+    bottom: 0; 
+    height: fit-content;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: space-around;
+    width: 100%; 
+    position: fixed;
+    z-index: 1;
+    margin-right: calc((100% - 500px) / 3);
+    padding: 0.1rem 0.1rem;
   }
 }

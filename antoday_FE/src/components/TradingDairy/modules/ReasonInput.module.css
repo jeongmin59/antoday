@@ -1,0 +1,33 @@
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 90%;
+  margin: 0 auto;
+  
+}
+
+.pageTitle{
+  font-size: var(--font-h4);
+}
+
+.recordContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.textArea{
+  font-family: GmarketSans;
+  border: none;
+  font-size: var(--font-h4);
+  width: 100%;
+  background-color: var(--main-white-color);
+  border-radius: 10px;
+}
+
+.buttonContainer{
+  display: flex;
+}

@@ -6,7 +6,7 @@
   border-radius: 0rem;
   font-family: GmarketSans;
   border: none;
-  font-size: var(--font-h2);
+  font-size: var(--font-h4);
   background-color: var(--sub-gray-color);
   color: white;
 }

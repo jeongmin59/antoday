@@ -1,54 +1,73 @@
 .navigation {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  /* background-color: var(--main-yellow-color); */
-  max-width: 100%;
+  max-width: inherit;
   color: var(--bold-blue-color);
   align-items: center;
-  margin: 0.2rem 0.5rem 0rem;
+  position: fixed;
+  z-index: 1;
+  margin-right: calc((100% - 500px) / 3);
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 스크롤된 상태일 때의 배경색 스타일*/
+.navigation.scrolled {
+  background-color: white;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
 }
 
 .navItemHome {
   grid-column-start: 1;
-  width: 120px;
+  width: 90px;
   height: 30px;
-  /* border: 1px solid black; */
+  background-repeat: no-repeat;
   background-image: url("../../../assets/img/logo/logo_default_white.png");
   background-size: contain;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .navItemCompanyInfo {
   display: block;
   grid-column-start: 5;
   grid-column-end: 7;
-  font-size: var(--font-h3);
+  font-size: var(--font-h4);
 }
 
 .navItemTradingRecord {
   display: block;
   grid-column-start: 7;
   grid-column-end: 9;
-  font-size: var(--font-h3);
+  font-size: var(--font-h4);
 }
 
 .navItemLogin {
   grid-column-start: 9;
   grid-column-end: 11;
-  font-size: var(--font-h3);
+  font-size: var(--font-h4);
 }
 
 .navItemMemoIcon{
   grid-column-start: 12;
+  font-size: 0.7rem;
+  cursor: pointer;
 }
 
 .memoContainer {
   max-height: 0;
   overflow: hidden;
   transition: max-height 1s ease-in-out;
+  z-index: 2;
 }
 
 .memoContent {
-  padding: 0.1rem 0.2rem;
+  padding-top: 1.7rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 .open {
@@ -71,6 +90,10 @@
   .navItemLogin {
     grid-column-start: 9;
     grid-column-end: 11;
+  }
+
+  .navItemMemoIcon{
+    grid-column-start: 11;
   }
 
   .navItemCompanyInfo {

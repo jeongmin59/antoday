@@ -1,7 +1,14 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
 .pageTitle {
   display: flex;
-  font-size: var(--font-h1);
-  width: 80%;
+  justify-content: start;
+  font-size: var(--font-h4);
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -10,19 +17,30 @@
   flex-direction: row;
   align-items: center;
   margin: 0 auto;
-  width: 80%;
+  width: inherit;
   height: 5%;
-  border: 0.1rem solid var(--main-yellow-color);
+  background-color: var(--main-white-color);
   border-radius: 0.5rem;
   justify-content: space-evenly;
 }
 
+.keyword{
+  font-size: var(--font-h4);
+}
+
+.inputBox{
+  border: none;
+  background-color: var(--main-white-color);
+  width: 100%;
+}
+
 .confirmButton {
-  font-size: var(--font-h2);
+  font-size: var(--font-h5);
   font-family: "NanumSquareRound";
-  border-radius: 0.5rem;
+  border-radius: 5rem;
   width: 2rem;
-  background-color: var(--main-yellow-color);
+  height: 1.2rem;
+  background-color: var(--main-green-color);
   border: none;
   color: white;
   cursor: pointer;

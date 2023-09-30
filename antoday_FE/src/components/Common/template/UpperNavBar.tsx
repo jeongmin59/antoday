@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./UpperNavBar.module.css";
 import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -12,6 +12,7 @@ const UpperNavBar: React.FC = () => {
   const [token, setToken] = useRecoilState(accessTokenAtom);
   const userName = useRecoilValue(userNameAtom);
   const [isMemoOpen, setIsMemoOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleMemoClick = () => {
       setIsMemoOpen(!isMemoOpen);
@@ -21,11 +22,29 @@ const UpperNavBar: React.FC = () => {
     setToken("");
   };
 
+  useEffect(() => {
+    // 스크롤 이벤트를 감지하여 스크롤 위치에 따라 배경색 변경
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // 이벤트 리스너 등록
+    window.addEventListener("scroll", handleScroll);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <nav>
-    <div className={styles.navigation}>
+    <div className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""}`}>
       <Link to="/" className={styles.navItemHome}>
-        {/* <div className={styles.navMainImage}></div> */}
       </Link>
       <Link to="/stocksearch" className={styles.navItemCompanyInfo}>
         종목정보
