@@ -1,10 +1,9 @@
 .searchBarContainer {
   display: flex;
-  border: 0px solid var(--main-white-color);
-  padding: 0.3rem 0.3rem;
+  padding: 0.2rem 0.3rem;
   margin: 1rem auto 0.2rem;
   border-radius: 50px;
-  background-color: var(--main-white-color);
+  /* background-color: white; */
 }
 
 .inputBox {
@@ -15,7 +14,7 @@
   &::placeholder {
     color: #00000080;
     font-family: var(--main-font-family);
-    font-size: 0.6rem;
+    font-size: var(--font-h5);
   }
 }
 
@@ -27,6 +26,7 @@
   border: 0;
   color: white;
   cursor: pointer;
+  font-size: var(--font-h5);
 }
 
 .subContainer {

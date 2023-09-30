@@ -15,8 +15,8 @@
 }
 
 :root {
-  --main-yellow-color: #FFEF6B;
-  --sub-yellow-color: #FDC921;
+  --main-yellow-color: #FFD54D;
+  --sub-yellow-color: #FDB61B;
   --main-white-color: #F6F6F6;
   --main-blue-color: #4385CF;
   --sub-blue-color: #559CDE;
@@ -38,9 +38,11 @@
   --font-h1: 0.95rem;
   --font-h2: 0.75rem;
   --font-h3: 0.65rem; */
-  --font-h1: 0.95rem;
+  --font-h1: 0.85rem;
   --font-h2: 0.75rem;
   --font-h3: 0.65rem;
+  --font-h4: 0.55rem;
+  --font-h5: 0.45rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
