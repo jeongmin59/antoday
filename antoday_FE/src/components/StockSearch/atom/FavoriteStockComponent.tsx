@@ -27,7 +27,7 @@ const FavoriteStockComponent: React.FC<StockInfoComponentProps> = ({
             src={companyInfo.logoUrl}
             alt="기업이미지"
           />
-          <p>{companyInfo.corpName}</p>
+          <p className={styles.stockName}>{companyInfo.corpName}</p>
           <FavoriteCompanyButton stockPk={companyInfo.stockCode} />
         </React.Fragment>
       ) : (

@@ -7,9 +7,13 @@
   }
   
   .stockImage {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50px;
+  }
+
+  .stockName{
+    font-size: var(--font-h4);
   }
   
   /* 스켈레톤 스타일 */
