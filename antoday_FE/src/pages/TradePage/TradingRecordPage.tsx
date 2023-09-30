@@ -61,6 +61,8 @@ const TradingRecordPage: React.FC = () => {
   const [hasMore, sethasMore] = useState<boolean>(false);
   const [ref, inView] = useInView();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const formatDateString = (date: string, isStart: boolean = true) => {
     return isStart ? `${date} 00:00:00` : `${date} 23:59:59`;
   };
@@ -84,32 +86,34 @@ const TradingRecordPage: React.FC = () => {
     if (searchKeyword) params.keyword = searchKeyword;
     if (filteroption) params.tradeFilter = filteroption;
     if (order) params.tradeOrderBy = order;
-
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACK_API_URL}/api/trade`,
-      {
-        params,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+  
+    setIsLoading(true);
+  
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_BACK_API_URL}/api/trade`,
+        {
+          params,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const responseData = response.data;
+      if (pageParam === 0) {
+        setSearchResults(responseData.content);
+      } else {
+        setSearchResults((prev) => [...prev, ...responseData.content]);
       }
-    );
-    const responseData = response.data;
-    if (pageParam === 0) {
-      //console.log(response.data)
-      setSearchResults(responseData.content);
-    } else {
-      setSearchResults((prev) => [...prev, ...responseData.content]);
+      return {
+        ...responseData,
+        nextPage: pageParam + 1,
+      };
+    } catch (error) {
+      console.error("데이터를 가져오는데 실패했습니다:", error);
+    } finally {
+      setIsLoading(false);
     }
-    // if (responseData.content.length > 0) {
-    //   setStockCode(responseData.content[0].stockCode);
-    // } else {
-    //   setStockCode(null);
-    // }
-    return {
-      ...responseData,
-      nextPage: pageParam + 1,
-    };
   };
 
   const fetchRoiList = async () => {
@@ -253,6 +257,7 @@ const TradingRecordPage: React.FC = () => {
               roiList={roiList}
               fetchMoreData={fetchNextPage}
               lastRecordRef={ref}
+              isLoading={isLoading} 
             />
           </div>
         </>
