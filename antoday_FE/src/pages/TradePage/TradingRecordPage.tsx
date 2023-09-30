@@ -209,7 +209,7 @@ const TradingRecordPage: React.FC = () => {
       {showWrite ? (
         <WriteTradingRecord closeWritePage={() => setShowWrite(false)} />
       ) : (
-        <>
+        <div className={styles.bigcontainer}>
           <div className={styles.form}>
             <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
               <FontAwesomeIcon
@@ -260,7 +260,7 @@ const TradingRecordPage: React.FC = () => {
               isLoading={isLoading} 
             />
           </div>
-        </>
+        </div>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ const StockSearchBar: React.FC = () => {
   const [nowPage, setNowPage] = useState<number>(0);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const queryClient = useQueryClient();
-  const [favoriteCompanies, setFavoriteCompanies] = useState<CompanyInfo[]>([]);
+  // const [favoriteCompanies, setFavoriteCompanies] = useState<CompanyInfo[]>([]);
 
   const debouncedInputValue = useDebounce({
     value: inputValue,
