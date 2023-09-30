@@ -61,10 +61,13 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 1s ease-in-out;
+  z-index: 2;
 }
 
 .memoContent {
-  padding: 0.1rem 0.2rem;
+  padding-top: 1.7rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
 }
 
 .open {

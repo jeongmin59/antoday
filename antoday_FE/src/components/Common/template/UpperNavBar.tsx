@@ -45,7 +45,6 @@ const UpperNavBar: React.FC = () => {
     <nav>
     <div className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""}`}>
       <Link to="/" className={styles.navItemHome}>
-        {/* <div className={styles.navMainImage}></div> */}
       </Link>
       <Link to="/stocksearch" className={styles.navItemCompanyInfo}>
         종목정보
