@@ -1,10 +1,10 @@
 .icon {
-  width: 1.5rem;
-  height: 1rem;
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 .text {
-  font-size: var(--font-h3);
+  font-size: 1%;
 }
 
 .activeTab {

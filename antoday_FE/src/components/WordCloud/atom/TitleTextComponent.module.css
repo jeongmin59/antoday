@@ -1,21 +1,21 @@
-.titleTextContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem auto;
-    /* border: 1px solid red; */
+.titleTextContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+  gap: 0.1rem;
 }
 
 .title {
-    width : fit-content;
-    color: white;
-    background-color: var(--sub-blue-color);
-    padding: 2px 14px;
-    border-radius: 50px;
-    font-size: 0.7rem;
+  width: fit-content;
+  color: var(--sub-green-color);
+  background-color: var(--main-white-color);
+  padding: 2px 14px;
+  border-radius: 50px;
+  font-size: var(--font-h5);
 }
 
 .text {
-    font-size: 0.7rem;
+  font-size: var(--font-h3);
 }
