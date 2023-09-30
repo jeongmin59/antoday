@@ -1,62 +1,99 @@
 .navigation {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  background-color: var(--main-yellow-color);
-  max-width: 100%;
-  color: var(--main-white-color);
+  max-width: inherit;
+  color: var(--bold-blue-color);
   align-items: center;
+  position: fixed;
+  z-index: 1;
+  margin-right: calc((100% - 500px) / 3);
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 스크롤된 상태일 때의 배경색 스타일*/
+.navigation.scrolled {
+  background-color: white;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
 }
 
 .navItemHome {
-  display: block;
   grid-column-start: 1;
-  width: 100px;
+  width: 90px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-image: url("../../../assets/img/logo/logo_default_white.png");
+  background-size: contain;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .navItemCompanyInfo {
   display: block;
   grid-column-start: 5;
   grid-column-end: 7;
-  font-size: 0.9rem;
+  font-size: var(--font-h4);
 }
 
 .navItemTradingRecord {
   display: block;
   grid-column-start: 7;
   grid-column-end: 9;
-  font-size: 0.9rem;
+  font-size: var(--font-h4);
 }
 
 .navItemLogin {
   grid-column-start: 9;
   grid-column-end: 11;
-  font-size: 0.9rem;
+  font-size: var(--font-h4);
 }
 
-.logoDefault {
-  width: 200px;
+.navItemMemoIcon{
+  grid-column-start: 12;
+  font-size: 0.7rem;
+  cursor: pointer;
 }
 
-.logoMobile {
-  width: 50px;
+.memoContainer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease-in-out;
+  z-index: 2;
 }
 
-@media screen and (min-width: 481px) {
-  .logoMobile {
-    display: none;
-    /* width: 50px; */
-  }
+.memoContent {
+  padding-top: 1.7rem;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
 }
 
-@media screen and (max-width: 480px) {
+.open {
+  max-height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+
   .navItem {
-    display: none; /* 모바일 화면에서는 안보이게 설정 */
+    display: none;
+  }
+
+  .navItemHome {
+    background-image: url("../../../assets/img/logo/Logo_icon_mobile.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center start;
   }
 
   .navItemLogin {
-    grid-column-start: 8;
+    grid-column-start: 9;
     grid-column-end: 11;
-    font-size: var(--font-h3);
+  }
+
+  .navItemMemoIcon{
+    grid-column-start: 11;
   }
 
   .navItemCompanyInfo {
@@ -65,21 +102,5 @@
 
   .navItemTradingRecord {
     display: none;
-  }
-
-  .logoDefault {
-    display: none;
-    /* width: 200px; */
-  }
-  .navigation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    height: 3rem;
-    /* padding-bottom: 20px; */
-    /* padding-bottom: 2rem; */
-    /* margin-bottom: 3rem; */
   }
 }

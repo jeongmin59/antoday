@@ -30,6 +30,7 @@
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .corpnameoption {
@@ -68,8 +69,4 @@
 
 .button2 {
   background-color: var(--sub-red-color);
-}
-
-img {
-  cursor: pointer;
 }

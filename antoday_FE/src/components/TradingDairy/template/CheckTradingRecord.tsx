@@ -22,8 +22,10 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
           <div className={styles.contentContainer}>
             <div className={styles.leftContainer}>
               <img className={styles.corpimage} src={logoUrl} alt="" />
+              <div>
               <div>{corpName}</div>
               {optionBuySell ? <div>매도</div> : <div>매수</div>}
+              </div>
             </div>
             <div className={styles.rightContainer}>
               <div>{price}</div>
@@ -32,7 +34,6 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
           </div>
         </div>
       </div>
-
       <HomeKeyWords />
       <InputForm
         tradeAt={tradeAt}

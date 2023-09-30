@@ -7,22 +7,27 @@
     height: fit-content;
 }
 
-.logoImage{
-    background-color: azure;
+.logoImageContainer{
     flex: 3;
-    height: 3rem;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: var(--font-h3);
+}
+
+.logoImage {
+    border: 1px solid var(--main-blue-color);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 100px;
 }
 
 .companyName{
-    background-color: beige;
     flex: 7;
     height: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: var(--font-h4);
 }

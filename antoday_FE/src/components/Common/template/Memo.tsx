@@ -5,13 +5,14 @@ import { useRecoilState } from 'recoil';
 import { accessTokenAtom } from '../../../recoil/auth';
 
 interface MemoProps {
-  onClose: () => void;
-  isMemoVisible: boolean;
+  className?: string; // className 속성을 받을 수 있도록 정의
 }
 
-const Memo: React.FC<MemoProps> = ({ onClose, isMemoVisible }) => {
+const Memo: React.FC<MemoProps> = ({ className }) => {
+  
   const [memoText, setMemoText] = useState('');
   const [token, setToken] = useRecoilState(accessTokenAtom);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const getMemo = async () => {
@@ -37,6 +38,21 @@ const Memo: React.FC<MemoProps> = ({ onClose, isMemoVisible }) => {
     };
   }, [token]);
 
+  const handleMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newMemoText = e.target.value;
+    setMemoText(newMemoText);
+
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    const newTimeoutId = setTimeout(() => {
+      handleUpdateMemo();
+    }, 1500);
+
+    setTimeoutId(newTimeoutId);
+  };
+
   const handleUpdateMemo = async () => {
     try {
       await axios.put(
@@ -48,27 +64,20 @@ const Memo: React.FC<MemoProps> = ({ onClose, isMemoVisible }) => {
           },
         }
       );
-      console.log('메모 수정');
-      onClose();
+      console.log('메모가 성공적으로 수정되었습니다');
     } catch (error) {
-      console.error('에러', error);
+      console.error('메모 수정이 실패하였습니다', error);
     }
   };
 
   return (
-    <div className={` ${isMemoVisible ? styles.active : ''}`} onClick={onClose}>
-      <div className={`${styles.memo} `} onClick={(e) => e.stopPropagation()}>
-        <div className={styles.memoContent}>
-          <button onClick={handleUpdateMemo}>X</button>
           <textarea
             rows={5}
             cols={30}
             value={memoText}
-            onChange={(e) => setMemoText(e.target.value)}
+            onChange={handleMemoChange}
+            className={styles.textArea}
           />
-        </div>
-      </div>
-    </div>
   );
 };
 

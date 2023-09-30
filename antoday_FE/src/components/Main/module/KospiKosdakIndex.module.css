@@ -44,7 +44,7 @@
 }
 
 /* 모바일 화면일 때 */
-@media (max-width: 480px) {
+@media (max-width: 500px) {
   .title {
     font-size: var(--font-h1);
   }

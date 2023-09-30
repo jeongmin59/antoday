@@ -4,23 +4,35 @@
     align-items: center;
     height: fit-content;
     background-color: var(--main-yellow-color);
-    padding: 4rem 2rem;
-    color: white;
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+    color: var(--bold-blue-color);
 }
 
 .headerText {
     flex: 5;
+    font-size: var(--font-h1);
+    z-index: 2;
 }
 
 .headerImage{
     flex: 5;
+    position: relative;
+    z-index: 1;
 }
 
 .WordImage {
-    width: 5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%); /* 이미지 중앙 정렬 */
+  width: 10rem;
 }
 
 .AntImage {
-    width: 5rem;
-    height: fit-content;
+  position: absolute;
+  top: -20px;
+  left: 150px;
+  width: 3rem;
+  height: fit-content;
 }

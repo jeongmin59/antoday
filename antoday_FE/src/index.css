@@ -15,13 +15,17 @@
 }
 
 :root {
-  --main-yellow-color: #fdc921;
-  --sub-yellow-color: #fdd85d;
-  --main-white-color: #fffdf7;
-  --main-blue-color: #6798c0;
-  --sub-blue-color: #99d6ea;
+  --main-yellow-color: #FFD54D;
+  --sub-yellow-color: #FDB61B;
+  --main-white-color: #F6F6F6;
+  --main-blue-color: #4385CF;
+  --sub-blue-color: #559CDE;
+  --bold-blue-color: #373B56;
+  --main-gray-color: #444859;
+  --sub-gray-color: #989898;
+  --main-green-color: #4F5D48;
+  --sub-green-color: #719297;
   --sub-red-color: #ed6868;
-  --sub-gray-color: #cecece;
   --main-font-family: "GmarketSans";
   font-size: 20px;
   /* color-scheme: light dark; */
@@ -34,9 +38,11 @@
   --font-h1: 0.95rem;
   --font-h2: 0.75rem;
   --font-h3: 0.65rem; */
-  --font-h1: 0.95rem;
+  --font-h1: 0.85rem;
   --font-h2: 0.75rem;
   --font-h3: 0.65rem;
+  --font-h4: 0.55rem;
+  --font-h5: 0.45rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

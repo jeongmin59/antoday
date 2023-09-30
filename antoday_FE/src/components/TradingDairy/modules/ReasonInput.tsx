@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import styles from "../template/CheckTradingRecord.module.css";
+import styles from "./ReasonInput.module.css";
 import SaveBtn from "../atoms/SaveBtn";
 import SkipBtn from "../atoms/SkipBtn";
 
@@ -21,7 +21,7 @@ const ReasonInput: React.FC<TradingRecord> = ({
   //
 
   return (
-    <React.Fragment>
+    <div className={styles.mainContainer}>
       <div className={styles.pageTitle}>매수/매도 이유</div>
       <div className={styles.recordContainer}>
         <textarea
@@ -30,9 +30,10 @@ const ReasonInput: React.FC<TradingRecord> = ({
           placeholder="이유를 입력해주세요."
           rows={5} // 행 수
           cols={40} // 열 수
-          style={{ border: "none", height: "80%", width: "90%" }}
+          className={styles.textArea}
         />
       </div>
+      <div className={styles.buttonContainer}>
       <SkipBtn tradePk={tradePk} />
       <SaveBtn
         tradeAt={tradeAt}
@@ -45,7 +46,8 @@ const ReasonInput: React.FC<TradingRecord> = ({
         reason={reason}
         tradePk={tradePk}
       />
-    </React.Fragment>
+      </div>
+    </div>
   );
 };
 
