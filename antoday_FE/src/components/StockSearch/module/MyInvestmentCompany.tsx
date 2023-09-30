@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import styles from "./FavoriteCompany.module.css";
 import FavoriteStockComponent from "../atom/FavoriteStockComponent";
 import { accessTokenAtom } from "../../../recoil/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import axios from 'axios';
 
 const MyInvestmentCompany: React.FC = () => {
   const [myInvestmentCompanies, setMyInvestmentCompanies] = useState<CompanyInfo[]>([]);
-  const [token, setToken] = useRecoilState(accessTokenAtom);
+  const token = useRecoilValue(accessTokenAtom);
 
   useEffect(() => {
     const fetchInvestmentCompanies = async () => {

@@ -17,7 +17,7 @@ const WriteTradingRecordPage: React.FC = () => {
   const {
     data: tradeResults,
     isLoading,
-    isError,
+    // isError,
   } = useQuery("tradeResults", async () => {
     if (!tradePk) {
       // tradePk가 nul인 경우 요청 보내지 않기
