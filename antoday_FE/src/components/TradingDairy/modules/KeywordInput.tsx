@@ -30,11 +30,11 @@ const KeywordInput: React.FC<TradingRecord> = ({
   };
 
   return (
-    <div>
+    <div className={styles.mainContainer}>
       <div className={styles.pageTitle}>매수/매도 키워드</div>
       <div>
         {tags.map((tag, index) => (
-          <span key={index}>{tag}&nbsp;</span>
+          <span key={index} className={styles.keyword}>{tag}&nbsp;</span>
         ))}
       </div>
       <form className={styles.keywordContainer} onSubmit={handleTagButtonClick}>
@@ -43,7 +43,7 @@ const KeywordInput: React.FC<TradingRecord> = ({
           // className={styles.KeywordInput}
           value={keyword}
           onChange={handleInputChange}
-          style={{ border: "none", height: "70%", width: "75%" }}
+          className={styles.inputBox}
         />
         <input type="submit" value="등록" className={styles.confirmButton} />
       </form>
