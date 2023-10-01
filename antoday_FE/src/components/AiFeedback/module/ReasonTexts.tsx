@@ -6,7 +6,7 @@ const ReasonTexts : React.FC<TradingRecord> = ({reason}) => {
       <div className={styles.title}>매수/매도 이유</div>
       <div className={styles.content}>{reason}</div>
     </div>
-   );
+  );
 }
- 
+
 export default ReasonTexts;

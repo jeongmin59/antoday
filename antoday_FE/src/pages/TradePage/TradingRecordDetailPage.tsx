@@ -47,7 +47,7 @@ const TradingRecordDetailPage = () => {
   const token = useRecoilValue(accessTokenAtom);
 
   const handleEdit = () => {
-    //수정로직
+    navigator(`/tradingrecord/edit/${tradePk}`)
   }
 
   const handleDelete = async () => {
@@ -88,10 +88,6 @@ const TradingRecordDetailPage = () => {
           keywordList={keyword}
           reason={reason}
         />
-      <div>
-        <button  onClick={handleEdit}>수정</button>
-        <button onClick={handleDelete}>삭제</button>
-      </div>
       </div>
       <div className={styles.rightContainer}>
         <AiFeedback
@@ -106,6 +102,10 @@ const TradingRecordDetailPage = () => {
         stockCode={stockCode}
         aiAnalyze={aiAnalyze}
         />
+      <div>
+        <button  onClick={handleEdit}>수정</button>
+        <button onClick={handleDelete}>삭제</button>
+      </div>
       </div>
     </div>
   );
