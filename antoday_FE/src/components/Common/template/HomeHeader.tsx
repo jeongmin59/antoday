@@ -15,11 +15,11 @@ const HomeHeader: React.FC = () => {
         <br />
       </div>
       <div className={styles.headerImage}>
-        <img
+        {/* <img
           className={styles.WordImage}
           src={headerImage}
           alt="헤더이미지"
-        ></img>
+        ></img> */}
         <img
           className={styles.AntImage}
           src={AntDefault}

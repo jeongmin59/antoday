@@ -88,12 +88,12 @@
   }
 
   .navItemLogin {
-    grid-column-start: 9;
-    grid-column-end: 11;
+    grid-column-start: 8;
+    grid-column-end: 10;
   }
 
   .navItemMemoIcon{
-    grid-column-start: 11;
+    grid-column-start: 10;
   }
 
   .navItemCompanyInfo {
