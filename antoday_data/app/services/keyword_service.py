@@ -4,6 +4,7 @@ from typing import Optional, Pattern, Match
 from bs4 import BeautifulSoup
 import requests
 from sqlalchemy import ResultProxy, text
+from app.schemas.corp import CorpListDTO
 from app.models.models import (
     Keyword,
     News,
@@ -124,6 +125,90 @@ def get_keyword_keywords(db: Session, keyword: str) -> list[KeywordDTO]:
             break
         keywordDtoList.append(KeywordDTO(text=word, value=weight))
     return keywordDtoList
+
+
+def get_corp_keywords(db: Session, corp_name: str) -> list[KeywordDTO]:
+    query = text(
+        """
+        with kns as (
+            select distinct n.news_pk, n.textmining_pk
+            from (
+                select textmining_pk
+                from textmining
+                order by textmining_pk desc
+                limit 3
+                ) as t
+            join news n on n.textmining_pk = t.textmining_pk
+            join news_stock ns on ns.news_pk = n.news_pk
+            join stock s on ns.stock_code = s.stock_code
+            where s.corp_name = :corp_name
+        )
+        select kns.textmining_pk, nk.news_pk, nk.word
+        from kns
+        join news_keyword nk on nk.news_pk = kns.news_pk
+        order by kns.textmining_pk desc, nk.news_pk, nk.word;
+    """
+    )
+    params: dict = {"corp_name": corp_name}
+    res: ResultProxy = db.execute(query, params)
+    pre_tpk: int = 0
+    pre_npk: int = 0
+    pre_word: str = ""
+    tm_weight: float = 1.2
+    word_dic: defaultdict = defaultdict(float)
+    for tpk, npk, word in res:
+        if pre_tpk != tpk:
+            tm_weight -= 0.2
+            pre_tpk = tpk
+        if pre_npk == npk and pre_word == word:
+            word_dic[word] += 0.2 * tm_weight
+        else:
+            word_dic[word] += tm_weight
+        pre_npk = npk
+        pre_word = word
+    keywordDtoList: list[KeywordDTO] = []
+    max_weight = 0
+    for word, weight in sorted(word_dic.items(), key=lambda x: -x[1]):
+        max_weight = max(weight, max_weight)
+        if weight <= max(2, max_weight / 10):
+            break
+        keywordDtoList.append(KeywordDTO(text=word, value=weight))
+    return keywordDtoList
+
+
+def get_keyword_corps(db: Session, keyword: str) -> list[CorpListDTO]:
+    query = text(
+        """
+        with kns as (
+            select distinct n.news_pk, n.textmining_pk
+            from (
+                select textmining_pk
+                from textmining
+                order by textmining_pk desc
+                limit 3
+                ) as t
+            join news n on n.textmining_pk = t.textmining_pk
+            join news_keyword nk on nk.news_pk = n.news_pk
+            join keyword k on nk.word = k.keyword
+            where k.keyword = :keyword
+        )
+        select s.corp_name, s.stock_code, s.logo_url
+        from kns
+        join news_stock ns on ns.news_pk = kns.news_pk
+        join stock s on s.stock_code = ns.stock_code
+        group by s.stock_code
+        order by count(*) desc limit 5;
+        """
+    )
+    params: dict = {"keyword": keyword}
+    res: ResultProxy = db.execute(query, params)
+    corp_list: list[CorpListDTO] = []
+    for corp_name, stock_code, logo_url in res:
+        print(corp_name, stock_code, logo_url)
+        corp_list.append(
+            CorpListDTO(stock_code=stock_code, corp_name=corp_name, logo_url=logo_url)
+        )
+    return corp_list
 
 
 def create_textmining(db: Session) -> None:
