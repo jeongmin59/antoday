@@ -2,6 +2,7 @@ from http import HTTPStatus
 from fastapi import APIRouter, Depends, Path
 from app.models.database import get_db
 from app.schemas.keyword import KeywordDTO
+from app.schemas.corp import CorpListDTO
 from app.services.keyword_service import *
 from sqlalchemy.orm import Session
 
@@ -40,6 +41,26 @@ async def get_keyword_wordcloud(
 ) -> list[KeywordDTO]:
     try:
         return get_keyword_keywords(db, keyword)
+    except Exception as e:
+        raise HTTPStatus(status_code=500, detail=str(e))
+
+
+@router.get("/corp/{corp_name}")
+async def get_corp_wordcloud(
+    corp_name: str, db: Session = Depends(get_db)
+) -> list[KeywordDTO]:
+    try:
+        return get_corp_keywords(db, corp_name)
+    except Exception as e:
+        raise HTTPStatus(status_code=500, detail=str(e))
+
+
+@router.get("/corp/keyword/{keyword}")
+async def get_keyword_corp(
+    keyword: str, db: Session = Depends(get_db)
+) -> list[CorpListDTO]:
+    try:
+        return get_keyword_corps(db, keyword)
     except Exception as e:
         raise HTTPStatus(status_code=500, detail=str(e))
 
