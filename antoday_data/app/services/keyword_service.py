@@ -3,6 +3,7 @@ import re
 from typing import Optional, Pattern, Match
 from bs4 import BeautifulSoup
 import requests
+from sqlalchemy import ResultProxy, text
 from app.models.models import (
     Keyword,
     News,
@@ -32,38 +33,97 @@ def create_stopword(db: Session, word: str) -> dict:
 
 
 def get_keywords(db: Session) -> list[KeywordDTO]:
-    textminings: list[Textmining] = (
-        db.query(Textmining).order_by(Textmining.textmining_pk.desc()).limit(3).all()
-    )
-    word_cloud = []
-    word_dict: defaultdict = defaultdict(float)
-    text_mining_weight = 1
-    for textmining in textminings:
-        textmining_pk: int = textmining.textmining_pk
-        all_news: list[News] = (
-            db.query(News).filter_by(textmining_pk=textmining_pk).all()
+    query = text(
+        """
+        WITH kns AS (
+            SELECT DISTINCT n.news_pk, n.textmining_pk
+            FROM (
+                SELECT textmining_pk
+                FROM textmining
+                ORDER BY textmining_pk DESC
+                LIMIT 3
+            ) AS t
+            JOIN news n ON n.textmining_pk = t.textmining_pk
+            JOIN news_keyword nk ON nk.news_pk = n.news_pk
+            JOIN keyword k ON nk.word = k.keyword
         )
+        SELECT kns.textmining_pk, nk.news_pk, nk.word
+        FROM kns
+        JOIN news_keyword nk ON nk.news_pk = kns.news_pk
+        ORDER BY kns.textmining_pk DESC, nk.news_pk, nk.word
+    """
+    )
+    res: ResultProxy = db.execute(query)
+    pre_tpk: int = 0
+    pre_npk: int = 0
+    pre_word: str = ""
+    tm_weight: float = 1.2
+    word_dic: defaultdict = defaultdict(float)
+    for tpk, npk, word in res:
+        if pre_tpk != tpk:
+            tm_weight -= 0.2
+            pre_tpk = tpk
+        if pre_npk == npk and pre_word == word:
+            word_dic[word] += 0.2 * tm_weight
+        else:
+            word_dic[word] += tm_weight
+        pre_npk = npk
+        pre_word = word
+    keywordDtoList: list[KeywordDTO] = []
+    for word, weight in sorted(word_dic.items(), key=lambda x: -x[1]):
+        if weight <= 2:
+            break
+        keywordDtoList.append(KeywordDTO(text=word, value=weight))
+    return keywordDtoList
 
-        for news in all_news:
-            news_pk = news.news_pk
-            news_word_dict: defaultdict = defaultdict(float)
-            keywords: list[Keyword] = (
-                db.query(NewsKeyword)
-                .filter_by(news_pk=news_pk)
-                .join(Keyword, NewsKeyword.word == Keyword.keyword)
-                .all()
-            )
-            for keyword in keywords:
-                news_word_dict[keyword.keyword.keyword] += (
-                    1 if keyword.keyword.keyword in news_word_dict else 0.2
-                )
-            for word, weight in news_word_dict.items():
-                word_dict[word] += weight * text_mining_weight
-        text_mining_weight -= 0.2
-    for word, weight in word_dict.items():
-        if weight >= 1:
-            word_cloud.append(KeywordDTO(text=word, value=weight))
-    return word_cloud
+
+def get_keyword_keywords(db: Session, keyword: str) -> list[KeywordDTO]:
+    query = text(
+        """
+        WITH kns AS (
+            SELECT DISTINCT n.news_pk, n.textmining_pk
+            FROM (
+                SELECT textmining_pk
+                FROM textmining
+                ORDER BY textmining_pk DESC
+                LIMIT 3
+            ) AS t
+            JOIN news n ON n.textmining_pk = t.textmining_pk
+            JOIN news_keyword nk ON nk.news_pk = n.news_pk
+            JOIN keyword k ON nk.word = k.keyword
+            WHERE k.keyword = :keyword
+        )
+        SELECT kns.textmining_pk, nk.news_pk, nk.word
+        FROM kns
+        JOIN news_keyword nk ON nk.news_pk = kns.news_pk
+        ORDER BY kns.textmining_pk DESC, nk.news_pk, nk.word
+    """
+    )
+    params: dict = {"keyword": keyword}
+    res: ResultProxy = db.execute(query, params)
+    pre_tpk: int = 0
+    pre_npk: int = 0
+    pre_word: str = ""
+    tm_weight: float = 1.2
+    word_dic: defaultdict = defaultdict(float)
+    for tpk, npk, word in res:
+        if pre_tpk != tpk:
+            tm_weight -= 0.2
+            pre_tpk = tpk
+        if pre_npk == npk and pre_word == word:
+            word_dic[word] += 0.2 * tm_weight
+        else:
+            word_dic[word] += tm_weight
+        pre_npk = npk
+        pre_word = word
+    keywordDtoList: list[KeywordDTO] = []
+    max_weight = 0
+    for word, weight in sorted(word_dic.items(), key=lambda x: -x[1]):
+        max_weight = max(weight, max_weight)
+        if weight <= max(2, max_weight / 10):
+            break
+        keywordDtoList.append(KeywordDTO(text=word, value=weight))
+    return keywordDtoList
 
 
 def create_textmining(db: Session) -> None:
