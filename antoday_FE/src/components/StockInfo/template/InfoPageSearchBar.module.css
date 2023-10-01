@@ -1,3 +1,9 @@
+.mainContainer {
+  padding-top: 2rem;
+  width: 90%;
+  margin: 0 auto;
+}
+
 .searchBarContainer {
   display: flex;
   border: 0px solid var(--main-white-color);
@@ -5,12 +11,14 @@
   margin: 1rem auto 0.2rem;
   border-radius: 50px;
   background-color: var(--main-white-color);
+  gap: 0.3rem;
 }
 
 .inputBox {
   outline: none;
   width: 70%;
   border: 0;
+  background-color: var(--main-white-color);
 
   &::placeholder {
     color: #00000080;

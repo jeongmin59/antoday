@@ -7,7 +7,7 @@ import useDebounce from "../../../utils/useDebounce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import styles from "./InfoPageSearchBar.module.css"
-import StockSearchList from "../../StockSearch/module/StockSearchList";
+// import StockSearchList from "../../StockSearch/module/StockSearchList";
 import StockSearchResults from "../../StockSearch/module/StockSearchResults";
 
 interface Params {
@@ -81,7 +81,7 @@ const InfoPageSearchBar : React.FC = () => {
   };
 
   return (
-    <>
+    <div className={styles.mainContainer}>
     <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
         <FontAwesomeIcon icon={faSearch} color={"var(--main-blue-color)"} />
         <input
@@ -107,7 +107,7 @@ const InfoPageSearchBar : React.FC = () => {
         />
       )}
     <StockInfoPage stockPk={stockPk} />
-    </>
+    </div>
   );
 };
 

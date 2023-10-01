@@ -5,6 +5,7 @@
 
 .ContentContainer {
   display: flex;
+  flex-direction: column;
   width: inherit;
 }
 
