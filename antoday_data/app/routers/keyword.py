@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Path
 from app.models.database import get_db
 from app.schemas.keyword import KeywordDTO
 from app.services.keyword_service import *
@@ -34,13 +34,14 @@ async def get_wordcloud(db: Session = Depends(get_db)) -> list[KeywordDTO]:
     return get_keywords(db)
 
 
-# @router.post("")
-# async def save_wordcloud(db: Session = Depends(get_db)) -> dict:
-#     try:
-#         create_keyword(db)
-#         return {"status": "success"}
-#     except Exception as e:
-#         raise HTTPStatus(status_code=500, detail=str(e))
+@router.get("/{keyword}")
+async def get_keyword_wordcloud(
+    keyword: str, db: Session = Depends(get_db)
+) -> list[KeywordDTO]:
+    try:
+        return get_keyword_keywords(db, keyword)
+    except Exception as e:
+        raise HTTPStatus(status_code=500, detail=str(e))
 
 
 @router.post("/tm")
