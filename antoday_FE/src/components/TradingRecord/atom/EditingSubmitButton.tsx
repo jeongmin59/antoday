@@ -25,9 +25,7 @@ const EditingSubmitButton : React.FC<EditingSubmitButtonProps> = ({
   keywords,
   editedReason)
   return ( 
-    <div>
-      버튼이 들어갈 자리
-    </div>
+    // <BasicButton  text="수정"/>
    );
 }
  
