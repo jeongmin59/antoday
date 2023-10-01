@@ -12,6 +12,8 @@ const EditingTrade: React.FC<TradingRecord> = ({
   cnt,
   keywordList,
   reason,
+  stockCode,
+  tradePk
 }) => {
   
   const [editedTradeAt, setEditedTradeAt] = useState(new Date(tradeAt));
@@ -88,6 +90,8 @@ const EditingTrade: React.FC<TradingRecord> = ({
     editedCnt={editedCnt}
     keywordList={keywordList}
     reason={reason}
+    stockCode={stockCode}
+    tradePk={tradePk}
     />
     </div>
     

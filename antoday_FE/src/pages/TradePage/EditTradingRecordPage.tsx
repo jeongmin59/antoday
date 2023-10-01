@@ -38,7 +38,7 @@ const EditTradingRecordPage = () => {
   const optionBuySell = tradeResults?.optionBuySell;
   const price = tradeResults?.price;
   const cnt = tradeResults?.cnt;
-  // const stockCode = tradeResults?.stockCode;
+  const stockCode = tradeResults?.stockCode;
   // const token = useRecoilValue(accessTokenAtom);
 
   if (isLoading) {
@@ -61,6 +61,8 @@ const EditTradingRecordPage = () => {
           cnt={cnt}
           keywordList={keyword}
           reason={reason}
+          stockCode={stockCode}
+          tradePk={tradePk}
         />
       </div>
     </div>

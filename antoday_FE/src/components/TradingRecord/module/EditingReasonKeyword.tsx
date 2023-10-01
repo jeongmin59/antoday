@@ -10,6 +10,8 @@ interface EditingReasonKeywordProps {
   editedCnt?: number;
   keywordList?: string[];
   reason?: string;
+  stockCode?: number;
+  tradePk?: string;
 }
 
 const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
@@ -20,6 +22,8 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
   editedCnt,
   keywordList,
   reason,
+  stockCode,
+  tradePk
 }) => {
   const [keyword, setKeyword] = useState<string>("");
   const [keywords, setKeywords] = useState<string[]>(keywordList);
@@ -57,7 +61,7 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
   };
 
   useEffect(() => {
-    const updatedTags = keywordList.map((keyword) => `#${keyword}`);
+    const updatedTags = keywordList?.map((keyword) => `#${keyword}`);
     setTags(updatedTags);
   }, [keywordList]);
 
@@ -103,7 +107,9 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
       editedCnt={editedCnt}
       keywords={keywords}
       editedReason={editedReason}
-      />
+      stockCode={stockCode}
+      tradePk={tradePk}
+/>
     </div>
   );
 };
