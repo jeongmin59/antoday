@@ -88,8 +88,9 @@ public class TradeController {
 
     @GetMapping( "/corp")
     @ApiOperation(value = "사용자가 투자한 기업 리스트", notes = "")
-    public ResponseEntity<Set<StockListResponseDto>> tradeCorpGet(@ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return new ResponseEntity<>(tradeService.getTradeCorp(userDetails), HttpStatus.OK);
+    public ResponseEntity<Page<StockListResponseDto>> tradeCorpGet(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                                   @ApiIgnore @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return new ResponseEntity<>(tradeService.getTradeCorp(page, userDetails), HttpStatus.OK);
     }
 
     @GetMapping("/makeDummyStock/{stock_code}")
