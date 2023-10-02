@@ -4,11 +4,18 @@ import FavoriteStockComponent from "../atom/FavoriteStockComponent";
 import { accessTokenAtom } from "../../../recoil/auth";
 import { useRecoilValue } from "recoil";
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MyInvestmentCompany: React.FC = () => {
   const [myInvestmentCompanies, setMyInvestmentCompanies] = useState<CompanyInfo[]>([]);
   const token = useRecoilValue(accessTokenAtom);
   const [totalPages, setTotalPages] = useState(1);
+  const [nowPage, setNowPage] = useState<number>(0);
+  const nextPage = nowPage + 1;
 
   useEffect(() => {
     fetchInvestmentCompanies(0);
@@ -35,16 +42,45 @@ const fetchInvestmentCompanies = async (page = 0) => {
     console.error("Error fetching favorite companies:", error);
   }
 };
+
+// const loadMore = () => {
+//   if (nowPage < totalPages) {
+//     setNowPage(nextPage);
+//     fetchInvestmentCompanies(nextPage);
+//   }
+// };
+
+// const loadPrevious = () => {
+//   if (nowPage > 0) {
+//     setNowPage(nowPage - 1);
+//     fetchInvestmentCompanies(nowPage - 1);
+//   }
+// };
+
   return (
+    <div>
     <div className={styles.mainContainer}>
       {myInvestmentCompanies?.map(company => (
         <FavoriteStockComponent companyInfo={company} key={company.stockCode} />
       ))}
-      {Array.from({ length: totalPages }, (_, index) => (
-                  <button key={index} onClick={() => handlePageChange(index + 1)}>
-                      {index + 1}
-                  </button>
-                    ))}
+    </div>
+    <div className={styles.buttonContainer}>
+      <button
+        className={styles.button}
+        onClick={() => handlePageChange(nowPage - 1)}
+        disabled={nowPage === 0}
+      >
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
+      <span style={{ fontSize: "var(--font-h2)" }}>{nowPage + 1}</span>
+      <button
+        className={styles.button}
+        onClick={() => handlePageChange(nowPage + 1)}
+        disabled={nowPage >= totalPages - 1}
+      >
+        <FontAwesomeIcon icon={faChevronRight} />
+      </button>
+    </div>
     </div>
   );
 };
