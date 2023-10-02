@@ -38,8 +38,8 @@
 	display: none;
 }
 
-.react-datepicker-popper {
+/* .react-datepicker-popper {
 	top: 274px !important; /* 반응형에 따라 변경 */
-	left: 50% !important;
+	/* left: 50% !important;
 	transform: translateX(-50%) !important;
-}
+} */ 
