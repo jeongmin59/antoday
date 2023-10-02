@@ -64,10 +64,10 @@ const AiFeedback: React.FC<TradingRecord> = ({
       <div className={styles.title}>AI피드백</div>
       <div className={styles.content}>
         {results ? (
-          <>
+          <div className={styles.subcontainer}>
             <img className={styles.antimage} src={AntDefault} alt="개미" />
             <div className={styles.feedback}>{results}</div>
-          </>
+          </div>
         ) : (
           <>
             {isLoading ? (
@@ -85,7 +85,7 @@ const AiFeedback: React.FC<TradingRecord> = ({
                 </div>
               </>
             ) : (
-              <>
+              <div className={styles.subContainer}>
                 <img
                   className={styles.antbutton}
                   src={AntDefault}
@@ -95,7 +95,7 @@ const AiFeedback: React.FC<TradingRecord> = ({
                 <div className={styles.feedback}>
                   개미를 눌러 피드백을 받아보세요
                 </div>
-              </>
+              </div>
             )}
           </>
         )}

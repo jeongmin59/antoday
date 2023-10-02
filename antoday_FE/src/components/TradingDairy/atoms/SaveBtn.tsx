@@ -19,9 +19,15 @@ const SaveBtn: React.FC<TradingRecord> = ({
   const [isLoading, setIsLoading] = useState(false);
   const token = useRecoilValue(accessTokenAtom);
   const navigator = useNavigate();
+  const isKeywordListEmpty = keywordList.length === 0;
   const setAlertState = useSetRecoilState(isAlertOpenAtom);
   
   const handleSaveClick = async () => {
+    if (isKeywordListEmpty) {
+      alert("이유 키워드를 입력해주세요"); // 경고 메시지 표시
+      return; // 키워드 리스트가 비어 있으면 아무 작업도 하지 않고 종료
+    }
+
     setIsLoading(true);
     // console.log(tradingData)
     // 로직 수정 필요

@@ -1,7 +1,11 @@
 .button {
   width: fit-content;
-  height: fit-contents;
+  height: fit-content;
   border-radius: 50px;
-  background-color: var(--main-green-color);
+  background-color: var(--main-blue-color);
   color: white;
+  font-size: var(--font-h4);
+  margin: 0.5rem 0.2rem;
+  padding: 0.2rem 0.5rem;
+  border: none;
 }

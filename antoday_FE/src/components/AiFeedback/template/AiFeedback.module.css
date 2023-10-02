@@ -6,6 +6,12 @@
   font-size: var(--font-h1);
 }
 
+.subContainer{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+
 .content {
   display: flex;
   flex-direction: row;
@@ -39,8 +45,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-h2);
-  padding: 4rem 2rem;
+  font-size: var(--font-h4);
+  padding: 2rem 2rem;
 }
 
 @media screen and (max-width: 500px) {

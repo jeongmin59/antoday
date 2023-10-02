@@ -6,7 +6,7 @@
 }
 
 .title {
-  font-size: var(--font-h1);
+  font-size: var(--font-h2);
 }
 
 .content {
@@ -17,6 +17,7 @@
   display: flex;
   justify-content: start;
   padding: 0.5rem 0.5rem;
+  font-size: var(--font-h4);
 }
 
 @media screen and (max-width: 500px) {
