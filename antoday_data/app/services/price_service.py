@@ -45,7 +45,7 @@ def format_value(val):
 def get_calculate_KSQSTK(symbol):
     today_date = datetime.date.today()
     now = today_date + datetime.timedelta(days=1)
-    start_date = today_date - datetime.timedelta(days=4)
+    start_date = today_date - datetime.timedelta(days=7)
 
     df = fdr.DataReader(symbol, start_date, now)
 

@@ -48,7 +48,7 @@ def get_dart_api():
 # 종목정보
 def get_financ_info(stock_code, corp_code, dart):
     cur_year = datetime.now().year
-    cur_day = datetime.now() - timedelta(days=3)  # 토,일은 주식이 없으니까 3일 여유를 두고 마지막 row 출력
+    cur_day = datetime.now() - timedelta(days=7)  # 토,일은 주식이 없으니까 3일 여유를 두고 마지막 row 출력
 
     df = fdr.DataReader(stock_code, cur_day.strftime("%Y-%m-%d"))
     juga = int(df.head()["Close"].values[-1])
