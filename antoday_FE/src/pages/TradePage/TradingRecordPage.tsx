@@ -19,7 +19,7 @@ import filterimg from "../../assets/img/trade/filter.png";
 import TradeFilter from "../../components/TradingRecord/atom/TradeFilter";
 
 import Alert from './../../components/Common/atom/Alert';
-import { isWriteAlertOpenAtom } from "../../recoil/alert";
+import { isAlertOpenAtom } from "../../recoil/alert";
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -65,7 +65,7 @@ const TradingRecordPage: React.FC = () => {
   const [ref, inView] = useInView();
 
   const [isLoading, setIsLoading] = useState(false);
-  const isWriteAlertOpen = useRecoilValue(isWriteAlertOpenAtom);
+  const alertState = useRecoilValue(isAlertOpenAtom);
 
   const formatDateString = (date: string, isStart: boolean = true) => {
     return isStart ? `${date} 00:00:00` : `${date} 23:59:59`;
@@ -248,7 +248,19 @@ const TradingRecordPage: React.FC = () => {
               {/* <SearchingDate onSearch={handleSearchDate} /> */}
               <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
             </div>
-            {isWriteAlertOpen && <Alert msg={'일지가 등록되었습니다.'} />}
+            {alertState && (
+              <>
+                {alertState.status === 'write' && (
+                  <Alert msg={'일지가 등록되었습니다.'} />
+                )}
+                {alertState.status === 'edit' && (
+                  <Alert msg={'일지가 수정되었습니다.'} />
+                )}
+                {alertState.status === 'delete' && (
+                  <Alert msg={'일지가 삭제되었습니다.'} />
+                )}
+              </>
+            )}
             {isOpenFilter ? (
               <TradeFilter
                 handleSearchDate={handleSearchDate}

@@ -4,7 +4,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import styles from './Alert.module.css';
 import { useRecoilState } from 'recoil';
-import { isWriteAlertOpenAtom } from './../../../recoil/alert';
+import { isAlertOpenAtom } from './../../../recoil/alert';
 
 interface AlertProps{
     icon: IconDefinition;
@@ -12,10 +12,11 @@ interface AlertProps{
 }
 
 const Alert :React.FC<AlertProps> = ({ msg }) => {
-    const [isWriteAlertOpen, setIsWriteAlertOpen] = useRecoilState(isWriteAlertOpenAtom);
+    const [alertState, setAlertState] = useRecoilState(isAlertOpenAtom);
+    const { isOpen } = alertState;
 
     const hideAlert = () => {
-        setIsWriteAlertOpen(false);
+        setAlertState({ isOpen: false, status: '' });
     };
 
     useEffect(() => {
@@ -27,7 +28,7 @@ const Alert :React.FC<AlertProps> = ({ msg }) => {
     }, []);
 
     return (
-        <div className={`${styles.alert} ${isWriteAlertOpen ? '' : styles.hide}`}>
+        <div className={`${styles.alert} ${isOpen ? '' : styles.hide}`}>
             <FontAwesomeIcon icon={faCircleCheck}/>
             <span className={styles.msg}>{ msg }</span>
             <span className={styles.closeBtn} onClick={hideAlert}>

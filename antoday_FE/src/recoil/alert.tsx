@@ -1,6 +1,9 @@
 import { atom } from "recoil";
 
-export const isWriteAlertOpenAtom = atom({
-    key: "isWriteAlertOpenAtom",
-    default: false,
+export const isAlertOpenAtom = atom({
+    key: "isAlertOpenAtom",
+    default: {
+        isOpen: false,
+        status: '',
+    },
 });
