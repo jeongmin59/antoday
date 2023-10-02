@@ -80,6 +80,24 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             , nativeQuery = true)
     Set<StockInterface> findDistintStockByUser(@Param("userPk") Long user);
 
+    @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
+            "from trade t, user u, stock s\n" +
+            "where t.social_id = u.social_id\n" +
+            "and t.stock_code = s.stock_code\n" +
+            "AND t.is_deleted = 0 " +
+            "and t.social_id = (:userPk)"
+            ,
+            countQuery = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
+                    "from trade t, user u, stock s\n" +
+                    "where t.social_id = u.social_id\n" +
+                    "and t.stock_code = s.stock_code\n" +
+                    "AND t.is_deleted = 0 " +
+                    "and t.social_id = (:userPk)",
+            nativeQuery = true)
+    Page<StockInterface> findDistintStockByUserPage(@Param("userPk") Long user, PageRequest pageRequest);
+
+
+
     @Query("SELECT SUM(CASE WHEN t.optionBuySell = 0 THEN t.cnt ELSE -t.cnt END) FROM Trade t WHERE t.user = :user AND t.stock.stockCode = :stockCode")
     Integer getNetCountForUserAndStock(
             @Param("user") User user,
