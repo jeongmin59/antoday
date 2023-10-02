@@ -16,20 +16,22 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
   return (
     <div>
       <div className={styles.mainContainer}>
-        <div className={styles.title}>거래 주식</div>
-        <div className={styles.subContainer}>
-          <div className={styles.tradeAt}>{tradeAt}</div>
-          <div className={styles.contentContainer}>
-            <div className={styles.leftContainer}>
-              <img className={styles.corpimage} src={logoUrl} alt="" />
-              <div>
-              <div>{corpName}</div>
-              {optionBuySell ? <div>매도</div> : <div>매수</div>}
+        <div className={styles.infoContainer}>
+          <div className={styles.title}>거래 주식</div>
+          <div className={styles.subContainer}>
+            <div className={styles.tradeAt}>{tradeAt}</div>
+            <div className={styles.contentContainer}>
+              <div className={styles.leftContainer}>
+                <img className={styles.corpimage} src={logoUrl} alt="" />
+                <div>
+                  <div>{corpName}</div>
+                  {optionBuySell ? <div>매도</div> : <div>매수</div>}
+                </div>
               </div>
-            </div>
             <div className={styles.rightContainer}>
-              <div>{price}</div>
+              <div>{price}원</div>
               <div>{cnt}주</div>
+            </div>
             </div>
           </div>
         </div>

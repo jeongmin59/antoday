@@ -11,6 +11,7 @@ import StockSearchPage from "./pages/StockPage/StockSearchPage";
 import InfoPageSearchBar from "./components/StockInfo/template/InfoPageSearchBar";
 import { useRecoilValue } from "recoil";
 import { isMemoOpenAtom } from "./recoil/memo";
+import EditTradingRecordPage from "./pages/TradePage/EditTradingRecordPage";
 
 const AppRouter = () => {
 
@@ -29,6 +30,10 @@ const AppRouter = () => {
         <Route
           path="/tradingrecord/:tradePk"
           element={<TradingRecordDetailPage />}
+        />
+        <Route
+          path="/tradingrecord/edit/:tradePk"
+          element={<EditTradingRecordPage />}
         />
         <Route
           path="/writetradingrecord/:tradePk"

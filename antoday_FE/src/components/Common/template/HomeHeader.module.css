@@ -13,6 +13,7 @@
     flex: 5;
     font-size: var(--font-h1);
     z-index: 2;
+    margin-left: 2rem;
 }
 
 .headerImage{
@@ -21,18 +22,18 @@
     z-index: 1;
 }
 
-.WordImage {
+/* .WordImage {
   position: absolute;
   top: 50%;
   left: 50%; 
-  transform: translate(-50%, -50%); /* 이미지 중앙 정렬 */
+  transform: translate(-50%, -50%);
   width: 10rem;
-}
+} */
 
 .AntImage {
   position: absolute;
-  top: -20px;
-  left: 150px;
+  top: -50px;
+  left: 60px;
   width: 3rem;
   height: fit-content;
 }

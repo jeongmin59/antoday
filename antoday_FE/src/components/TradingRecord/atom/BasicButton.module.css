@@ -1,0 +1,7 @@
+.button {
+  width: fit-content;
+  height: fit-contents;
+  border-radius: 50px;
+  background-color: var(--main-green-color);
+  color: white;
+}
