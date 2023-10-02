@@ -13,6 +13,7 @@ import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.*;
 import com.omfg.antoday.user.domain.User;
+import com.omfg.antoday.user.dto.UserStockListResponseDto;
 import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -146,15 +147,13 @@ public class TradeService {
                 .build());
     }
 
-    public Set<StockListResponseDto> getTradeCorp(UserDetailsImpl userDetails) {
+    public Page<StockListResponseDto> getTradeCorp(int page, UserDetailsImpl userDetails) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
         User user = UserUtils.getUserFromToken(userDetails);
 
-        Set<StockInterface> set = tradeRepository.findDistintStockByUser(user.getSocialId());
-        return set.stream().map(trade -> {
-            StockListResponseDto d = StockListResponseDto.toDto(trade);
-            System.out.println(d);
-            return d;
-        }).collect(Collectors.toSet());
+        Page<StockInterface> list = tradeRepository.findDistintStockByUserPage(user.getSocialId(), pageRequest);
+
+        return list.map(trade -> StockListResponseDto.toDto(trade));
     }
 
     public List<RoiResponseDto> getRoiStock(UserDetailsImpl userDetails, String keyword) {
