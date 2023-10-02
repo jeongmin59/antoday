@@ -129,6 +129,7 @@
 
 .corpcontainer {
   display: flex;
+  margin-bottom: 1rem;
 }
 
 .searchresults {
@@ -151,4 +152,15 @@
 
 .inputContainer {
   margin-left: auto;
+}
+
+.img {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.datepicker :disabled {
+  opacity: 0.5;       
+  pointer-events: none; 
 }

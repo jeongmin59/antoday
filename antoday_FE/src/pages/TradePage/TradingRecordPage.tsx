@@ -20,6 +20,7 @@ import TradeFilter from "../../components/TradingRecord/atom/TradeFilter";
 
 import Alert from './../../components/Common/atom/Alert';
 import { isAlertOpenAtom } from "../../recoil/alert";
+import { useNavigate } from 'react-router-dom';
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -66,6 +67,7 @@ const TradingRecordPage: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const alertState = useRecoilValue(isAlertOpenAtom);
+  const navigate = useNavigate();
 
   const formatDateString = (date: string, isStart: boolean = true) => {
     return isStart ? `${date} 00:00:00` : `${date} 23:59:59`;
@@ -163,6 +165,9 @@ const TradingRecordPage: React.FC = () => {
 
   // 첫 페이지 로딩시 roi리스트 가져오기
   useEffect(() => {
+    if (token === null) {
+      navigate("/login");
+    }
     const getRoiList = async () => {
       try {
         const roiListData = await fetchRoiList();
