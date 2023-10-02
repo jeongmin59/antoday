@@ -8,6 +8,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useRecoilValue } from "recoil";
 import { accessTokenAtom } from "../../recoil/auth";
+import BasicButton from "../../components/TradingRecord/atom/BasicButton";
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
@@ -103,8 +104,8 @@ const TradingRecordDetailPage = () => {
         aiAnalyze={aiAnalyze}
         />
       <div>
-        <button  onClick={handleEdit}>수정</button>
-        <button onClick={handleDelete}>삭제</button>
+        <BasicButton onClick={handleEdit} text="수정"  />
+        <BasicButton onClick={handleDelete} text="삭제"  />
       </div>
       </div>
     </div>
