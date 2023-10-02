@@ -42,7 +42,7 @@ def get_price_info(stock_code: str, target_date: date):
 
 def get_current_index_info(stock_code: str):
     today_date = datetime.date.today()
-    start_date = today_date - timedelta(days=3)
+    start_date = today_date - timedelta(days=7)
 
     df = fdr.DataReader(stock_code, start_date, today_date)
     # 현재값, 등락률
