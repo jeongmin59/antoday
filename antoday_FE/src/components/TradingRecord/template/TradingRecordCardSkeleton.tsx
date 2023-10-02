@@ -11,15 +11,18 @@ const TradingRecordCardSkeleton: React.FC<TradingRecordCardSkeletonProps> = ({
 }) => {
     return (
         <div className={styles.skeletonContainer}>
-            {Array(cards)
+            <Skeleton className={styles.dateSkeleton} />
+            {Array(cards) 
                 .fill(0)
-                .map((item, i) => (
+                .map((_, i) => (
                     <div key={i} className={styles.cardSkeleton}>
                         <Skeleton circle width="2rem" height="2rem" />
-                        <Skeleton count={2} width="18rem" height={13} />
+                        <div className={styles.contentWrapper}>
+                            <Skeleton className={styles.content} />
+                            <Skeleton className={styles.content} />
+                        </div>
                     </div>
                 ))}
-            <Skeleton width="7rem" />
         </div>
     );
 };

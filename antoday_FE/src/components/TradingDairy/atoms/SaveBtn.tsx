@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "./SaveBtn.module.css";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "../../../recoil/auth";
-import { useRecoilValue } from "recoil";
+import { isAlertOpenAtom } from "../../../recoil/alert"
 import { useNavigate } from "react-router-dom";
 
 const SaveBtn: React.FC<TradingRecord> = ({
@@ -19,7 +20,8 @@ const SaveBtn: React.FC<TradingRecord> = ({
   const token = useRecoilValue(accessTokenAtom);
   const navigator = useNavigate();
   const isKeywordListEmpty = keywordList.length === 0;
-
+  const setAlertState = useSetRecoilState(isAlertOpenAtom);
+  
   const handleSaveClick = async () => {
     if (isKeywordListEmpty) {
       alert("이유 키워드를 입력해주세요"); // 경고 메시지 표시
@@ -52,6 +54,7 @@ const SaveBtn: React.FC<TradingRecord> = ({
       );
 
       console.log("매매이유작성 성공", response.data);
+      setAlertState({ isOpen: true, status: 'write' });
       navigator("/tradingrecord");
     } catch (error) {
       console.error("매매이유작성 실패", error);

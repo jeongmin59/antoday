@@ -6,9 +6,11 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "../../recoil/auth";
 import BasicButton from "../../components/TradingRecord/atom/BasicButton";
+import { isAlertOpenAtom } from "../../recoil/alert"
+
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
@@ -46,8 +48,13 @@ const TradingRecordDetailPage = () => {
   const stockCode = tradeResults?.stockCode;
   const navigator = useNavigate();
   const token = useRecoilValue(accessTokenAtom);
+  const setAlertState = useSetRecoilState(isAlertOpenAtom);
+
+
 
   const handleEdit = () => {
+    setAlertState({ isOpen: true, status: 'edit' });
+
     navigator(`/tradingrecord/edit/${tradePk}`)
   }
 
@@ -62,6 +69,7 @@ const TradingRecordDetailPage = () => {
 
     if (response.ok) {
       console.log("삭제 완료!");
+      setAlertState({ isOpen: true, status: 'delete' });
       navigator("/tradingrecord");
     } else {
       console.error(await response.text());
