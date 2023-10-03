@@ -17,6 +17,7 @@ import {
   faChevronUp,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { Holiday } from '../../../utils/holidays';
 
 
   interface WriteTradingRecordPageProps {
@@ -29,6 +30,10 @@ import {
     logoUrl: string;
   }
 
+  const requestData = {
+    url: `https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo`,
+    serviceKey: `${import.meta.env.VITE_APP_SERVICE_KEY}`,
+  };
 
   const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
     const navigate = useNavigate();
@@ -65,7 +70,56 @@ import {
     const finalPrice = addCommas(adjustedPrice);
     const [isEVisible, setIsEVisible] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [holiday, setHoliday] = useState<Holiday[]>([]);
+    const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
 
+    useEffect(() => {
+      if (selectedDate && selectedDate.getMonth() !== currentMonth) {
+        setCurrentMonth(selectedDate.getMonth());
+        getHoliday();
+      }
+      getHoliday();
+    }, [selectedDate]);
+    
+
+
+    const getHoliday = async () => {
+      const bodyData = {
+        ...requestData,
+        solYear: new Date().getFullYear(),
+        solMonth: new Date().getMonth() + 1,
+      };
+  try{
+      const response = await axios.get(
+        bodyData.url, {params: {
+          serviceKey:bodyData.serviceKey,
+          solYear:bodyData.solYear,
+          solMonth:bodyData.solMonth
+        },}
+      );
+      console.log(response.data.response.body.items.item)
+  
+      const saveData = [].concat(response.data.response.body.items.item);
+      setHoliday(saveData);}
+      catch (error) {
+        console.error("Error fetching holidays:", error);
+    }
+    };
+
+    const convertToDate = (numDate) => {
+      const year = Math.floor(numDate / 10000);
+      const month = Math.floor((numDate % 10000) / 100) - 1; 
+      const day = numDate % 100;
+  
+      return new Date(year, month, day);
+  };
+  const holidayDates = holiday.map(h => convertToDate(h.locdate));
+
+    
+  
+  
+    
+  
   
     const tradingData = {
       selectedDate,
@@ -341,8 +395,9 @@ import {
                   selected={selectedDate}
                   onChange={(date: Date) => setSelectedDate(date)}
                   filterDate={(date: Date) => {
-                    return date.getDay() !== 0 && date.getDay() !== 6;
+                    return date.getDay() !== 0 && date.getDay() !== 6 && !holidayDates.some(hDate => hDate.getFullYear() === date.getFullYear() && hDate.getMonth() === date.getMonth() && hDate.getDate() === date.getDate());
                   }}
+                  
                   placeholderText="날짜 선택"
                   maxDate={initialAdjustedDate}
                   disabled={selectedOption === "매도"}
