@@ -80,8 +80,10 @@ const StockSearchBar: React.FC = () => {
   };
 
   return (
-    <React.Fragment>
-      <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
+    <>
+    <div className={styles.mainContainer}>
+      <div className={styles.subContainer}>
+        <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
         <FontAwesomeIcon icon={faSearch} color={"var(--main-blue-color)"} />
         <input
           type="text"
@@ -93,8 +95,10 @@ const StockSearchBar: React.FC = () => {
         <button type="submit" className={styles.searchButton}>
           search
         </button>
-      </form>
-      {!isSubmit && searchResults && (
+        </form>
+      </div>
+    </div>
+    {!isSubmit && searchResults && (
         <StockSearchResults
           searchResults={searchResults?.content}
           isLoading={isLoading}
@@ -128,7 +132,7 @@ const StockSearchBar: React.FC = () => {
           </div>   
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

@@ -5,8 +5,20 @@
     height: fit-content;
     background-color: var(--main-yellow-color);
     padding-top: 6rem;
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
     color: var(--bold-blue-color);
+}
+
+.morningBackground {
+  background-color: var(--main-yellow-color);
+}
+
+.nightBackground {
+  background-color: var(--main-blue-color);
+}
+
+.dayBackground{
+  background-color: var(--main-white-color);
 }
 
 .headerText {
