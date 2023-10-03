@@ -10,7 +10,7 @@ const WriteTradingRecordButton: React.FC<WriteTradingRecordButtonProps> = ({
 }) => {
   return (
     <button onClick={onClick} className={styles.button}>
-      이유 쓰고 AI분석 받기
+      내 매매기록 추가하기
     </button>
   );
 };

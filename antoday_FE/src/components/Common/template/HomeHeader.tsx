@@ -15,7 +15,7 @@ const HomeHeader: React.FC = () => {
         // am6:00~am10:00
         setBgColorClass(styles.morningBackground);
         setAntImageSrc(AntMemo);
-      } else if (hours >= 17 && hours < 22) {
+      } else if (hours >= 18 && hours < 24) {
         // pm5:00~pm10:00 일 때
         setBgColorClass(styles.nightBackground);
         setAntImageSrc(AntSleep);

@@ -1,10 +1,10 @@
 .button {
   border-radius: 5rem;
-  height: 1.6rem;
-  padding: 0.3rem;
+  height: fit-content;
+  padding: 0.3rem 0.5rem;
   border: solid 2px var(--sub-red-color);
-  background-color: var(--main-white-color);
-  color: black;
+  background-color: var(--sub-red-color);
+  color: white;
   font-size: var(--font-h3);
   margin-left: 1rem;
   margin: 0;
