@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Memo.module.css';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { accessTokenAtom } from '../../../recoil/auth';
 
 interface MemoProps {
-  className?: string; // className 속성을 받을 수 있도록 정의
+  isOpen?: boolean; // className 속성을 받을 수 있도록 정의
 }
 
-const Memo: React.FC<MemoProps> = ({ className }) => {
+const Memo: React.FC<MemoProps> = ({ isOpen }) => {
   
   const [memoText, setMemoText] = useState('');
-  const [token, setToken] = useRecoilState(accessTokenAtom);
+  const token = useRecoilValue(accessTokenAtom);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const memoTextareaClassName = isOpen ? `${styles.textArea} ${styles.open}` : styles.textArea;
 
   useEffect(() => {
     const getMemo = async () => {
@@ -27,7 +28,7 @@ const Memo: React.FC<MemoProps> = ({ className }) => {
         );
         setMemoText(response.data.memo);
       } catch (error) {
-        console.error('에러', error);
+        console.error('메모 가져오기 에러', error);
       }
     };
 
@@ -76,7 +77,7 @@ const Memo: React.FC<MemoProps> = ({ className }) => {
             cols={30}
             value={memoText}
             onChange={handleMemoChange}
-            className={styles.textArea}
+            className={memoTextareaClassName}
           />
   );
 };

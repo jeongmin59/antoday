@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TradingRecordPageType,
   StockRoiType,
@@ -32,6 +32,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedStock, setSelectedStock] = useState<StockRoiType | null>(null);
   const groupedRecords: { [date: string]: TradingRecordPageType[] } = {};
+  const [status, setStatus] = useState(false);
 
   // const loadMore = async () => {
   //   try {
@@ -41,6 +42,13 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   //     console.error("Failed to load more data:", error);
   //   }
   // };
+  useEffect(() => {
+    if (!isLoading) {
+      setStatus(true)
+    } else {
+      setStatus(false)
+    }
+  }, [isLoading]);
 
   const formatDate = (dateStr: string): string => {
     const date = new Date(dateStr);
@@ -91,8 +99,8 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
 
   return (
     <div className={styles.div}>
-      {isLoading && <TradingRecordCardSkeleton cards={8} />}
-      {records?.length === 0 && <h2>검색 결과가 없습니다.</h2>}
+      {isLoading && <TradingRecordCardSkeleton cards={10} />}
+      {records.length === 0 && status? <h2>검색 결과가 없습니다.</h2> : null}
       {Object.entries(groupedRecords).map(([date, dateRecords], groupIndex) => {
         const isLastDateGroup =
           groupIndex === Object.entries(groupedRecords).length - 1;

@@ -9,6 +9,7 @@
   import { useRecoilState } from 'recoil';
 // import KeywordInput from '../../TradingDairy/modules/KeywordInput';
 import { ko } from "date-fns/esm/locale";
+import { addCommas } from '../../../utils/addCommas';
 
 
   interface WriteTradingRecordPageProps {
@@ -45,14 +46,15 @@ import { ko } from "date-fns/esm/locale";
     const [searchKeyword, setSearchKeyword] = useState<string>('');
     const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
     const [stockPrice, setStockPrice] = useState<number | null>(null);
-    const [adjustedPrice, setAdjustedPrice] = useState<number | null>(null);
-    const [stockQuantity, setStockQuantity] = useState(0);
+    const [adjustedPrice, setAdjustedPrice] = useState<number | undefined>(undefined);
+    const [stockQuantity, setStockQuantity] = useState(1);
     const [ownedCompanies, setOwnedCompanies] = useState<Company[]>([]);
     const [token, setToken] = useRecoilState(accessTokenAtom);
     const [forceRender, setForceRender] = useState(0);
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
     const [isChoose,setIsChoose] = useState<boolean>(false);
     const [netCount, setNetCount] = useState<number>(0);
+    const finalPrice = addCommas(adjustedPrice);
 
 
 
@@ -76,6 +78,7 @@ import { ko } from "date-fns/esm/locale";
       return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
     }
     
+    
 
 
     const gotowritetradingrecord = async () => {
@@ -85,7 +88,7 @@ import { ko } from "date-fns/esm/locale";
         errorMessage = "회사를 선택해주세요.";
         console.log('회사선택안함');
       } else if (stockQuantity <= 0) {
-        
+        errorMessage = "주식 개수를 입력해주세요.";
         console.log('주식개수안함');
       } if (selectedOption === '매도' && selectedCompany && stockQuantity > netCount) {
         errorMessage = `현재 보유 수량: ${netCount}`;
@@ -128,26 +131,35 @@ import { ko } from "date-fns/esm/locale";
 
     const getIncrementValue = () => {
       if (adjustedPrice === null) return 0;
+      if (adjustedPrice !== undefined){
+        if (adjustedPrice < 5000) return 5;
+        if (adjustedPrice >= 5000 && adjustedPrice < 20000) return 10;
+        if (adjustedPrice >= 20000 && adjustedPrice < 50000) return 50;
+        if (adjustedPrice >= 50000) return 100;
+      }
 
-      if (adjustedPrice < 5000) return 5;
-      if (adjustedPrice >= 5000 && adjustedPrice < 20000) return 10;
-      if (adjustedPrice >= 20000 && adjustedPrice < 50000) return 50;
-      if (adjustedPrice >= 50000) return 100;
+      
   };
 
-    const fetchOwnedCompanies = () => {
-      axios.get((`${import.meta.env.VITE_BACK_API_URL}/api/trade/corp`),
-      {headers : {
+  const fetchOwnedCompanies = (page = 0) => {
+    axios.get(`${import.meta.env.VITE_BACK_API_URL}/api/trade/corp`, {
+      params: {
+        page: page,
+      },
+      headers: {
         Authorization: `Bearer ${token}`
-      }})
-      .then((response) => {
-        setOwnedCompanies(response.data);
-        // console.log(ownedCompanies)
-      })
-      .catch((error) => {
-        console.error('Fetch owned companies error:', error);
-      });
-    };
+      }
+    })
+    .then((response) => {
+      const { content, totalPages } = response.data;
+      setOwnedCompanies(content);
+      setTotalPages(totalPages); 
+    })
+    .catch((error) => {
+      console.error('Fetch owned companies error:', error);
+    });
+};
+
 
     const fetchStockPrice = (stockCode: number, status: string) => {
       let apiUrl = '';
@@ -220,7 +232,7 @@ import { ko } from "date-fns/esm/locale";
         // setSelectedCompany(selectedCompany)
       } if (selectedCompany == null) {
         setStockPrice(null);
-        setAdjustedPrice(null);
+        setAdjustedPrice(undefined);
         // console.log('test',stockPrice, adjustedPrice);
       };
       
@@ -262,12 +274,15 @@ import { ko } from "date-fns/esm/locale";
         }
       };
 
-    const handlePageChange = (newPage: number) => {
-      setCurrentPage(newPage);
-      // console.log(currentPage)
-      handleSearchCompany(searchKeyword);
-      // console.log('handlepagechange!')
+      const handlePageChange = (newPage: number) => {
+        setCurrentPage(newPage);
+        if (searchKeyword !== '') {
+            handleSearchCompany(searchKeyword);
+        } else {
+            fetchOwnedCompanies(newPage - 1); 
+        }
     };
+    
 
     const handleButtonClick = async () => {
       const success = await gotowritetradingrecord();
@@ -283,6 +298,7 @@ import { ko } from "date-fns/esm/locale";
           setSelectedCompany(null);
           setStockQuantity(0);
           setNetCount(0)
+          setAlertMessage(null)
           setForceRender((prev) => prev + 1);
           // console.log(selectedCompany)
       }
@@ -320,6 +336,7 @@ const resetChooseState = () => {
                         }}
                         placeholderText="날짜 선택"
                         maxDate={initialAdjustedDate}
+                        disabled={selectedOption === "매도"}
                     />  
                 </div>
             </div>
@@ -343,7 +360,7 @@ const resetChooseState = () => {
         
         {selectedCompany && selectedOption === '매도' && (
             <div className={styles.corpcontainer}>
-                <img src={selectedCompany.logoUrl} alt={selectedCompany.corpName} />
+                <img src={selectedCompany.logoUrl} alt={selectedCompany.corpName} className={styles.img}/>
                 <span>{selectedCompany.corpName}</span>
             </div>
         )}
@@ -357,10 +374,17 @@ const resetChooseState = () => {
                         className={styles.corpcontainer}
                         onClick={() => handleSelectCompany(company)}
                     >
-                        <img src={company.logoUrl} alt={company.corpName} />
+                        <img src={company.logoUrl} alt={company.corpName} className={styles.img} />
                         <span>{company.corpName}</span>
                     </div>
                 ))}
+              <div className={styles.paginationContainer}>
+              {Array.from({ length: totalPages }, (_, index) => (
+                  <button key={index} onClick={() => handlePageChange(index + 1)}>
+                      {index + 1}
+                  </button>
+                    ))}
+                </div>
             </div>
         )}
 
@@ -387,7 +411,7 @@ const resetChooseState = () => {
             <div className={styles.weather}>평단가</div>
             <div className={styles.priceAdjust}>
                 <button className={styles.button2} onClick={() => adjustPrice(-getIncrementValue())}>-</button>
-                {adjustedPrice !== null ? `${adjustedPrice}원` : "0 원"}
+                {finalPrice !== undefined ? `${finalPrice}원` : "0 원"}
                 <button className={styles.button2} onClick={() => adjustPrice(getIncrementValue())}>+</button>
             </div>
         </div>

@@ -9,7 +9,7 @@ import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteT
 // import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
 import styles from "./TradingRecordPage.module.css";
 import { accessTokenAtom } from "../../recoil/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import WriteTradingRecord from "../../components/TradingRecord/template/WriteTradingRecord";
@@ -17,6 +17,10 @@ import { useInView } from "react-intersection-observer";
 
 import filterimg from "../../assets/img/trade/filter.png";
 import TradeFilter from "../../components/TradingRecord/atom/TradeFilter";
+
+import Alert from './../../components/Common/atom/Alert';
+import { isAlertOpenAtom } from "../../recoil/alert";
+import { useNavigate } from 'react-router-dom';
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -62,6 +66,8 @@ const TradingRecordPage: React.FC = () => {
   const [ref, inView] = useInView();
 
   const [isLoading, setIsLoading] = useState(false);
+  const alertState = useRecoilValue(isAlertOpenAtom);
+  const navigate = useNavigate();
 
   const formatDateString = (date: string, isStart: boolean = true) => {
     return isStart ? `${date} 00:00:00` : `${date} 23:59:59`;
@@ -159,6 +165,9 @@ const TradingRecordPage: React.FC = () => {
 
   // 첫 페이지 로딩시 roi리스트 가져오기
   useEffect(() => {
+    if (token === null) {
+      navigate("/login");
+    }
     const getRoiList = async () => {
       try {
         const roiListData = await fetchRoiList();
@@ -244,6 +253,19 @@ const TradingRecordPage: React.FC = () => {
               {/* <SearchingDate onSearch={handleSearchDate} /> */}
               <WriteTradingRecordButton onClick={() => setShowWrite(true)} />
             </div>
+            {alertState && (
+              <>
+                {alertState.status === 'write' && (
+                  <Alert msg={'일지가 등록되었습니다.'} />
+                )}
+                {alertState.status === 'edit' && (
+                  <Alert msg={'일지가 수정되었습니다.'} />
+                )}
+                {alertState.status === 'delete' && (
+                  <Alert msg={'일지가 삭제되었습니다.'} />
+                )}
+              </>
+            )}
             {isOpenFilter ? (
               <TradeFilter
                 handleSearchDate={handleSearchDate}

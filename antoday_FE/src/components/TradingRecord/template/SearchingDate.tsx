@@ -46,7 +46,7 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
         selectsStart
         startDate={startDate}
         endDate={endDate}
-        maxDate={new Date()}
+        maxDate={endDate? endDate : new Date()}
         placeholderText="시작 날짜"
         className={styles.datepicker}
         filterDate={(date: Date) => {

@@ -6,7 +6,7 @@
   align-items: center;
   position: fixed;
   z-index: 1;
-  margin-right: calc((100% - 500px) / 3);
+  margin-right: calc((100% - 500px) / 4);
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
   background-color: transparent;
@@ -35,20 +35,20 @@
   display: block;
   grid-column-start: 5;
   grid-column-end: 7;
-  font-size: var(--font-h4);
+  font-size: var(--font-h3);
 }
 
 .navItemTradingRecord {
   display: block;
   grid-column-start: 7;
   grid-column-end: 9;
-  font-size: var(--font-h4);
+  font-size: var(--font-h3);
 }
 
 .navItemLogin {
   grid-column-start: 9;
   grid-column-end: 11;
-  font-size: var(--font-h4);
+  font-size: var(--font-h3);
 }
 
 .navItemMemoIcon{
@@ -62,12 +62,6 @@
   overflow: hidden;
   transition: max-height 1s ease-in-out;
   z-index: 2;
-}
-
-.memoContent {
-  padding-top: 1.7rem;
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
 }
 
 .open {

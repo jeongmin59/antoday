@@ -1,12 +1,18 @@
 .textArea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 0rem;
+  position: fixed;
+  top: 2.5rem;
+  left: calc((100% - 500px) / 4);
+  right: calc((100% - 500px) / 4);
   font-family: GmarketSans;
   border: none;
   font-size: var(--font-h4);
-  background-color: var(--sub-gray-color);
-  color: white;
+  background-color: var(--main-white-color);
+  max-width: inherit;
+  margin: 0 0.3rem;
+  z-index: 10;
+}
+
+.open {
+  max-height: 100%;
+  transition: max-height 3s ease-in-out;
 }

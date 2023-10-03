@@ -20,24 +20,27 @@ const FavoriteStockComponent: React.FC<StockInfoComponentProps> = ({
 
   return (
     <div className={styles.stockSearchResult} onClick={handleClick}>
-      {companyInfo ? (
-        <React.Fragment>
-          <img
-            className={styles.stockImage}
-            src={companyInfo.logoUrl}
-            alt="기업이미지"
-          />
-          <p className={styles.stockName}>{companyInfo.corpName}</p>
-          <FavoriteCompanyButton stockPk={companyInfo.stockCode} />
-        </React.Fragment>
-      ) : (
-        // 스켈레톤 코드를 표시
-        <div className={styles.skeleton}>
-          <div className={styles.skeletonImage}></div>
-          <div className={styles.skeletonText}></div>
-        </div>
-      )}
+  {companyInfo ? (
+    <React.Fragment>
+      <div className={styles.leftContainer}>
+        <img
+          className={styles.stockImage}
+          src={companyInfo.logoUrl}
+          alt="기업이미지"
+        />
+        <p className={styles.stockName}>{companyInfo.corpName}</p>
+      </div>
+      <FavoriteCompanyButton stockPk={companyInfo.stockCode} />
+    </React.Fragment>
+  ) : (
+    // 스켈레톤 코드를 표시
+    <div className={styles.skeleton}>
+      <div className={styles.skeletonImage}></div>
+      <div className={styles.skeletonText}></div>
     </div>
+  )}
+</div>
+
   );
 };
 

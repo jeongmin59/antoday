@@ -4,17 +4,12 @@
     font-size: 0.8rem;
     cursor: pointer;
     gap: 0.3rem;
-    margin-bottom: 1rem;
   }
   
   .stockImage {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50px;
-  }
-
-  .stockName{
-    font-size: var(--font-h4);
   }
   
   /* 스켈레톤 스타일 */
@@ -38,17 +33,5 @@
   .skeletonText {
     background-color: #e0e0e0;
     width: 100px;
-  }
-  
-  .stockSearchResult {
-    display: flex;
-    align-items: center; 
-    justify-content: space-between;   
-  }
-  
-  .leftContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
   }
   
