@@ -10,6 +10,11 @@
 // import KeywordInput from '../../TradingDairy/modules/KeywordInput';
 import { ko } from "date-fns/esm/locale";
 import { addCommas } from '../../../utils/addCommas';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 
   interface WriteTradingRecordPageProps {
@@ -264,7 +269,16 @@ import { addCommas } from '../../../utils/addCommas';
       } else {
         // setSearchResults([]);
       }
-  }, [currentPage, token]); // 의존성 배열에 필요한 변수를 추가하세요.
+  }, [currentPage, token]); 
+
+  useEffect(() => {
+    if (searchKeyword !== '') {
+        handleSearchCompany(searchKeyword);
+    } else {
+        fetchOwnedCompanies(currentPage - 1);
+    }
+}, [currentPage]);
+
   
     
     const adjustPrice = (increment: number) => {
@@ -276,6 +290,7 @@ import { addCommas } from '../../../utils/addCommas';
 
       const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
+        console.log('handlepagechange', newPage)
         if (searchKeyword !== '') {
             handleSearchCompany(searchKeyword);
         } else {
@@ -356,7 +371,7 @@ const resetChooseState = () => {
             </div>
         </div>
     <div className={styles.parentContainer}>
-        {selectedOption === '매수' && <SearchingCompany onSearch={handleSearchCompany} resetChoose={resetChooseState} searchResults={searchResults} selectedCompany={selectedCompany} setSelectedCompany={setSelectedCompany} choose={isChoose} handleSelectCompany={handleSelectCompany} handlePageChange= {handlePageChange} totalPages={totalPages}/>}
+        {selectedOption === '매수' && <SearchingCompany onSearch={handleSearchCompany} resetChoose={resetChooseState} searchResults={searchResults} selectedCompany={selectedCompany} setSelectedCompany={setSelectedCompany} choose={isChoose} handleSelectCompany={handleSelectCompany} handlePageChange= {handlePageChange} totalPages={totalPages} currentPage = {currentPage}/>}
         
         {selectedCompany && selectedOption === '매도' && (
             <div className={styles.corpcontainer}>
@@ -366,7 +381,7 @@ const resetChooseState = () => {
         )}
 
         {ownedCompanies.length > 0 && selectedOption === '매도' && !selectedCompany && (
-            <div>
+            <div className={styles.ownedCompanies}>
                 <h2 className={styles.ownedTitle}>보유한 주식</h2>
                 {ownedCompanies.map((company) => (
                     <div 
@@ -379,11 +394,21 @@ const resetChooseState = () => {
                     </div>
                 ))}
               <div className={styles.paginationContainer}>
-              {Array.from({ length: totalPages }, (_, index) => (
-                  <button key={index} onClick={() => handlePageChange(index + 1)}>
-                      {index + 1}
-                  </button>
-                    ))}
+                    <button
+        className={styles.button}
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
+      <span style={{ fontSize: "var(--font-h2)" }}>{currentPage}</span>
+      <button
+        className={styles.button}
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage >= totalPages}
+      >
+        <FontAwesomeIcon icon={faChevronRight} />
+      </button>
                 </div>
             </div>
         )}

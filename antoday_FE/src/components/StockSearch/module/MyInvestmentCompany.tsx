@@ -63,8 +63,7 @@ const fetchInvestmentCompanies = async (page = 0) => {
       {myInvestmentCompanies?.map(company => (
         <FavoriteStockComponent companyInfo={company} key={company.stockCode} />
       ))}
-    </div>
-    <div className={styles.buttonContainer}>
+        <div className={styles.buttonContainer}>
       <button
         className={styles.button}
         onClick={() => handlePageChange(nowPage - 1)}
@@ -81,6 +80,8 @@ const fetchInvestmentCompanies = async (page = 0) => {
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>
+    </div>
+  
     </div>
   );
 };

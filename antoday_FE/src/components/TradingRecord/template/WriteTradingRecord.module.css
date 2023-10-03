@@ -18,20 +18,21 @@
 .horizontal,
 .horizontal2 {
   display: flex;
-  justify-content: space-between; /* 왼쪽과 오른쪽 컨테이너 사이에 최대한의 공간을 만듭니다 */
-  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
 }
 
 .leftContainer {
   display: flex;
-  align-items: center; /* 수직 중앙 정렬 */
-  gap: 1rem; /* 요소들 사이에 간격을 주기 위해 사용 (원하는 값으로 조절 가능) */
+  align-items: center; 
+  gap: 1rem; 
 }
 
 .rightContainer {
   display: flex;
-  align-items: center; /* 수직 중앙 정렬 */
-  gap: 0.7rem; /* 버튼 사이의 간격 (원하는 값으로 조절 가능) */
+  align-items: center; 
+  gap: 0.7rem; 
 }
 
 .title {
@@ -46,27 +47,27 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 1rem; /* 각 줄 사이의 간격을 조절할 수 있습니다 */
+  margin-bottom: 1rem; 
 }
 
 .leftContent {
   display: flex;
   align-items: center;
   gap: 1rem;
-  justify-content: flex-start; /* 왼쪽 정렬 */
+  justify-content: flex-start; 
 }
 
 .rightContent {
   display: flex;
   align-items: center;
   gap: 1rem;
-  justify-content: flex-end; /* 오른쪽 정렬 */
+  justify-content: flex-end; 
 }
 
 .priceAdjust {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* 버튼과 가격 사이의 간격을 조절합니다 */
+  gap: 0.5rem; 
 }
 
 .buttonsContainer {
@@ -163,4 +164,21 @@
 .datepicker :disabled {
   opacity: 0.5;       
   pointer-events: none; 
+}
+
+.ownedCompanies {
+  /* display: flex;
+  flex-direction: column; */
+  align-items: start;
+  width: 100%;
+}
+
+.ownedTitle {
+  text-align: start;
+}
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
