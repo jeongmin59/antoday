@@ -5,6 +5,7 @@ import CompanyOverview from "../module/CompanyOverview";
 import StockInformation from "../module/StockInformation";
 import RevenueAndProfit from "../module/RevenueAndProfit";
 import StockWordCloud from "../module/StockWordCloud";
+import CompanyHistory from "../module/CompanyHistory";
 
 interface StockInfoDetailProps {
   stockPk?: string;
@@ -12,6 +13,7 @@ interface StockInfoDetailProps {
   corpInfo?: any;
   corpIntro?: stockInfo;
   corpOverview? :any;
+  corpHistory?: any;
 }
 
 const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
@@ -19,7 +21,8 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
   graphValue,
   corpInfo,
   corpIntro,
-  corpOverview
+  corpOverview,
+  corpHistory
 }) => {
   const tab1Ref = useRef<HTMLDivElement>(null);
   const tab2Ref = useRef<HTMLDivElement>(null);
@@ -89,6 +92,8 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
       <div ref={tab2Ref}>
         <CompanyOverview corpIntro={corpIntro} corpOverview={corpOverview}/>
       </div>
+      <hr />
+      <CompanyHistory corpHistory={corpHistory}  />
       <hr />
       <StockInformation corpInfo={corpInfo} />
       <hr />

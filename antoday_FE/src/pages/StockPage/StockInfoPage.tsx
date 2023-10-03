@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./StockInfoPage.module.css";
 import StockInfoBasic from "../../components/StockInfo/template/StockInfoBasic";
-import StockInfoSummary from "../../components/StockInfo/template/StockInfoSummary";
 import StockInfoDetail from "../../components/StockInfo/template/StockInfoDetail";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -13,16 +12,17 @@ interface StockInfoPageProps {
 }
 
 const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
-  // const stockPk = useParams<Params>()?.stockPk || "";
-  const [corpIntro, setCorpIntro] = useState<stockIntro>([]);
-  const [corpInfo, setCorpInfo] = useState<any>(null);
-  const [graphValue, setGraphValue] = useState<any>(null);
-  const [corpOverview, setCorpOverview] = useState<any>(null);
+  
+  const [corpIntro, setCorpIntro] = useState<stockIntro>();
+  const [corpInfo, setCorpInfo] = useState(null);
+  const [graphValue, setGraphValue] = useState(null);
+  const [corpOverview, setCorpOverview] = useState(null);
+  const [corpHistory, setCorpHistory] = useState(null);
 
   const {
     data: stockInfoResults,
     isLoading: isLoading1,
-    isError: isError1,
+    // isError: isError1,
   } = useQuery("stockInfoResults", async () => {
     const params = new URLSearchParams();
     params.append("stock_code", stockPk);
@@ -32,10 +32,11 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
         import.meta.env.VITE_DATA_API_URL +
           `/corp/overview?${params.toString()}`
       );
-      // console.log("결과값은", response.data);
+      
       setCorpInfo(response.data.indicator);
       setGraphValue(response.data.value);
       setCorpOverview(response.data.info);
+      setCorpHistory(response.data.history);
       return response.data;
     } catch (error) {
       console.error("overview 실패", error);
@@ -46,14 +47,13 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
   const {
     data: stockIntro,
     isLoading: isLoading2,
-    isError: isError2,
+    // isError: isError2,
   } = useQuery("stockIntro", async () => {
     try {
       const response = await axios.get(
         import.meta.env.VITE_DATA_API_URL + `/corp/index/${stockPk}`
       );
       setCorpIntro(response.data);
-
       return response.data;
     } catch (error) {
       console.error("기본정보 실패", error);
@@ -61,7 +61,9 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
     }
   });
 
-  useEffect(() => {}, [stockInfoResults, stockIntro]);
+  useEffect(() => {
+    // console.log('보자',corpHistory)
+  }, [stockInfoResults, stockIntro, corpHistory]);
 
   if (isLoading1 || isLoading2) {
     return (
@@ -77,13 +79,13 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
   return (
     <div className={styles.stockInfoPageContainer}>
       <StockInfoBasic corpIntro={corpIntro} />
-      <StockInfoSummary />
       <StockInfoDetail
         stockPk={stockPk}
         graphValue={graphValue}
         corpInfo={corpInfo}
         corpIntro={corpIntro}
         corpOverview={corpOverview}
+        corpHistory={corpHistory}
       />
     </div>
   );

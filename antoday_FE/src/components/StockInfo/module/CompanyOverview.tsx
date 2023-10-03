@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./CompanyOverview.module.css";
 
 interface CompanyOverviewProps {
@@ -7,16 +7,17 @@ interface CompanyOverviewProps {
 }
 
 const CompanyOverview: React.FC<CompanyOverviewProps> = ({corpOverview,corpIntro}) => {
-  
-  // const companyName = corpIntro?.corp_name;
-  // const establishedDate = corpOverview[3]?.설립일;
-  // const staffNumber = corpOverview[6]?.종업원수;
-  // const kospiKosdaq = corpIntro?.market;
-  // const homePage = corpOverview[1]?.홈페이지;
+  console.log('뭘까',corpOverview);
+  console.log('뭘까',corpIntro);
+  const companyName = corpIntro?.corp_name;
+  const establishedDate = corpOverview[3]?.설립일;
+  const staffNumber = corpOverview[6]?.종업원수;
+  const kospiKosdaq = corpIntro?.market;
+  const homePage = corpOverview[1]?.홈페이지;
 
   return (
     <div className={styles.companyInfoContainer}>
-      {/* <div>기업 개요</div>
+      <div>기업 개요</div>
       <ul className={styles.companyInfoContentContainer}>
         <li>
           <strong className={styles.strongText}>기업명:</strong> {companyName}
@@ -37,13 +38,7 @@ const CompanyOverview: React.FC<CompanyOverviewProps> = ({corpOverview,corpIntro
           <strong className={styles.strongText}>홈페이지주소:</strong>{" "}
           {homePage}
         </li>
-        <li>
-          <strong className={styles.strongText}>주요사업 내용:</strong>
-          <div>{businessDescription.biopharmaceuticalsAndMedicalDevices}</div>
-          <div>{businessDescription.displayManufacturing}</div>
-          <div>{businessDescription.electronicsManufacturing}</div>
-        </li>
-      </ul> */}
+      </ul>
     </div>
   );
 };
