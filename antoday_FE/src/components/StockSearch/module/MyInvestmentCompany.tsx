@@ -22,7 +22,8 @@ const MyInvestmentCompany: React.FC = () => {
   }, []);
 
   const handlePageChange = (newPage: number) => {
-    fetchInvestmentCompanies(newPage - 1); 
+    fetchInvestmentCompanies(newPage); 
+    setNowPage(newPage)
 };
 const fetchInvestmentCompanies = async (page = 0) => {
   const apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/trade/corp`;

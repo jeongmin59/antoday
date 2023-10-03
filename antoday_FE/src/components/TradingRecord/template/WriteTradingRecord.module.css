@@ -130,7 +130,8 @@
 
 .corpcontainer {
   display: flex;
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
+  /* margin-top: 2rem; */
 }
 
 .searchresults {
@@ -175,10 +176,61 @@
 
 .ownedTitle {
   text-align: start;
+  font-size: var(--font-h1);
 }
 
 .paginationContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.beside {
+  align-self: flex-end;
+}
+.below {
+  align-self: center;
+}
+
+.css {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.horizontal3 {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
+}
+
+.inputBeside {
+  /* position: absolute;
+  right: 0%;
+  bottom: 10%; */
+  /* margin-right: 10px;
+  margin-bottom: 24px; */
+  display: flex;
+  gap: 0.3rem;
+}
+
+.width {
+  width: 100%;
+}
+
+.pContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+}
+
+.column {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
