@@ -49,7 +49,7 @@ const UpperNavBar: React.FC = () => {
       <Link to="/stocksearch" className={styles.navItemCompanyInfo}>
         종목정보
       </Link>
-      <Link to="/tradingrecord" className={styles.navItemTradingRecord}>
+      <Link to={token ? "/tradingrecord" : "/login"} className={styles.navItemTradingRecord}>
         매매일지
       </Link>
       {token ? (

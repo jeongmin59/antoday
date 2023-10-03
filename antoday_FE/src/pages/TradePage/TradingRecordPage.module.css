@@ -23,7 +23,7 @@
   padding: 0.3rem 0.3rem;
   margin: auto;
   border-radius: 50px;
-  background-color: var(--main-white-color);
+  background-color: white;
   min-width: 250px;
   max-width: 570px;
   width: 50%;

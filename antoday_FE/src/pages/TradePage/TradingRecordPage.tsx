@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useQuery, useInfiniteQuery, useQueryClient } from "react-query";
-// import useDebounce from "../../utils/useDebounce";
+import { useInfiniteQuery } from "react-query";
 import TradingRecordList from "../../components/TradingRecord/template/TradingRecordList";
 import WriteTradingRecordButton from "../../components/TradingRecord/atom/WriteTradingRecordButton";
-// import SearchInput from "../../components/TradingRecord/template/SearchInput";
-// import SearchingDate from "../../components/TradingRecord/template/SearchingDate";
-// import TradingCompanyList from "../../components/TradingRecord/module/TradingCompanyList";
 import styles from "./TradingRecordPage.module.css";
 import { accessTokenAtom } from "../../recoil/auth";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import WriteTradingRecord from "../../components/TradingRecord/template/WriteTradingRecord";
 import { useInView } from "react-intersection-observer";
-
 import filterimg from "../../assets/img/trade/filter.png";
 import TradeFilter from "../../components/TradingRecord/atom/TradeFilter";
-
 import Alert from './../../components/Common/atom/Alert';
 import { isAlertOpenAtom } from "../../recoil/alert";
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +45,7 @@ const TradingRecordPage: React.FC = () => {
   const [endDate, setEndDate] = useState("");
   const [filteroption, setFilterOption] = useState("");
   const [order, setOrder] = useState("");
-  const [token, setToken] = useRecoilState(accessTokenAtom);
+  const token = useRecoilValue(accessTokenAtom);
   const [isOpenFilter, setOpenFilter] = useState<Boolean>(false);
   // list 결과
   const [searchResults, setSearchResults] = useState<TradingRecordPageType[]>(
