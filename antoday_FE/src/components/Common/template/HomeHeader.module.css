@@ -12,14 +12,12 @@
 .headerText {
     flex: 5;
     font-size: var(--font-h1);
-    z-index: 2;
     margin-left: 2rem;
 }
 
 .headerImage{
     flex: 5;
     position: relative;
-    z-index: 1;
 }
 
 /* .WordImage {

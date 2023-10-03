@@ -5,14 +5,15 @@ import { useRecoilValue } from 'recoil';
 import { accessTokenAtom } from '../../../recoil/auth';
 
 interface MemoProps {
-  className?: string; // className 속성을 받을 수 있도록 정의
+  isOpen?: boolean; // className 속성을 받을 수 있도록 정의
 }
 
-const Memo: React.FC<MemoProps> = () => {
+const Memo: React.FC<MemoProps> = ({ isOpen }) => {
   
   const [memoText, setMemoText] = useState('');
   const token = useRecoilValue(accessTokenAtom);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const memoTextareaClassName = isOpen ? `${styles.textArea} ${styles.open}` : styles.textArea;
 
   useEffect(() => {
     const getMemo = async () => {
@@ -76,7 +77,7 @@ const Memo: React.FC<MemoProps> = () => {
             cols={30}
             value={memoText}
             onChange={handleMemoChange}
-            className={styles.textArea}
+            className={memoTextareaClassName}
           />
   );
 };

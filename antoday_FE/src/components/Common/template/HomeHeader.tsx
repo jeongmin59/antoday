@@ -1,6 +1,5 @@
 import React from "react";
 import { AntDefault } from "../../../assets/img/ant";
-import { headerImage } from "../../../assets/img/common";
 import styles from "./HomeHeader.module.css";
 
 const HomeHeader: React.FC = () => {
@@ -15,11 +14,6 @@ const HomeHeader: React.FC = () => {
         <br />
       </div>
       <div className={styles.headerImage}>
-        {/* <img
-          className={styles.WordImage}
-          src={headerImage}
-          alt="헤더이미지"
-        ></img> */}
         <img
           className={styles.AntImage}
           src={AntDefault}

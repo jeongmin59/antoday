@@ -65,9 +65,7 @@ const UpperNavBar: React.FC = () => {
     </div>
     <div className={`${styles.memoContainer} ${isMemoOpen ? styles.open : ''}`}>
         {isMemoOpen && (
-          <div className={styles.memoContent}>
-            <Memo />
-          </div>
+            <Memo isOpen={isMemoOpen} />
         )}
       </div>
     </nav>

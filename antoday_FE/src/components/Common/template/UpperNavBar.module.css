@@ -64,12 +64,6 @@
   z-index: 2;
 }
 
-.memoContent {
-  padding-top: 1.7rem;
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
-}
-
 .open {
   max-height: 100%;
 }
