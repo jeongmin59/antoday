@@ -1,9 +1,23 @@
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 0 auto;
+  width: 90%;
+  /* border: 1px solid black; */
+}
+
+.title {
+  font-size: var(--font-h2);
+  margin-bottom: 0.5rem;
+}
+
 .companyContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 0px auto;
-  width: 90%;
+  width: 100%;
   height: fit-content;
 }
 
@@ -20,13 +34,13 @@ ul {
   overflow-x: auto;
   padding: 0;
   margin: 0;
-  font-size: var(--font-h1);
+  font-size: var(--font-h3);
 }
 
 li {
   margin-right: 1rem;
   border-radius: 20px;
-  border: 1px solid #ececec;
+  background-color: var(--main-white-color);
 }
 
 .companyList {

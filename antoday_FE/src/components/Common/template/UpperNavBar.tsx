@@ -49,7 +49,7 @@ const UpperNavBar: React.FC = () => {
       <Link to="/stocksearch" className={styles.navItemCompanyInfo}>
         종목정보
       </Link>
-      <Link to="/tradingrecord" className={styles.navItemTradingRecord}>
+      <Link to={token ? "/tradingrecord" : "/login"} className={styles.navItemTradingRecord}>
         매매일지
       </Link>
       {token ? (
@@ -61,13 +61,11 @@ const UpperNavBar: React.FC = () => {
           로그인
         </Link>
       )}
-      <FontAwesomeIcon icon={faPenToSquare} onClick={handleMemoClick} className={styles.navItemMemoIcon}/>
+      {token && <FontAwesomeIcon icon={faPenToSquare} onClick={handleMemoClick} className={styles.navItemMemoIcon}/>}
     </div>
-    <div className={`${styles.memoContainer} ${isMemoOpen ? styles.open : ''}`}>
-        {isMemoOpen && (
-            <Memo isOpen={isMemoOpen} />
-        )}
-      </div>
+    <div>
+      {token && <Memo isOpen={isMemoOpen} />}
+    </div>
     </nav>
   );
 };

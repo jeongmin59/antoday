@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './KospiKosdakIndex.module.css';
 import axios from 'axios';
 
-// 타입 정의
 interface IndexData {
     base_date: string;
     price: string;
@@ -40,7 +39,7 @@ const KospiKosdakIndex : React.FC = () => {
           );
         const data = response.data;
         setIndexData(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error('에러', error);
       }
@@ -50,17 +49,15 @@ const KospiKosdakIndex : React.FC = () => {
   }, []);
 
   return (
-    <React.Fragment>
-      <div className={styles.title}>오늘의 지수</div>
-        <div className={styles.container}>
+      <div className={styles.mainContainer}>
         <div className={styles.indexContainer}>
           <div className={styles.indexTitle}>코스피</div>
           <div className={styles.indexContent}>
             {/* <p>기준일자: {indexData.KOSPI.base_date}</p> */}
             {/* 현재 지수 */}
-            <p>{indexData.KOSPI.price}</p>
+            <div>{indexData.KOSPI.price}</div>
             {/* 변화 지수 */}
-            <p>{indexData.KOSPI.price_change}</p>
+            <div className={styles.number}>{indexData.KOSPI.price_change}</div>
             {/* 등락률 */}
             {/* <p>{indexData.KOSPI.percentage_change}%</p> */}
           </div>
@@ -70,15 +67,14 @@ const KospiKosdakIndex : React.FC = () => {
           <div className={styles.indexContent}>
             {/* <p>기준일자: {indexData.KOSDAQ.base_date}</p> */}
             {/* 현재 지수 */}
-            <p>{indexData.KOSDAQ.price}</p>
+            <div>{indexData.KOSDAQ.price}</div>
             {/* 변화 지수 */}
-            <p>{indexData.KOSDAQ.price_change}</p>
+            <div className={styles.number}>{indexData.KOSDAQ.price_change}</div>
             {/* 등락률 */}
             {/* <p>{indexData.KOSDAQ.percentage_change}%</p> */}
           </div>
         </div>
       </div>
-    </React.Fragment>
   );
 };
 

@@ -22,8 +22,8 @@ const ColdCompany: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div>현재 차가운 기업</div>
+    <div className={styles.mainContainer}>
+      <div className={styles.title}>현재 차가운 기업</div>
       <div className={styles.companyContainer}>
       <ul>
         {coldCompanies.map((company, index) => (
