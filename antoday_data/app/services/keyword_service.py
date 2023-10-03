@@ -74,7 +74,7 @@ def get_keywords(db: Session) -> list[KeywordDTO]:
     for word, weight in sorted(word_dic.items(), key=lambda x: -x[1]):
         if weight <= 2:
             break
-        keywordDtoList.append(KeywordDTO(text=word, value=weight))
+        keywordDtoList.append(KeywordDTO(label=word, value=weight))
     return keywordDtoList
 
 
@@ -123,7 +123,7 @@ def get_keyword_keywords(db: Session, keyword: str) -> list[KeywordDTO]:
         max_weight = max(weight, max_weight)
         if weight <= max(2, max_weight / 10):
             break
-        keywordDtoList.append(KeywordDTO(text=word, value=weight))
+        keywordDtoList.append(KeywordDTO(label=word, value=weight))
     return keywordDtoList
 
 
@@ -172,7 +172,7 @@ def get_corp_keywords(db: Session, corp_name: str) -> list[KeywordDTO]:
         max_weight = max(weight, max_weight)
         if weight <= max(2, max_weight / 10):
             break
-        keywordDtoList.append(KeywordDTO(text=word, value=weight))
+        keywordDtoList.append(KeywordDTO(label=word, value=weight))
     return keywordDtoList
 
 

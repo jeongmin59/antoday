@@ -35,7 +35,7 @@ async def get_wordcloud(db: Session = Depends(get_db)) -> dict:
     resp = {}
     cloud: list[KeywordDTO] = get_keywords(db)
     resp["cloud"] = cloud
-    resp["corps"] = get_keyword_corps(db, cloud[0].text)
+    resp["corps"] = get_keyword_corps(db, cloud[0].label)
     return resp
 
 
@@ -47,7 +47,7 @@ async def get_keyword_wordcloud(keyword: str, db: Session = Depends(get_db)) -> 
         resp["cloud"] = cloud
         resp["corps"] = []
         if cloud:
-            resp["corps"] = get_keyword_corps(db, cloud[0].text)
+            resp["corps"] = get_keyword_corps(db, cloud[0].label)
         return resp
     except Exception as e:
         raise HTTPStatus(status_code=500, detail=str(e))
