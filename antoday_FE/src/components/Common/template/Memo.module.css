@@ -1,3 +1,9 @@
+/* .memoContainerClassName{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+} */
+
 .textArea {
   position: fixed;
   top: 2.5rem;
@@ -6,13 +12,18 @@
   font-family: GmarketSans;
   border: none;
   font-size: var(--font-h4);
-  background-color: var(--main-white-color);
+  background-color: var(--sub-yellow-color);
   max-width: inherit;
-  margin: 0 0.3rem;
   z-index: 10;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  margin: 0 0.3rem;
+  padding: 0;
 }
 
 .open {
-  max-height: 100%;
-  transition: max-height 3s ease-in-out;
+  max-height: 200px;
+  overflow: auto; /* 스크롤바를 표시할 수 있도록 설정 */
+  transition: max-height 0.3s ease-in-out;
 }
