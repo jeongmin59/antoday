@@ -35,6 +35,7 @@
   --font-h3: 0.65rem;
   --font-h4: 0.55rem;
   --font-h5: 0.45rem;
+  --font-h5: 0.35rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

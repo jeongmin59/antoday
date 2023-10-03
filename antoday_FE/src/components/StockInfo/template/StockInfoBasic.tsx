@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./StockInfoBasic.module.css";
 import FavoriteCompanyButton from "../atom/FavoriteCompanyButton";
 import { addCommas } from "../../../utils/addCommas";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenClip } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import StockInfoSummary from "./StockInfoSummary";
 
 interface StockInfoBasicProps {
   corpIntro?: stockIntro;
 }
 
 const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
-  
+  const navigator = useNavigate();
   const corpName = corpIntro?.corp_name;
   const price = corpIntro ? addCommas(corpIntro.index) : '';  // addCommas 함수 적용
   const stockCode = corpIntro?.stock_code;
   const change = corpIntro ? addCommas(corpIntro.change) : ''; // addCommas 함수 적용
   const market = corpIntro?.market;
+  const lowValue = corpIntro?.low52;
+  const highValue = corpIntro?.high52;
+
+  console.log(lowValue,highValue);
+  const handleClick = () => {
+    navigator('/tradingrecord')
+    //이후 해당하는 기록 볼수있게 수정해야함
+  }
 
   return (
-    <div className={styles.stockInfoBasicContainer}>
+    <div className={styles.mainContainer}>
+      <div className={styles.stockInfoBasicContainer}>
       <div className={styles.LeftContainer}>
         <div className={styles.stockCode}>{stockCode}</div>
         <div className={styles.stockNameContainer}>
@@ -41,9 +54,14 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
         </div>
       </div>
       <div className={styles.RightContainer}>
-        {/* <FavoriteCompanyButton stockPk={stockPk} /> */}
-        <div className={styles.tradeRecord}>매매기록</div>
+        <FavoriteCompanyButton stockPk={stockCode} />
+        <FontAwesomeIcon icon={faPenClip} size="sm" className={styles.pencilIcon} onClick={handleClick}/>
       </div>
+      </div>
+      <StockInfoSummary
+        lowValue={lowValue}
+        highValue={highValue}
+      />
     </div>
   );
 };
