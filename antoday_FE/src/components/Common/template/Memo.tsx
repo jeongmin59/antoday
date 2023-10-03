@@ -13,7 +13,7 @@ const Memo: React.FC<MemoProps> = ({ isOpen }) => {
   const [memoText, setMemoText] = useState('');
   const token = useRecoilValue(accessTokenAtom);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-  const memoTextareaClassName = isOpen ? `${styles.textArea} ${styles.open}` : styles.textArea;
+  const memoContainerClassName = isOpen ? `${styles.textArea} ${styles.open}` : styles.textArea;
 
   useEffect(() => {
     const getMemo = async () => {
@@ -77,7 +77,7 @@ const Memo: React.FC<MemoProps> = ({ isOpen }) => {
             cols={30}
             value={memoText}
             onChange={handleMemoChange}
-            className={memoTextareaClassName}
+            className={memoContainerClassName}
           />
   );
 };

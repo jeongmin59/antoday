@@ -61,13 +61,11 @@ const UpperNavBar: React.FC = () => {
           로그인
         </Link>
       )}
-      <FontAwesomeIcon icon={faPenToSquare} onClick={handleMemoClick} className={styles.navItemMemoIcon}/>
+      {token && <FontAwesomeIcon icon={faPenToSquare} onClick={handleMemoClick} className={styles.navItemMemoIcon}/>}
     </div>
-    <div className={`${styles.memoContainer} ${isMemoOpen ? styles.open : ''}`}>
-        {isMemoOpen && (
-            <Memo isOpen={isMemoOpen} />
-        )}
-      </div>
+    <div>
+      {token && <Memo isOpen={isMemoOpen} />}
+    </div>
     </nav>
   );
 };
