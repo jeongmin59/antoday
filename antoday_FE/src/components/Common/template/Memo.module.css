@@ -1,9 +1,8 @@
 .textArea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 0rem;
+  position: fixed;
+  top: 2.5rem;
+  left: calc((100% - 500px) / 4);
+  width: inherit;
   font-family: GmarketSans;
   border: none;
   font-size: var(--font-h4);

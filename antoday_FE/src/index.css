@@ -28,16 +28,8 @@
   --sub-red-color: #ed6868;
   --main-font-family: "GmarketSans";
   font-size: 20px;
-  /* color-scheme: light dark; */
   font-synthesis: none;
   font-family: "GmarketSans";
-  /* --font-h1: 1.75rem;
-  --font-h2: 1.55rem;
-  --font-h3: 1.35rem;
-  --font-h4: 1.15rem;
-  --font-h1: 0.95rem;
-  --font-h2: 0.75rem;
-  --font-h3: 0.65rem; */
   --font-h1: 0.85rem;
   --font-h2: 0.75rem;
   --font-h3: 0.65rem;
@@ -47,7 +39,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  /* border: 2px solid rebeccapurple; */
 }
 
 a {
