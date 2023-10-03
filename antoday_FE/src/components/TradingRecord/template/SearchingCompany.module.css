@@ -8,12 +8,20 @@
     margin-top: 1rem;
     display: flex;
     gap: 0.5rem;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div > input {
+    width: 10rem;
 }
 
 .container {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    width: 100%;
 }
 
 .searchresults {
@@ -21,6 +29,7 @@
     flex-direction: column;
     align-items: start;
     z-index: 9999;
+    width: 249.38px;
 }
 
 .corpcontainer {
@@ -29,3 +38,80 @@
     gap: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+/* 검색창 */
+
+.searchBarContainer {
+    display: flex;
+    padding: 0.2rem 0.3rem;
+    margin: 0rem auto 0.2rem;
+    border-radius: 50px;
+    gap: 0.5rem;
+    border: 2px solid var(--main-white-color);
+    background-color: var(--main-white-color);
+  }
+  
+  .inputBox {
+    outline: none;
+    width: 70%;
+    border: 0;
+    background-color: var(--main-white-color);
+  
+    &::placeholder {
+      color: #00000080;
+      font-family: var(--main-font-family);
+      font-size: var(--font-h5);
+    }
+  }
+  
+  .searchButton {
+    border-radius: 50px;
+    /* height: 100%; */
+    background-color: var(--main-blue-color);
+    outline: none;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    font-size: var(--font-h5);
+  }
+
+  .quantityinput {
+    width: 1.5rem;
+    border: 1px solid rgb(182, 181, 181);
+    border-radius: 0.3rem;
+    height: 1rem;
+  }
+
+  .problem {
+    display: flex;
+    width: 100%;
+    position: relative;
+  }
+
+  .inputBeside {
+    /* position: absolute;
+    right: 0%;
+    bottom: 10%; */
+    /* margin-right: 10px;
+    margin-bottom: 24px; */
+    display: flex;
+    gap: 0.3rem;
+}
+
+.inputBelow {
+    position: fixed;
+    display: none;
+}
+
+.horizontal,
+.horizontal2 {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
+}
+
+.weather {
+    font-size: var(--font-h2);
+    margin-left: 0;
+  }
