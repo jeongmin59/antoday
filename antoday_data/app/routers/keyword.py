@@ -31,16 +31,24 @@ async def save_keyword(
 
 
 @router.get("")
-async def get_wordcloud(db: Session = Depends(get_db)) -> list[KeywordDTO]:
-    return get_keywords(db)
+async def get_wordcloud(db: Session = Depends(get_db)) -> dict:
+    resp = {}
+    cloud: list[KeywordDTO] = get_keywords(db)
+    resp["cloud"] = cloud
+    resp["corps"] = get_keyword_corps(db, cloud[0].text)
+    return resp
 
 
 @router.get("/{keyword}")
-async def get_keyword_wordcloud(
-    keyword: str, db: Session = Depends(get_db)
-) -> list[KeywordDTO]:
+async def get_keyword_wordcloud(keyword: str, db: Session = Depends(get_db)) -> dict:
     try:
-        return get_keyword_keywords(db, keyword)
+        resp = {}
+        cloud: list[KeywordDTO] = get_keyword_keywords(db, keyword)
+        resp["cloud"] = cloud
+        resp["corps"] = []
+        if cloud:
+            resp["corps"] = get_keyword_corps(db, cloud[0].text)
+        return resp
     except Exception as e:
         raise HTTPStatus(status_code=500, detail=str(e))
 
@@ -55,14 +63,14 @@ async def get_corp_wordcloud(
         raise HTTPStatus(status_code=500, detail=str(e))
 
 
-@router.get("/corp/keyword/{keyword}")
-async def get_keyword_corp(
-    keyword: str, db: Session = Depends(get_db)
-) -> list[CorpListDTO]:
-    try:
-        return get_keyword_corps(db, keyword)
-    except Exception as e:
-        raise HTTPStatus(status_code=500, detail=str(e))
+# @router.get("/corp/keyword/{keyword}")
+# async def get_keyword_corp(
+#     keyword: str, db: Session = Depends(get_db)
+# ) -> list[CorpListDTO]:
+#     try:
+#         return get_keyword_corps(db, keyword)
+#     except Exception as e:
+#         raise HTTPStatus(status_code=500, detail=str(e))
 
 
 @router.post("/tm")

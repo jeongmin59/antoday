@@ -204,7 +204,6 @@ def get_keyword_corps(db: Session, keyword: str) -> list[CorpListDTO]:
     res: ResultProxy = db.execute(query, params)
     corp_list: list[CorpListDTO] = []
     for corp_name, stock_code, logo_url in res:
-        print(corp_name, stock_code, logo_url)
         corp_list.append(
             CorpListDTO(stock_code=stock_code, corp_name=corp_name, logo_url=logo_url)
         )
