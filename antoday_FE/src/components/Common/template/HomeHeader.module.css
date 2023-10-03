@@ -52,3 +52,16 @@
   height: fit-content;
   animation: rotateAnimation 3s linear infinite;
 }
+
+.buttonContainer{
+  display: flex;
+  justify-content: end;
+  margin-top: 0.1rem;
+  gap: 0.1rem;
+}
+
+.button {
+  border: 1px solid var(--sub-gray-color);
+  background-color: white;
+  border-radius: 50px;
+}

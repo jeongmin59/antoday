@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { AntDefault, AntMemo, AntSleep, AntWorking } from "../../../assets/img/ant";
+import { AntMemo, AntSleep, AntWorking } from "../../../assets/img/ant";
 import styles from "./HomeHeader.module.css";
 
 const HomeHeader: React.FC = () => {
@@ -68,10 +68,10 @@ const HomeHeader: React.FC = () => {
         ></img>
       </div>
     </div>
-    <div>
-    <button onClick={handleMorningClick}>아침</button>
-    <button onClick={handleDayClick}>낮</button>
-    <button onClick={handleNightClick}>밤</button>
+    <div className={styles.buttonContainer}>
+    <button className={styles.button} onClick={handleMorningClick}>working</button>
+    <button className={styles.button} onClick={handleDayClick}>day</button>
+    <button className={styles.button} onClick={handleNightClick}>night</button>
   </div>
   </div>
   );
