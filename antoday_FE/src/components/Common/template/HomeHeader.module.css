@@ -5,7 +5,7 @@
     height: fit-content;
     background-color: var(--main-yellow-color);
     padding-top: 6rem;
-    padding-bottom: 4rem;
+    padding-bottom: 5rem;
     color: var(--bold-blue-color);
 }
 
@@ -18,7 +18,7 @@
 }
 
 .dayBackground{
-  background-color: var(--main-white-color);
+  background-color: var(--sub-gray-color);
 }
 
 .headerText {
@@ -48,7 +48,7 @@
   position: absolute;
   top: -50px;
   left: 60px;
-  width: 3rem;
+  width: 4.5rem;
   height: fit-content;
   animation: rotateAnimation 3s linear infinite;
 }
