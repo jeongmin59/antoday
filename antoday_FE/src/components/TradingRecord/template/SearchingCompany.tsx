@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SearchingCompany.module.css';
 import useDebounce from '../../../utils/useDebounce';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 
 interface SearchInputProps {
@@ -13,6 +18,7 @@ interface SearchInputProps {
     totalPages: number;
     handlePageChange: (newPage: number)=>void;
     setSelectedCompany: (company : Company|null)=>void;
+    currentPage: number;
     
 }
 
@@ -22,14 +28,19 @@ interface Company {
     logoUrl: string;
   }
 
-const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, searchResults, selectedCompany, choose, handleSelectCompany, totalPages, handlePageChange, setSelectedCompany }) => {
+const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, searchResults, selectedCompany, choose, handleSelectCompany, totalPages, handlePageChange, setSelectedCompany, currentPage }) => {
     const [keyword, setKeyword] = useState('');
     const [shouldClearOnNextFocus, setShouldClearOnNextFocus] = useState(false); 
     const [localSearchResults, setLocalSearchResults] = useState<any[]>([]);
+    const [nowPage, setNowPage] = useState<number>(0)
 
     const handleSearch = () => {
         onSearch(keyword);
         setShouldClearOnNextFocus(true);
+    };
+    const clickArrow = (page) => {
+        handlePageChange(page);
+        setNowPage(page);
     };
 
     const handleInputFocus = () => {
@@ -60,7 +71,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, s
     
 
     return (
-        <div>
+        <div className={styles.container}>
         <div className={styles.div}>
             <input
                 type="text"
@@ -77,6 +88,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, s
       
       {(localSearchResults.length > 0 && !choose) ? (
         // searchResults가 있을 때
+        <div>
         <div className={styles.searchresults}>
           {searchResults.map((result) => (
             <div
@@ -88,11 +100,24 @@ const SearchingCompany: React.FC<SearchInputProps> = ({ onSearch, resetChoose, s
               <span>{result.corpName}</span>
             </div>
           ))}
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button key={index} onClick={() => handlePageChange(index + 1)}>
-              {index + 1}
-            </button>
-          ))}
+              </div>
+              <div className={styles.buttonContainer}>
+      <button
+        className={styles.button}
+        onClick={() => clickArrow(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
+      <span style={{ fontSize: "var(--font-h2)" }}>{currentPage}</span>
+      <button
+        className={styles.button}
+        onClick={() => clickArrow(currentPage + 1)}
+        disabled={currentPage >= totalPages}
+      >
+        <FontAwesomeIcon icon={faChevronRight} />
+      </button>
+    </div>
         </div>
       ) : (
         // searchResults가 없을 때

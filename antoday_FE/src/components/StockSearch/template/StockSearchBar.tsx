@@ -123,11 +123,11 @@ const StockSearchBar: React.FC = () => {
       {!inputValue && (
         <div className={styles.subContainer}>
           <div className={styles.companyContainer}>
-            <div>관심 기업</div>
+            <div className={styles.title}>관심 종목</div>
             <FavoriteCompany />
             </div>
           <div className={styles.companyContainer}>
-          <div>투자한 기업</div>
+          <div className={styles.title}>투자한 종목</div>
             <MyInvestmentCompany />
           </div>   
         </div>
