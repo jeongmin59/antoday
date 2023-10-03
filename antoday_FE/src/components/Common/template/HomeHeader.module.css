@@ -32,13 +32,17 @@
     position: relative;
 }
 
-/* .WordImage {
-  position: absolute;
-  top: 50%;
-  left: 50%; 
-  transform: translate(-50%, -50%);
-  width: 10rem;
-} */
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 
 .AntImage {
   position: absolute;
@@ -46,4 +50,5 @@
   left: 60px;
   width: 3rem;
   height: fit-content;
+  animation: rotateAnimation 3s linear infinite;
 }

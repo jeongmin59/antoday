@@ -53,6 +53,7 @@ const TradingRecordDetailPage = () => {
 
 
   const handleEdit = () => {
+    console.log('클릭!')
     setAlertState({ isOpen: true, status: 'edit' });
 
     navigator(`/tradingrecord/edit/${tradePk}`)
@@ -111,9 +112,13 @@ const TradingRecordDetailPage = () => {
         stockCode={stockCode}
         aiAnalyze={aiAnalyze}
         />
-      <div>
-        <BasicButton onClick={handleEdit} text="수정"  />
-        <BasicButton onClick={handleDelete} text="삭제"  />
+      <div className={styles.buttonContainer}>
+        <div onClick={handleEdit}>
+        <BasicButton  text="수정"  />
+        </div>
+        <div onClick={handleDelete}>
+        <BasicButton text="삭제"  />
+        </div>
       </div>
       </div>
     </div>

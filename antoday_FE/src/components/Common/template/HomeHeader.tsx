@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { AntDefault } from "../../../assets/img/ant";
+import { AntDefault, AntMemo, AntSleep, AntWorking } from "../../../assets/img/ant";
 import styles from "./HomeHeader.module.css";
 
 const HomeHeader: React.FC = () => {
   const [bgColorClass, setBgColorClass] = useState("");
+  const [antImageSrc, setAntImageSrc] = useState("");
 
   useEffect(() => {
     const checkTimeAndSetClass = () => {
@@ -13,12 +14,15 @@ const HomeHeader: React.FC = () => {
       if (hours >= 6 && hours < 10) {
         // am6:00~am10:00
         setBgColorClass(styles.morningBackground);
+        setAntImageSrc(AntWorking);
       } else if (hours >= 17 && hours < 22) {
         // pm5:00~pm10:00 일 때
         setBgColorClass(styles.nightBackground);
+        setAntImageSrc(AntSleep);
       } else {
         // 그 외의 경우
         setBgColorClass(styles.defaultBackground);
+        setAntImageSrc(AntMemo);
       }
     };
 
@@ -34,14 +38,17 @@ const HomeHeader: React.FC = () => {
 
   const handleMorningClick = () => {
     setBgColorClass(styles.morningBackground);
+    setAntImageSrc(AntWorking);
   };
 
   const handleDayClick = () => {
     setBgColorClass(styles.dayBackground);
+    setAntImageSrc(AntMemo);
   };
 
   const handleNightClick = () => {
     setBgColorClass(styles.nightBackground);
+    setAntImageSrc(AntSleep);
   };
 
   return (
@@ -56,7 +63,7 @@ const HomeHeader: React.FC = () => {
       <div className={styles.headerImage}>
         <img
           className={styles.AntImage}
-          src={AntDefault}
+          src={antImageSrc}
           alt="개미이미지"
         ></img>
       </div>

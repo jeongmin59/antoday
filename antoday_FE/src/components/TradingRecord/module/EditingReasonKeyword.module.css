@@ -2,14 +2,15 @@
   display: flex;
   flex-direction: column;
   width: 90%;
+  margin: 0 auto;
+  /* border: 1px solid orange; */
+  gap: 1rem;
 }
 
 .pageTitle {
   display: flex;
   justify-content: start;
   font-size: var(--font-h4);
-  width: 90%;
-  margin: 0 auto;
 }
 
 .keywordContainer {
@@ -24,8 +25,21 @@
   justify-content: space-evenly;
 }
 
+.choosenKeywords{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.choosenKeyword{
+  display: flex;
+}
+
 .keyword{
   font-size: var(--font-h4);
+  cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid var(--main-blue-color);
+  color: var(--main-blue-color);
 }
 
 .inputBox{
@@ -44,4 +58,9 @@
   border: none;
   color: white;
   cursor: pointer;
+}
+
+.textArea{
+  font-family: GmarketSans;
+  width: 100%;
 }

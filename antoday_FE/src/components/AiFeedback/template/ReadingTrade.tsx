@@ -18,8 +18,6 @@ const ReadingTrade: React.FC<TradingRecord> = ({
       <div className={styles.subContainer}>
         <div className={styles.buttonContainer}>
           <div className={styles.title}>매매일지</div>
-          {/* <BasicButton content={'수정'}/> */}
-          {/* <BasicButton content={'삭제'}/> */}
         </div>
         <BasicInfo
           corpName={corpName}

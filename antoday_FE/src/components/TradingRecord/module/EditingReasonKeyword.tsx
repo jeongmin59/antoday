@@ -1,6 +1,8 @@
 import { useState, useEffect,ChangeEvent, FormEvent } from "react";
 import styles from "./EditingReasonKeyword.module.css";
 import EditingSubmitButton from "../atom/EditingSubmitButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface EditingReasonKeywordProps {
   editedTradeAt?: Date;
@@ -65,20 +67,22 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
     setTags(updatedTags);
   }, [keywordList]);
 
-  console.log('qhwk',editedReason);
 
   return (
-    <div>
+    <div  className={styles.mainContainer}>
       <div className={styles.pageTitle}>매수/매도 키워드</div>
-      <div>
+      <div  className={styles.choosenKeywords}>
         {tags.map((tag, index) => (
-          <span
+          <div  className={styles.choosenKeyword}>
+            <span
             key={index}
             className={styles.keyword}
             onClick={() => handleTagClick(tag)}
           >
             {tag}&nbsp;
           </span>
+          <FontAwesomeIcon icon={faCircleXmark} size="sm" color="var(--main-blue-color)" />
+          </div>
         ))}
       </div>
       <form className={styles.keywordContainer} onSubmit={handleTagButtonClick}>
