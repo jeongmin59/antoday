@@ -16,6 +16,7 @@ const HomeKeyWords: React.FC = () => {
   const [words, setWords] = useState<WordCloudData[]>([]);
   const [corps, setCorps] = useState(null);
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
+  const [mainKeyword, setMainKeyword] = useState(null);
   const updateChartSize = () => {
     setChartWidth(window.innerWidth * 0.75);
   };
@@ -38,6 +39,7 @@ const HomeKeyWords: React.FC = () => {
         const data = response.data;
         setWords(data.cloud);
         setCorps(data.corps);
+        setMainKeyword(label);
         console.log("클릭호출")
     } catch (error) {
       console.error("호출 실패 :" , error);
@@ -59,8 +61,13 @@ const HomeKeyWords: React.FC = () => {
   return (
     <div>
       <div className={styles.bubbleChartContainer}>
+      <div>
+        {mainKeyword !== null ? (
+          <p className={styles.keywordTag}>#{mainKeyword} 관련 키워드</p>
+        ) : null}
+      </div>
         <BubbleChart
-          bubbleClickFunc={bubbleClick}
+          bubbleClickFun={bubbleClick}
           graph= {{
             zoom: 0.9,
           }}
