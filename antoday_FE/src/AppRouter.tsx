@@ -6,7 +6,7 @@ import UpperNavBar from "./components/Common/template/UpperNavBar";
 import BottomNavbar from "./components/Common/template/BottomNavbar";
 import LoginPage from "./pages/CommonPage/LoginPage";
 import LogInRedirectPage from "./pages/CommonPage/LogInRedirectPage";
-import WriteTradingRecordPage from "./pages/TradePage/WriteTradingRecordPage";
+import WriteKeywordAndReasonPage from "./pages/TradePage/WriteKeywordAndReasonPage";
 import StockSearchPage from "./pages/StockPage/StockSearchPage";
 import InfoPageSearchBar from "./components/StockInfo/template/InfoPageSearchBar";
 import { useRecoilValue } from "recoil";
@@ -35,9 +35,13 @@ const AppRouter = () => {
           path="/tradingrecord/edit/:tradePk"
           element={<EditTradingRecordPage />}
         />
+        {/* <Route
+          path="/writetradingrecord"
+          element={<WriteTradingRecordPage />}
+        /> */}
         <Route
           path="/writetradingrecord/:tradePk"
-          element={<WriteTradingRecordPage />}
+          element={<WriteKeywordAndReasonPage />}
         />
       </Routes>
       <BottomNavbar />
