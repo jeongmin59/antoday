@@ -113,10 +113,10 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
 
               return (
                 <div
-                  key={index}
-                  onClick={() =>
-                    handleDetail(record.reasonExist, record.tradePk)
-                  }
+                key={index}
+                onClick={() =>
+                  handleDetail(record.keywordExist, record.tradePk)
+                }
                 >
                   <div className={styles.listItem}>
                     <div className={styles.row}>
@@ -147,7 +147,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
                           {record.cnt}주
                         </span>
                       </div>
-                      {record.reasonExist ? (
+                      {record.keywordExist ? (
                         <button className={`${styles.btn} ${styles.button1}`}>
                           {" "}
                         </button>

@@ -20,7 +20,7 @@ import {
 import { Holiday } from '../../../utils/holidays';
 
 
-  interface WriteTradingRecordPageProps {
+  interface WriteKeywordAndReasonPageProps {
     closeWritePage: () => void;
   }
 
@@ -35,7 +35,7 @@ import { Holiday } from '../../../utils/holidays';
     serviceKey: `${import.meta.env.VITE_APP_SERVICE_KEY}`,
   };
 
-  const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({ closeWritePage }) => {
+  const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({ closeWritePage }) => {
     const navigate = useNavigate();
     const adjustInitialDate = (date: Date): Date => {
       let adjusted = new Date(date);

@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useLocation } from 'react-router';
-// import styles from './WriteTradingRecordPage.module.css'
+// import styles from './WriteKeywordAndReasonPage.module.css'
 import KeywordInput from '../modules/KeywordInput';
 import ReasonInput from '../modules/ReasonInput';
 import SaveBtn from '../atoms/SaveBtn';
