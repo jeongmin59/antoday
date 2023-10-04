@@ -73,33 +73,47 @@ import { Holiday } from '../../../utils/holidays';
     const [holiday, setHoliday] = useState<Holiday[]>([]);
     const [currentMonth, setCurrentMonth] = useState<number>(new Date().getMonth());
 
-    useEffect(() => {
-      if (selectedDate && selectedDate.getMonth() !== currentMonth) {
-        setCurrentMonth(selectedDate.getMonth());
-        getHoliday();
+    function zfill(num, width) {
+    const str = num.toString();
+    return str.length >= width ? str : new Array(width - str.length + 1).join('0') + str;
+}
+
+
+
+
+useEffect(() => {
+  if (selectedDate) {
+      const newMonth = selectedDate.getMonth();
+
+      if (newMonth !== currentMonth) {
+          setCurrentMonth(newMonth);
       }
-      getHoliday();
-    }, [selectedDate]);
-    
+  }
+}, [selectedDate, currentMonth]);
+
+useEffect(() => {
+  getHoliday();
+}, [currentMonth]); // currentMonth가 변경될 때마다 getHoliday 호출
+
 
 
     const getHoliday = async () => {
       const bodyData = {
         ...requestData,
         solYear: new Date().getFullYear(),
-        solMonth: new Date().getMonth() + 1,
+        solMonth: currentMonth + 1,
       };
   try{
       const response = await axios.get(
         bodyData.url, {params: {
           serviceKey:bodyData.serviceKey,
           solYear:bodyData.solYear,
-          solMonth:bodyData.solMonth
+          solMonth: zfill(bodyData.solMonth, 2)
         },}
-      );
-      console.log(response.data.response.body.items.item)
+        );
+        console.log(zfill(bodyData.solMonth, 2))
   
-      const saveData = [].concat(response.data.response.body.items.item);
+      const saveData = [].concat(response.data.response.body?.items.item);
       setHoliday(saveData);}
       catch (error) {
         console.error("Error fetching holidays:", error);
@@ -113,7 +127,8 @@ import { Holiday } from '../../../utils/holidays';
   
       return new Date(year, month, day);
   };
-  const holidayDates = holiday.map(h => convertToDate(h.locdate));
+  const holidayDates = holiday.map(h => h ? convertToDate(h.locdate) : null).filter(Boolean);
+
 
     
   
@@ -380,7 +395,7 @@ import { Holiday } from '../../../utils/holidays';
   };
   
   
-    // console.log(ownedCompanies)
+
     return (
       <div className={styles.writecontainer}>
         <div className={styles.title}>매매기록 작성</div>
@@ -401,6 +416,7 @@ import { Holiday } from '../../../utils/holidays';
                   placeholderText="날짜 선택"
                   maxDate={initialAdjustedDate}
                   disabled={selectedOption === "매도"}
+                  adjustDateOnChange
                 />
               </div>
             </div>
