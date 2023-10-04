@@ -1,8 +1,16 @@
+.DetailContainer {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+}
+
 .tabContainer {
   display: flex;
-  justify-content: start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
   gap: 0.2rem;
+  margin-top: 0.5rem;
 }
 
 .tab {
@@ -12,4 +20,21 @@
 
 .activeTab {
   color: var(--main-blue-color);
+  background-color: var(--main-yellow-color);
+  border-top-left-radius: 10px; /* 위-왼쪽 */
+  border-top-right-radius: 20px; /* 위-오른쪽 */
+}
+
+.contentContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+@media screen and (max-width: 500px) {
+  .tab {
+    font-size: var(--font-h2);
+    cursor: pointer;
+  }
 }
