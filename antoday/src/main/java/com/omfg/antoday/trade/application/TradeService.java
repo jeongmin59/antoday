@@ -218,7 +218,7 @@ public class TradeService {
         User user = UserUtils.getUserFromToken(userDetails);
 
         // 현재 사용자의 모든 거래 종목들 가져오기
-        Set<StockInterface> stocks = tradeRepository.findDistintStockByUser(user.getSocialId());
+        Set<StockInterface> stocks = tradeRepository.findDistinctStockByUser(user.getSocialId());
 
         List<StockRoiResponseDto> result = new ArrayList<>();
 

@@ -61,14 +61,6 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             , nativeQuery = true)
     Set<StockInterface> findstockByNativeQuery(@Param("socialId") Long socialId, @Param("searchTerm") String searchTerm);
 
-    //    Page<Trade> findByUserAndIsDeletedFalse(User u, PageRequest pageRequest);
-//
-//    Page<Trade> findByUserAndStockAndIsDeletedFalse(User user, Stock stock, PageRequest pageRequest);
-//
-//    Page<Trade> findByUserAndTradeAtBetweenAndIsDeletedFalse(User user, LocalDateTime start, LocalDateTime end, PageRequest pageRequest);
-//
-//    Page<Trade> findByUserAndStockAndTradeAtBetweenAndIsDeletedFalse(User user, Stock stock, LocalDateTime start, LocalDateTime end, PageRequest pageRequest);
-
     @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
             "from trade t, user u, stock s\n" +
             "where t.social_id = u.social_id\n" +
@@ -76,11 +68,11 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             "AND t.is_deleted = 0 " +
             "and t.social_id = (:userPk);"
             , nativeQuery = true)
-    Set<StockInterface> findDistintStockByUser(@Param("userPk") Long user);
+    Set<StockInterface> findDistinctStockByUser(@Param("userPk") Long user);
 
     @Query(value =
             "SELECT DISTINCT t.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl, " +
-                    "(SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END " +
+                    "(SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END " +    // 관심기업 여부 추가
                     "FROM user_stock_like usl " +
                     "WHERE usl.social_id = :userPk AND usl.stock_code = t.stock_code) AS isLiked " +
                     "FROM trade t, user u, stock s " +
@@ -109,5 +101,4 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
     List<Trade> findByUserAndStockAndIsDeletedFalse(User user, Stock stock);
 
     List<Trade> findByUserAndOptionBuySell(User user, byte optionBuySell);
-
 }
