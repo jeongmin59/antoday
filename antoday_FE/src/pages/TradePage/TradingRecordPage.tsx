@@ -12,9 +12,9 @@ import WriteTradingRecord from "../../components/TradingRecord/template/WriteTra
 import { useInView } from "react-intersection-observer";
 import filterimg from "../../assets/img/trade/filter.png";
 import TradeFilter from "../../components/TradingRecord/atom/TradeFilter";
-import Alert from './../../components/Common/atom/Alert';
+import Alert from "./../../components/Common/atom/Alert";
 import { isAlertOpenAtom } from "../../recoil/alert";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export interface TradingRecordPageType {
   cnt: number;
@@ -86,9 +86,9 @@ const TradingRecordPage: React.FC = () => {
     if (searchKeyword) params.keyword = searchKeyword;
     if (filteroption) params.tradeFilter = filteroption;
     if (order) params.tradeOrderBy = order;
-  
+
     setIsLoading(true);
-  
+
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BACK_API_URL}/api/trade`,
@@ -249,14 +249,14 @@ const TradingRecordPage: React.FC = () => {
             </div>
             {alertState && (
               <>
-                {alertState.status === 'write' && (
-                  <Alert msg={'일지가 등록되었습니다.'} />
+                {alertState.status === "write" && (
+                  <Alert msg={"일지가 등록되었습니다."} />
                 )}
-                {alertState.status === 'edit' && (
-                  <Alert msg={'일지가 수정되었습니다.'} />
+                {alertState.status === "edit" && (
+                  <Alert msg={"일지가 수정되었습니다."} />
                 )}
-                {alertState.status === 'delete' && (
-                  <Alert msg={'일지가 삭제되었습니다.'} />
+                {alertState.status === "delete" && (
+                  <Alert msg={"일지가 삭제되었습니다."} />
                 )}
               </>
             )}
@@ -273,7 +273,7 @@ const TradingRecordPage: React.FC = () => {
               roiList={roiList}
               fetchMoreData={fetchNextPage}
               lastRecordRef={ref}
-              isLoading={isLoading} 
+              isLoading={isLoading}
             />
           </div>
         </div>
