@@ -1,8 +1,7 @@
 from http import HTTPStatus
-from fastapi import APIRouter, Depends, Path
-from app.models.database import get_db
+from fastapi import APIRouter, Depends
+from app.models.database import SessionLocal, get_db
 from app.schemas.keyword import KeywordDTO
-from app.schemas.corp import CorpListDTO
 from app.services.keyword_service import *
 from sqlalchemy.orm import Session
 
@@ -80,3 +79,9 @@ async def save_textmining(db: Session = Depends(get_db)) -> Optional[dict | HTTP
         return {"status": "success"}
     except Exception as e:
         raise HTTPStatus(status_code=500, detail=str(e))
+
+
+def auto_save_textmining() -> None:
+    db: Session = SessionLocal()
+    create_textmining(db)
+    db.close()
