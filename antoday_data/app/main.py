@@ -38,7 +38,7 @@ scheduler = BackgroundScheduler()
 @app.on_event("startup")
 def start_scheduler():
     # 매일 7:45~ 15:45에 텍스트마이닝 실행 예약
-    hours_to_run = [7, 9, 11, 13, 15]
+    hours_to_run = [7, 9, 11, 13, 15, 17]
     for hour in hours_to_run:
         trigger = CronTrigger(hour=hour, minute=45)
         scheduler.add_job(auto_save_textmining, trigger=trigger)
