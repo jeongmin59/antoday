@@ -136,7 +136,7 @@ def get_corp_keywords(db: Session, corp_name: str) -> list[KeywordDTO]:
                 select textmining_pk
                 from textmining
                 order by textmining_pk desc
-                limit 3
+                limit 5
                 ) as t
             join news n on n.textmining_pk = t.textmining_pk
             join news_stock ns on ns.news_pk = n.news_pk
@@ -185,7 +185,7 @@ def get_keyword_corps(db: Session, keyword: str) -> list[CorpListDTO]:
                 select textmining_pk
                 from textmining
                 order by textmining_pk desc
-                limit 3
+                limit 5
                 ) as t
             join news n on n.textmining_pk = t.textmining_pk
             join news_keyword nk on nk.news_pk = n.news_pk
