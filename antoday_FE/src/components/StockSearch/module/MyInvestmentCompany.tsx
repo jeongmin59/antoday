@@ -22,7 +22,8 @@ const MyInvestmentCompany: React.FC = () => {
   }, []);
 
   const handlePageChange = (newPage: number) => {
-    fetchInvestmentCompanies(newPage - 1); 
+    fetchInvestmentCompanies(newPage); 
+    setNowPage(newPage)
 };
 const fetchInvestmentCompanies = async (page = 0) => {
   const apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/trade/corp`;
@@ -63,8 +64,7 @@ const fetchInvestmentCompanies = async (page = 0) => {
       {myInvestmentCompanies?.map(company => (
         <FavoriteStockComponent companyInfo={company} key={company.stockCode} />
       ))}
-    </div>
-    <div className={styles.buttonContainer}>
+        <div className={styles.buttonContainer}>
       <button
         className={styles.button}
         onClick={() => handlePageChange(nowPage - 1)}
@@ -81,6 +81,8 @@ const fetchInvestmentCompanies = async (page = 0) => {
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>
+    </div>
+  
     </div>
   );
 };

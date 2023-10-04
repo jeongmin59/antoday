@@ -6,10 +6,16 @@
   padding: 0 0;
 }
 
-.LeftContainer,
+.LeftContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.3rem;
+}
 .RightContainer {
   display: flex;
   flex-direction: column;
+  align-items: end;
   gap: 0.3rem;
 }
 
@@ -32,6 +38,6 @@
   justify-self: start;
 }
 
-.tradeRecord {
-  font-size: var(--font-h2);
+.pencilIcon{
+  cursor: pointer;
 }

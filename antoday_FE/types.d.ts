@@ -27,4 +27,8 @@ interface stockIntro {
     market? : string;
     percentageChange? : number;
     stock_code? : string
+    lowValue? : number;
+    highValue? : number;
+    low52? : number;
+    high52? : number;
 }

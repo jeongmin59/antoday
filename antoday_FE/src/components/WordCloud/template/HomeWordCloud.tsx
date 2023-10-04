@@ -1,7 +1,6 @@
 import React from "react";
 import TitleTextComponent from "../atom/TitleTextComponent";
 import HomeKeyWords from "../module/HomeKeyWords";
-import HomeKeyWordsCompanys from "../module/HomeKeyWordsCompanys";
 import styles from "./HomeWordCloud.module.css";
 
 const HomeWordCloud: React.FC = () => {
@@ -14,13 +13,6 @@ const HomeWordCloud: React.FC = () => {
 				<div className={styles.WordContainer}>
         <HomeKeyWords />
 				</div>
-        <div className={styles.CompanyContainer}>
-          <HomeKeyWordsCompanys />
-          <HomeKeyWordsCompanys />
-          <HomeKeyWordsCompanys />
-          <HomeKeyWordsCompanys />
-          <HomeKeyWordsCompanys />
-        </div>
       </div>
     </div>
   );

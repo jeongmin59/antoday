@@ -1,6 +1,9 @@
-
-.WordContainer {
-    margin: 1rem auto;
-    width: 100%;
-    height: fit-content;
-}
+.bubble-chart-container {
+    width: 100%; /* 부모 요소에 대한 가로 크기를 100%로 설정 */
+  }
+  
+  @media (max-width: 768px) {
+    .bubble-chart-container {
+      width: 50%; /* 화면 너비가 768px 이하일 때 차트 크기를 줄임 */
+    }
+  }

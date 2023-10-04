@@ -45,8 +45,8 @@ const EditingTrade: React.FC<TradingRecord> = ({
   };
 
   return (
-    <div>
-      <div className={styles.mainContainer}>
+    <div  className={styles.mainContainer}>
+      <div className={styles.infoContainer}>
       <div className={styles.tradeAt}>
         <DatePicker
           selected={editedTradeAt}
@@ -81,7 +81,7 @@ const EditingTrade: React.FC<TradingRecord> = ({
           <input type="number" value={editedCnt} onChange={handleCntChange} />
         </div>
       </div>
-    </div>
+      </div>
     <EditingReasonKeyword
     editedTradeAt={editedTradeAt}
     editedCorpName={editedCorpName}

@@ -49,8 +49,7 @@ const FavoriteCompany: React.FC = () => {
       {favoriteCompanies.map(company => (
         <FavoriteStockComponent companyInfo={company} key={company.stockCode} />
       ))}
-    </div>
-    <div className={styles.buttonContainer}>
+      <div className={styles.buttonContainer}>
       <button
         className={styles.button}
         onClick={() => fetchFavoriteCompanies(favoriteNowPage - 1)}
@@ -67,6 +66,8 @@ const FavoriteCompany: React.FC = () => {
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
     </div>
+    </div>
+    
     </div>
   );
 };

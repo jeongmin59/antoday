@@ -1,7 +1,6 @@
 .stockInfoPageContainer {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid rebeccapurple; */
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }

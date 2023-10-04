@@ -30,7 +30,7 @@ const SkipBtn: React.FC<TradingRecord> = ({ tradePk }) => {
 
   return (
     <button onClick={handleDelete} className={styles.button}>
-      취소하기
+      건너뛰기
     </button>
   );
 };
