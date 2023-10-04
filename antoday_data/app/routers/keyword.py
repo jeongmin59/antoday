@@ -34,7 +34,9 @@ async def get_wordcloud(db: Session = Depends(get_db)) -> dict:
     resp = {}
     cloud: list[KeywordDTO] = get_keywords(db)
     resp["cloud"] = cloud
-    resp["corps"] = get_keyword_corps(db, cloud[0].label)
+    resp["corps"] = []
+    if cloud:
+        resp["corps"] = get_keyword_corps(db, cloud[0].label)
     return resp
 
 
