@@ -44,9 +44,9 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   // };
   useEffect(() => {
     if (!isLoading) {
-      setStatus(true)
+      setStatus(true);
     } else {
-      setStatus(false)
+      setStatus(false);
     }
   }, [isLoading]);
 
@@ -100,7 +100,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
   return (
     <div className={styles.div}>
       {isLoading && <TradingRecordCardSkeleton cards={10} />}
-      {records.length === 0 && status? <h2>검색 결과가 없습니다.</h2> : null}
+      {records.length === 0 && status ? <h2>검색 결과가 없습니다.</h2> : null}
       {Object.entries(groupedRecords).map(([date, dateRecords], groupIndex) => {
         const isLastDateGroup =
           groupIndex === Object.entries(groupedRecords).length - 1;
@@ -110,7 +110,7 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
             <div className={styles.dateHeader}>{date}</div>
             {dateRecords.map((record, index) => {
               const isLastRecordInGroup = index === dateRecords.length - 1;
-              
+
               return (
                 <div
                 key={index}
