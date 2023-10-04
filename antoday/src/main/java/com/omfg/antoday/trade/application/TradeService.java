@@ -152,7 +152,7 @@ public class TradeService {
     }
 
     public Page<StockListResponseDto> getTradeCorp(int page, UserDetailsImpl userDetails) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
+        PageRequest pageRequest = PageRequest.of(page, 5);
         User user = UserUtils.getUserFromToken(userDetails);
 
         Page<StockInterface> list = tradeRepository.findDistinctStockByUserPage(user.getSocialId(), pageRequest);
