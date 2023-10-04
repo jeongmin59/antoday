@@ -1,6 +1,6 @@
 import React from "react";
 // import { useLocation } from 'react-router';
-import styles from "./WriteTradingRecordPage.module.css";
+import styles from "./WriteKeywordAndReasonPage.module.css";
 import CheckTradingRecord from "../../components/TradingDairy/template/CheckTradingRecord";
 // import HomeKeyWords from '../../components/WordCloud/module/HomeKeyWords'
 // import InputConfirm from '../../components/TradingDairy/template/InputConfirm';
@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import LoadingSpinner from "../../components/Common/atom/LoadingSpinner";
 
-const WriteTradingRecordPage: React.FC = () => {
+const WriteKeywordAndReasonPage: React.FC = () => {
   // 여기에 글 작성 로직
   const { tradePk } = useParams();
 
@@ -67,4 +67,4 @@ const WriteTradingRecordPage: React.FC = () => {
   );
 };
 
-export default WriteTradingRecordPage;
+export default WriteKeywordAndReasonPage;

@@ -19,7 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Holiday } from "../../../utils/holidays";
 
-interface WriteTradingRecordPageProps {
+interface WriteKeywordAndReasonPageProps {
   closeWritePage: () => void;
 }
 
@@ -34,7 +34,7 @@ const requestData = {
   serviceKey: `${import.meta.env.VITE_APP_SERVICE_KEY}`,
 };
 
-const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
+const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
   closeWritePage,
 }) => {
   const navigate = useNavigate();
@@ -82,31 +82,44 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
     new Date().getMonth()
   );
 
+  function zfill(num, width) {
+    const str = num.toString();
+    return str.length >= width
+      ? str
+      : new Array(width - str.length + 1).join("0") + str;
+  }
+
   useEffect(() => {
-    if (selectedDate && selectedDate.getMonth() !== currentMonth) {
-      setCurrentMonth(selectedDate.getMonth());
-      getHoliday();
+    if (selectedDate) {
+      const newMonth = selectedDate.getMonth();
+
+      if (newMonth !== currentMonth) {
+        setCurrentMonth(newMonth);
+      }
     }
+  }, [selectedDate, currentMonth]);
+
+  useEffect(() => {
     getHoliday();
-  }, [selectedDate]);
+  }, [currentMonth]); // currentMonth가 변경될 때마다 getHoliday 호출
 
   const getHoliday = async () => {
     const bodyData = {
       ...requestData,
       solYear: new Date().getFullYear(),
-      solMonth: new Date().getMonth() + 1,
+      solMonth: currentMonth + 1,
     };
     try {
       const response = await axios.get(bodyData.url, {
         params: {
           serviceKey: bodyData.serviceKey,
           solYear: bodyData.solYear,
-          solMonth: bodyData.solMonth,
+          solMonth: zfill(bodyData.solMonth, 2),
         },
       });
-      console.log(response.data.response.body.items.item);
+      console.log(zfill(bodyData.solMonth, 2));
 
-      const saveData = [].concat(response.data.response.body.items.item);
+      const saveData = [].concat(response.data.response.body?.items.item);
       setHoliday(saveData);
     } catch (error) {
       console.error("Error fetching holidays:", error);
@@ -120,7 +133,9 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
 
     return new Date(year, month, day);
   };
-  const holidayDates = holiday.map((h) => convertToDate(h.locdate));
+  const holidayDates = holiday
+    .map((h) => (h ? convertToDate(h.locdate) : null))
+    .filter(Boolean);
 
   const tradingData = {
     selectedDate,
@@ -192,7 +207,7 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
         }
       );
       const tradePk = response.data.tradePk;
-
+      console.log("확인", tradePk);
       navigate(`/writetradingrecord/${tradePk}`);
       setAlertMessage(null);
       return true;
@@ -403,7 +418,6 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // console.log(ownedCompanies)
   return (
     <div className={styles.writecontainer}>
       <div className={styles.title}>매매기록 작성</div>
@@ -432,6 +446,7 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
                 placeholderText="날짜 선택"
                 maxDate={initialAdjustedDate}
                 disabled={selectedOption === "매도"}
+                adjustDateOnChange
               />
             </div>
           </div>
@@ -466,7 +481,7 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
         )}
 
         {isDropdownOpen &&
-          ownedCompanies?.length > 0 &&
+          ownedCompanies.length > 0 &&
           selectedOption === "매도" && (
             <div className={styles.ownedCompanies}>
               {ownedCompanies.map((company) => (
@@ -546,10 +561,10 @@ const WriteTradingRecord: React.FC<WriteTradingRecordPageProps> = ({
 
         {!isDropdownOpen &&
           !selectedCompany &&
-          ownedCompanies?.length === 0 &&
+          ownedCompanies.length === 0 &&
           selectedOption === "매도" && <div>보유주식이 없습니다.</div>}
 
-        {selectedOption === "매도" && ownedCompanies?.length === 0 && (
+        {selectedOption === "매도" && ownedCompanies.length === 0 && (
           <div>보유주식이 없습니다.</div>
         )}
 

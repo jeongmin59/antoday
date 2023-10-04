@@ -9,6 +9,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import SearchSkeleton from './SearchSkeleton';
 
 const FavoriteCompany: React.FC = () => {
   const [favoriteNowPage, setFavoriteNowPage] = useState<number>(0);
@@ -17,11 +18,13 @@ const FavoriteCompany: React.FC = () => {
   const [companyCountOnCurrentPage, setCompanyCountOnCurrentPage] = useState<number>(0); // 현재 페이지의 기업 개수
   // const [nowPage, setNowPage] = useState<number>(0);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   
 
   const fetchFavoriteCompanies = async (page = 0) => {
     const apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/userstock`;
     try {
+      setIsLoading(true);
       const response = await axios.get(apiUrl, {
         params: {
           page: page
@@ -36,12 +39,21 @@ const FavoriteCompany: React.FC = () => {
       setFavoriteNowPage(page);
     } catch (error) {
       console.error("Error fetching favorite companies:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
   
   useEffect(() => {
     fetchFavoriteCompanies();
   }, []);
+
+  if (isLoading) {
+    return (
+      <SearchSkeleton />
+    );
+  }
+
 
   return (
     <div>

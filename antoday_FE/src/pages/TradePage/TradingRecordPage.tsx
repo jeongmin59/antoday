@@ -26,7 +26,7 @@ export interface TradingRecordPageType {
   stockCode: string;
   tradeAt: string;
   tradePk: number;
-  reasonExist: boolean;
+  keywordExist: boolean;
 }
 
 export interface StockRoiType {
