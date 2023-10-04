@@ -1,9 +1,12 @@
-.bubble-chart-container {
-    width: 100%; /* 부모 요소에 대한 가로 크기를 100%로 설정 */
-  }
-  
+.bubbleChartContainer {
+  padding: 0rem 3rem 0rem 3rem;
+}
+
   @media (max-width: 768px) {
-    .bubble-chart-container {
-      width: 50%; /* 화면 너비가 768px 이하일 때 차트 크기를 줄임 */
+    .bubbleChartContainer {
+      /* width: 50%; 화면 너비가 768px 이하일 때 차트 크기를 줄임 */
     }
   }
+.keywordTag {
+  font-size: 0.6rem;
+}

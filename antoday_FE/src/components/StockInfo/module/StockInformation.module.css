@@ -1,8 +1,12 @@
 .mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .title {
-  font-size: var(--font-h2);
+  font-size: var(--font-h1);
+  font-weight: bold;
   margin-bottom: 1rem;
 }
 

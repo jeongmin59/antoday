@@ -6,15 +6,14 @@ import axios from "axios";
 import useDebounce from "../../../utils/useDebounce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import styles from "./InfoPageSearchBar.module.css"
-// import StockSearchList from "../../StockSearch/module/StockSearchList";
+import styles from "./InfoPageSearchBar.module.css";
 import StockSearchResults from "../../StockSearch/module/StockSearchResults";
 
 interface Params {
   [stockPk: string]: string | undefined;
 }
 
-const InfoPageSearchBar : React.FC = () => {
+const InfoPageSearchBar: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const tempStockPk = useParams<Params>()?.stockPk || "";
   const [stockPk, setStockPk] = useState(tempStockPk);
@@ -82,7 +81,7 @@ const InfoPageSearchBar : React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-    <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
+      <form onSubmit={handleSubmit} className={styles.searchBarContainer}>
         <FontAwesomeIcon icon={faSearch} color={"var(--main-blue-color)"} />
         <input
           type="text"
@@ -106,7 +105,7 @@ const InfoPageSearchBar : React.FC = () => {
           totalPage={0}
         />
       )}
-    <StockInfoPage stockPk={stockPk} />
+      <StockInfoPage stockPk={stockPk} />
     </div>
   );
 };

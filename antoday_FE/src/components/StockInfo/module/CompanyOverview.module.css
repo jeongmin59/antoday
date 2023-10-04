@@ -3,6 +3,13 @@
   padding: 0;
 }
 
+.companyInfoContainer li {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.3rem;
+}
+
 .companyInfoContainer {
   display: flex;
   flex-direction: column;
@@ -13,10 +20,17 @@
 .companyInfoContentContainer {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  /* align-items: flex-start; */
   font-size: var(--font-h2);
 }
 
 .strongText {
   color: var(--main-blue-color);
+  margin-bottom: 0.5rem;
+  font-size: var(--font-h2);
+}
+
+.companyInfoTitle {
+  font-size: var(--font-h1);
+  font-weight: bold;
 }

@@ -16,55 +16,67 @@ interface StockInfoBasicProps {
 const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
   const navigator = useNavigate();
   const corpName = corpIntro?.corp_name;
-  const price = corpIntro ? addCommas(corpIntro.index) : '';  // addCommas 함수 적용
+  const price = corpIntro ? addCommas(corpIntro.index) : ""; // addCommas 함수 적용
   const stockCode = corpIntro?.stock_code;
-  const change = corpIntro ? addCommas(corpIntro.change) : ''; // addCommas 함수 적용
+  const change = corpIntro ? addCommas(corpIntro.change) : ""; // addCommas 함수 적용
   const market = corpIntro?.market;
   const lowValue = corpIntro?.low52;
   const highValue = corpIntro?.high52;
   const token = useRecoilValue(accessTokenAtom);
 
-  console.log(lowValue,highValue);
+  console.log(lowValue, highValue);
   const handleClick = () => {
-    navigator('/tradingrecord')
+    navigator("/tradingrecord");
     //이후 해당하는 기록 볼수있게 수정해야함
-  }
+  };
 
   return (
     <div className={styles.mainContainer}>
       <div className={styles.stockInfoBasicContainer}>
-      <div className={styles.LeftContainer}>
-        <div className={styles.stockCode}>{stockCode}</div>
-        <div className={styles.stockNameContainer}>
-          {corpName}
-          <span
-            style={{
-              fontSize: "var(--font-h2)",
-              color: "white",
-              backgroundColor: "var(--main-blue-color)",
-              borderRadius: "5px",
-              padding: "0.8px",
-            }}
-          >
-            {market}
-          </span>
+        <div className={styles.LeftContainer}>
+          <div className={styles.stockCode}>{stockCode}</div>
+          <div className={styles.stockNameContainer}>
+            {corpName}
+            <span
+              style={{
+                fontSize: "var(--font-h2)",
+                color: "white",
+                backgroundColor: "var(--main-blue-color)",
+                borderRadius: "5px",
+                width: "3rem",
+                height: "1rem",
+                // padding: "2px",
+                marginLeft: "0.8rem",
+              }}
+            >
+              {market}
+            </span>
+          </div>
+          <div className={styles.stocPrice}>
+            {price}원
+            <span style={{ 
+              fontSize: "var(--font-h3)", 
+              color: "red",
+              marginLeft: "0.5rem"
+              
+            }}>
+              어제보다{change}원
+            </span>
+          </div>
         </div>
-        <div className={styles.stocPrice}>
-          {price}원
-          <span style={{ fontSize: "var(--font-h2)", color: "red" }}>
-            어제보다{change}원
-          </span>
+        <div className={styles.RightContainer}>
+          {token && <FavoriteCompanyButton stockPk={stockCode} />}
+          {token && (
+            <FontAwesomeIcon
+              icon={faPenClip}
+              size="sm"
+              className={styles.pencilIcon}
+              onClick={handleClick}
+            />
+          )}
         </div>
       </div>
-      <div className={styles.RightContainer}>
-        {token &&<FavoriteCompanyButton stockPk={stockCode} />}
-        {token &&<FontAwesomeIcon icon={faPenClip} size="sm" className={styles.pencilIcon} onClick={handleClick}/>}
-      </div>
-      </div>
-      <StockInfoSummary
-        lowValue={lowValue}
-        highValue={highValue}
-      />
+      <StockInfoSummary lowValue={lowValue} highValue={highValue} />
     </div>
   );
 };
