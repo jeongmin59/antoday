@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import styles from './ColdCompany.module.css';
-import HotColdCompanySkeleton from './HotColdCompanySkeleton';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import styles from "./ColdCompany.module.css";
+import HotColdCompanySkeleton from "./HotColdCompanySkeleton";
 
 const ColdCompany: React.FC = () => {
   const [coldCompanies, setColdCompanies] = useState<any[]>([]);
@@ -13,13 +13,14 @@ const ColdCompany: React.FC = () => {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          import.meta.env.VITE_DATA_API_URL + '/corp/cold');
+          import.meta.env.VITE_DATA_API_URL + "/corp/cold"
+        );
         setColdCompanies(response.data);
-        console.log(response)
+        console.log(response);
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);  
+        setIsLoading(false);
       }
     };
 
@@ -30,30 +31,34 @@ const ColdCompany: React.FC = () => {
     <div className={styles.mainContainer}>
       <div className={styles.title}>현재 차가운 기업</div>
       <div className={styles.companyContainer}>
-        {isLoading ? <HotColdCompanySkeleton /> : <ul>
-        {coldCompanies.map((company, index) => (
-          <li key={index}>
-             <Link to={`/stockinfo/${company.stock_code}`}>
-
-            <div className={styles.companyList}>
-            <div>
-              <img 
-                className={styles.companyImage}
-                src={company.logo_url} 
-                alt={company.corp_name}
-                />
-            </div>
-            <div>
-              <p>{company.corp_name}</p>
-            </div>
-            </div>
-            </Link>
-          </li>
-        ))}
-      </ul>}
-      
+        {isLoading ? (
+          <HotColdCompanySkeleton />
+        ) : (
+          <div className={styles.listContainer}>
+            <ul>
+              {coldCompanies.map((company, index) => (
+                <li key={index}>
+                  <Link to={`/stockinfo/${company.stock_code}`}>
+                    <div className={styles.companyList}>
+                      <div>
+                        <img
+                          className={styles.companyImage}
+                          src={company.logo_url}
+                          alt={company.corp_name}
+                        />
+                      </div>
+                      <div className={styles.corpName}>
+                        <p>{company.corp_name}</p>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
-      </div>
+    </div>
   );
 };
 

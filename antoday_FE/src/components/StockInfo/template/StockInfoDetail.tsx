@@ -12,7 +12,7 @@ interface StockInfoDetailProps {
   graphValue?: any;
   corpInfo?: any;
   corpIntro?: stockInfo;
-  corpOverview? :any;
+  corpOverview?: any;
   corpHistory?: any;
 }
 
@@ -22,7 +22,7 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
   corpInfo,
   corpIntro,
   corpOverview,
-  corpHistory
+  corpHistory,
 }) => {
   const tab1Ref = useRef<HTMLDivElement>(null);
   const tab2Ref = useRef<HTMLDivElement>(null);
@@ -85,24 +85,26 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
         </span>
       </div>
       <hr />
-      <div ref={tab1Ref}>
-        <StockChart stockPk={stockPk} />
-      </div>
-      <hr />
-      <div ref={tab2Ref}>
-        <CompanyOverview corpIntro={corpIntro} corpOverview={corpOverview}/>
-      </div>
-      <hr />
-      <CompanyHistory corpHistory={corpHistory}  />
-      <hr />
-      <StockInformation corpInfo={corpInfo} />
-      <hr />
-      <div ref={tab3Ref}>
-        <RevenueAndProfit graphValue={graphValue} />
-      </div>
-      <hr />
-      <div ref={tab4Ref}>
-        <StockWordCloud />
+      <div className={styles.contentContainer}>
+        <div ref={tab1Ref}>
+          <StockChart stockPk={stockPk} />
+        </div>
+
+        <div ref={tab2Ref}>
+          <CompanyOverview corpIntro={corpIntro} corpOverview={corpOverview} />
+        </div>
+
+        <CompanyHistory corpHistory={corpHistory} />
+
+        <StockInformation corpInfo={corpInfo} />
+
+        <div ref={tab3Ref}>
+          <RevenueAndProfit graphValue={graphValue} />
+        </div>
+
+        <div ref={tab4Ref}>
+          <StockWordCloud />
+        </div>
       </div>
     </div>
   );

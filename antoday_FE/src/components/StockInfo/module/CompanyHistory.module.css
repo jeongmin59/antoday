@@ -1,0 +1,26 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.mainContainer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: var(--font-h3);
+}
+
+.mainContainer li {
+  margin-bottom: 10px;
+}
+
+.date {
+  color: var(--sub-gray-color);
+}
+
+.title {
+  font-size: var(--font-h2);
+}

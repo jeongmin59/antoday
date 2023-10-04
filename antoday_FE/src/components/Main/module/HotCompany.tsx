@@ -34,26 +34,28 @@ const HotCompany: React.FC = () => {
         {isLoading ? (
           <HotColdCompanySkeleton /> // isLoading이 true일 때 스켈레톤 표시
         ) : (
-          <ul>
-            {hotCompanies.map((company, index) => (
-              <li key={index}>
-                <Link to={`/stockinfo/${company.stock_code}`}>
-                  <div className={styles.companyList}>
-                    <div>
-                      <img
-                        className={styles.companyImage}
-                        src={company.logo_url}
-                        alt={company.corp_name}
-                      />
+          <div className={styles.listContainer}>
+            <ul>
+              {hotCompanies.map((company, index) => (
+                <li key={index}>
+                  <Link to={`/stockinfo/${company.stock_code}`}>
+                    <div className={styles.companyList}>
+                      <div>
+                        <img
+                          className={styles.companyImage}
+                          src={company.logo_url}
+                          alt={company.corp_name}
+                        />
+                      </div>
+                      <div className={styles.corpName}>
+                        <p>{company.corp_name}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p>{company.corp_name}</p>
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
     </div>

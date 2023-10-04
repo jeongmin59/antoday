@@ -14,7 +14,6 @@ import { isMemoOpenAtom } from "./recoil/memo";
 import EditTradingRecordPage from "./pages/TradePage/EditTradingRecordPage";
 
 const AppRouter = () => {
-
   const isMemoOpen = useRecoilValue(isMemoOpenAtom);
 
   return (

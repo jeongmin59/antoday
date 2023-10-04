@@ -1,7 +1,6 @@
 .mainContainer {
   padding-top: 2rem;
-  width: 90%;
-  margin: 0 auto;
+  background-color: var(--main-yellow-color);
 }
 
 .searchBarContainer {
@@ -12,6 +11,7 @@
   border-radius: 50px;
   background-color: var(--main-white-color);
   gap: 0.3rem;
+  width: 60%;
 }
 
 .inputBox {
