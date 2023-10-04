@@ -22,6 +22,11 @@
   flex-direction: column;
 }
 
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: 500px) {
   .mainContainer {
     /* border: 1px solid black; */

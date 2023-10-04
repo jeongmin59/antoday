@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenClip } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import StockInfoSummary from "./StockInfoSummary";
+import { accessTokenAtom } from "../../../recoil/auth";
+import { useRecoilValue } from "recoil";
 
 interface StockInfoBasicProps {
   corpIntro?: stockIntro;
@@ -20,6 +22,7 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
   const market = corpIntro?.market;
   const lowValue = corpIntro?.low52;
   const highValue = corpIntro?.high52;
+  const token = useRecoilValue(accessTokenAtom);
 
   console.log(lowValue,highValue);
   const handleClick = () => {
@@ -54,8 +57,8 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
         </div>
       </div>
       <div className={styles.RightContainer}>
-        <FavoriteCompanyButton stockPk={stockCode} />
-        <FontAwesomeIcon icon={faPenClip} size="sm" className={styles.pencilIcon} onClick={handleClick}/>
+        {token &&<FavoriteCompanyButton stockPk={stockCode} />}
+        {token &&<FontAwesomeIcon icon={faPenClip} size="sm" className={styles.pencilIcon} onClick={handleClick}/>}
       </div>
       </div>
       <StockInfoSummary
