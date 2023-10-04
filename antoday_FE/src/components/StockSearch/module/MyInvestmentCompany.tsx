@@ -9,6 +9,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import SearchSkeleton from './SearchSkeleton';
 
 const MyInvestmentCompany: React.FC = () => {
   const [myInvestmentCompanies, setMyInvestmentCompanies] = useState<CompanyInfo[]>([]);
@@ -16,6 +17,7 @@ const MyInvestmentCompany: React.FC = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [nowPage, setNowPage] = useState<number>(0);
   const nextPage = nowPage + 1;
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchInvestmentCompanies(0);
@@ -28,6 +30,7 @@ const MyInvestmentCompany: React.FC = () => {
 const fetchInvestmentCompanies = async (page = 0) => {
   const apiUrl = `${import.meta.env.VITE_BACK_API_URL}/api/trade/corp`;
   try {
+    setIsLoading(true);
     const response = await axios.get(apiUrl, {
       params: {
         page: page,
@@ -41,6 +44,8 @@ const fetchInvestmentCompanies = async (page = 0) => {
     setTotalPages(totalPages);
   } catch (error) {
     console.error("Error fetching favorite companies:", error);
+  } finally {
+    setIsLoading(false);  
   }
 };
 
@@ -57,6 +62,12 @@ const fetchInvestmentCompanies = async (page = 0) => {
 //     fetchInvestmentCompanies(nowPage - 1);
 //   }
 // };
+
+if (isLoading) {
+  return (
+    <SearchSkeleton />
+  );
+}
 
   return (
     <div>
