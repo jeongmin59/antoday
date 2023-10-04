@@ -1,12 +1,12 @@
 .stockInfoBasicContainer {
   display: flex;
   justify-content: space-between;
-  /* border: 1px solid red; */
-  margin: 1rem 0;
+  width: 90%;
+  margin: 1rem auto;
   padding: 0 0;
 }
 
-.LeftContainer{
+.LeftContainer {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -38,6 +38,6 @@
   justify-self: start;
 }
 
-.pencilIcon{
+.pencilIcon {
   cursor: pointer;
 }

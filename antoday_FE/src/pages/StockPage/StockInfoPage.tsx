@@ -4,15 +4,14 @@ import StockInfoBasic from "../../components/StockInfo/template/StockInfoBasic";
 import StockInfoDetail from "../../components/StockInfo/template/StockInfoDetail";
 import { useQuery } from "react-query";
 import axios from "axios";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface StockInfoPageProps {
   stockPk: string;
 }
 
-const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
-  
+const StockInfoPage: React.FC<StockInfoPageProps> = ({ stockPk }) => {
   const [corpIntro, setCorpIntro] = useState<stockIntro>();
   const [corpInfo, setCorpInfo] = useState(null);
   const [graphValue, setGraphValue] = useState(null);
@@ -32,7 +31,7 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
         import.meta.env.VITE_DATA_API_URL +
           `/corp/overview?${params.toString()}`
       );
-      
+
       setCorpInfo(response.data.indicator);
       setGraphValue(response.data.value);
       setCorpOverview(response.data.info);
@@ -72,21 +71,23 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({stockPk}) => {
         <Skeleton />
         <Skeleton />
         <Skeleton />
-    </div>
+      </div>
     );
   }
 
   return (
     <div className={styles.stockInfoPageContainer}>
-      <StockInfoBasic corpIntro={corpIntro} />
-      <StockInfoDetail
-        stockPk={stockPk}
-        graphValue={graphValue}
-        corpInfo={corpInfo}
-        corpIntro={corpIntro}
-        corpOverview={corpOverview}
-        corpHistory={corpHistory}
-      />
+      <div className={styles.mainContainer}>
+        <StockInfoBasic corpIntro={corpIntro} />
+        <StockInfoDetail
+          stockPk={stockPk}
+          graphValue={graphValue}
+          corpInfo={corpInfo}
+          corpIntro={corpIntro}
+          corpOverview={corpOverview}
+          corpHistory={corpHistory}
+        />
+      </div>
     </div>
   );
 };

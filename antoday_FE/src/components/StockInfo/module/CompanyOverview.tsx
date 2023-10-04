@@ -3,15 +3,20 @@ import styles from "./CompanyOverview.module.css";
 
 interface CompanyOverviewProps {
   corpIntro: stockIntro;
-  corpOverview? : any;
+  corpOverview?: any;
 }
 
-const CompanyOverview: React.FC<CompanyOverviewProps> = ({corpOverview,corpIntro}) => {
-  console.log('뭘까',corpOverview);
-  console.log('뭘까',corpIntro);
+const CompanyOverview: React.FC<CompanyOverviewProps> = ({
+  corpOverview,
+  corpIntro,
+}) => {
+  console.log("뭘까", corpOverview);
+  console.log("뭘까", corpIntro);
   const companyName = corpIntro?.corp_name;
-  const establishedDate = corpOverview[3]?.설립일;
-  const staffNumber = corpOverview[6]?.종업원수;
+  const establishedDate =
+    corpOverview && corpOverview.length > 3 ? corpOverview[3]?.설립일 : null;
+  const staffNumber =
+    corpOverview && corpOverview.length > 6 ? corpOverview[6]?.종업원수 : null;
   const kospiKosdaq = corpIntro?.market;
   const homePage = corpOverview[1]?.홈페이지;
 
@@ -27,8 +32,7 @@ const CompanyOverview: React.FC<CompanyOverviewProps> = ({corpOverview,corpIntro
           {establishedDate}
         </li>
         <li>
-          <strong className={styles.strongText}>종업원수:</strong>{" "}
-          {staffNumber}
+          <strong className={styles.strongText}>종업원수:</strong> {staffNumber}
         </li>
         <li>
           <strong className={styles.strongText}>코스피/코스닥 여부:</strong>{" "}
