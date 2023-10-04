@@ -65,7 +65,7 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
           </div>
         </div>
         <div className={styles.RightContainer}>
-          {token && <FavoriteCompanyButton stockPk={stockCode} />}
+          {token && <FavoriteCompanyButton stockPk={stockCode} isLiked={null} />}
           {token && (
             <FontAwesomeIcon
               icon={faPenClip}
