@@ -1,12 +1,16 @@
 .DetailContainer {
+  display: flex;
   background-color: white;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tabContainer {
   display: flex;
-  justify-content: start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
   gap: 0.2rem;
+  margin-top: 0.5rem;
 }
 
 .tab {
@@ -22,6 +26,7 @@
 }
 
 .contentContainer {
+  width: 90%;
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -29,7 +34,7 @@
 
 @media screen and (max-width: 500px) {
   .tab {
-    font-size: var(--font-h3);
+    font-size: var(--font-h2);
     cursor: pointer;
   }
 }
