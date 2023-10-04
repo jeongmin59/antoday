@@ -3,6 +3,7 @@ import styles from './HomeKeyWords.module.css'
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import axios from "axios";
 import HomeKeyWordsCompany from "../atom/HomeKeyWordsCompany";
+import { loading } from "../../../assets/img/common";
 
 interface WordCloudData {
   label: string;
@@ -14,6 +15,7 @@ const HomeKeyWords: React.FC = () => {
   const [words, setWords] = useState<WordCloudData[]>([]);
   const [corps, setCorps] = useState(null);
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.8);
+  const [isLoading, setIsLoading] = useState(true);
 
   const updateChartSize = () => {
     setChartWidth(window.innerWidth * 0.8);
@@ -30,6 +32,7 @@ const HomeKeyWords: React.FC = () => {
 
   const getWordCloudData = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get<WordCloudData[]>(
         import.meta.env.VITE_DATA_API_URL + '/keyword'
         );
@@ -38,10 +41,18 @@ const HomeKeyWords: React.FC = () => {
         setCorps(data.corps);
     } catch (error) {
       console.error("호출 실패 :" , error);
+    } finally {
+      setIsLoading(false)
     }
   };
 0
   console.log('기업정보 5개 담긴 배열', corps)
+
+  if (isLoading) {
+    return (
+      <img src={loading} alt="" height={'150px'}/>
+    );
+  }
   return (
     <div>
       <BubbleChart
