@@ -15,12 +15,15 @@
 
 .mainContainer li {
   margin-bottom: 10px;
+  font-size: var(--font-h2);
 }
 
 .date {
   color: var(--sub-gray-color);
+  font-size: var(--font-h3);
 }
 
 .title {
-  font-size: var(--font-h2);
+  font-size: var(--font-h1);
+  font-weight: bold;
 }

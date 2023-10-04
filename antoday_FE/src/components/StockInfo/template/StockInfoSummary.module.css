@@ -2,7 +2,11 @@
   display: flex;
   font-size: var(--font-h2);
   color: var(--main-gray-color);
-  margin-bottom: 1rem;
-  width: 90%;
+  width: 85%;
   margin: 1rem auto;
+  /* margin-top: 0.2rem; */
+}
+
+.lowContent {
+  padding-right: 1rem;
 }
