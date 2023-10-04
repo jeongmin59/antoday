@@ -12,8 +12,10 @@ import com.omfg.antoday.trade.domain.Keyword;
 import com.omfg.antoday.trade.domain.Trade;
 import com.omfg.antoday.trade.domain.TradeKeyword;
 import com.omfg.antoday.trade.dto.*;
+import com.omfg.antoday.user.dao.UserRepository;
+import com.omfg.antoday.user.dao.UserStockLikeRepository;
 import com.omfg.antoday.user.domain.User;
-import com.omfg.antoday.user.dto.UserStockListResponseDto;
+import com.omfg.antoday.user.domain.UserStockLike;
 import com.omfg.antoday.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,8 +28,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +39,8 @@ public class TradeService {
     private final TradeKeywordRepository tradeKeywordRepository;
     private final StockRepository stockRepository;
     private final KeywordRepository keywordRepository;
+    private final UserRepository userRepository;
+    private final UserStockLikeRepository userStockLikeRepository;
 
     @Transactional
     public Trade addTrade(TradeSaveRequestDto dto, UserDetailsImpl userDetails) {
@@ -151,8 +155,7 @@ public class TradeService {
         PageRequest pageRequest = PageRequest.of(page, 10);
         User user = UserUtils.getUserFromToken(userDetails);
 
-        Page<StockInterface> list = tradeRepository.findDistintStockByUserPage(user.getSocialId(), pageRequest);
-
+        Page<StockInterface> list = tradeRepository.findDistinctStockByUserPage(user.getSocialId(), pageRequest);
         return list.map(trade -> StockListResponseDto.toDto(trade));
     }
 
@@ -264,5 +267,15 @@ public class TradeService {
 
         }
         return result;
+    }
+
+    private boolean isStockLikedByUser(Stock stock, Long socialId) {
+        Optional<User> optionalUser = userRepository.findById(socialId);
+        UserStockLike userStockLike = null;
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            userStockLike = userStockLikeRepository.findByStockAndUser(stock, user);
+        }
+        return userStockLike != null;
     }
 }

@@ -78,23 +78,27 @@ public interface TradeRepository extends JpaRepository<Trade,Long> {
             , nativeQuery = true)
     Set<StockInterface> findDistintStockByUser(@Param("userPk") Long user);
 
-    @Query(value = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
-            "from trade t, user u, stock s\n" +
-            "where t.social_id = u.social_id\n" +
-            "and t.stock_code = s.stock_code\n" +
-            "AND t.is_deleted = 0 " +
-            "and t.social_id = (:userPk)"
-            ,
-            countQuery = "select distinct t.stock_code stockCode, s.corp_name corpName, s.logo_url logoUrl\n" +
-                    "from trade t, user u, stock s\n" +
-                    "where t.social_id = u.social_id\n" +
-                    "and t.stock_code = s.stock_code\n" +
+    @Query(value =
+            "SELECT DISTINCT t.stock_code AS stockCode, s.corp_name AS corpName, s.logo_url AS logoUrl, " +
+                    "(SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END " +
+                    "FROM user_stock_like usl " +
+                    "WHERE usl.social_id = :userPk AND usl.stock_code = t.stock_code) AS isLiked " +
+                    "FROM trade t, user u, stock s " +
+                    "WHERE t.social_id = u.social_id " +
+                    "AND t.stock_code = s.stock_code " +
                     "AND t.is_deleted = 0 " +
-                    "and t.social_id = (:userPk)",
+                    "AND u.social_id = :userPk"
+            ,
+            countQuery =
+                    "SELECT COUNT(DISTINCT t.stock_code) " +
+                            "FROM trade t, user u, stock s " +
+                            "WHERE t.social_id = u.social_id " +
+                            "AND t.stock_code = s.stock_code " +
+                            "AND t.is_deleted = 0 " +
+                            "AND u.social_id = :userPk"
+            ,
             nativeQuery = true)
-    Page<StockInterface> findDistintStockByUserPage(@Param("userPk") Long user, PageRequest pageRequest);
-
-
+    Page<StockInterface> findDistinctStockByUserPage(@Param("userPk") Long user, PageRequest pageRequest);
 
     @Query("SELECT SUM(CASE WHEN t.optionBuySell = 0 THEN t.cnt ELSE -t.cnt END) FROM Trade t WHERE t.user = :user AND t.stock.stockCode = :stockCode")
     Integer getNetCountForUserAndStock(
