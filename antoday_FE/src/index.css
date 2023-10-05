@@ -30,12 +30,12 @@
   font-size: 20px;
   font-synthesis: none;
   font-family: "GmarketSans";
-  --font-h1: 0.85rem;
-  --font-h2: 0.75rem;
-  --font-h3: 0.65rem;
+  --font-h1: 1rem;
+  --font-h2: 0.85rem;
+  --font-h3: 0.7rem;
   --font-h4: 0.55rem;
   --font-h5: 0.45rem;
-  --font-h5: 0.35rem;
+  --font-h6: 0.35rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
