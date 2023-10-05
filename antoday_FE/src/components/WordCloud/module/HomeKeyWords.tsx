@@ -66,11 +66,6 @@ const HomeKeyWords: React.FC = () => {
   return (
     <div>
       <div className={styles.bubbleChartContainer}>
-        <div>
-          {mainKeyword !== null ? (
-            <p className={styles.keywordTag}>#{mainKeyword} 관련 키워드</p>
-          ) : null}
-        </div>
         <CustomBubbleChart data={words} isCorp={isCorp} />
       </div>
       <div className={styles.corpListContainer}>

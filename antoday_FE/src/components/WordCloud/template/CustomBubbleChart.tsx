@@ -75,13 +75,17 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
     <>
       <div className={styles.bubbleChartContainer}>
         {mainKeyword !== null ? (
-          <p className={styles.keywordTag}>#{mainKeyword}</p>
-        ) : null}
+          <div className={styles.cloudTitle}>
+            당신이 선택한 키워드는 #{mainKeyword}
+          </div>
+        ) : (
+          <div className={styles.cloudTitle}>오늘 주목해야 할 키워드</div>
+        )}
       </div>
       <BubbleChart
         bubbleClickFun={bubbleClick}
         graph={{
-          zoom: 0.9,
+          zoom: 1,
         }}
         padding={-2.5}
         data={words}

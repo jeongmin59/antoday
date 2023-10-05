@@ -1,15 +1,16 @@
 .stockSearchResult {
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: var(--font-h3);
   cursor: pointer;
   gap: 0.3rem;
 }
 
 .stockImage {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50px;
+  margin-right: 8px;
 }
 
 /* 스켈레톤 스타일 */

@@ -13,9 +13,9 @@
   background-color: var(--main-white-color);
   padding: 2px 14px;
   border-radius: 50px;
-  font-size: var(--font-h5);
+  font-size: var(--font-h3);
 }
 
 .text {
-  font-size: var(--font-h3);
+  font-size: var(--font-h2);
 }
