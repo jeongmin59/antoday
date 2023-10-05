@@ -56,23 +56,20 @@ def get_financ_info(stock_code, corp_code, dart):
     cnt = get_stock_num(stock_code)
 
     df = dart.finstate(corp_code, cur_year - 1, reprt_code="11011")
+
     if df.empty:
         return {"msg": "NOT FOUND"}
 
     danggi = int(
-        df.loc[(df["account_nm"] == "당기순이익") & (df["fs_div"] == "CFS")]["thstrm_amount"]
+        df.loc[(df["account_nm"] == "당기순이익")]["thstrm_amount"]
         .values[0]
         .replace(",", "")
     )
     jabon = int(
-        df.loc[(df["account_nm"] == "자본총계") & (df["fs_div"] == "CFS")]["thstrm_amount"]
-        .values[0]
-        .replace(",", "")
+        df.loc[(df["account_nm"] == "자본총계")]["thstrm_amount"].values[0].replace(",", "")
     )
     buchea = int(
-        df.loc[(df["account_nm"] == "부채총계") & (df["fs_div"] == "CFS")]["thstrm_amount"]
-        .values[0]
-        .replace(",", "")
+        df.loc[(df["account_nm"] == "부채총계")]["thstrm_amount"].values[0].replace(",", "")
     )
 
     EPS = danggi / cnt
