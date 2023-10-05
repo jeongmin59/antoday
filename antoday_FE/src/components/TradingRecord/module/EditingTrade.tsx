@@ -2,6 +2,7 @@ import styles from "./EditingTrade.module.css";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import EditingReasonKeyword from "./EditingReasonKeyword";
+import { excludedDates } from "../../../utils/excludedDates";
 
 const EditingTrade: React.FC<TradingRecord> = ({
   corpName,
@@ -51,6 +52,20 @@ const EditingTrade: React.FC<TradingRecord> = ({
             selected={editedTradeAt}
             onChange={handleTradeAtChange}
             dateFormat="yyyy-MM-dd"
+            filterDate={(date: Date) => {
+              // 주말 제외
+              const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+
+              // 휴일 제외
+              const isHoliday = excludedDates.some(
+                (hDate) =>
+                  hDate.getFullYear() === date.getFullYear() &&
+                  hDate.getMonth() === date.getMonth() &&
+                  hDate.getDate() === date.getDate()
+              );
+
+              return !isWeekend && !isHoliday;  // 주말도 아니고 휴일도 아닌 경우만 true 반환
+            }}
           />
         </div>
         <div className={styles.contentContainer}>
@@ -66,7 +81,7 @@ const EditingTrade: React.FC<TradingRecord> = ({
               <select
                 value={editedOptionBuySell}
                 onChange={handleOptionBuySellChange}
-                className={styles.h2} 
+                className={styles.h2}
               >
                 <option value="1">매도</option>
                 <option value="0">매수</option>
