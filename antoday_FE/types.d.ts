@@ -1,9 +1,12 @@
 interface CompanyInfo {
-    corpCode: string;
-    corpName: string;
-    isLiked: boolean;
-    logoUrl: string;
-    stockCode: string;
+    corpCode?: string;
+    corpName?: string;
+    isLiked?: boolean;
+    logoUrl?: string;
+    stockCode?: string;
+    corp_name?: string;
+    logo_url?: string;
+    stock_code?: string;
 }
 
 interface TradingRecord {
