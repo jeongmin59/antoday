@@ -15,7 +15,7 @@ interface StockWordCloudProps {
 }
 
 const StockWordCloud: React.FC<StockWordCloudProps> = ({ corpIntro }) => {
-  const corpName = corpIntro.corp_name;
+  const corpName = corpIntro?.corp_name;
 
   const getWordCloudData = async () => {
     const response = await axios.get<WordCloudData[]>(
