@@ -29,7 +29,10 @@ const HotCompany: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.title}>현재 뜨거운 기업</div>
+      <div className={styles.titleContainer}>
+        <div className={styles.title}>현재<span className={styles.hotText}>뜨거운</span>기업</div>
+        <div className={styles.gradation}>HOT</div>
+      </div>
       <div className={styles.companyContainer}>
         {isLoading ? (
           <HotColdCompanySkeleton /> // isLoading이 true일 때 스켈레톤 표시
