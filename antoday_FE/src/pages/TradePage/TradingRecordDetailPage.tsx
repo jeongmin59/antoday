@@ -84,8 +84,6 @@ const TradingRecordDetailPage = () => {
     );
   }
 
-  console.log("이유", keyword);
-
   return (
     <div className={styles.mainContainer}>
       <div className={styles.leftContainer}>
