@@ -3,6 +3,9 @@
   flex-direction: column;
   align-items: start;
   gap: 0.5rem;
+  /* background-color: white;
+  height: 28rem;
+  padding-top: 2rem; */
 }
 
 .mainContainer ul {

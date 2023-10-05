@@ -15,6 +15,9 @@
   flex-direction: column;
   font-size: var(--font-h2);
   align-items: start;
+  /* background-color: white;
+  height: 25rem;
+  padding-top: 2rem; */
 }
 
 .companyInfoContentContainer {

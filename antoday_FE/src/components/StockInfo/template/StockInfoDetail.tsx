@@ -28,6 +28,7 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
   const tab2Ref = useRef<HTMLDivElement>(null);
   const tab3Ref = useRef<HTMLDivElement>(null);
   const tab4Ref = useRef<HTMLDivElement>(null);
+  const tab5Ref = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState(1); // 선택된 탭 찾을때 쓸 예정
 
   const handleTabClick = (tabNumber: number) => {
@@ -45,6 +46,9 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
         break;
       case 4:
         targetRef = tab4Ref;
+        break;
+      case 5:
+        targetRef = tab5Ref;
         break;
       default:
         break;
@@ -75,16 +79,22 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
           className={`${styles.tab} ${activeTab === 3 ? styles.activeTab : ""}`}
           onClick={() => handleTabClick(3)}
         >
-          매출액 및 영업이익
+          최근소식
         </span>
         <span
           className={`${styles.tab} ${activeTab === 4 ? styles.activeTab : ""}`}
           onClick={() => handleTabClick(4)}
         >
+          투자지표
+        </span>
+        <span
+          className={`${styles.tab} ${activeTab === 5 ? styles.activeTab : ""}`}
+          onClick={() => handleTabClick(5)}
+        >
           기업키워드
         </span>
       </div>
-      <hr />
+      {/* <hr /> */}
       <div className={styles.contentContainer}>
         <div ref={tab1Ref}>
           <StockChart stockPk={stockPk} />
@@ -94,15 +104,16 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
           <CompanyOverview corpIntro={corpIntro} corpOverview={corpOverview} />
         </div>
 
-        <CompanyHistory corpHistory={corpHistory} />
-
-        <StockInformation corpInfo={corpInfo} />
-
         <div ref={tab3Ref}>
-          <RevenueAndProfit graphValue={graphValue} />
+          <CompanyHistory corpHistory={corpHistory} />
         </div>
 
         <div ref={tab4Ref}>
+          <StockInformation corpInfo={corpInfo} />
+        </div>
+          <RevenueAndProfit graphValue={graphValue} />
+
+        <div ref={tab5Ref}>
           <StockWordCloud corpIntro={corpIntro} />
         </div>
       </div>
