@@ -36,10 +36,18 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+  gap: 0.2rem;
 }
 
 .optionBuySell {
   color: lightseagreen;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.2rem;
 }
 
 @media screen and (max-width: 500px) {
