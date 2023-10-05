@@ -26,11 +26,11 @@
 
 .inputBox {
   font-family: GmarketSans;
-  font-size: var(--font-h4);
+  font-size: var(--font-h3);
   border: none;
   background-color: transparent;
   width: 90%;
-  margin-top: 0.5rem;
+  margin: 0.5rem 2rem 0rem;
 }
 
 @media screen and (max-width: 500px) {

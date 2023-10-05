@@ -13,7 +13,8 @@
   background-color: var(--main-white-color);
   padding: 2px 14px;
   border-radius: 50px;
-  font-size: var(--font-h3);
+  font-size: var(--font-h1);
+  font-weight: bold;
 }
 
 .text {

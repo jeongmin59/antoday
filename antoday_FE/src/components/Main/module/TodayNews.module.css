@@ -2,13 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  gap: 0.5rem;
+  gap: 1rem;
   width: 90%;
-  margin: 2rem auto;
+  margin: 2rem auto 3rem;
 }
 
 .title {
-  font-size: var(--font-h2);
+  font-size: var(--font-h1);
+  font-weight: bold;
 }
 
 .newsContainer {
@@ -17,6 +18,7 @@
   margin: 0px auto;
   width: 100%;
   height: fit-content;
+  gap: 0.5rem;
   /* border: 1px solid black; */
 }
 
@@ -24,32 +26,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.2rem;
+}
+
+.newsHead {
+  font-size: var(--font-h3);
 }
 
 .newstitle {
-  font-size: var(--font-h3);
+  text-align: left;
+  margin-bottom: 0.5rem;
 }
 
 .pressDate {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: var(--font-h5);
-  color: gray;
+  font-size: var(--font-h3);
+  color: var(--main-gray-color);
 }
 
 .newsImage {
-  max-width: 4rem;
-  max-height: 2.5rem;
+  max-width: 3.5rem;
+  max-height: 3.5rem;
 }
+
+
 
 /* 모바일 화면일 때 */
 @media (max-width: 500px) {
   .newstitle {
-    font-size: var(--font-h4);
+    font-size: var(--font-h2);
   }
 
   .pressDate {
-    font-size: var(--font-h6);
+    font-size: var(--font-h3);
   }
 }

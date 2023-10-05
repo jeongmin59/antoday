@@ -40,10 +40,10 @@ const TodayNews: React.FC = () => {
             <div key={index} className={styles.newsItem}>
               <div className={styles.imgtitle}>
                 <div
-                  className={styles.newstitle}
+                  className={styles.newsHead}
                   onClick={() => handleNewsItemClick(news.link)}
                 >
-                  <div>{news.title}</div>
+                  <div className={styles.newstitle}>{news.title}</div>
                   <div className={styles.pressDate}>
                     <div className={styles.press}>{news.press}</div>
                     <div className={styles.date}>{news.date}</div>

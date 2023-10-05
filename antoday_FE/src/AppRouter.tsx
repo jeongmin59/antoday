@@ -12,6 +12,7 @@ import InfoPageSearchBar from "./components/StockInfo/template/InfoPageSearchBar
 import { useRecoilValue } from "recoil";
 import { isMemoOpenAtom } from "./recoil/memo";
 import EditTradingRecordPage from "./pages/TradePage/EditTradingRecordPage";
+import styles from "./AppRouter.module.css";
 
 const AppRouter = () => {
   const isMemoOpen = useRecoilValue(isMemoOpenAtom);
