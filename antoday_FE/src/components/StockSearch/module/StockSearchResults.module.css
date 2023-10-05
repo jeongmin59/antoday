@@ -2,11 +2,13 @@
   background-color: var(--main-white-color);
   border-radius: 20px;
   padding: 0.5rem 1rem;
-  width: 10rem;
+  /* width: 10rem; */
+  width: 71%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   gap: 0rem;
+  font-size: var(--font-h2);
 }
 
 .button {
