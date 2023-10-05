@@ -34,33 +34,30 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
     <div className={styles.mainContainer}>
       <div className={styles.stockInfoBasicContainer}>
         <div className={styles.LeftContainer}>
-          <div className={styles.stockCode}>{stockCode}</div>
-          <div className={styles.stockNameContainer}>
-            {corpName}
+          <div className={styles.stockCode}>{stockCode}
             <span
               style={{
-                fontSize: "var(--font-h2)",
-                color: "white",
-                backgroundColor: "var(--main-blue-color)",
-                borderRadius: "5px",
-                width: "3rem",
-                height: "1rem",
-                // padding: "2px",
-                marginLeft: "0.8rem",
+                fontSize: "var(--font-h3)",
+                color: "var(--main-gray-color)",
+                marginLeft: "0.2rem",
               }}
             >
               {market}
             </span>
           </div>
+          <div className={styles.stockNameContainer}>
+            {corpName}
+          </div>
           <div className={styles.stocPrice}>
             {price}원
             <span style={{ 
-              fontSize: "var(--font-h3)", 
+              fontSize: "var(--font-h3)",
+              fontWeight: "normal", 
               color: "red",
               marginLeft: "0.5rem"
               
             }}>
-              어제보다{change}원
+              어제보다 {change}원
             </span>
           </div>
         </div>

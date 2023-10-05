@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import TopButton from "../../components/Common/atom/TopButton";
 
 interface StockInfoPageProps {
   stockPk: string;
@@ -88,6 +89,7 @@ const StockInfoPage: React.FC<StockInfoPageProps> = ({ stockPk }) => {
           corpHistory={corpHistory}
         />
       </div>
+      <TopButton />
     </div>
   );
 };

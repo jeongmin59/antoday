@@ -1,18 +1,14 @@
 .cardContainer {
-  /* width: 3.5rem; */
-  width: 5.3rem;
-  height: 4.5rem;
-  border-radius: 15px;
-  background-color: var(--sub-blue-color);
+  width: 6rem;
+  height: 1.5rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  color: var(--main-white-color);
   gap: 1rem;
   font-size: var(--font-h2);
+  /* border-bottom: 1px solid var(--sub-gray-color); */
 }
 
-/* .cardTitle {
+.cardTitle {
   font-weight: bold;
-} */
+}
