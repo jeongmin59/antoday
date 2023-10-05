@@ -2,6 +2,10 @@
   padding: 0rem 1rem 0rem 1rem;
 }
 
+.cloudTitle {
+  font-size: var(--font-h2);
+}
+
 .corpListContainer {
   /* border: 1px solid black; */
 }
