@@ -41,7 +41,6 @@ def get_market_info(KOSPI_symbol, KOSDAQ_symbol):
 def format_value(val):
     return "{:.2f}".format(val)
 
-
 def get_calculate_KSQSTK(symbol):
     today_date = datetime.date.today()
     now = today_date + datetime.timedelta(days=1)
@@ -51,16 +50,22 @@ def get_calculate_KSQSTK(symbol):
     
     print(symbol)
     print(df)
-
-    close_index = df.iloc[-1]["Close"]
-    yesterday_close_index = df.iloc[-2]["Close"]
     
-    if math.isnan(close_index):
-        close_index = df.iloc[-2]["Close"]
-        if math.isnan(yesterday_close_index):
-            yesterday_close_index = df.iloc[-4]["Close"]
+    idx = -1
+    for _ in range(len(df) - 1):
+        close_index = df.iloc[idx]["Close"]
+        if math.isnan(close_index):
+            idx -= 1
         else:
-            yesterday_close_index = df.iloc[-3]["Close"]
+            break
+    
+    yesterday_idx = idx - 1
+    for _ in range(len(df)):
+        yesterday_close_index = df.iloc[yesterday_idx]["Close"]
+        if math.isnan(yesterday_close_index):
+            yesterday_idx -= 1
+        else:
+            break
 
     change = close_index - yesterday_close_index
     percentage_change = (change / yesterday_close_index) * 100
