@@ -12,12 +12,12 @@ interface WordCloudData {
 
 interface CustomBubbleChartProps {
   data?: WordCloudData[] | null;
-  isCorp?: boolean;
+  CloudType?: string;
 }
 
 const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
   data,
-  isCorp,
+  CloudType,
 }) => {
   if (data?.length == 0) {
     return <div>최근에 언급되지 않은 기업입니다.</div>;
@@ -42,7 +42,7 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
     window.innerWidth <= 480 ? 10 : window.innerWidth >= 1080 ? 20 : 15
   );
   const bubbleClick = async (label: string) => {
-    if (!isCorp) {
+    if (CloudType == "홈" || CloudType == "작성") {
       try {
         const response = await axios.get<WordCloudData[]>(
           import.meta.env.VITE_DATA_API_URL + "/keyword/" + label
@@ -79,7 +79,13 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
             당신이 선택한 키워드는 #{mainKeyword}
           </div>
         ) : (
-          <div className={styles.cloudTitle}>오늘 주목해야 할 키워드</div>
+          <>
+            {CloudType === "홈" ? (
+              <div className={styles.cloudTitle}>오늘 주목해야 할 키워드</div>
+            ) : (
+              <div className={styles.cloudTitle}>기업 키워드</div>
+            )}
+          </>
         )}
       </div>
       <BubbleChart

@@ -9,7 +9,8 @@
 }
 
 .title {
-  font-size: var(--font-h2);
+  font-size: var(--font-h3);
+  margin: 0.5rem auto;
 }
 
 .logoImageContainer {

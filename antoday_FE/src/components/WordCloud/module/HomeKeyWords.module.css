@@ -7,7 +7,7 @@
 }
 
 .corpListContainer {
-  /* border: 1px solid black; */
+  margin: 1rem auto;
 }
 
 @media (max-width: 768px) {
