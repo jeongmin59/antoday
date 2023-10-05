@@ -44,6 +44,7 @@ const KeywordInput: React.FC<TradingRecord> = ({
           value={keyword}
           onChange={handleInputChange}
           className={styles.inputBox}
+          placeholder="키워드를 입력해주세요."
         />
         <input type="submit" value="등록" className={styles.confirmButton} />
       </form>
