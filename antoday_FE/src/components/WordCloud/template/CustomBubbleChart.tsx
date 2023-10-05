@@ -21,8 +21,15 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
   console.log("props로 받아온 데이터", data);
 
   const [chartWidth, setChartWidth] = useState(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
+  
+  const [words, setWords] = useState(data);
+  console.log('words', words)
 
-  const [words, setWords] = useRecoilState(wordDataAtom);
+  useEffect(() => {
+    // 컴포넌트가 마운트된 이후에 data를 words에 설정
+    setWords(data);
+  }, [data]);
+
   const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [mainKeyword, setMainKeyword] = useState(null);
   const [fontSize, setFontSize] = useState(window.innerWidth <= 480 ? 10 : (window.innerWidth >= 1080 ? 20 : 15));

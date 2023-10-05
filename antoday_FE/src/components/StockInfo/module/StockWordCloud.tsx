@@ -29,7 +29,7 @@ const StockWordCloud: React.FC<StockWordCloudProps> = ({ corpIntro }) => {
 
   return (
     <div className={styles.stockWordsContainer}>
-      <div className={styles.title}>종목 워드클라우드</div>
+      <div className={styles.title}>{corpName} 워드클라우드</div>
       <CustomBubbleChart data={data} />
     </div>
   );
