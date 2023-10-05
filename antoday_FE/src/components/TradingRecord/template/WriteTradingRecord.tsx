@@ -91,13 +91,25 @@ const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
 
   useEffect(() => {
     if (selectedDate) {
-      const newMonth = selectedDate.getMonth();
+        // 주말 체크
+        const dayOfWeek = selectedDate.getDay();
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            // 선택된 날짜가 주말이면 평일로 변경
+            let adjustedDate = selectedDate;
+            while (adjustedDate.getDay() === 0 || adjustedDate.getDay() === 6) {
+                adjustedDate = new Date(adjustedDate.setDate(adjustedDate.getDate() + 1));
+            }
+            setSelectedDate(adjustedDate);  // 새로운 평일로 날짜 업데이트
+        }
 
-      if (newMonth !== currentMonth) {
-        setCurrentMonth(newMonth);
-      }
+        // 월 변경 체크
+        const newMonth = selectedDate.getMonth();
+        if (newMonth !== currentMonth) {
+            setCurrentMonth(newMonth);
+        }
     }
-  }, [selectedDate, currentMonth]);
+}, [selectedDate, currentMonth]);
+
 
   useEffect(() => {
     getHoliday();

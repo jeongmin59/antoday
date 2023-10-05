@@ -1,3 +1,7 @@
+* {
+  font-family: GmarketSans;
+}
+
 .mainContainer{
   display: flex;
   flex-direction: column;
@@ -24,7 +28,7 @@
 .textArea{
   font-family: GmarketSans;
   border: none;
-  font-size: var(--font-h3);
+  font-size: var(--font-h2);
   width: 100%;
   /* background-color: var(--main-white-color); */
   border-radius: 0.6rem;
