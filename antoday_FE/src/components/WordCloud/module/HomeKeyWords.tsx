@@ -21,7 +21,7 @@ const HomeKeyWords: React.FC = () => {
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
   const [mainKeyword, setMainKeyword] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isCorp, setIsCorp] = useState<boolean>(false);
+  const [CloudType, setCloudType] = useState<string>("홈");
 
   const updateChartSize = () => {
     setChartWidth(window.innerWidth * 0.75);
@@ -66,7 +66,7 @@ const HomeKeyWords: React.FC = () => {
   return (
     <div>
       <div className={styles.bubbleChartContainer}>
-        <CustomBubbleChart data={words} isCorp={isCorp} />
+        <CustomBubbleChart data={words} CloudType={CloudType} />
       </div>
       <div className={styles.corpListContainer}>
         <HomeKeyWordsCompany />
