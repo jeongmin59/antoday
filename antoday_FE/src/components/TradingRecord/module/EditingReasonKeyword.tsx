@@ -63,7 +63,7 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
   };
 
   useEffect(() => {
-    const updatedTags = keywordList?.map((keyword) => `#${keyword}`);
+    const updatedTags = keywordList?.map((keyword) => `${keyword}`);
     setTags(updatedTags);
   }, [keywordList]);
 
@@ -75,9 +75,10 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
           <div className={styles.choosenKeyword}>
             <span
               key={index}
-              className={styles.keyword}
+              className={`${styles.keyword} ${styles.h2} ${styles.horizontal}`}
               onClick={() => handleTagClick(tag)}
             >
+              <div style={{ marginRight: '0.2rem', marginTop: '0.15rem' }}>#</div>
               {tag}&nbsp;
             </span>
             <FontAwesomeIcon

@@ -1,3 +1,7 @@
+* {
+  font-family: GmarketSans;
+}
+
 .mainContainer {
   display: flex;
   flex-direction: column;
@@ -10,7 +14,8 @@
 .pageTitle {
   display: flex;
   justify-content: start;
-  font-size: var(--font-h4);
+  font-size: var(--font-h1);
+  font-weight: bold;
 }
 
 .keywordContainer {
@@ -48,6 +53,8 @@
   border: none;
   background-color: var(--main-white-color);
   width: 100%;
+  font-size: var(--font-h2);
+  font-family: GmarketSans;
 }
 
 .confirmButton {
@@ -68,10 +75,23 @@
   width: 100%;
   border-radius: 10px;
   padding: 0.4rem;
+  font-size: var(--font-h2);
 }
 
 .gap {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+.h2 {
+  font-size: var(--font-h2);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.horizontal {
+  display: flex;
 }

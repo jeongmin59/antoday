@@ -23,7 +23,7 @@ const KeywordInput: React.FC<TradingRecord> = ({
     event.preventDefault();
 
     if (keyword) {
-      setTags([...tags, `#${keyword}`]);
+      setTags([...tags, `${keyword}`]);
       setKeyword("");
       setKeywordList([...keywordList, keyword]);
     }
@@ -34,7 +34,7 @@ const KeywordInput: React.FC<TradingRecord> = ({
       <div className={styles.pageTitle}>매수/매도 키워드</div>
       <div>
         {tags.map((tag, index) => (
-          <span key={index} className={styles.keyword}>{tag}&nbsp;</span>
+          <div key={index} className={styles.keyword}><div style={{ marginTop: '0.19rem' }}>#</div>{tag}&nbsp;</div>
         ))}
       </div>
       <form className={styles.keywordContainer} onSubmit={handleTagButtonClick}>

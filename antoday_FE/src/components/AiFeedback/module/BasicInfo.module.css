@@ -43,6 +43,10 @@
   color: lightseagreen;
 }
 
+.optionBuy {
+  color: var(--sub-red-color);
+}
+
 .rightContainer {
   display: flex;
   flex-direction: column;

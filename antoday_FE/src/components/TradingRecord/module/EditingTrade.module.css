@@ -91,3 +91,12 @@
   flex-direction: column;
   gap: 0.3rem;
 }
+
+.h2 {
+  font-size: var(--font-h2);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}

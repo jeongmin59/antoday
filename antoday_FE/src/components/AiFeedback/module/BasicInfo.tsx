@@ -41,9 +41,9 @@ useEffect(() => {
           <div className={styles.subContainer}>
             <div className={styles.h3}>{corpName}</div>
             {optionBuySell ? (
-              <div className={`${styles.optionBuySell} ${styles.h3}`}>매수</div>
-            ) : (
               <div className={`${styles.optionBuySell} ${styles.h3}`}>매도</div>
+            ) : (
+              <div className={`${styles.optionBuy} ${styles.h3}`}>매수</div>
             )}
           </div>
         </div>
