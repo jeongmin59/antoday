@@ -45,8 +45,7 @@ public class TradeController {
     @PutMapping
     @ApiOperation(value = "매매기록 수정", notes = "매매 정보 입력")
     public ResponseEntity<Trade> tradeModify(@RequestBody TradeRequestDto trade) {
-        Optional<User> dummyUser = userRepository.findById(1L);
-        return new ResponseEntity<>(tradeService.updateTrade(trade, dummyUser.get()),HttpStatus.OK);
+        return new ResponseEntity<>(tradeService.updateTrade(trade),HttpStatus.OK);
     }
 
     @Transactional

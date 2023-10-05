@@ -66,7 +66,7 @@ public class TradeService {
     }
 
     @Transactional
-    public Trade updateTrade(TradeRequestDto dto,User user) {
+    public Trade updateTrade(TradeRequestDto dto) {
 
         // 기존 trade 가져오기
         Trade trade = tradeRepository.findById(dto.getTradePk()).get();
