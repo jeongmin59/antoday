@@ -1,9 +1,11 @@
 import axios from "axios";
 import BasicButton from "./BasicButton";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "../../../recoil/auth";
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState } from "react";
+import Alert from "../../Common/atom/Alert";
+import { isAlertOpenAtom } from "../../../recoil/alert";
 
 interface EditingSubmitButtonProps {
   editedTradeAt?: Date;
@@ -26,16 +28,29 @@ const EditingSubmitButton: React.FC<EditingSubmitButtonProps> = ({
   keywords,
   editedReason,
   stockCode,
-  tradePk
+  tradePk,
 }) => {
-  
   const [isLoading, setIsLoading] = useState(false);
+  const [pricewrong, setPricewrong] = useState(false);
+  const [cntwrong, setCntwrong] = useState(false);
   const token = useRecoilValue(accessTokenAtom);
   const navigator = useNavigate();
+  const setAlertState = useSetRecoilState(isAlertOpenAtom);
 
   const handleSaveClick = async () => {
+    if (editedPrice <= 0) {
+      setPricewrong(true);
+      setAlertState({ isOpen: true, status: '' })
+      setTimeout(() => setPricewrong(false), 3000);
+      return;
+    } else if (editedCnt <= 0) {
+      setCntwrong(true);
+      setAlertState({ isOpen: true, status: '' })
+      setTimeout(() => setCntwrong(false), 3000);
+      return;
+    }
     setIsLoading(true);
-    console.log('클릭이?????')
+    console.log("클릭이?????");
     const requestBody = {
       cnt: editedCnt,
       keywords: keywords,
@@ -67,11 +82,12 @@ const EditingSubmitButton: React.FC<EditingSubmitButtonProps> = ({
     }
   };
 
-
   return (
-  <div onClick={handleSaveClick}>
-  <BasicButton text={isLoading ? "수정 중" : "수정"} />
-  </div>
+    <div onClick={handleSaveClick}>
+      <BasicButton text={isLoading ? "수정 중" : "수정"} />
+      {cntwrong ? <Alert msg={"매매 개수는 1개 이상이어야 합니다."} /> : null}
+      {pricewrong ? <Alert msg={"매수,매도가는 1원 이상이어야 합니다."} /> : null}
+    </div>
   );
 };
 

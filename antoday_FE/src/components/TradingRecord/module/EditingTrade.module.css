@@ -60,6 +60,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
+  gap: 0.3rem;
 }
 
 .optionBuySell {
@@ -70,4 +71,23 @@
   .tradeAt {
     font-size: var(--font-h3);
   }
+}
+
+.horizontal {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.inputprice {
+  width: 3rem;
+}
+
+.count {
+  width: 2rem;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }

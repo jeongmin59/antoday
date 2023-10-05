@@ -1,4 +1,4 @@
-import { useState, useEffect,ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import styles from "./EditingReasonKeyword.module.css";
 import EditingSubmitButton from "../atom/EditingSubmitButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -25,7 +25,7 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
   keywordList,
   reason,
   stockCode,
-  tradePk
+  tradePk,
 }) => {
   const [keyword, setKeyword] = useState<string>("");
   const [keywords, setKeywords] = useState<string[]>(keywordList);
@@ -67,21 +67,24 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
     setTags(updatedTags);
   }, [keywordList]);
 
-
   return (
-    <div  className={styles.mainContainer}>
+    <div className={styles.mainContainer}>
       <div className={styles.pageTitle}>매수/매도 키워드</div>
-      <div  className={styles.choosenKeywords}>
+      <div className={styles.choosenKeywords}>
         {tags.map((tag, index) => (
-          <div  className={styles.choosenKeyword}>
+          <div className={styles.choosenKeyword}>
             <span
-            key={index}
-            className={styles.keyword}
-            onClick={() => handleTagClick(tag)}
-          >
-            {tag}&nbsp;
-          </span>
-          <FontAwesomeIcon icon={faCircleXmark} size="sm" color="var(--main-blue-color)" />
+              key={index}
+              className={styles.keyword}
+              onClick={() => handleTagClick(tag)}
+            >
+              {tag}&nbsp;
+            </span>
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              size="sm"
+              color="var(--main-blue-color)"
+            />
           </div>
         ))}
       </div>
@@ -92,10 +95,11 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
           value={keyword}
           onChange={handleInputChange}
           className={styles.inputBox}
+          placeholder="키워드를 입력하세요"
         />
         <input type="submit" value="등록" className={styles.confirmButton} />
       </form>
-      <div>
+      <div className={styles.gap}>
         <div className={styles.pageTitle}>매수/매도 이유</div>
         <textarea
           className={styles.textArea}
@@ -104,16 +108,16 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
         />
       </div>
       <EditingSubmitButton
-      editedTradeAt={editedTradeAt}
-      editedCorpName={editedCorpName}
-      editedOptionBuySell={editedOptionBuySell}
-      editedPrice={editedPrice}
-      editedCnt={editedCnt}
-      keywords={keywords}
-      editedReason={editedReason}
-      stockCode={stockCode}
-      tradePk={tradePk}
-/>
+        editedTradeAt={editedTradeAt}
+        editedCorpName={editedCorpName}
+        editedOptionBuySell={editedOptionBuySell}
+        editedPrice={editedPrice}
+        editedCnt={editedCnt}
+        keywords={keywords}
+        editedReason={editedReason}
+        stockCode={stockCode}
+        tradePk={tradePk}
+      />
     </div>
   );
 };
