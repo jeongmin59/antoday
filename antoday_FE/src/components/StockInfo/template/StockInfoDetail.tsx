@@ -103,7 +103,7 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
         </div>
 
         <div ref={tab4Ref}>
-          <StockWordCloud />
+          <StockWordCloud corpIntro={corpIntro} />
         </div>
       </div>
     </div>

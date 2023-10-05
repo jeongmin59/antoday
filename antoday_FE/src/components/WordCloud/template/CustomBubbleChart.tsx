@@ -4,16 +4,24 @@ import BubbleChart from "@weknow/react-bubble-chart-d3";
 import axios from "axios";
 import { corpDataAtom, wordDataAtom } from "../../../recoil/wordCloud";
 import { useRecoilState } from "recoil";
+import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 
 interface WordCloudData {
   label: string;
   value: number;
 }
 
-const CustomBubbleChart: React.FC = ({ data }) => {
+interface CustomBubbleChartProps {
+  data?: WordCloudData[] | null;
+}
+
+const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
+  if (data?.length == 0) {
+    return <div>최근에 언급되지 않은 기업입니다.</div>;
+  }
+  console.log("props로 받아온 데이터", data);
+
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
-  // const [words, setWords] = useState<WordCloudData[]>(data);
-  // const [corps, setCorps] = useState(null);
   const [words, setWords] = useRecoilState(wordDataAtom);
   const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [mainKeyword, setMainKeyword] = useState(null);
