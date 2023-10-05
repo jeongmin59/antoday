@@ -44,7 +44,7 @@ public class UserStockLikeService {
 
     @Transactional
     public Page<UserStockListResponseDto> getUserStockList(int page, UserDetailsImpl userDetails) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
+        PageRequest pageRequest = PageRequest.of(page, 5);
         User user = UserUtils.getUserFromToken(userDetails);
         Page<UserStockLike> userStockLikes = userStockLikeRepository.findByUserOrderByCreatedAtDesc(user, pageRequest);
 

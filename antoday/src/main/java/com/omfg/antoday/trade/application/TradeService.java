@@ -66,7 +66,7 @@ public class TradeService {
     }
 
     @Transactional
-    public Trade updateTrade(TradeRequestDto dto,User user) {
+    public Trade updateTrade(TradeRequestDto dto) {
 
         // 기존 trade 가져오기
         Trade trade = tradeRepository.findById(dto.getTradePk()).get();
@@ -152,7 +152,7 @@ public class TradeService {
     }
 
     public Page<StockListResponseDto> getTradeCorp(int page, UserDetailsImpl userDetails) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
+        PageRequest pageRequest = PageRequest.of(page, 5);
         User user = UserUtils.getUserFromToken(userDetails);
 
         Page<StockInterface> list = tradeRepository.findDistinctStockByUserPage(user.getSocialId(), pageRequest);
