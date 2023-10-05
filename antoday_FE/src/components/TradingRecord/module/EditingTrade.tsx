@@ -62,13 +62,14 @@ const EditingTrade: React.FC<TradingRecord> = ({
               value={editedCorpName}
               onChange={handleCorpNameChange}
             /> */}
-              <div className={styles.corpName}>{editedCorpName}</div>
+              <div className={styles.h2}>{editedCorpName}</div>
               <select
                 value={editedOptionBuySell}
                 onChange={handleOptionBuySellChange}
+                className={styles.h2} 
               >
-                <option value="0">매도</option>
-                <option value="1">매수</option>
+                <option value="1">매도</option>
+                <option value="0">매수</option>
               </select>
             </div>
           </div>
@@ -78,7 +79,7 @@ const EditingTrade: React.FC<TradingRecord> = ({
                 type="number"
                 value={editedPrice}
                 onChange={handlePriceChange}
-                className={styles.inputprice}
+                className={`${styles.inputprice} ${styles.h2}`}
               />
               <div>원</div>
             </div>
@@ -87,7 +88,7 @@ const EditingTrade: React.FC<TradingRecord> = ({
                 type="number"
                 value={editedCnt}
                 onChange={handleCntChange}
-                className={styles.count}
+                className={`${styles.count} ${styles.h2}`}
               />
               <div>주</div>
             </div>

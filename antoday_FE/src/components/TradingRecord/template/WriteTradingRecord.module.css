@@ -1,18 +1,22 @@
 .writecontainer {
-  margin-top: 5rem;
+  margin-top: 2.4rem;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
   align-items: flex-start;
+  background-color: #f5f5f5;
+  height: 80vh;
+  padding-top: 3rem;
 }
 
 .card {
   border-radius: 10px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
   width: 70%;
-  margin: 0 auto;
+  margin: 4rem auto 0;
   padding: 2rem;
   padding-right: 1rem;
+  background-color: white;
 }
 
 .horizontal,
@@ -82,7 +86,7 @@
 }
 
 .react-datepicker__input-container input {
-  width: 4.5rem;
+  width: 4rem;
 }
 
 .bold {
@@ -96,6 +100,7 @@
 .button {
   border: none;
   background-color: var(--main-white-color);
+  font-size: var(--font-h3);
 }
 
 .button2 {
@@ -114,9 +119,11 @@
 
 .buttoncancel {
   background-color: var(--sub-blue-color);
+  font-size: var(--font-h2);
 }
 .buttonadd {
   background-color: var(--sub-yellow-color);
+  font-size: var(--font-h2);
 }
 
 .horizontal2 {
@@ -177,6 +184,7 @@
 .ownedTitle {
   text-align: start;
   font-size: var(--font-h1);
+  font-weight: bold;
 }
 
 .paginationContainer {
