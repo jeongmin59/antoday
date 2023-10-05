@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./CustomBubbleChart.module.css";
 import BubbleChart from "@weknow/react-bubble-chart-d3";
 import axios from "axios";
+import { corpDataAtom, wordDataAtom } from "../../../recoil/wordCloud";
+import { useRecoilState } from "recoil";
 
 interface WordCloudData {
   label: string;
@@ -10,8 +12,10 @@ interface WordCloudData {
 
 const CustomBubbleChart: React.FC = ({ data }) => {
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
-  const [words, setWords] = useState<WordCloudData[]>(data);
-  const [corps, setCorps] = useState(null);
+  // const [words, setWords] = useState<WordCloudData[]>(data);
+  // const [corps, setCorps] = useState(null);
+  const [words, setWords] = useRecoilState(wordDataAtom);
+  const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [mainKeyword, setMainKeyword] = useState(null);
 
   const bubbleClick = async (label: string) => {

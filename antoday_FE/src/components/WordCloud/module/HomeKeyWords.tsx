@@ -5,6 +5,8 @@ import axios from "axios";
 import HomeKeyWordsCompany from "../atom/HomeKeyWordsCompany";
 import { loading } from "../../../assets/img/common";
 import CustomBubbleChart from "../template/CustomBubbleChart";
+import { useRecoilState } from "recoil";
+import { corpDataAtom, wordDataAtom } from "../../../recoil/wordCloud";
 
 interface WordCloudData {
   label: string;
@@ -12,9 +14,10 @@ interface WordCloudData {
 }
 
 const HomeKeyWords: React.FC = () => {
-  // 워드 클라우드에 표시할 데이터 예시
-  const [words, setWords] = useState<WordCloudData[]>([]);
-  const [corps, setCorps] = useState(null);
+  // const [words, setWords] = useState<WordCloudData[]>([]);
+  // const [corps, setCorps] = useState(null);
+  const [words, setWords] = useRecoilState(wordDataAtom);
+  const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
   const [mainKeyword, setMainKeyword] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,21 +34,6 @@ const HomeKeyWords: React.FC = () => {
     };
   }, []);
 
-  const bubbleClick = async (label: string) => {
-    console.log(label, "클릭");
-    try {
-      const response = await axios.get<WordCloudData[]>(
-        import.meta.env.VITE_DATA_API_URL + "/keyword/" + label
-      );
-      const data = response.data;
-      setWords(data.cloud);
-      setCorps(data.corps);
-      setMainKeyword(label);
-      console.log("클릭호출");
-    } catch (error) {
-      console.error("호출 실패 :", error);
-    }
-  };
   const getWordCloudData = async () => {
     try {
       setIsLoading(true);
@@ -67,6 +55,9 @@ const HomeKeyWords: React.FC = () => {
   if (isLoading) {
     return <img src={loading} alt="" height={"150px"} />;
   }
+
+  console.log("ghkrdls", corps);
+
   return (
     <div>
       <div className={styles.bubbleChartContainer}>
@@ -77,7 +68,9 @@ const HomeKeyWords: React.FC = () => {
         </div>
         <CustomBubbleChart data={words} />
       </div>
-      <HomeKeyWordsCompany />
+      <div className={styles.corpListContainer}>
+        <HomeKeyWordsCompany />
+      </div>
     </div>
   );
 };

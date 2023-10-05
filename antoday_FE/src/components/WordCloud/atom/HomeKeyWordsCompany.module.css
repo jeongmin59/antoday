@@ -1,33 +1,44 @@
-.companyContainer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0px auto;
-    width: 80%;
-    height: fit-content;
+.companyContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px auto;
+  width: 90%;
+  height: fit-content;
 }
 
-.logoImageContainer{
-    flex: 3;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--font-h3);
+.logoImageContainer {
+  flex: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.companyItem {
+  display: flex;
+  gap: 0.5rem;
+  font-size: var(--font-h1);
 }
 
 .logoImage {
-    border: 1px solid var(--main-blue-color);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 100px;
+  border: 1px solid var(--main-blue-color);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 100px;
 }
 
-.companyName{
-    flex: 7;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: var(--font-h4);
+.companyName {
+  flex: 7;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .companyItem {
+    font-size: var(--font-h3);
+  }
 }

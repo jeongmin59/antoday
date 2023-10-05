@@ -4,7 +4,6 @@ import HomeHeader from "../../components/Common/template/HomeHeader";
 import HomeBottom from "../../components/Main/template/HomeBottom";
 
 const HomePage = () => {
-
   return (
     <div className={styles.mainContainer}>
       <HomeHeader />
