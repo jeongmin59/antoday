@@ -17,15 +17,17 @@ const HomeKeyWordsCompany: React.FC = () => {
       <div className={styles.title}>관련된 기업이에요!</div>
       <div className={styles.companyContainer}>
         {corps?.map((companyInfo) => (
-          <div key={companyInfo.stock_code} className={styles.companyItem}>
-            <div className={styles.logoImageContainer}>
-              <img
-                className={styles.logoImage}
-                src={companyInfo.logo_url}
-                alt={`${companyInfo.corp_name} 로고`}
-              />
+          <div className={styles.grid}>
+            <div key={companyInfo.stock_code} className={styles.companyItem}>
+              <div className={styles.logoImageContainer}>
+                <img
+                  className={styles.logoImage}
+                  src={companyInfo.logo_url}
+                  alt={`${companyInfo.corp_name} 로고`}
+                />
+              </div>
+              <div className={styles.companyName}>{companyInfo.corp_name}</div>
             </div>
-            <div className={styles.companyName}>{companyInfo.corp_name}</div>
           </div>
         ))}
       </div>
