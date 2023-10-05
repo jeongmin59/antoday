@@ -15,7 +15,7 @@ const UpperNavBar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleMemoClick = () => {
-      setIsMemoOpen(!isMemoOpen);
+    setIsMemoOpen(!isMemoOpen);
   };
 
   const handleLogout = () => {
@@ -43,29 +43,38 @@ const UpperNavBar: React.FC = () => {
 
   return (
     <nav>
-    <div className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""}`}>
-      <Link to="/" className={styles.navItemHome}>
-      </Link>
-      <Link to="/stocksearch" className={styles.navItemCompanyInfo}>
-        종목정보
-      </Link>
-      <Link to={token ? "/tradingrecord" : "/login"} className={styles.navItemTradingRecord}>
-        매매일지
-      </Link>
-      {token ? (
-        <Link to="/" className={styles.navItemLogin} onClick={handleLogout}>
-          {userName}님
+      <div
+        className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""}`}
+      >
+        <Link to="/" className={styles.navItemHome}></Link>
+        <Link to="/stocksearch" className={styles.navItemCompanyInfo}>
+          종목정보
         </Link>
-      ) : (
-        <Link to="/login" className={styles.navItemLogin}>
-          로그인
+        <Link
+          to={token ? "/tradingrecord" : "/login"}
+          className={styles.navItemTradingRecord}
+        >
+          매매일지
         </Link>
-      )}
-      {token && <FontAwesomeIcon icon={faPenToSquare} onClick={handleMemoClick} className={styles.navItemMemoIcon}/>}
-    </div>
-    <div>
-      {token && <Memo isOpen={isMemoOpen} />}
-    </div>
+        {token ? (
+          <Link to="/" className={styles.navItemLogin} onClick={handleLogout}>
+            {userName}님
+          </Link>
+        ) : (
+          <Link to="/login" className={styles.navItemLogin}>
+            로그인
+          </Link>
+        )}
+        {token && (
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            size="lg"
+            onClick={handleMemoClick}
+            className={styles.navItemMemoIcon}
+          />
+        )}
+      </div>
+      <div>{token && <Memo isOpen={isMemoOpen} />}</div>
     </nav>
   );
 };

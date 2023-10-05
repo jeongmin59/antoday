@@ -51,9 +51,8 @@
   font-size: var(--font-h3);
 }
 
-.navItemMemoIcon{
+.navItemMemoIcon {
   grid-column-start: 12;
-  font-size: 0.7rem;
   cursor: pointer;
 }
 
@@ -69,7 +68,6 @@
 }
 
 @media screen and (max-width: 500px) {
-
   .navItem {
     display: none;
   }
@@ -86,7 +84,7 @@
     grid-column-end: 10;
   }
 
-  .navItemMemoIcon{
+  .navItemMemoIcon {
     grid-column-start: 10;
   }
 
