@@ -57,13 +57,13 @@ const CustomBubbleChart: React.FC = ({ data }) => {
         graph={{
           zoom: 0.9,
         }}
-        padding={10}
+        padding={-2.5}
         data={words}
         width={chartWidth}
         height={chartWidth}
         showLegend={false}
         labelFont={{
-          size: 15,
+          size: 11,
           color: "#fff",
           weight: "light",
         }}

@@ -1,12 +1,6 @@
 .bubbleChartContainer {
   padding: 0rem 3rem 0rem 3rem;
 }
-
-@media (max-width: 768px) {
-  .bubbleChartContainer {
-    /* width: 50%; 화면 너비가 768px 이하일 때 차트 크기를 줄임 */
-  }
-}
 .keywordTag {
   font-size: 0.6rem;
 }
