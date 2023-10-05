@@ -10,12 +10,13 @@ interface StockInfoComponentProps {
 
 const StockComponent: React.FC<StockInfoComponentProps> = ({
   companyInfo,
-  handleStockClick
+  handleStockClick,
 }) => {
-
-
   return (
-    <div className={styles.stockSearchResult} onClick={() => handleStockClick(companyInfo.stockCode)}>
+    <div
+      className={styles.stockSearchResult}
+      onClick={() => handleStockClick(companyInfo.stockCode)}
+    >
       {companyInfo ? (
         <React.Fragment>
           <img

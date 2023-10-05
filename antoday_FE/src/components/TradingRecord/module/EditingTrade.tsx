@@ -13,9 +13,8 @@ const EditingTrade: React.FC<TradingRecord> = ({
   keywordList,
   reason,
   stockCode,
-  tradePk
+  tradePk,
 }) => {
-  
   const [editedTradeAt, setEditedTradeAt] = useState(new Date(tradeAt));
   const [editedCorpName, setEditedCorpName] = useState(corpName);
   const [editedOptionBuySell, setEditedOptionBuySell] = useState(optionBuySell);
@@ -45,56 +44,68 @@ const EditingTrade: React.FC<TradingRecord> = ({
   };
 
   return (
-    <div  className={styles.mainContainer}>
+    <div className={styles.mainContainer}>
       <div className={styles.infoContainer}>
-      <div className={styles.tradeAt}>
-        <DatePicker
-          selected={editedTradeAt}
-          onChange={handleTradeAtChange}
-          dateFormat="yyyy-MM-dd"
-        />
-      </div>
-      <div className={styles.contentContainer}>
-        <div className={styles.leftContainer}>
-          <img className={styles.corpimage} src={logoUrl} alt="" />
-          <div className={styles.subContainer}>
-            <input
+        <div className={styles.tradeAt}>
+          <DatePicker
+            selected={editedTradeAt}
+            onChange={handleTradeAtChange}
+            dateFormat="yyyy-MM-dd"
+          />
+        </div>
+        <div className={styles.contentContainer}>
+          <div className={styles.leftContainer}>
+            <img className={styles.corpimage} src={logoUrl} alt="" />
+            <div className={styles.subContainer}>
+              {/* <input
               type="text"
               value={editedCorpName}
               onChange={handleCorpNameChange}
-            />
-            <select
-              value={editedOptionBuySell}
-              onChange={handleOptionBuySellChange}
-            >
-              <option value="0">매도</option>
-              <option value="1">매수</option>
-            </select>
+            /> */}
+              <div className={styles.corpName}>{editedCorpName}</div>
+              <select
+                value={editedOptionBuySell}
+                onChange={handleOptionBuySellChange}
+              >
+                <option value="0">매도</option>
+                <option value="1">매수</option>
+              </select>
+            </div>
+          </div>
+          <div className={styles.rightContainer}>
+            <div className={styles.horizontal}>
+              <input
+                type="number"
+                value={editedPrice}
+                onChange={handlePriceChange}
+                className={styles.inputprice}
+              />
+              <div>원</div>
+            </div>
+            <div className={styles.horizontal}>
+              <input
+                type="number"
+                value={editedCnt}
+                onChange={handleCntChange}
+                className={styles.count}
+              />
+              <div>주</div>
+            </div>
           </div>
         </div>
-        <div className={styles.rightContainer}>
-          <input
-            type="number"
-            value={editedPrice}
-            onChange={handlePriceChange}
-          />
-          <input type="number" value={editedCnt} onChange={handleCntChange} />
-        </div>
       </div>
-      </div>
-    <EditingReasonKeyword
-    editedTradeAt={editedTradeAt}
-    editedCorpName={editedCorpName}
-    editedOptionBuySell={editedOptionBuySell}
-    editedPrice={editedPrice}
-    editedCnt={editedCnt}
-    keywordList={keywordList}
-    reason={reason}
-    stockCode={stockCode}
-    tradePk={tradePk}
-    />
+      <EditingReasonKeyword
+        editedTradeAt={editedTradeAt}
+        editedCorpName={editedCorpName}
+        editedOptionBuySell={editedOptionBuySell}
+        editedPrice={editedPrice}
+        editedCnt={editedCnt}
+        keywordList={keywordList}
+        reason={reason}
+        stockCode={stockCode}
+        tradePk={tradePk}
+      />
     </div>
-    
   );
 };
 

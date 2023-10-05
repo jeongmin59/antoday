@@ -3,23 +3,23 @@ import StockComponent from "../atom/StockComponent";
 import styles from "./TradingCompanyList.module.css";
 
 interface StockSearchResultsProps {
-  searchResults: StockResult[]; 
+  searchResults: StockResult[];
   loadData: () => void;
   onSelectCompany: (stockCode: string) => void;
   sourcePage: "WriteTradingRecord" | "TradingRecordPage";
 }
 
 interface StockResult {
-    stockCode: string;
-    logoUrl: string;
-    corpName: string;
-  }
+  stockCode: string;
+  logoUrl: string;
+  corpName: string;
+}
 
 const TradingCompanyList: React.FC<StockSearchResultsProps> = ({
   searchResults,
   loadData,
   onSelectCompany,
-  sourcePage
+  sourcePage,
 }) => {
   // console.log("결과는", searchResults);
 
@@ -28,12 +28,12 @@ const TradingCompanyList: React.FC<StockSearchResultsProps> = ({
   //   console.log(`Result ${index + 1}: ${result}`, result);
   //   return null;
   // });
-  const handleStockClick = (stockCode:string) => {
+  const handleStockClick = (stockCode: string) => {
     if (sourcePage === "TradingRecordPage") {
       loadData();
     }
     onSelectCompany(stockCode);
-  }
+  };
   return (
     <React.Fragment>
       <div>
