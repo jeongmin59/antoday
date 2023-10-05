@@ -42,7 +42,7 @@ def get_keywords(db: Session) -> list[KeywordDTO]:
                 SELECT textmining_pk
                 FROM textmining
                 ORDER BY textmining_pk DESC
-                LIMIT 3
+                LIMIT 5
             ) AS t
             JOIN news n ON n.textmining_pk = t.textmining_pk
             JOIN news_keyword nk ON nk.news_pk = n.news_pk
@@ -89,7 +89,7 @@ def get_keyword_keywords(db: Session, keyword: str) -> list[KeywordDTO]:
                 SELECT textmining_pk
                 FROM textmining
                 ORDER BY textmining_pk DESC
-                LIMIT 3
+                LIMIT 5
             ) AS t
             JOIN news n ON n.textmining_pk = t.textmining_pk
             JOIN news_keyword nk ON nk.news_pk = n.news_pk
