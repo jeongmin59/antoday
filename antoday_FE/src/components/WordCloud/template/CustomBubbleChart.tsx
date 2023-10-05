@@ -87,7 +87,7 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
             )}
           </>
         )}
-      </div>
+      
       <BubbleChart
         bubbleClickFun={bubbleClick}
         graph={{
@@ -107,6 +107,7 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
           size: 0,
         }}
       />
+      </div>
     </>
   );
 };
