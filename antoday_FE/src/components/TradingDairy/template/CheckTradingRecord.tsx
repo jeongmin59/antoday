@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./CheckTradingRecord.module.css";
 import HomeKeyWords from "../../WordCloud/module/HomeKeyWords";
 import InputForm from "./InputForm";
 import { convertDate } from "../../../utils/convertDate";
+import CustomBubbleChart from "../../WordCloud/template/CustomBubbleChart";
+import { useQuery } from "react-query";
+import axios from "axios";
+
+interface WordCloudData {
+  label: string;
+  value: number;
+}
 
 const CheckTradingRecord: React.FC<TradingRecord> = ({
   tradeAt,
@@ -14,6 +22,16 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
   corpName,
   tradePk,
 }) => {
+  const getWordCloudData = async () => {
+    const response = await axios.get<WordCloudData[]>(
+      import.meta.env.VITE_DATA_API_URL + `/keyword/corp/${corpName}`
+    );
+
+    return response.data;
+  };
+  const [CloudType, setCloudType] = useState<boolean>(false);
+  const { data, isLoading } = useQuery("wordCloudData", getWordCloudData);
+
   const resultDate = convertDate(tradeAt);
 
   return (
@@ -28,18 +46,22 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
                 <img className={styles.corpimage} src={logoUrl} alt="" />
                 <div className={styles.column}>
                   <div className={styles.h3}>{corpName}</div>
-                  {optionBuySell ? <div className={styles.h3}>매도</div> : <div className={styles.h3}>매수</div>}
+                  {optionBuySell ? (
+                    <div className={styles.h3}>매도</div>
+                  ) : (
+                    <div className={styles.h3}>매수</div>
+                  )}
                 </div>
               </div>
-            <div className={`${styles.rightContainer} ${styles.column}`}>
-              <div className={styles.h3}>{price}원</div>
-              <div className={styles.h3}>{cnt}주</div>
-            </div>
+              <div className={`${styles.rightContainer} ${styles.column}`}>
+                <div className={styles.h3}>{price}원</div>
+                <div className={styles.h3}>{cnt}주</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <HomeKeyWords />
+      <CustomBubbleChart CloudType={CloudType} data={data} />
       <InputForm
         tradeAt={tradeAt}
         stockCode={stockCode}

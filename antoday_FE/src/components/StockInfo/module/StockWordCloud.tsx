@@ -16,7 +16,7 @@ interface StockWordCloudProps {
 
 const StockWordCloud: React.FC<StockWordCloudProps> = ({ corpIntro }) => {
   const corpName = corpIntro?.corp_name;
-  const [isCorp, setIsCorp] = useState<boolean>(true);
+  const [CloudType, setCloudType] = useState<string>("종목디테일");
 
   const getWordCloudData = async () => {
     const response = await axios.get<WordCloudData[]>(
@@ -31,7 +31,7 @@ const StockWordCloud: React.FC<StockWordCloudProps> = ({ corpIntro }) => {
   return (
     <div className={styles.stockWordsContainer}>
       <div className={styles.title}>{corpName} 워드클라우드</div>
-      <CustomBubbleChart data={data} isCorp={isCorp} />
+      <CustomBubbleChart data={data} CloudType={CloudType} />
     </div>
   );
 };
