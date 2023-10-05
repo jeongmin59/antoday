@@ -116,7 +116,7 @@ const StockChart: React.FC<StockChartProps> = ({ stockPk }) => {
   if (isLoading) {
     return (
       <div className={styles.stockInfoPageContainer}>
-        <Skeleton height={300} />
+        <Skeleton height={345} />
       </div>
     );
   }
