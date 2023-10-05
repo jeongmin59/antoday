@@ -1,8 +1,10 @@
 import styles from "./EditingTrade.module.css";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import EditingReasonKeyword from "./EditingReasonKeyword";
 import { excludedDates } from "../../../utils/excludedDates";
+import { ko } from "date-fns/esm/locale";
 
 const EditingTrade: React.FC<TradingRecord> = ({
   corpName,
@@ -21,9 +23,25 @@ const EditingTrade: React.FC<TradingRecord> = ({
   const [editedOptionBuySell, setEditedOptionBuySell] = useState(optionBuySell);
   const [editedPrice, setEditedPrice] = useState(price);
   const [editedCnt, setEditedCnt] = useState(cnt);
-
-  const handleTradeAtChange = (date: Date) => {
-    setEditedTradeAt(date);
+  const adjustInitialDate = (date: Date): Date => {
+    let adjusted = new Date(date);
+    if (
+      adjusted.getDay() !== 0 &&
+      adjusted.getDay() !== 6 &&
+      date.getHours() < 9
+      ) {
+        adjusted.setDate(adjusted.getDate() - 1);
+      }
+      while (adjusted.getDay() === 0 || adjusted.getDay() === 6) {
+        adjusted.setDate(adjusted.getDate() - 1);
+      }
+      
+      return adjusted;
+    };
+    const initialAdjustedDate = adjustInitialDate(new Date());
+    
+    const handleTradeAtChange = (date: Date) => {
+      setEditedTradeAt(date);
   };
 
   const handleCorpNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +67,11 @@ const EditingTrade: React.FC<TradingRecord> = ({
       <div className={styles.infoContainer}>
         <div className={styles.tradeAt}>
           <DatePicker
+            locale={ko}
+            dateFormat="yyyy.MM.dd"
             selected={editedTradeAt}
+            maxDate={initialAdjustedDate}
             onChange={handleTradeAtChange}
-            dateFormat="yyyy-MM-dd"
             filterDate={(date: Date) => {
               // 주말 제외
               const isWeekend = date.getDay() === 0 || date.getDay() === 6;
