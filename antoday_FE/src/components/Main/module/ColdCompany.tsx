@@ -29,7 +29,10 @@ const ColdCompany: React.FC = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.title}>현재 차가운 기업</div>
+      <div className={styles.titleContainer}>
+        <div className={styles.title}>현재<span className={styles.coldText}>차가운</span>기업</div>
+        <div className={styles.gradation}>COLD</div>
+      </div>
       <div className={styles.companyContainer}>
         {isLoading ? (
           <HotColdCompanySkeleton />
