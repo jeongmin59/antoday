@@ -6,6 +6,7 @@ import { convertDate } from "../../../utils/convertDate";
 import CustomBubbleChart from "../../WordCloud/template/CustomBubbleChart";
 import { useQuery } from "react-query";
 import axios from "axios";
+import { addCommas } from "../../../utils/addCommas";
 
 interface WordCloudData {
   label: string;
@@ -31,6 +32,7 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
   };
   const [CloudType, setCloudType] = useState<boolean>(false);
   const { data, isLoading } = useQuery("wordCloudData", getWordCloudData);
+  const finalPrice= addCommas(price);
 
   const resultDate = convertDate(tradeAt);
 
@@ -54,7 +56,7 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
                 </div>
               </div>
               <div className={`${styles.rightContainer} ${styles.column}`}>
-                <div className={styles.h3}>{price}원</div>
+                <div className={styles.h3}>{finalPrice}원</div>
                 <div className={styles.h3}>{cnt}주</div>
               </div>
             </div>
