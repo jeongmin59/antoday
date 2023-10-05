@@ -13,7 +13,7 @@ const InfoCardComponent: React.FC<InfoCardComponentProps> = ({
   return (
     <div className={styles.cardContainer}>
       <div className={styles.cardTitle}>{title}</div>
-      <div>{number}</div>
+      <div className={styles.cardContent}>{number}</div>
     </div>
   );
 };

@@ -16,7 +16,9 @@ const StockInformation: React.FC<StockInformationProps> = ({ corpInfo }) => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.title}>종목정보</div>
+      <div className={styles.title}>투자 지표</div>
+      <div className={styles.InfoContainer}>
+
       <div className={styles.StockInfoContainer}>
         <InfoCardComponent title={"BPS"} number={BPS} />
         <InfoCardComponent title={"EPS"} number={EPS} />
@@ -24,6 +26,7 @@ const StockInformation: React.FC<StockInformationProps> = ({ corpInfo }) => {
         <InfoCardComponent title={"PER"} number={PER} />
         <InfoCardComponent title={"ROA"} number={ROA} />
         <InfoCardComponent title={"ROE"} number={ROE} />
+      </div>
       </div>
     </div>
   );

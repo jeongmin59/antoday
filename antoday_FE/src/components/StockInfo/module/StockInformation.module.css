@@ -1,13 +1,19 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  align-items: start;
 }
 
 .title {
   font-size: var(--font-h1);
   font-weight: bold;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: start;
+}
+
+.InfoContainer {
+  display: flex;
+  justify-content: center
 }
 
 .StockInfoContainer {
@@ -15,5 +21,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.5rem;
-  justify-content: center;
+  justify-content: space-between;
+  /* justify-content: center; */
+  /* width: 100%; */
 }

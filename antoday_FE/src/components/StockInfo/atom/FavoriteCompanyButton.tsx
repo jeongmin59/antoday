@@ -7,10 +7,11 @@ import { faHeart as solidHeart} from "@fortawesome/free-solid-svg-icons";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 
 interface StockInfoBasicProps {
-  stockPk?: string;
+	stockPk?: string;
+	isLiked?: boolean | null;
 }
 
-const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
+const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk, isLiked }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [token, setToken] = useRecoilState(accessTokenAtom);
   const [favoriteCompanies, setFavoriteCompanies] = useState<string[]>([]);
@@ -88,19 +89,37 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk }) => {
   };
 
   return (
-    <div>
-      <span
-        className={styles.heartIcon}
-        onClick={isFavorite ? removeFavoriteCompany : addFavoriteCompany}
-      >
-        {isFavorite ? 
-        <FontAwesomeIcon icon={solidHeart} style={{ color: 'pink' }} />
-        : 
-        <FontAwesomeIcon icon={regularHeart} style={{ color: 'pink' }} />
-        }
-      </span>
-    </div>
-  );
+		<div>
+			<span
+				className={styles.heartIcon}
+				onClick={isFavorite ? removeFavoriteCompany : addFavoriteCompany}
+			>
+				{isLiked !== null ? (
+					isLiked ? (
+						<FontAwesomeIcon
+							icon={solidHeart}
+							style={{ color: "crimson" }}
+						/>
+					) : (
+						<FontAwesomeIcon
+							icon={regularHeart}
+							style={{ color: "crimson" }}
+						/>
+					)
+				) : isFavorite ? (
+					<FontAwesomeIcon
+						icon={solidHeart}
+						style={{ color: "crimson" }}
+					/>
+				) : (
+					<FontAwesomeIcon
+						icon={regularHeart}
+						style={{ color: "crimson" }}
+					/>
+				)}
+			</span>
+		</div>
+	);
 };
 
 export default FavoriteCompanyButton;

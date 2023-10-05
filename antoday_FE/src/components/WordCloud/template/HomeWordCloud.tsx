@@ -9,10 +9,8 @@ const HomeWordCloud: React.FC = () => {
       <div className={styles.TitleContainer}>
         <TitleTextComponent />
       </div>
-      <div  className={styles.ContentContainer}>
-				<div className={styles.WordContainer}>
+      <div className={styles.ContentContainer}>
         <HomeKeyWords />
-				</div>
       </div>
     </div>
   );

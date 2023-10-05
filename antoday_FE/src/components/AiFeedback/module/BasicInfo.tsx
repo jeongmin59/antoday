@@ -1,4 +1,5 @@
 import styles from "./BasicInfo.module.css";
+import {useState, useEffect} from 'react';
 
 const BasicInfo: React.FC<TradingRecord> = ({
   corpName,
@@ -8,9 +9,30 @@ const BasicInfo: React.FC<TradingRecord> = ({
   price,
   cnt,
 }) => {
+
+  
+  const [convertedDate, SetConvertedDate] = useState<string | null>(null);
+  
+  function formatDate(isoString) {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}년 ${month}월 ${day}일`;
+}
+  
+useEffect(() => {
+  if (tradeAt) {
+    const formatted = formatDate(tradeAt);
+    SetConvertedDate(formatted);  
+  }
+}, [tradeAt]);  
+
+
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.tradeAt}>{tradeAt}</div>
+      <div className={styles.tradeAt}>{convertedDate}</div>
       <div className={styles.contentContainer}>
         <div className={styles.leftContainer}>
           <img className={styles.corpimage} src={logoUrl} alt="" />

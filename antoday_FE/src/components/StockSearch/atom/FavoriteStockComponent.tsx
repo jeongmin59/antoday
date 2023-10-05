@@ -17,7 +17,6 @@ const FavoriteStockComponent: React.FC<StockInfoComponentProps> = ({
     const stockCode = companyInfo.stockCode;
     navigator(`/stockinfo/${stockCode}`);
   };
-
   return (
     <div className={styles.stockSearchResult} onClick={handleClick}>
   {companyInfo ? (
@@ -30,7 +29,7 @@ const FavoriteStockComponent: React.FC<StockInfoComponentProps> = ({
         />
         <p className={styles.stockName}>{companyInfo.corpName}</p>
       </div>
-      <FavoriteCompanyButton stockPk={companyInfo.stockCode} />
+      <FavoriteCompanyButton stockPk={companyInfo.stockCode} isLiked={companyInfo.isLiked} />
     </React.Fragment>
   ) : (
     // 스켈레톤 코드를 표시

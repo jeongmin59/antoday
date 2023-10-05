@@ -20,10 +20,8 @@
 }
 
 @media screen and (max-width: 500px) {
-  
   .ContentContainer {
     display: flex;
     flex-direction: column;
   }
-
 }

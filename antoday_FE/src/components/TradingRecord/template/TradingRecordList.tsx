@@ -3,8 +3,8 @@ import {
   TradingRecordPageType,
   StockRoiType,
 } from "../../../pages/TradePage/TradingRecordPage";
-import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingSpinner from "../../Common/atom/LoadingSpinner";
+// import InfiniteScroll from "react-infinite-scroll-component";
+// import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 import styles from "./TradingRecordList.module.css";
 import { useNavigate } from "react-router-dom";
 import StockProfit from "./StockProfit.tsx";
@@ -22,14 +22,14 @@ interface TradingRecordListProps {
 const TradingRecordList: React.FC<TradingRecordListProps> = ({
   records = [],
   roiList = [],
-  hasMore,
-  fetchMoreData,
+  // hasMore,
+  // fetchMoreData,
   lastRecordRef,
   isLoading,
 }) => {
   const navigator = useNavigate();
-  const [reasonExist, setReasonExist] = useState<Boolean>(false);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [reasonExist, setReasonExist] = useState<boolean>(false);
+  // const [currentPage, setCurrentPage] = useState(0);
   const [selectedStock, setSelectedStock] = useState<StockRoiType | null>(null);
   const groupedRecords: { [date: string]: TradingRecordPageType[] } = {};
   const [status, setStatus] = useState(false);
@@ -113,10 +113,10 @@ const TradingRecordList: React.FC<TradingRecordListProps> = ({
 
               return (
                 <div
-                key={index}
-                onClick={() =>
-                  handleDetail(record.keywordExist, record.tradePk)
-                }
+                  key={index}
+                  onClick={() =>
+                    handleDetail(record.keywordExist, record.tradePk)
+                  }
                 >
                   <div className={styles.listItem}>
                     <div className={styles.row}>

@@ -29,7 +29,10 @@
   justify-content: space-evenly;
   gap: 1rem;
   border-radius: 20px;
+  color: var(--main-white-color);
   /* border: 1px solid var(--main-blue-color); */
+  background-color: var(--main-gray-color)
+
 }
 
 .nullComment {
@@ -38,15 +41,15 @@
 
 .tab {
   cursor: pointer;
-  padding: 0.3rem 1.2rem;
-  margin: 0.03rem;
-  border-radius: 50px;
+  padding: 0.3rem 2.2rem;
+  margin: 0.2rem 0.03rem;
+  border-radius: 20px;
   /* font-weight: bold; */
   font-size: var(--font-h1);
 }
 
 .activeTab {
-  background-color: var(--main-gray-color);
+  background-color: var(--sub-gray-color);
   font-size: var(--font-h1);
-  color: white;
+  color: black;
 }

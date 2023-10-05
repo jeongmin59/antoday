@@ -9,21 +9,30 @@
   top: 2.5rem;
   left: calc((100% - 500px) / 4);
   right: calc((100% - 500px) / 4);
-  font-family: GmarketSans;
-  border: none;
-  font-size: var(--font-h4);
   background-color: var(--sub-yellow-color);
   max-width: inherit;
   z-index: 10;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
-  margin: 0 0.3rem;
+  margin: 0 1rem;
   padding: 0;
 }
 
 .open {
   max-height: 200px;
-  overflow: auto; /* 스크롤바를 표시할 수 있도록 설정 */
   transition: max-height 0.3s ease-in-out;
+}
+
+.inputBox {
+  font-family: GmarketSans;
+  font-size: var(--font-h4);
+  border: none;
+  background-color: transparent;
+  width: 90%;
+  margin-top: 0.5rem;
+}
+
+@media screen and (max-width: 500px) {
+  /*뭘해야하지*/
 }

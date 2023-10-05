@@ -8,7 +8,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "../../recoil/auth";
-import BasicButton from "../../components/TradingRecord/atom/BasicButton";
+// import BasicButton from "../../components/TradingRecord/atom/BasicButton";
 import { isAlertOpenAtom } from "../../recoil/alert"
 
 
@@ -114,10 +114,10 @@ const TradingRecordDetailPage = () => {
         />
       <div className={styles.buttonContainer}>
         <div onClick={handleEdit}>
-        <BasicButton  text="수정"  />
+        <button className={styles.button}>수정</button>
         </div>
         <div onClick={handleDelete}>
-        <BasicButton text="삭제"  />
+        <button className={`${styles.button} ${styles.button2}`}>삭제</button>
         </div>
       </div>
       </div>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styles from './SearchingCompany.module.css';
-import useDebounce from '../../../utils/useDebounce';
+import React, { useState, useEffect } from "react";
+import styles from "./SearchingCompany.module.css";
+import useDebounce from "../../../utils/useDebounce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -44,7 +44,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
   setSelectedCompany,
   currentPage,
 }) => {
-  const [keyword, setKeyword] = useState('');
+  const [keyword, setKeyword] = useState("");
   const [shouldClearOnNextFocus, setShouldClearOnNextFocus] = useState(false);
   const [localSearchResults, setLocalSearchResults] = useState<any[]>([]);
   const [nowPage, setNowPage] = useState<number>(0);
@@ -61,7 +61,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
 
   const handleInputFocus = () => {
     if (shouldClearOnNextFocus) {
-      setKeyword('');
+      setKeyword("");
       setShouldClearOnNextFocus(false);
     }
   };
@@ -84,7 +84,7 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
   }, [localSearchResults, choose]);
 
   useEffect(() => {
-    if (keyword === '') {
+    if (keyword === "") {
       setLocalSearchResults([]);
       setSelectedCompany(null);
     } else {
@@ -103,7 +103,10 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.div}>
-        <form onSubmit={handleSubmit} className={`${styles.searchBarContainer} `}>
+        <form
+          onSubmit={handleSubmit}
+          className={`${styles.searchBarContainer} `}
+        >
           <input
             type="text"
             placeholder="종목명 검색"
@@ -113,17 +116,16 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
               resetChoose();
             }}
             onFocus={handleInputFocus}
-            className={
-              `${styles.inputBox} `
-          }
-          
+            className={`${styles.inputBox} `}
           />
-          <button onClick={handleSearch} className={styles.searchButton}>search</button>
+          <button onClick={handleSearch} className={styles.searchButton}>
+            search
+          </button>
         </form>
       </div>
 
       <div className={styles.problem}>
-        {(localSearchResults.length > 0 && !choose) ? (
+        {localSearchResults.length > 0 && !choose ? (
           // searchResults가 있을 때
           <div>
             <div className={styles.searchresults}>
@@ -133,7 +135,11 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
                   className={styles.corpcontainer}
                   onClick={() => handleSelectCompany(result)}
                 >
-                  <img src={result.logoUrl} alt={result.corpName} className={styles.img} />
+                  <img
+                    src={result.logoUrl}
+                    alt={result.corpName}
+                    className={styles.img}
+                  />
                   <span>{result.corpName}</span>
                 </div>
               ))}
@@ -156,23 +162,30 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
               </button>
             </div>
           </div>
-        ) : (
-            // searchResults가 없을 때
-            (selectedCompany && choose) ? (
-              <div key={selectedCompany?.stockCode} className={styles.corpcontainer}>
-                <img src={selectedCompany?.logoUrl} alt={selectedCompany?.corpName} className={styles.img} />
-                <span>{selectedCompany?.corpName}</span>
-              </div>
-            ) : null
-          )}
+        ) : // searchResults가 없을 때
+        selectedCompany && choose ? (
+          <div
+            key={selectedCompany?.stockCode}
+            className={styles.corpcontainer}
+          >
+            <img
+              src={selectedCompany?.logoUrl}
+              alt={selectedCompany?.corpName}
+              className={styles.img}
+            />
+            <span>{selectedCompany?.corpName}</span>
+          </div>
+        ) : null}
       </div>
       <div className={styles.horizontal2}>
-      <div className={styles.weather}>매수 개수</div>
-        <div className={`${styles.inputContainer} ${
-          localSearchResults.length > 0 && !choose
-          ? styles.inputBelow
-          : styles.inputBeside
-        }`}>
+        <div className={styles.weather}>매수 개수</div>
+        <div
+          className={`${styles.inputContainer} ${
+            localSearchResults.length > 0 && !choose
+              ? styles.inputBelow
+              : styles.inputBeside
+          }`}
+        >
           <input
             type="number"
             className={`${styles.quantityinput} `}
@@ -185,10 +198,10 @@ const SearchingCompany: React.FC<SearchInputProps> = ({
                 setStockQuantity(parseInt(value, 10));
               }
             }}
-            />
+          />
           주
         </div>
-            </div>
+      </div>
     </div>
   );
 };
