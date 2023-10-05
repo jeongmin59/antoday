@@ -81,6 +81,26 @@ const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
   const [currentMonth, setCurrentMonth] = useState<number>(
     new Date().getMonth()
   );
+  const excludedDates = [
+    new Date(2023, 0, 1),
+    new Date(2023, 0, 21),
+    new Date(2023, 0, 22),
+    new Date(2023, 0, 23),
+    new Date(2023, 0, 24),
+    new Date(2023, 2, 1),
+    new Date(2023, 4, 5),
+    new Date(2023, 4, 27),
+    new Date(2023, 5, 6),
+    new Date(2023, 7, 15),
+    new Date(2023, 8, 28),
+    new Date(2023, 8, 29),
+    new Date(2023, 8, 30),
+    new Date(2023, 9, 2),
+    new Date(2023, 9, 3),
+    new Date(2023, 9, 9),
+    new Date(2023, 11, 25)
+  ];
+
 
   function zfill(num, width) {
     const str = num.toString();
@@ -91,24 +111,24 @@ const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
 
   useEffect(() => {
     if (selectedDate) {
-        // 주말 체크
-        const dayOfWeek = selectedDate.getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
-            // 선택된 날짜가 주말이면 평일로 변경
-            let adjustedDate = selectedDate;
-            while (adjustedDate.getDay() === 0 || adjustedDate.getDay() === 6) {
-                adjustedDate = new Date(adjustedDate.setDate(adjustedDate.getDate() + 1));
-            }
-            setSelectedDate(adjustedDate);  // 새로운 평일로 날짜 업데이트
+      // 주말 체크
+      const dayOfWeek = selectedDate.getDay();
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        // 선택된 날짜가 주말이면 평일로 변경
+        let adjustedDate = selectedDate;
+        while (adjustedDate.getDay() === 0 || adjustedDate.getDay() === 6) {
+          adjustedDate = new Date(adjustedDate.setDate(adjustedDate.getDate() + 1));
         }
+        setSelectedDate(adjustedDate);  // 새로운 평일로 날짜 업데이트
+      }
 
-        // 월 변경 체크
-        const newMonth = selectedDate.getMonth();
-        if (newMonth !== currentMonth) {
-            setCurrentMonth(newMonth);
-        }
+      // 월 변경 체크
+      const newMonth = selectedDate.getMonth();
+      if (newMonth !== currentMonth) {
+        setCurrentMonth(newMonth);
+      }
     }
-}, [selectedDate, currentMonth]);
+  }, [selectedDate, currentMonth]);
 
 
   useEffect(() => {
@@ -263,8 +283,8 @@ const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
     let apiUrl = "";
     const formattedDate = selectedDate
       ? `${selectedDate.getFullYear()}-${String(
-          selectedDate.getMonth() + 1
-        ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`
+        selectedDate.getMonth() + 1
+      ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`
       : "";
     console.log(selectedDate);
     if (status === "매수") {
@@ -444,37 +464,38 @@ const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
                 selected={selectedDate}
                 onChange={(date: Date) => setSelectedDate(date)}
                 filterDate={(date: Date) => {
-                  return (
-                    date.getDay() !== 0 &&
-                    date.getDay() !== 6 &&
-                    !holidayDates.some(
-                      (hDate) =>
-                        hDate.getFullYear() === date.getFullYear() &&
-                        hDate.getMonth() === date.getMonth() &&
-                        hDate.getDate() === date.getDate()
-                    )
+                  // 주말 제외
+                  const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+
+                  // 휴일 제외
+                  const isHoliday = excludedDates.some(
+                    (hDate) =>
+                      hDate.getFullYear() === date.getFullYear() &&
+                      hDate.getMonth() === date.getMonth() &&
+                      hDate.getDate() === date.getDate()
                   );
+
+                  return !isWeekend && !isHoliday;  // 주말도 아니고 휴일도 아닌 경우만 true 반환
                 }}
                 placeholderText="날짜 선택"
                 maxDate={initialAdjustedDate}
                 disabled={selectedOption === "매도"}
                 adjustDateOnChange
               />
+
             </div>
           </div>
           <div className={styles.rightContainer}>
             <button
-              className={`${
-                selectedOption === "매수" ? styles.bold : styles.normal
-              } ${styles.button}`}
+              className={`${selectedOption === "매수" ? styles.bold : styles.normal
+                } ${styles.button}`}
               onClick={() => handleClick("매수")}
             >
               매수
             </button>
             <button
-              className={`${
-                selectedOption === "매도" ? styles.bold : styles.normal
-              } ${styles.button}`}
+              className={`${selectedOption === "매도" ? styles.bold : styles.normal
+                } ${styles.button}`}
               onClick={() => handleClick("매도")}
             >
               매도

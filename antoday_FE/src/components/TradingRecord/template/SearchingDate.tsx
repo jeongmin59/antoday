@@ -4,6 +4,7 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../DatePicker.css";
 import styles from "./SearchingDate.module.css";
+import { excludedDates } from "../../../utils/excludedDates";
 
 interface SearchInputProps {
   onSearch: (startDate: string, endDate: string) => void;
@@ -49,9 +50,6 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
         maxDate={endDate ? endDate : new Date()}
         placeholderText="시작 날짜"
         className={styles.datepicker}
-        filterDate={(date: Date) => {
-          return date.getDay() !== 0 && date.getDay() !== 6;
-        }}
       />
       <span>~</span>
       <DatePicker
@@ -68,10 +66,7 @@ const SearchingDate: React.FC<SearchInputProps> = ({ onSearch }) => {
         minDate={startDate}
         placeholderText="종료 날짜"
         className={styles.datepicker}
-        filterDate={(date: Date) => {
-          return date.getDay() !== 0 && date.getDay() !== 6;
-        }}
-      />
+ />
     </div>
   );
 };
