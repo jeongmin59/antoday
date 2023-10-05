@@ -6,7 +6,8 @@
 }
 
 .title {
-  font-size: var(--font-h2);
+  font-size: var(--font-h1);
+  font-weight: bold;
 }
 
 .content {
@@ -22,6 +23,6 @@
 
 @media screen and (max-width: 500px) {
   .title {
-    font-size: var(--font-h2);
+    font-size: var(--font-h1);
   }
 }
