@@ -1,11 +1,12 @@
 import styles from "./CompanyHistory.module.css";
 
 const CompanyHistory = ({ corpHistory }) => {
+  const historyItems = corpHistory || [];
   return (
     <div className={styles.mainContainer}>
       <div className={styles.title}>최근 소식</div>
       <ul>
-        {corpHistory.map((item: any, index: number) => (
+        {historyItems.map((item: any, index: number) => (
           <li key={index}>
             <p className={styles.date}>{Object.keys(item)[0]}</p>
             <p className={styles.content}>{Object.values(item)[0]}</p>
