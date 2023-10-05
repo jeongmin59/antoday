@@ -1,9 +1,9 @@
 .button {
-  font-size: var(--font-h4);
+  font-size: var(--font-h3);
   border-radius: 5rem;
   width: 5rem;
   height: 1.5rem;
-  background-color: var(--main-green-color);
+  background-color: var(--sub-red-color);
   border: none;
   color: white;
   cursor: pointer;
