@@ -28,8 +28,7 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
   tradePk,
 }) => {
   const [keyword, setKeyword] = useState<string>("");
-  const [keywords, setKeywords] = useState<string[]>(keywordList);
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(keywordList);
   const [editedReason, setEditedReason] = useState<string>(reason);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -41,8 +40,8 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
 
     if (keyword) {
       setTags([...tags, `#${keyword}`]);
-      setKeyword("");
-      setKeywords([...keywords, keyword]);
+      // setKeyword("");
+      // setKeywords([...keywords, keyword]);
     }
   };
 
@@ -52,10 +51,10 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
     const updatedTags = tags.filter((tag) => tag !== clickedTag);
     setTags(updatedTags);
 
-    const updatedKeywords = keywords.filter(
-      (keyword) => keyword !== clickedKeyword
-    );
-    setKeywords(updatedKeywords);
+    // const updatedKeywords = keywords.filter(
+    //   (keyword) => keyword !== clickedKeyword
+    // );
+    // setKeywords(updatedKeywords);
   };
 
   const handleReason = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -63,9 +62,8 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
   };
 
   useEffect(() => {
-    const updatedTags = keywordList?.map((keyword) => `${keyword}`);
-    setTags(updatedTags);
-  }, [keywordList]);
+    console.log("뭘까", tags);
+  }, [tags]);
 
   return (
     <div className={styles.mainContainer}>
@@ -78,7 +76,9 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
               className={`${styles.keyword} ${styles.h2} ${styles.horizontal}`}
               onClick={() => handleTagClick(tag)}
             >
-              <div style={{ marginRight: '0.2rem', marginTop: '0.15rem' }}>#</div>
+              <div style={{ marginRight: "0.2rem", marginTop: "0.15rem" }}>
+                #
+              </div>
               {tag}&nbsp;
             </span>
             <FontAwesomeIcon
@@ -114,7 +114,7 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
         editedOptionBuySell={editedOptionBuySell}
         editedPrice={editedPrice}
         editedCnt={editedCnt}
-        keywords={keywords}
+        keywords={tags}
         editedReason={editedReason}
         stockCode={stockCode}
         tradePk={tradePk}

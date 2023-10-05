@@ -32,16 +32,18 @@
   padding: 0.3rem;
 }
 
-.choosenKeywords{
+.choosenKeywords {
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.choosenKeyword{
+.choosenKeyword {
   display: flex;
 }
 
-.keyword{
+.keyword {
   font-size: var(--font-h4);
   cursor: pointer;
   border-radius: 50px;
@@ -49,7 +51,7 @@
   color: var(--main-blue-color);
 }
 
-.inputBox{
+.inputBox {
   border: none;
   background-color: var(--main-white-color);
   width: 100%;
@@ -70,7 +72,7 @@
   font-weight: bold;
 }
 
-.textArea{
+.textArea {
   font-family: GmarketSans;
   width: 100%;
   border-radius: 10px;

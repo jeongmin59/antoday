@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import styles from "../modules/KeywordInput.module.css";
 import ReasonInput from "./ReasonInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const KeywordInput: React.FC<TradingRecord> = ({
   tradeAt,
@@ -19,6 +21,18 @@ const KeywordInput: React.FC<TradingRecord> = ({
     setKeyword(event.target.value);
   };
 
+  const handleTagClick = (clickedTag: string) => {
+    const clickedKeyword = clickedTag.substring(1);
+
+    const updatedTags = tags.filter((tag) => tag !== clickedTag);
+    setTags(updatedTags);
+
+    const updatedKeywords = keywordList.filter(
+      (keyword) => keyword !== clickedKeyword
+    );
+    setKeywordList(updatedKeywords);
+  };
+
   const handleTagButtonClick = (event: FormEvent) => {
     event.preventDefault();
 
@@ -32,12 +46,28 @@ const KeywordInput: React.FC<TradingRecord> = ({
   return (
     <div className={styles.mainContainer}>
       <div className={styles.pageTitle}>매수/매도 키워드</div>
-      <div>
+
+      <div className={styles.horizontal2}>
         {tags.map((tag, index) => (
-          <div key={index} className={styles.keyword}><div style={{ marginTop: '0.19rem' }}>#</div>{tag}&nbsp;</div>
+          <div className={styles.horizontal}>
+          <div key={index} className={styles.keyword} >
+            <div style={{ marginTop: '0.19rem' }}>#</div>
+            {tag}&nbsp;
+          </div>
+          <FontAwesomeIcon
+              icon={faCircleXmark}
+              size="sm"
+              color="var(--main-blue-color)"
+              onClick={() => handleTagClick(tag)}
+            />
+          </div>
+
         ))}
       </div>
-      <form className={styles.keywordContainer} onSubmit={handleTagButtonClick}>
+      <form
+        className={styles.keywordInputContainer}
+        onSubmit={handleTagButtonClick}
+      >
         <input
           type="text"
           // className={styles.KeywordInput}
