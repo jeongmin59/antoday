@@ -169,10 +169,9 @@ def get_corp_keywords(db: Session, corp_name: str) -> list[KeywordDTO]:
         pre_npk = npk
         pre_word = word
     keywordDtoList: list[KeywordDTO] = []
-    max_weight = 0
+    cnt = 0
     for word, weight in sorted(word_dic.items(), key=lambda x: -x[1]):
-        max_weight = max(weight, max_weight)
-        if weight <= max(2, max_weight / 10):
+        if cnt >= 25:
             break
         keywordDtoList.append(KeywordDTO(label=word, value=weight))
     return keywordDtoList
