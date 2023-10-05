@@ -432,7 +432,7 @@ const WriteTradingRecord: React.FC<WriteKeywordAndReasonPageProps> = ({
 
   return (
     <div className={styles.writecontainer}>
-      <div className={styles.title}>매매기록 작성</div>
+      {/* <div className={styles.title}>매매기록 작성</div> */}
       <div className={styles.card}>
         <div className={styles.horizontal}>
           <div className={styles.leftContainer}>
