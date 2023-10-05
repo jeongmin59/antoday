@@ -88,9 +88,9 @@ const StockChart: React.FC<StockChartProps> = ({ stockPk }) => {
     },
     yaxis: {
       labels: {
-        formatter: function (val: number) {
-          return (val / 1000000).toFixed(0);
-        },
+        // formatter: function (val: number) {
+        //   return (val / 1000000).toFixed(0);
+        // },
       },
       title: {
         text: "",
@@ -102,9 +102,9 @@ const StockChart: React.FC<StockChartProps> = ({ stockPk }) => {
     tooltip: {
       shared: false,
       y: {
-        formatter: function (val: number) {
-          return (val / 1000000).toFixed(0);
-        },
+        // formatter: function (val: number) {
+        //   return (val / 1000000).toFixed(0);
+        // },
       },
     },
   });
