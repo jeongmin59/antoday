@@ -4,11 +4,16 @@
   gap: 0.5rem;
   align-items: start;
   font-size: var(--font-h1);
+  padding-bottom: 2rem;
 }
 
 .subContainer{
   display: flex;
-  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  /* flex-direction: column; */
   /* border: 1px solid red; */
 }
 
@@ -16,6 +21,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
 }
 
