@@ -55,7 +55,8 @@ const StockInfoDetail: React.FC<StockInfoDetailProps> = ({
     }
 
     if (targetRef && targetRef.current) {
-      targetRef.current.scrollIntoView({ behavior: "smooth" });
+      const scrollPosition = targetRef.current.offsetTop - 70;
+			window.scrollTo({ top: scrollPosition, behavior: "smooth" });
       setActiveTab(tabNumber); // 클릭한 탭을 활성화
     }
   };

@@ -1,0 +1,11 @@
+.skeletonContainer {
+	text-align: left;
+	width: 88%;
+	margin: 0 auto;
+    margin-top: 1rem;
+}
+
+.divBox {
+    display: flex;
+    justify-content: space-between;
+}
