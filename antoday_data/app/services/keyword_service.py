@@ -173,6 +173,7 @@ def get_corp_keywords(db: Session, corp_name: str) -> list[KeywordDTO]:
     for word, weight in sorted(word_dic.items(), key=lambda x: -x[1]):
         if cnt >= 25:
             break
+        cnt += 1
         keywordDtoList.append(KeywordDTO(label=word, value=weight))
     return keywordDtoList
 
