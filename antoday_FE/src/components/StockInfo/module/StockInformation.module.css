@@ -1,6 +1,9 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
+  /* background-color: white;
+  height: 10rem;
+  padding-top: 2rem; */
 }
 
 .title {

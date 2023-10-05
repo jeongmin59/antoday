@@ -23,7 +23,7 @@
 
 .stockCode {
   font-size: var(--font-h3);
-  color: gray;
+  color: var(--main-gray-color);
   display: flex;
   justify-self: start;
   align-items: center;
