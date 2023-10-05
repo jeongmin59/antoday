@@ -1,5 +1,6 @@
 import styles from "./BasicInfo.module.css";
 import {useState, useEffect} from 'react';
+import { addCommas } from "../../../utils/addCommas";
 
 const BasicInfo: React.FC<TradingRecord> = ({
   corpName,
@@ -12,6 +13,7 @@ const BasicInfo: React.FC<TradingRecord> = ({
 
   
   const [convertedDate, SetConvertedDate] = useState<string | null>(null);
+  const convertedPrice = addCommas(price)
   
   function formatDate(isoString) {
     const date = new Date(isoString);
@@ -46,7 +48,7 @@ useEffect(() => {
           </div>
         </div>
         <div className={styles.rightContainer}>
-          <div className={styles.h3}>{price}원</div>
+          <div className={styles.h3}>{convertedPrice}원</div>
           <div className={styles.h3}>{cnt}주</div>
         </div>
       </div>
