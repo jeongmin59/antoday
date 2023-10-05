@@ -98,23 +98,23 @@ const FavoriteCompanyButton: React.FC<StockInfoBasicProps> = ({ stockPk, isLiked
 					isLiked ? (
 						<FontAwesomeIcon
 							icon={solidHeart}
-							style={{ color: "pink" }}
+							style={{ color: "crimson" }}
 						/>
 					) : (
 						<FontAwesomeIcon
 							icon={regularHeart}
-							style={{ color: "pink" }}
+							style={{ color: "crimson" }}
 						/>
 					)
 				) : isFavorite ? (
 					<FontAwesomeIcon
 						icon={solidHeart}
-						style={{ color: "pink" }}
+						style={{ color: "crimson" }}
 					/>
 				) : (
 					<FontAwesomeIcon
 						icon={regularHeart}
-						style={{ color: "pink" }}
+						style={{ color: "crimson" }}
 					/>
 				)}
 			</span>
