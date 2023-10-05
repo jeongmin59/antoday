@@ -37,6 +37,7 @@
   color: var(--main-blue-color);
   border-radius: 50px;
   margin-right: 0.5rem;
+  margin-bottom: 1rem;
   display: flex;
   gap: 0.1rem;
   align-items: center;
@@ -65,4 +66,9 @@
   cursor: pointer;
   font-weight: bold;
   padding: 0.2rem 0.5rem;
+}
+
+.horizontal{
+  display: flex;
+  margin: 0rem 18px 0rem;
 }

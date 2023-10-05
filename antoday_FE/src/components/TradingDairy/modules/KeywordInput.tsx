@@ -32,7 +32,7 @@ const KeywordInput: React.FC<TradingRecord> = ({
   return (
     <div className={styles.mainContainer}>
       <div className={styles.pageTitle}>매수/매도 키워드</div>
-      <div>
+      <div className={styles.horizontal}>
         {tags.map((tag, index) => (
           <div key={index} className={styles.keyword}><div style={{ marginTop: '0.19rem' }}>#</div>{tag}&nbsp;</div>
         ))}
