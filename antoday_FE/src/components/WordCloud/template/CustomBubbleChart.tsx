@@ -11,7 +11,8 @@ interface WordCloudData {
 }
 
 const CustomBubbleChart: React.FC = ({ data }) => {
-  const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
+  const [chartWidth, setChartWidth] = useState(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
+  
   // const [words, setWords] = useState<WordCloudData[]>(data);
   // const [corps, setCorps] = useState(null);
   const [words, setWords] = useRecoilState(wordDataAtom);
@@ -35,7 +36,8 @@ const CustomBubbleChart: React.FC = ({ data }) => {
   };
 
   const updateChartSize = () => {
-    setChartWidth(window.innerWidth * 0.75);
+    console.log("윈도우크기", window.innerWidth)
+    setChartWidth(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
   };
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const CustomBubbleChart: React.FC = ({ data }) => {
     <>
       <div className={styles.bubbleChartContainer}>
         {mainKeyword !== null ? (
-          <p className={styles.keywordTag}>#{mainKeyword} 관련 키워드</p>
+          <p className={styles.keywordTag}>#{mainKeyword}</p>
         ) : null}
       </div>
       <BubbleChart
@@ -63,7 +65,7 @@ const CustomBubbleChart: React.FC = ({ data }) => {
         height={chartWidth}
         showLegend={false}
         labelFont={{
-          size: 11,
+          size: 10,
           color: "#fff",
           weight: "light",
         }}
