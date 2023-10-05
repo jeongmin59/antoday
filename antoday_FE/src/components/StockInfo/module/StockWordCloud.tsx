@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./StockWordCloud.module.css";
 import HomeKeyWords from "../../WordCloud/module/HomeKeyWords";
 import CustomBubbleChart from "../../WordCloud/template/CustomBubbleChart";
@@ -16,6 +16,7 @@ interface StockWordCloudProps {
 
 const StockWordCloud: React.FC<StockWordCloudProps> = ({ corpIntro }) => {
   const corpName = corpIntro?.corp_name;
+  const [isCorp, setIsCorp] = useState<boolean>(true);
 
   const getWordCloudData = async () => {
     const response = await axios.get<WordCloudData[]>(
@@ -30,7 +31,7 @@ const StockWordCloud: React.FC<StockWordCloudProps> = ({ corpIntro }) => {
   return (
     <div className={styles.stockWordsContainer}>
       <div className={styles.title}>{corpName} 워드클라우드</div>
-      <CustomBubbleChart data={data} />
+      <CustomBubbleChart data={data} isCorp={isCorp} />
     </div>
   );
 };
