@@ -43,7 +43,10 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
                 color: "white",
                 backgroundColor: "var(--main-blue-color)",
                 borderRadius: "5px",
-                padding: "0.8px",
+                width: "3rem",
+                height: "1rem",
+                // padding: "2px",
+                marginLeft: "0.8rem",
               }}
             >
               {market}
@@ -51,13 +54,18 @@ const StockInfoBasic: React.FC<StockInfoBasicProps> = ({ corpIntro }) => {
           </div>
           <div className={styles.stocPrice}>
             {price}원
-            <span style={{ fontSize: "var(--font-h2)", color: "red" }}>
+            <span style={{ 
+              fontSize: "var(--font-h3)", 
+              color: "red",
+              marginLeft: "0.5rem"
+              
+            }}>
               어제보다{change}원
             </span>
           </div>
         </div>
         <div className={styles.RightContainer}>
-          {token && <FavoriteCompanyButton stockPk={stockCode} />}
+          {token && <FavoriteCompanyButton stockPk={stockCode} isLiked={null} />}
           {token && (
             <FontAwesomeIcon
               icon={faPenClip}

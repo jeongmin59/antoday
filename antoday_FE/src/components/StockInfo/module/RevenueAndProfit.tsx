@@ -49,7 +49,7 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.title}>매출액 및 영업이익</div>
+      {/* <div className={styles.title}>매출액 및 영업이익</div> */}
       <div className={styles.tabContainer}>
         <div
           className={`${styles.tab} ${
@@ -71,17 +71,17 @@ const RevenueAndProfit: React.FC<StockInfoDetailProps> = ({ graphValue }) => {
       <div className={styles.graph}>
         {chartData.length > 0 ? (
           <BarChart
-            width={280}
+            width={380}
             height={180}
             data={chartData}
             margin={{ top: 15, right: 20, left: 20, bottom: 5 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid stroke="transparent" />
             <XAxis dataKey="year">
               <Label offset={0} position="insideBottom" />
             </XAxis>
-            <Bar dataKey="y" fill="#8884d8" barSize={50}>
-              <LabelList dataKey="text" position="top" fontSize={12} />
+            <Bar dataKey="y" fill="var(--sub-red-color)" barSize={50}>
+              <LabelList dataKey="text" position="top" fontSize={13} dy={-3} fill="var(--main-gray-color)"/>
             </Bar>
           </BarChart>
         ) : (
