@@ -4,7 +4,6 @@ import BubbleChart from "@weknow/react-bubble-chart-d3";
 import axios from "axios";
 import { corpDataAtom, wordDataAtom } from "../../../recoil/wordCloud";
 import { useRecoilState } from "recoil";
-import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 
 interface WordCloudData {
   label: string;
@@ -21,7 +20,8 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
   }
   console.log("props로 받아온 데이터", data);
 
-  const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
+  const [chartWidth, setChartWidth] = useState(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
+
   const [words, setWords] = useRecoilState(wordDataAtom);
   const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [mainKeyword, setMainKeyword] = useState(null);
@@ -43,7 +43,8 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
   };
 
   const updateChartSize = () => {
-    setChartWidth(window.innerWidth * 0.75);
+    console.log("윈도우크기", window.innerWidth)
+    setChartWidth(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
   };
 
   useEffect(() => {
@@ -57,7 +58,7 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
     <>
       <div className={styles.bubbleChartContainer}>
         {mainKeyword !== null ? (
-          <p className={styles.keywordTag}>#{mainKeyword} 관련 키워드</p>
+          <p className={styles.keywordTag}>#{mainKeyword}</p>
         ) : null}
       </div>
       <BubbleChart
@@ -65,13 +66,13 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
         graph={{
           zoom: 0.9,
         }}
-        padding={10}
+        padding={-2.5}
         data={words}
         width={chartWidth}
         height={chartWidth}
         showLegend={false}
         labelFont={{
-          size: 15,
+          size: 10,
           color: "#fff",
           weight: "light",
         }}
