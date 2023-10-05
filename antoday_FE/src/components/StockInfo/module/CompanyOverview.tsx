@@ -10,15 +10,14 @@ const CompanyOverview: React.FC<CompanyOverviewProps> = ({
   corpOverview,
   corpIntro,
 }) => {
-  console.log("뭘까", corpOverview);
-  console.log("뭘까", corpIntro);
   const companyName = corpIntro?.corp_name;
   const establishedDate =
     corpOverview && corpOverview.length > 3 ? corpOverview[3]?.설립일 : null;
   const staffNumber =
     corpOverview && corpOverview.length > 6 ? corpOverview[6]?.종업원수 : null;
   const kospiKosdaq = corpIntro?.market;
-  const homePage = corpOverview[1]?.홈페이지;
+  const homePage =
+    corpOverview && corpOverview.length > 1 ? corpOverview[1]?.홈페이지 : null;
 
   return (
     <div className={styles.companyInfoContainer}>

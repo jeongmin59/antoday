@@ -50,11 +50,14 @@ const HomeKeyWords: React.FC = () => {
       setIsLoading(false);
     }
   };
-  console.log("기업정보 5개 담긴 배열", corps);
+  // console.log("기업정보 5개 담긴 배열", corps);
 
   if (isLoading) {
-    return <img src={loading} alt="" height={"150px"} />;
-  }
+    return (
+      <div className={styles.center}>
+    <img src={loading} alt="" height={"150rem"} width={"150rem"} />
+    </div>
+  );}
 
   console.log("ghkrdls", corps);
 

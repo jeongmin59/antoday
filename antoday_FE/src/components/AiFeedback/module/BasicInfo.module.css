@@ -50,8 +50,16 @@
   gap: 0.2rem;
 }
 
+.h3 {
+  font-size: var(--font-h3);
+}
+
+.h2 {
+  font-size: var(--font-h2);
+}
+
 @media screen and (max-width: 500px) {
   .tradeAt {
-    font-size: var(--font-h3);
+    font-size: var(--font-h2);
   }
 }
