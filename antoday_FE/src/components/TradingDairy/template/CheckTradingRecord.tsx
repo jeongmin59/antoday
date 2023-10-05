@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./CheckTradingRecord.module.css";
 import HomeKeyWords from "../../WordCloud/module/HomeKeyWords";
 import InputForm from "./InputForm";
+import { convertDate } from "../../../utils/convertDate";
 
 const CheckTradingRecord: React.FC<TradingRecord> = ({
   tradeAt,
@@ -13,24 +14,26 @@ const CheckTradingRecord: React.FC<TradingRecord> = ({
   corpName,
   tradePk,
 }) => {
+  const resultDate = convertDate(tradeAt);
+
   return (
     <div>
       <div className={styles.mainContainer}>
         <div className={styles.infoContainer}>
           <div className={styles.title}>거래 주식</div>
           <div className={styles.subContainer}>
-            <div className={styles.tradeAt}>{tradeAt}</div>
+            <div className={styles.tradeAt}>{resultDate}</div>
             <div className={styles.contentContainer}>
               <div className={styles.leftContainer}>
                 <img className={styles.corpimage} src={logoUrl} alt="" />
-                <div>
-                  <div>{corpName}</div>
-                  {optionBuySell ? <div>매도</div> : <div>매수</div>}
+                <div className={styles.column}>
+                  <div className={styles.h3}>{corpName}</div>
+                  {optionBuySell ? <div className={styles.h3}>매도</div> : <div className={styles.h3}>매수</div>}
                 </div>
               </div>
-            <div className={styles.rightContainer}>
-              <div>{price}원</div>
-              <div>{cnt}주</div>
+            <div className={`${styles.rightContainer} ${styles.column}`}>
+              <div className={styles.h3}>{price}원</div>
+              <div className={styles.h3}>{cnt}주</div>
             </div>
             </div>
           </div>

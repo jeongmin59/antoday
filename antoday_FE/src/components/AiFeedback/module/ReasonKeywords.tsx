@@ -9,7 +9,8 @@ const ReasonKeywords : React.FC<TradingRecord> = ({
       <div className={styles.title}>매수/매도 키워드</div>
       <div className={styles.keywordContainer}>
         {keywordList?.map((keyword, index) => (
-          <div className={styles.keywordstyles} key={index}>#{keyword}</div>
+          <div className={styles.keywordstyles} key={index}>
+            <div>#</div>{keyword}</div>
         ))}
       </div>
     </div>

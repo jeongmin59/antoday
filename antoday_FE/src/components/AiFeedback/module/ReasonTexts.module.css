@@ -18,7 +18,7 @@
   display: flex;
   justify-content: start;
   padding: 0.5rem 0.5rem;
-  font-size: var(--font-h4);
+  font-size: var(--font-h2);
 }
 
 @media screen and (max-width: 500px) {
