@@ -22,6 +22,7 @@
     flex-direction: column;
     gap: 2rem;
     width: 100%;
+    margin-top: 1rem;
 }
 
 .searchresults {
@@ -45,22 +46,23 @@
     display: flex;
     padding: 0.2rem 0.3rem;
     margin: 0rem auto 0.2rem;
-    border-radius: 50px;
+    border-radius: 0.5rem;
     gap: 0.5rem;
-    border: 2px solid var(--main-white-color);
-    background-color: var(--main-white-color);
+    box-shadow: 1px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    /* background-color: var(--main-white-color); */ 
   }
   
   .inputBox {
     outline: none;
     width: 70%;
     border: 0;
-    background-color: var(--main-white-color);
+    font-size: var(--font-h2);
+    /* background-color: var(--main-white-color); */
   
     &::placeholder {
       color: #00000080;
       font-family: var(--main-font-family);
-      font-size: var(--font-h5);
+      font-size: var(--font-h3);
     }
   }
   
@@ -72,7 +74,7 @@
     border: 0;
     color: white;
     cursor: pointer;
-    font-size: var(--font-h5);
+    font-size: var(--font-h3);
   }
 
   .quantityinput {
