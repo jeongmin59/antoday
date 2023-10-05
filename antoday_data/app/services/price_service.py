@@ -45,15 +45,23 @@ def format_value(val):
 def get_calculate_KSQSTK(symbol):
     today_date = datetime.date.today()
     now = today_date + datetime.timedelta(days=1)
-    start_date = today_date - datetime.timedelta(days=7)
+    start_date = today_date - datetime.timedelta(days=8)
 
     df = fdr.DataReader(symbol, start_date, now)
+    
+    print(symbol)
+    print(df)
 
     close_index = df.iloc[-1]["Close"]
     yesterday_close_index = df.iloc[-2]["Close"]
+    
+    if math.isnan(close_index):
+        close_index = df.iloc[-2]["Close"]
+        if math.isnan(yesterday_close_index):
+            yesterday_close_index = df.iloc[-4]["Close"]
+        else:
+            yesterday_close_index = df.iloc[-3]["Close"]
 
-    if math.isnan(yesterday_close_index):
-        yesterday_close_index = df.iloc[-3]["Close"]
     change = close_index - yesterday_close_index
     percentage_change = (change / yesterday_close_index) * 100
 
