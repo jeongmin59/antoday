@@ -4,13 +4,12 @@ import styles from "./TradingRecordDetailPage.module.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useQuery } from "react-query";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "../../recoil/auth";
 // import BasicButton from "../../components/TradingRecord/atom/BasicButton";
-import { isAlertOpenAtom } from "../../recoil/alert"
-
+import { isAlertOpenAtom } from "../../recoil/alert";
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
@@ -29,7 +28,7 @@ const TradingRecordDetailPage = () => {
       const response = await axios.get(
         import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`
       );
-      
+
       return response.data;
     } catch (error) {
       console.error("매매 기록 불러오는 axios 요청 실패", error);
@@ -50,14 +49,12 @@ const TradingRecordDetailPage = () => {
   const token = useRecoilValue(accessTokenAtom);
   const setAlertState = useSetRecoilState(isAlertOpenAtom);
 
-
-
   const handleEdit = () => {
-    console.log('클릭!')
-    setAlertState({ isOpen: true, status: 'edit' });
+    // console.log("클릭!");
+    setAlertState({ isOpen: true, status: "edit" });
 
-    navigator(`/tradingrecord/edit/${tradePk}`)
-  }
+    navigator(`/tradingrecord/edit/${tradePk}`);
+  };
 
   const handleDelete = async () => {
     const url = import.meta.env.VITE_BACK_API_URL + `/api/trade/${tradePk}`;
@@ -70,7 +67,7 @@ const TradingRecordDetailPage = () => {
 
     if (response.ok) {
       console.log("삭제 완료!");
-      setAlertState({ isOpen: true, status: 'delete' });
+      setAlertState({ isOpen: true, status: "delete" });
       navigator("/tradingrecord");
     } else {
       console.error(await response.text());
@@ -81,7 +78,7 @@ const TradingRecordDetailPage = () => {
     return (
       <div className={styles.stockInfoPageContainer}>
         <Skeleton />
-    </div>
+      </div>
     );
   }
 
@@ -101,25 +98,27 @@ const TradingRecordDetailPage = () => {
       </div>
       <div className={styles.rightContainer}>
         <AiFeedback
-        corpName={corpName}
-        tradeAt={tradeAt}
-        logoUrl={logoUrl}
-        optionBuySell={optionBuySell}
-        price={price}
-        cnt={cnt}
-        keywordList={keyword}
-        reason={reason}
-        stockCode={stockCode}
-        aiAnalyze={aiAnalyze}
+          corpName={corpName}
+          tradeAt={tradeAt}
+          logoUrl={logoUrl}
+          optionBuySell={optionBuySell}
+          price={price}
+          cnt={cnt}
+          keywordList={keyword}
+          reason={reason}
+          stockCode={stockCode}
+          aiAnalyze={aiAnalyze}
         />
-      <div className={styles.buttonContainer}>
-        <div onClick={handleEdit}>
-        <button className={styles.button}>수정</button>
+        <div className={styles.buttonContainer}>
+          <div onClick={handleEdit}>
+            <button className={styles.button}>수정</button>
+          </div>
+          <div onClick={handleDelete}>
+            <button className={`${styles.button} ${styles.button2}`}>
+              삭제
+            </button>
+          </div>
         </div>
-        <div onClick={handleDelete}>
-        <button className={`${styles.button} ${styles.button2}`}>삭제</button>
-        </div>
-      </div>
       </div>
     </div>
   );

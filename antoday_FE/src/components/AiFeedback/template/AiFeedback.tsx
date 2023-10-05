@@ -3,11 +3,10 @@ import { AntDefault } from "../../../assets/img/ant";
 import styles from "./AiFeedback.module.css";
 import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoadingSpinner from "../../Common/atom/LoadingSpinner";
 
-
-const AiFeedback: React.FC<TradingRecord> = ({ 
+const AiFeedback: React.FC<TradingRecord> = ({
   corpName,
   tradeAt,
   optionBuySell,
@@ -16,9 +15,10 @@ const AiFeedback: React.FC<TradingRecord> = ({
   keywordList,
   reason,
   aiAnalyze,
-  stockCode
- }) => {
-  
+  stockCode,
+}) => {
+  console.log("분석내용이있나요?", aiAnalyze);
+
   const { tradePk } = useParams();
   const [results, setResults] = useState(aiAnalyze);
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ const AiFeedback: React.FC<TradingRecord> = ({
     try {
       const response = await axios.put(
         import.meta.env.VITE_DATA_API_URL + `/trade/analyze`,
-        { 
+        {
           tradePk: tradePk,
           corpName: corpName,
           stockCode: stockCode,
@@ -36,11 +36,12 @@ const AiFeedback: React.FC<TradingRecord> = ({
           cnt: cnt,
           tradeAt: tradeAt,
           reason: reason,
-          keyword: keywordList
+          keyword: keywordList,
         }
       );
-      console.log("AI 결과분석 완료", response.data);
+      console.log("AI 결과분석 fetch함수안일때", response.data);
       setResults(response.data);
+
       return response.data;
     } catch (error) {
       throw new Error("AI 결과분석 실패");
@@ -56,8 +57,14 @@ const AiFeedback: React.FC<TradingRecord> = ({
   });
 
   const handleClick = () => {
+    console.log("핸들클릭 실행됨");
     queryClient.refetchQueries("aiFeedback");
   };
+
+  useEffect(() => {
+    console.log("results가 바뀌면,", results);
+    console.log("AI 결과분석 완료 useEffect안", results);
+  }, [results]);
 
   return (
     <div className={styles.mainContainer}>
@@ -74,7 +81,7 @@ const AiFeedback: React.FC<TradingRecord> = ({
               <>
                 <img className={styles.antimage} src={AntDefault} alt="개미" />
                 <div className={styles.feedback}>
-                  <LoadingSpinner  />
+                  <LoadingSpinner />
                 </div>
               </>
             ) : isError ? (
