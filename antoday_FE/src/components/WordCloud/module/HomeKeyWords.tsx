@@ -21,6 +21,7 @@ const HomeKeyWords: React.FC = () => {
   const [chartWidth, setChartWidth] = useState(window.innerWidth * 0.75);
   const [mainKeyword, setMainKeyword] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isCorp, setIsCorp] = useState<boolean>(false);
 
   const updateChartSize = () => {
     setChartWidth(window.innerWidth * 0.75);
@@ -50,10 +51,14 @@ const HomeKeyWords: React.FC = () => {
       setIsLoading(false);
     }
   };
-  console.log("기업정보 5개 담긴 배열", corps);
+  // console.log("기업정보 5개 담긴 배열", corps);
 
   if (isLoading) {
-    return <img src={loading} alt="" height={"150px"} />;
+    return (
+      <div className={styles.center}>
+        <img src={loading} alt="" height={"150rem"} width={"150rem"} />
+      </div>
+    );
   }
 
   console.log("ghkrdls", corps);
@@ -66,7 +71,7 @@ const HomeKeyWords: React.FC = () => {
             <p className={styles.keywordTag}>#{mainKeyword} 관련 키워드</p>
           ) : null}
         </div>
-        <CustomBubbleChart data={words} />
+        <CustomBubbleChart data={words} isCorp={isCorp} />
       </div>
       <div className={styles.corpListContainer}>
         <HomeKeyWordsCompany />

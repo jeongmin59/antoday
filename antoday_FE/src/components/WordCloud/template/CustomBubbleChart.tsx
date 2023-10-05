@@ -10,34 +10,58 @@ interface WordCloudData {
   value: number;
 }
 
-const CustomBubbleChart: React.FC = ({ data }) => {
-  const [chartWidth, setChartWidth] = useState(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
-  
-  // const [words, setWords] = useState<WordCloudData[]>(data);
-  // const [corps, setCorps] = useState(null);
-  const [words, setWords] = useRecoilState(wordDataAtom);
+interface CustomBubbleChartProps {
+  data?: WordCloudData[] | null;
+  isCorp?: boolean;
+}
+
+const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
+  data,
+  isCorp,
+}) => {
+  if (data?.length == 0) {
+    return <div>최근에 언급되지 않은 기업입니다.</div>;
+  }
+  console.log("props로 받아온 데이터", data);
+
+  const [chartWidth, setChartWidth] = useState(
+    window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75)
+  );
+
+  const [words, setWords] = useState(data);
+  console.log("words", words);
+
+  useEffect(() => {
+    // 컴포넌트가 마운트된 이후에 data를 words에 설정
+    setWords(data);
+  }, [data]);
+
   const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [mainKeyword, setMainKeyword] = useState(null);
-
+  const [fontSize, setFontSize] = useState(
+    window.innerWidth <= 480 ? 10 : window.innerWidth >= 1080 ? 20 : 15
+  );
   const bubbleClick = async (label: string) => {
-    console.log(label, "클릭");
-    try {
-      const response = await axios.get<WordCloudData[]>(
-        import.meta.env.VITE_DATA_API_URL + "/keyword/" + label
-      );
-      const data = response.data;
-      setWords(data.cloud);
-      setCorps(data.corps);
-      setMainKeyword(label);
-      console.log("클릭호출");
-    } catch (error) {
-      console.error("호출 실패 :", error);
+    if (!isCorp) {
+      try {
+        const response = await axios.get<WordCloudData[]>(
+          import.meta.env.VITE_DATA_API_URL + "/keyword/" + label
+        );
+        const data = response.data;
+        setWords(data.cloud);
+        setCorps(data.corps);
+        setMainKeyword(label);
+      } catch (error) {
+        console.error("호출 실패 :", error);
+      }
     }
   };
 
   const updateChartSize = () => {
-    console.log("윈도우크기", window.innerWidth)
     setChartWidth(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
+    setFontSize(
+      window.innerWidth <= 480 ? 10 : window.innerWidth >= 1080 ? 20 : 15
+    );
   };
 
   useEffect(() => {
@@ -65,7 +89,7 @@ const CustomBubbleChart: React.FC = ({ data }) => {
         height={chartWidth}
         showLegend={false}
         labelFont={{
-          size: 10,
+          size: fontSize,
           color: "#fff",
           weight: "light",
         }}

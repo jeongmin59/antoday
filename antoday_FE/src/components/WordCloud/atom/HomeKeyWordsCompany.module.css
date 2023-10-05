@@ -8,6 +8,10 @@
   height: fit-content;
 }
 
+.title {
+  font-size: var(--font-h2);
+}
+
 .logoImageContainer {
   flex: 3;
   width: 100%;
@@ -18,12 +22,13 @@
 
 .companyItem {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.3rem;
   font-size: var(--font-h1);
 }
 
 .logoImage {
-  border: 1px solid var(--main-blue-color);
+  /* border: 1px solid var(--main-blue-color); */
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 100px;
