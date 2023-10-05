@@ -18,9 +18,8 @@ const CustomBubbleChart: React.FC = ({ data }) => {
   const [words, setWords] = useRecoilState(wordDataAtom);
   const [corps, setCorps] = useRecoilState(corpDataAtom);
   const [mainKeyword, setMainKeyword] = useState(null);
-
+  const [fontSize, setFontSize] = useState(window.innerWidth <= 480 ? 10 : (window.innerWidth >= 1080 ? 20 : 15));
   const bubbleClick = async (label: string) => {
-    console.log(label, "클릭");
     try {
       const response = await axios.get<WordCloudData[]>(
         import.meta.env.VITE_DATA_API_URL + "/keyword/" + label
@@ -29,15 +28,14 @@ const CustomBubbleChart: React.FC = ({ data }) => {
       setWords(data.cloud);
       setCorps(data.corps);
       setMainKeyword(label);
-      console.log("클릭호출");
     } catch (error) {
       console.error("호출 실패 :", error);
     }
   };
 
   const updateChartSize = () => {
-    console.log("윈도우크기", window.innerWidth)
     setChartWidth(window.innerWidth * (window.innerWidth >= 768 ? 0.65 : 0.75));
+    setFontSize(window.innerWidth <= 480 ? 10 : (window.innerWidth >= 1080 ? 20 : 15));
   };
 
   useEffect(() => {
@@ -65,7 +63,7 @@ const CustomBubbleChart: React.FC = ({ data }) => {
         height={chartWidth}
         showLegend={false}
         labelFont={{
-          size: 10,
+          size: fontSize,
           color: "#fff",
           weight: "light",
         }}
