@@ -1,12 +1,12 @@
-.headerContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: fit-content;
-    background-color: var(--main-yellow-color);
-    padding-top: 6rem;
-    padding-bottom: 5rem;
-    color: var(--bold-blue-color);
+.headerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  background-color: var(--main-yellow-color);
+  padding-top: 6rem;
+  padding-bottom: 5rem;
+  color: var(--bold-blue-color);
 }
 
 .morningBackground {
@@ -17,19 +17,19 @@
   background-color: var(--main-blue-color);
 }
 
-.dayBackground{
+.dayBackground {
   background-color: var(--sub-gray-color);
 }
 
 .headerText {
-    flex: 5;
-    font-size: var(--font-h1);
-    margin-left: 2rem;
+  flex: 5;
+  font-size: var(--font-h1);
+  margin-left: 2rem;
 }
 
-.headerImage{
-    flex: 5;
-    position: relative;
+.headerImage {
+  flex: 5;
+  position: relative;
 }
 
 @keyframes rotateAnimation {
@@ -45,15 +45,15 @@
 }
 
 .AntImage {
-  position: absolute;
+  /* position: absolute;
   top: -50px;
-  left: 60px;
+  left: 60px; */
   width: 4.5rem;
   height: fit-content;
   animation: rotateAnimation 3s linear infinite;
 }
 
-.buttonContainer{
+.buttonContainer {
   display: flex;
   justify-content: end;
   margin-top: 0.1rem;
