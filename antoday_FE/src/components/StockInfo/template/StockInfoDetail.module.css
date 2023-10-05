@@ -9,8 +9,10 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 0.2rem;
+  gap: 0.6rem;
   margin-top: 0.5rem;
+  /* background-color: white;
+  width: 100%; */
 }
 
 .tab {
@@ -20,24 +22,19 @@
 
 .activeTab {
   color: var(--main-blue-color);
-  border-bottom: 3px solid var(--main-blue-color);
-  /* background-color: var(--main-yellow-color); */
-  /* 위-왼쪽 */
-  /* border-top-left-radius: 10px; */
-  /* 위-오른쪽 */
-  /* border-top-right-radius: 20px; */
+  border-bottom: 2px solid var(--main-blue-color);
 }
 
 .contentContainer {
   width: 90%;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 3rem;
 }
 
 @media screen and (max-width: 500px) {
   .tab {
-    font-size: var(--font-h2);
+    font-size: var(--font-h3);
     cursor: pointer;
   }
 }

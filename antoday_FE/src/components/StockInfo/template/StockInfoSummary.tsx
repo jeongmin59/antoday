@@ -8,8 +8,11 @@ const StockInfoSummary: React.FC<stockIntro> = ({ lowValue, highValue }) => {
   
   return (
   <div className={styles.mainContainer}>
-    <div className={styles.lowContent}>최고 | {lowValues}</div>
-    <div className={styles.highContent}>최저 | {highValues}</div>
+    <div className={styles.contentContainer}>
+      <div className={styles.highContent}>최고 {highValues}</div>
+      <div className={styles.lowContent}>최저 {lowValues}</div>
+    </div>
+    <div className={styles.standard}>(52주 기준)</div>
    </div>
   );
 };
