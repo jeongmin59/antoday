@@ -16,6 +16,14 @@
 
 .keywordContainer {
   display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 0.5rem;
+}
+
+.keywordInputContainer {
+  display: flex;
   flex-direction: row;
   align-items: center;
   margin: 0 0rem 1rem 19px;

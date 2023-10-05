@@ -30,6 +30,7 @@ const EditingSubmitButton: React.FC<EditingSubmitButtonProps> = ({
   stockCode,
   tradePk,
 }) => {
+  console.log("점검", keywords);
   const [isLoading, setIsLoading] = useState(false);
   const [pricewrong, setPricewrong] = useState(false);
   const [cntwrong, setCntwrong] = useState(false);
@@ -40,12 +41,12 @@ const EditingSubmitButton: React.FC<EditingSubmitButtonProps> = ({
   const handleSaveClick = async () => {
     if (editedPrice <= 0) {
       setPricewrong(true);
-      setAlertState({ isOpen: true, status: '' })
+      setAlertState({ isOpen: true, status: "" });
       setTimeout(() => setPricewrong(false), 3000);
       return;
     } else if (editedCnt <= 0) {
       setCntwrong(true);
-      setAlertState({ isOpen: true, status: '' })
+      setAlertState({ isOpen: true, status: "" });
       setTimeout(() => setCntwrong(false), 3000);
       return;
     }
@@ -86,7 +87,9 @@ const EditingSubmitButton: React.FC<EditingSubmitButtonProps> = ({
     <div onClick={handleSaveClick}>
       <BasicButton text={isLoading ? "수정 중" : "수정"} />
       {cntwrong ? <Alert msg={"매매 개수는 1개 이상이어야 합니다."} /> : null}
-      {pricewrong ? <Alert msg={"매수,매도가는 1원 이상이어야 합니다."} /> : null}
+      {pricewrong ? (
+        <Alert msg={"매수,매도가는 1원 이상이어야 합니다."} />
+      ) : null}
     </div>
   );
 };

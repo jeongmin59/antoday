@@ -10,6 +10,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { accessTokenAtom } from "../../recoil/auth";
 // import BasicButton from "../../components/TradingRecord/atom/BasicButton";
 import { isAlertOpenAtom } from "../../recoil/alert";
+import ShowFeedback from "../../components/AiFeedback/template/ShowFeedback";
+import ReasonKeywords from "../../components/AiFeedback/module/ReasonKeywords";
 
 const TradingRecordDetailPage = () => {
   const { tradePk } = useParams();
@@ -97,18 +99,22 @@ const TradingRecordDetailPage = () => {
         />
       </div>
       <div className={styles.rightContainer}>
-        <AiFeedback
-          corpName={corpName}
-          tradeAt={tradeAt}
-          logoUrl={logoUrl}
-          optionBuySell={optionBuySell}
-          price={price}
-          cnt={cnt}
-          keywordList={keyword}
-          reason={reason}
-          stockCode={stockCode}
-          aiAnalyze={aiAnalyze}
-        />
+        {aiAnalyze ? (
+          <ShowFeedback aiAnalyze={aiAnalyze} />
+        ) : (
+          <AiFeedback
+            corpName={corpName}
+            tradeAt={tradeAt}
+            logoUrl={logoUrl}
+            optionBuySell={optionBuySell}
+            price={price}
+            cnt={cnt}
+            keywordList={keyword}
+            reason={reason}
+            stockCode={stockCode}
+            aiAnalyze={aiAnalyze}
+          />
+        )}
         <div className={styles.buttonContainer}>
           <div onClick={handleEdit}>
             <button className={styles.button}>수정</button>
