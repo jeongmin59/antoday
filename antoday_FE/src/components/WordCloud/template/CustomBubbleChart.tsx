@@ -69,7 +69,7 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({ data }) => {
       <BubbleChart
         bubbleClickFun={bubbleClick}
         graph={{
-          zoom: 0.9,
+          zoom: 1,
         }}
         padding={-2.5}
         data={words}
