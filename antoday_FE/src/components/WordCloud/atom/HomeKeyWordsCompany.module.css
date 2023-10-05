@@ -1,11 +1,15 @@
 .companyContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   margin: 0px auto;
   width: 90%;
   height: fit-content;
+}
+
+.grid {
+  width: 20%;
 }
 
 .title {
