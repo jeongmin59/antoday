@@ -13,3 +13,11 @@
 .cloudTitle {
   margin-bottom: 0.6rem;
 }
+
+.keyword {
+  border-radius: 50px;
+  border: 1px solid var(--main-blue-color);
+  color: var(--main-blue-color);
+  margin-left: 0.5rem;
+  padding: auto 0.5rem;
+}
