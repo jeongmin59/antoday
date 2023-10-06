@@ -72,44 +72,45 @@ const CustomBubbleChart: React.FC<CustomBubbleChartProps> = ({
   }, []);
 
   return (
-    <>
-      <div className={styles.bubbleChartContainer}>
-        {mainKeyword !== null ? (
-          <div className={styles.cloudTitle}>
-            당신이 선택한 키워드는 #{mainKeyword}
-          </div>
-        ) : (
-          <>
-            {CloudType === "홈" ? (
-              <div className={styles.cloudTitle}>오늘 주목해야 할 키워드</div>
-            ) : (
-              <div className={styles.cloudTitle}>기업 키워드</div>
-            )}
-          </>
-        )}
-      
-      <BubbleChart
-        bubbleClickFun={bubbleClick}
-        graph={{
-          zoom: 1,
-        }}
-        padding={-2.5}
-        data={words}
-        width={chartWidth}
-        height={chartWidth}
-        showLegend={false}
-        labelFont={{
-          size: fontSize,
-          color: "#fff",
-          weight: "light",
-        }}
-        valueFont={{
-          size: 0,
-        }}
-      />
-      </div>
-    </>
-  );
+		<>
+			<div className={styles.bubbleChartContainer}>
+				{mainKeyword !== null ? (
+					<div className={styles.cloudTitle}>
+						당신이 선택한 키워드는
+						<span className={styles.keyword}>#{mainKeyword}</span>
+					</div>
+				) : (
+					<>
+						{CloudType === "홈" ? (
+							<div className={styles.cloudTitle}>오늘 주목해야 할 키워드</div>
+						) : (
+							<div className={styles.cloudTitle}>기업 키워드</div>
+						)}
+					</>
+				)}
+
+				<BubbleChart
+					bubbleClickFun={bubbleClick}
+					graph={{
+						zoom: 1,
+					}}
+					padding={-2.5}
+					data={words}
+					width={chartWidth}
+					height={chartWidth}
+					showLegend={false}
+					labelFont={{
+						size: fontSize,
+						color: "#fff",
+						weight: "light",
+					}}
+					valueFont={{
+						size: 0,
+					}}
+				/>
+			</div>
+		</>
+	);
 };
 
 export default CustomBubbleChart;
