@@ -112,7 +112,7 @@ public class TradeService {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         if(start == null) start = "1900-01-01 00:00:00";
-        if(end == null) end = LocalDateTime.now().format(formatter);
+        if(end == null) end = LocalDateTime.now().plusHours(9).format(formatter);
         LocalDateTime st = LocalDateTime.parse(start, formatter);
         LocalDateTime ed = LocalDateTime.parse(end, formatter);
 
