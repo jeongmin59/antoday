@@ -39,8 +39,8 @@ const EditingReasonKeyword: React.FC<EditingReasonKeywordProps> = ({
     event.preventDefault();
 
     if (keyword) {
-      setTags([...tags, `#${keyword}`]);
-      // setKeyword("");
+      setTags([...tags, `${keyword}`]);
+      setKeyword("");
       // setKeywords([...keywords, keyword]);
     }
   };
