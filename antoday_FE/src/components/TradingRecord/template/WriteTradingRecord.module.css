@@ -1,0 +1,244 @@
+.writecontainer {
+  margin-top: 2.4rem;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #f5f5f5;
+  height: 80vh;
+  padding-top: 3rem;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+  width: 70%;
+  margin: 4rem auto 0;
+  padding: 2rem;
+  padding-right: 1rem;
+  background-color: white;
+}
+
+.horizontal,
+.horizontal2 {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
+}
+
+.leftContainer {
+  display: flex;
+  align-items: center; 
+  gap: 1rem; 
+}
+
+.rightContainer {
+  display: flex;
+  align-items: center; 
+  gap: 0.7rem; 
+}
+
+.title {
+  font-size: var(--font-h2);
+  text-align: start;
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.horizontalContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem; 
+}
+
+.leftContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-start; 
+}
+
+.rightContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-end; 
+}
+
+.priceAdjust {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; 
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: end;
+  gap: 0.5rem;
+}
+
+.weather {
+  font-size: var(--font-h2);
+  margin-left: 0;
+}
+
+.react-datepicker__input-container input {
+  width: 4rem;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.normal {
+  font-weight: 100;
+}
+
+.button {
+  border: none;
+  background-color: var(--main-white-color);
+  font-size: var(--font-h3);
+}
+
+.button2 {
+  border: none;
+  background-color: var(--main-yellow-color);
+  border-radius: 50%;
+}
+
+.buttoncancel,
+.buttonadd {
+  border: none;
+  border-radius: 2rem;
+  padding: 0.2rem 0.7rem;
+  color: var(--main-white-color);
+}
+
+.buttoncancel {
+  background-color: var(--sub-blue-color);
+  font-size: var(--font-h2);
+}
+.buttonadd {
+  background-color: var(--sub-yellow-color);
+  font-size: var(--font-h2);
+}
+
+.horizontal2 {
+  margin: 1rem 0;
+}
+
+.resultcontainer img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.corpcontainer {
+  display: flex;
+  margin-bottom: 1.4rem;
+  /* margin-top: 2rem; */
+}
+
+.searchresults {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantityinput {
+  width: 1.5rem;
+  border: 1px solid rgb(182, 181, 181);
+  border-radius: 0.3rem;
+  height: 1rem;
+}
+
+.parentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inputContainer {
+  margin-left: auto;
+}
+
+.img {
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+
+.datepicker :disabled {
+  opacity: 0.5;       
+  pointer-events: none; 
+}
+
+.ownedCompanies {
+  /* display: flex;
+  flex-direction: column; */
+  align-items: start;
+  width: 100%;
+}
+
+.ownedTitle {
+  text-align: start;
+  font-size: var(--font-h1);
+  font-weight: bold;
+}
+
+.paginationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beside {
+  align-self: flex-end;
+}
+.below {
+  align-self: center;
+}
+
+.css {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.horizontal3 {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%;
+}
+
+.inputBeside {
+  /* position: absolute;
+  right: 0%;
+  bottom: 10%; */
+  /* margin-right: 10px;
+  margin-bottom: 24px; */
+  display: flex;
+  gap: 0.3rem;
+}
+
+.width {
+  width: 100%;
+}
+
+.pContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+}
+
+.column {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

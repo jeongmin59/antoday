@@ -1,0 +1,49 @@
+.mainContainer {
+  padding-top: 2.5rem;
+  background-color: var(--main-yellow-color);
+}
+
+.searchBarContainer {
+  display: flex;
+  border: 2px solid var(--main-white-color);
+  padding: 0.35rem 0.3rem;
+  margin: 1rem auto 0.2rem;
+  border-radius: 50px;
+  background-color: var(--main-white-color);
+  gap: 0.5rem;
+  width: 81%;
+}
+
+.inputBox {
+  outline: none;
+  width: 70%;
+  border: 0;
+  background-color: var(--main-white-color);
+  font-family: var(--main-font-family);
+  font-size: var(--font-h3);
+
+  &::placeholder {
+    color: #00000080;
+    font-family: var(--main-font-family);
+    font-size: var(--font-h3);
+  }
+}
+
+.searchButton {
+  border-radius: 50px;
+  height: 1.2rem;
+  background-color: var(--main-blue-color);
+  outline: none;
+  border: 0;
+  color: var(--main-white-color);
+  cursor: pointer;
+  font-size: var(--font-h3);
+}
+
+.subContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 3rem;
+}

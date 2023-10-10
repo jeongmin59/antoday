@@ -1,0 +1,40 @@
+.DetailContainer {
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  /* background-color: white;
+  width: 100%; */
+}
+
+.tab {
+  font-size: var(--font-h2);
+  cursor: pointer;
+}
+
+.activeTab {
+  color: var(--main-blue-color);
+  border-bottom: 2px solid var(--main-blue-color);
+}
+
+.contentContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+@media screen and (max-width: 500px) {
+  .tab {
+    font-size: var(--font-h3);
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,30 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  /* background-color: white;
+  height: 10rem;
+  padding-top: 2rem; */
+}
+
+.title {
+  font-size: var(--font-h1);
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: start;
+}
+
+.InfoContainer {
+  display: flex;
+  justify-content: center
+}
+
+.StockInfoContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  /* justify-content: center; */
+  /* width: 100%; */
+}

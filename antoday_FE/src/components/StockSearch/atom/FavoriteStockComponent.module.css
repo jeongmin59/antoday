@@ -1,0 +1,54 @@
+.stockSearchResult {
+    display: flex;
+    align-items: center;
+    /* font-size: 0.8rem; */
+    cursor: pointer;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stockImage {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50px;
+  }
+
+  .stockName{
+    font-size: var(--font-h2);
+  }
+  
+  /* 스켈레톤 스타일 */
+  .skeleton {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 8px;
+  }
+  
+  .skeletonImage {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50px;
+    background-color: #e0e0e0;
+    margin-right: 8px;
+  }
+  
+  .skeletonText {
+    background-color: #e0e0e0;
+    width: 100px;
+  }
+  
+  .stockSearchResult {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;   
+  }
+  
+  .leftContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  

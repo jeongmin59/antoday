@@ -1,0 +1,140 @@
+* {
+  font-family: GmarketSans;
+}
+
+.bigcontainer {
+  font-family: GmarketSans;
+}
+
+.indexContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0px auto;
+  width: 90%;
+  height: fit-content;
+}
+
+.form {
+  background-color: var(--main-yellow-color);
+  padding-top: 3.5rem;
+  padding-bottom: 2.1rem;
+}
+
+.searchBarContainer {
+  display: flex;
+  border: 0px solid var(--main-white-color);
+  padding: 0.3rem 0.3rem;
+  margin: auto;
+  border-radius: 50px;
+  background-color: white;
+  min-width: 250px;
+  max-width: 570px;
+  width: 50%;
+}
+
+.inputBox {
+  outline: none;
+  width: 90%;
+  border: 0;
+  /* margin-left: 2%; */
+
+  &::placeholder {
+    color: #00000080;
+    font-family: var(--main-font-family);
+    font-size: 0.6rem;
+  }
+}
+
+.searchBarContainer {
+  display: flex;
+  padding: 0.35rem 0.3rem;
+  margin: 0rem auto 0.2rem;
+  border-radius: 50px;
+  gap: 0.5rem;
+  border: 2px solid var(--main-white-color);
+  background-color: var(--main-white-color);
+  width: 290px;
+}
+
+
+.inputBox {
+  outline: none;
+  width: 100%;
+  border: 0;
+  background-color: var(--main-white-color);
+  font-family: var(--main-font-family);
+  font-size: var(--font-h3);
+
+  &::placeholder {
+    color: #00000080;
+    font-family: var(--main-font-family);
+    font-size: var(--font-h3);
+  }
+}
+
+.searchButton {
+  border-radius: 50px;
+  height: 1.2rem;
+  background-color: var(--main-blue-color);
+  outline: none;
+  border: 0;
+  color: var(--main-white-color);
+  cursor: pointer;
+  font-size: var(--font-h3);
+}
+
+.searchButton {
+  border-radius: 50px;
+  /* height: 100%; */
+  background-color: var(--main-blue-color);
+  outline: none;
+  border: 0;
+  /* color: white; */
+  cursor: pointer;
+}
+
+.datebuttoncontainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0.5rem 0;
+  font-size: var(--font-h2);
+  flex-wrap: nowrap;
+}
+
+.datebuttoncontainer > span {
+  white-space: nowrap;
+}
+/* 
+.searchcompanylist {
+	z-index: 1000;
+} */
+
+.filter {
+  border-radius: 5rem;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0.2rem;
+  border: none;
+}
+
+.filter > img {
+  width: 20px;
+  height: 20px;
+  margin: 0.2rem;
+}
+
+.p {
+  font-size: var(--font-h2);
+  color: var(--main-blue-color);
+  padding-top: 1.5rem;
+}
+
+.yellow {
+  display: inline-block;
+  color: var(--main-yellow-color);
+}
+
+

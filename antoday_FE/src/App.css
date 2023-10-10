@@ -1,0 +1,27 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0;
+  padding: 0 0;
+  text-align: center;
+  height: 100vh;
+  min-width: 360px;
+}
+
+body {
+  margin: 0 calc((100% - 500px) / 4);
+  padding: 0;
+}
+
+
+@media screen and (max-width: 500px) {
+  .App {
+    /* border: 1px solid blue; */
+    height: 100vh;
+  }
+
+  body {
+    margin: auto 0;
+    padding: 0;
+  }
+}

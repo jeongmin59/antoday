@@ -1,0 +1,21 @@
+.dateContainer {
+  width: 60%;
+  display: flex;
+  font-display: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  position: relative;
+}
+
+.react-datepicker__day--keyboard-selected {
+  border-radius: 0.3rem;
+  background-color: var(--main-yellow-color);
+  color: white;
+}
+
+.react-datepicker-popper {
+  top: 0px !important;
+  left: 0 !important;
+  transform: 0 !important;
+}

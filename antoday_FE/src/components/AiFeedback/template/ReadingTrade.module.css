@@ -1,0 +1,27 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+}
+
+.title {
+  font-size: var(--font-h1);
+  font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+  .title {
+    font-size: var(--font-h1);
+  }
+}

@@ -1,0 +1,75 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.modalContent {
+  background: white;
+  border-radius: 12px;
+  padding: 5%;
+  max-width: 300px;
+  width: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5%;
+  margin-top: 3%;
+  font-size: var(--font-h2);
+}
+
+.modalHeader button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.modalHeader button:focus {
+  outline: none;
+}
+
+.modalContent .row {
+  display: flex;
+  justify-content: space-between;
+}
+.modalContent .item {
+  width: 40%;
+  font-size: var(--font-h2);
+  margin: 3%;
+  text-align: left;
+}
+.modalContent .name {
+  font-size: var(--font-h3);
+  color: gray;
+}
+
+.movebtn {
+  background: var(--sub-yellow-color);
+  border: none;
+  border-radius: 18px;
+  padding: 2% 4% 2% 4%;
+  margin-top: 5%;
+  font-size: var(--font-h2);
+}
+
+.optionPlus {
+  color: var(--sub-red-color);
+}
+
+.optionMinus {
+  color: var(--main-blue-color);
+}
+
+button {
+  font-family: var(--main-font-family);
+}

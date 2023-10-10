@@ -1,0 +1,8 @@
+/* .stockInfoPageContainer {
+  background-color: var(--main-yellow-color);
+} */
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,27 @@
+.bubbleChartContainer {
+  padding: 0rem 1rem 0rem 1rem;
+}
+
+.cloudTitle {
+  font-size: var(--font-h2);
+}
+
+.corpListContainer {
+  margin: 1rem auto;
+}
+
+@media (max-width: 768px) {
+  .bubbleChartContainer {
+    /* width: 50%; 화면 너비가 768px 이하일 때 차트 크기를 줄임 */
+  }
+}
+.keywordTag {
+  font-size: 0.6rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 338.8px;
+}

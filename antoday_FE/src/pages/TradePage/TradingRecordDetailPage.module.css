@@ -1,0 +1,58 @@
+.mainContainer {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 10rem;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.leftContainer {
+  /* border: 1px dotted blue; */
+  flex: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.rightContainer {
+  /* border: 1px dashed red; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .mainContainer {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.button {
+  width: 5.5rem;
+  height: 1.4rem;
+  border-radius: 50px;
+  background-color: var(--main-blue-color);
+  color: white;
+  font-size: var(--font-h2);
+  margin: 0.5rem 0.2rem;
+  padding: 0.2rem 0.5rem;
+  border: none;
+}
+
+.button2 {
+  background-color: var(--sub-red-color);
+}

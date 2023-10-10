@@ -1,0 +1,36 @@
+.div {
+    background-color: var(--main-yellow-color);
+    padding: 1.5rem 0.5rem; 
+    display: flex;
+}
+
+.container {
+    background-color: var(--main-white-color);
+    padding: 0.5rem 0.3rem 0.5rem 1rem; 
+    border-radius: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%;
+}
+
+.input {
+    flex-grow: 1; 
+    border: none;
+    background-color: transparent; 
+    padding: 0.5rem; 
+    margin-right: 0.5rem; 
+}
+
+.input:focus {
+    outline: none;
+}
+
+.container > button {
+    background-color: var(--main-blue-color);
+    border: none;
+    border-radius: 2rem;
+    color: var(--main-white-color);
+    padding: 0.5rem 1rem;
+    /* cursor: pointer;  */
+}

@@ -1,0 +1,11 @@
+.stockWordsContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  background-color: white;
+}
+
+.title {
+  font-size: var(--font-h2);
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,27 @@
+.homeWordCloudContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.ContentContainer {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+}
+
+.WordContainer {
+  flex: 1;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.CompanyContainer {
+  flex: 1;
+}
+
+@media screen and (max-width: 500px) {
+  .ContentContainer {
+    display: flex;
+    flex-direction: column;
+  }
+}

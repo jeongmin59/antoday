@@ -1,0 +1,23 @@
+.bubbleChartContainer {
+  width: 100%;
+  font-size: var(--font-h2);
+  /* padding: 0rem 3rem 0rem 3rem; */
+  margin: 0rem 0rem 0rem 0rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cloudTitle {
+  margin-bottom: 0.6rem;
+}
+
+.keyword {
+  border-radius: 50px;
+  border: 1px solid var(--main-blue-color);
+  color: var(--main-blue-color);
+  margin-left: 0.5rem;
+  padding: auto 0.5rem;
+}

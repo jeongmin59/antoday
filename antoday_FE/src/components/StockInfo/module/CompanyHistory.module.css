@@ -1,0 +1,32 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  /* background-color: white;
+  height: 28rem;
+  padding-top: 2rem; */
+}
+
+.mainContainer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: var(--font-h3);
+}
+
+.mainContainer li {
+  margin-bottom: 10px;
+  font-size: var(--font-h2);
+}
+
+.date {
+  color: var(--sub-gray-color);
+  font-size: var(--font-h3);
+}
+
+.title {
+  font-size: var(--font-h1);
+  font-weight: bold;
+}

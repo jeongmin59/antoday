@@ -1,0 +1,29 @@
+.skeletonContainer {
+    display: flex;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.cardSkeleton {
+    flex: 0 0 auto; 
+    margin-right: 1rem; 
+}
+
+.skeletonContainer::-webkit-scrollbar {
+    height: 4px;
+}
+
+.skeletonContainer::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.skeletonContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.content {
+    width: 90px;
+    height: 138.4px;
+    border-radius: 20px;
+}

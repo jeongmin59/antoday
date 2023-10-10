@@ -1,0 +1,45 @@
+.react-datepicker__triangle {
+	transform: translate(125px, 0px) !important;
+}
+
+.react-datepicker__navigation--previous {
+	left: 10px !important;
+}
+
+.react-datepicker__navigation--next {
+	right: 10px !important;
+}
+
+.react-datepicker__input-container input {
+	width: 4rem;
+	height: 1.2rem;
+	padding: 2px 10px;
+	background: #f5f5f5;
+	border: 1px solid var(--main-white-color);
+	border-radius: 5px;
+	font-weight: 0.8rem;
+	font-weight: 400;
+	text-align: center;
+	color: #2b2b2b;
+}
+
+.react-datepicker-ignore-onclickoutside {
+	border: 1px solid var(--main-yellow-color) !important;
+	outline: none;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range {
+	background-color: var(--main-yellow-color);
+}
+
+.react-datepicker__triangle {
+	display: none;
+}
+
+/* .react-datepicker-popper {
+	top: 274px !important; /* 반응형에 따라 변경 */
+	/* left: 50% !important;
+	transform: translateX(-50%) !important;
+} */ 

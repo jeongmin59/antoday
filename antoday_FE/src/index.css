@@ -1,0 +1,57 @@
+@font-face {
+  font-family: "GmarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GmarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+:root {
+  --main-yellow-color: #FFD54D;
+  --sub-yellow-color: #FDB61B;
+  --main-white-color: #F6F6F6;
+  --main-blue-color: #4385CF;
+  --sub-blue-color: #559CDE;
+  --bold-blue-color: #373B56;
+  --main-gray-color: #444859;
+  --sub-gray-color: #989898;
+  --main-green-color: #4F5D48;
+  --sub-green-color: #719297;
+  --sub-red-color: #ed6868;
+  --main-font-family: "GmarketSans";
+  font-size: 20px;
+  font-synthesis: none;
+  font-family: "GmarketSans";
+  --font-h1: 1rem;
+  --font-h2: 0.85rem;
+  --font-h3: 0.7rem;
+  --font-h4: 0.55rem;
+  --font-h5: 0.45rem;
+  --font-h6: 0.35rem;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: var(--main-blue-color);
+}
+
+.react-datepicker-popper {
+  z-index: 9999;
+}

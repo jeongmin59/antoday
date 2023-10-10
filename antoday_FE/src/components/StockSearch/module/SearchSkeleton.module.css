@@ -1,0 +1,35 @@
+.skeletonContainer {
+    width: 80%
+    /* overflow-x: auto; */
+}
+
+.cardSkeleton {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+.cardSkeleton2 {
+    gap: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.corpName {
+    width: 4rem;
+    height: 0.3rem;
+    margin-top: 0.2rem;
+}
+
+.like {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 5px;
+    margin-top: 0.2rem;
+}
+
+
+/* .logo {
+    margin-top: 0.5rem;
+} */

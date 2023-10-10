@@ -1,0 +1,99 @@
+* {
+  font-family: GmarketSans;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  /* border: 1px solid orange; */
+  gap: 1rem;
+}
+
+.pageTitle {
+  display: flex;
+  justify-content: start;
+  font-size: var(--font-h1);
+  font-weight: bold;
+}
+
+.keywordContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  width: inherit;
+  height: 5%;
+  background-color: var(--main-white-color);
+  border-radius: 0.5rem;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0.3rem;
+}
+
+.choosenKeywords {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.choosenKeyword {
+  display: flex;
+}
+
+.keyword {
+  font-size: var(--font-h4);
+  cursor: pointer;
+  border-radius: 50px;
+  border: 1px solid var(--main-blue-color);
+  color: var(--main-blue-color);
+}
+
+.inputBox {
+  border: none;
+  background-color: var(--main-white-color);
+  width: 100%;
+  font-size: var(--font-h2);
+  font-family: GmarketSans;
+}
+
+.confirmButton {
+  font-size: var(--font-h5);
+  font-family: "NanumSquareRound";
+  border-radius: 1rem;
+  width: 2rem;
+  height: 1.2rem;
+  background-color: var(--main-blue-color);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.textArea {
+  font-family: GmarketSans;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0.4rem;
+  font-size: var(--font-h2);
+}
+
+.gap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.h2 {
+  font-size: var(--font-h2);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.horizontal {
+  display: flex;
+}

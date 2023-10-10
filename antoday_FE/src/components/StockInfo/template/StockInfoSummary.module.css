@@ -1,0 +1,28 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: var(--font-h3);
+  /* color: var(--main-gray-color); */
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+.contentContainer {
+  display: flex;
+}
+
+.lowContent {
+  padding-right: 1.3rem;
+  /* color: var(--sub-red-color); */
+}
+
+.highContent {
+  padding-right: 1rem;
+  /* color: var(--sub-blue-color); */
+}
+
+.standard {
+  color: var(--main-gray-color);
+}

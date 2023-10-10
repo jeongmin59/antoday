@@ -1,0 +1,47 @@
+* {
+  font-family: GmarketSans;
+}
+
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 90%;
+  margin: 0 auto;
+  
+}
+
+.pageTitle{
+  font-size: var(--font-h1);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.recordContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.textArea{
+  font-family: GmarketSans;
+  border: none;
+  font-size: var(--font-h2);
+  width: 100%;
+  /* background-color: var(--main-white-color); */
+  border-radius: 0.6rem;
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.buttonContainer{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  /* border: 1px solid black; */
+}

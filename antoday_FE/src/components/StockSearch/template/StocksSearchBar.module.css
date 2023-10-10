@@ -1,0 +1,70 @@
+.mainContainer {
+  background-color: var(--main-yellow-color);
+  padding-top: 2rem;
+  padding-bottom: 0.1rem;
+}
+
+.subContainer{
+  width: 85%;
+  margin: 0 auto;
+}
+
+.searchBarContainer {
+  display: flex;
+  padding: 0.35rem 0.3rem;
+  margin: 0rem auto 0.2rem;
+  border-radius: 50px;
+  gap: 0.5rem;
+  border: 2px solid var(--main-white-color);
+  background-color: var(--main-white-color);
+}
+
+.inputBox {
+  outline: none;
+  width: 70%;
+  border: 0;
+  background-color: var(--main-white-color);
+  font-family: var(--main-font-family);
+  font-size: var(--font-h3);
+
+
+  &::placeholder {
+    color: #00000080;
+    font-family: var(--main-font-family);
+    font-size: var(--font-h3);
+  }
+}
+
+.searchButton {
+  border-radius: 50px;
+  /* height: 100%; */
+  height: 1.2rem;
+  background-color: var(--main-blue-color);
+  outline: none;
+  border: 0;
+  color: var(--main-white-color);
+  cursor: pointer;
+  font-size: var(--font-h3);
+}
+
+.subContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem auto;
+  margin-bottom: 2rem;
+  flex-direction: column;
+}
+
+.companyContainer {
+  /* margin-left: 2rem; */
+  text-align: start;
+  gap: 1rem;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  font-size: var(--font-h1);
+  font-weight: bold;
+}

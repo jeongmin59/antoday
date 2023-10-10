@@ -1,0 +1,80 @@
+.title {
+  font-size: var(--font-h2);
+  font-weight: bold;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: start;
+  font-size: var(--font-h1);
+  padding-bottom: 2rem;
+  /* border: 1px solid red; */
+}
+
+.content {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  /* border: 1px solid blue; */
+  margin: 0 auto;
+}
+
+.antimage {
+  flex: 1;
+  width: 3.5rem;
+  height: 5rem;
+}
+
+.antbutton {
+  flex: 1;
+  width: 3.5rem;
+  height: 5rem;
+  cursor: pointer;
+}
+
+.feedback {
+  flex: 3;
+  height: fit-content;
+  min-height: 10rem;
+  width: fit-content;
+  min-width: 100%;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  border-bottom-left-radius: 20%;
+  border-bottom-right-radius: 20%;
+  box-shadow: 0px 0px 5px rgba(0, 0, 100, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-h2);
+  padding: 1rem 1rem;
+}
+
+.antimage {
+  flex: 1;
+  width: 3.3rem;
+  height: 4.5rem;
+}
+
+.antbutton {
+  flex: 1;
+  width: 3.3rem;
+  height: 4.5rem;
+  cursor: pointer;
+}
+
+.title {
+  font-size: var(--font-h1);
+  font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+  .mainContainer {
+    font-size: var(--font-h1);
+  }
+}

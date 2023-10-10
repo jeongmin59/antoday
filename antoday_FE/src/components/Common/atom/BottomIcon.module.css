@@ -1,0 +1,12 @@
+.icon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.text {
+  font-size: 1%;
+}
+
+.activeTab {
+  color: var(--main-blue-color);
+}
