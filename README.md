@@ -257,7 +257,7 @@ C:.
 팀장 <br>Textmining<br>FrontEnd메인 페이지<br>전체 CSS | Python Back-end<br>Data<br>Infra EC2<br>Docker<br>Jenkins CI/CD 구축<br>DB설계<br>워드클라우드 fe, be 개발 | FrontEnd<br>컴포넌트 구조 설계 <br>종목 검색 및 디테일 페이지<br>매매일지 작성 및 수정,삭제<br>전체 디자인 및 CSS |
 | 오수빈 | 유혜민 | 최영은 |
 | <img width="100px" src="https://avatars.githubusercontent.com/u/122499585?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/98294357?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/69569809?v=4"/> |
-| https://github.com/jeongmin59수빈 | https://github.com/hyemco | https://github.com/YoungEun-Choi930 |
+| https://github.com/subin990218 | https://github.com/hyemco | https://github.com/YoungEun-Choi930 |
 | 역할 | 역할 | 역할
 FrontEnd<br>매매일지 작성 및 조회 페이지<br>매매일지 작성 및 조회 CSS<br>일부 스켈레톤 | Spring Boot 및 Python Back-End<br> | BackEnd<br>Domain analyze |
 
