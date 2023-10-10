@@ -1,152 +1,267 @@
+# README
+
+Date: 2023년 10월 6일
+Multi-select: 산출물
+
 # 개미는 오늘도🎵🎶
 
-
-<br>
+---
 
 ## 🎯 프로젝트 소개
-> 🏷️ **프로젝트명 : 개미는 오늘도**
+
+> 🏷️ **프로젝트 명 : 개미는 오늘도**
+> 
 > 
 > 🗓️ **프로젝트 기간 : 2023.08.28 ~ 2023.10.06 (6주)**
->
-> 👥 **구성원 : Front-end 3명, Back-end 3명**
+> 
+> 👥 **구성원 : 공정민(팀장/Front),김광표(팀원/Back),서이현(팀원/Front),오수빈(팀원/Front),유혜민(팀원/Back),최영은(팀원/Back)**
+> 
 
-<br>
+---
 
 ### 💖 서비스 이용해보기
-> **🖥 서비스 주소** : https://antoday.site
->
-> **🎥 소개 영상 보기** : 
 
-<br>
+> 🖥 서비스 주소 : https://antoday.site
+> 
+> 
+> **🎥 소개 영상 보기** : 유튜브 링크 첨부
+> 
+
+---
+
+### 📝 기획배경
+
+“야 너도 주식 쉽게 할 수 있어”
+
+주식 투자자 수는 꾸준히 증가하고 있습니다. 개미 투자자들은 자신의 투자를 어떻게 관리하고 있을까, 더불어 잠재적인 투자자들이 주식 시장에 쉽게 진입할 수 있는 플랫폼이 없을까 라는 아이디어에서 출발하였습니다.
+많은 사람들이 주식 투자를 단순히 지인들의 수익 소식을 듣고, 혹은 ‘감’ 으로 시도하지만, 실제로 주식 투자에 성공하기 위해서는 정보 습득과 꾸준한 기록이 필요합니다. 따라서 주식 투자를 돕고, 정보 제공과 투자 기록 관리를 효과적으로 지원하는 플랫폼의 필요성을 느꼈고, ‘사용자들의 부담을 줄여주자’는 최우선 목표를 갖고 만든것이 이 ‘개미는 오늘도’ 라는 서비스입니다.
+
+---
 
 ### 📝 서비스 소개
-> **주식 투자에 대한 정보 제공 및 일지 기록 서비스**
 
-주식 투자는 기업을 분석하는 것부터 경제 동향 및 개인의 자금 상황 파악까지 광범위하게 고려할 사항이 많습니다. 
+주식과 관련한 오늘의 이슈를 제공하고, 사용자가 자신의 매매일지를 손쉽게 기록할 수 있는 서비스, “개미는 오늘도”. 주식 투자를 보다 쉽고 효율적으로 관리하고, 사용자들이 더 나은 투자자로 성장하는데 도움을 주는 플랫폼입니다.
 
-특히, 매일 새로운 이슈가 발생하는 주식 시장에서 **투자에 필요한 정보를 파악**하고, 쌓여있는 **매매 기록을 관리**하는 것을 쉽지 않습니다.
+이 서비스는 ‘개미투자자’를 주요 대상으로 하며, 크게 두 가지 측면에서 주요 기능을 제공합니다.
 
+- **주식투자 전 기능**: 주식 투자를 고려하는 시점에서 사용자에게 관련 정보를 제공합니다. 오늘의 증권가 뉴스, 뉴스에서 가장 많이 언급된 키워드를 기반으로 생성된 워드클라우드, 현재 거래량이 높은 HOT한 기업, 현재 저평가 되고 있는 PER 지수가 높은 COLD 기업 목록, 각 종목별 요약 정보 등을 제공하여 사용자의 투자 결정을 돕습니다.
+- **주식투자 후 기능**: 주식을 매수 또는 매도한 후, 사용자는 그 이유와 함께 매매 기록을 남길 수 있습니다. 이러한 매매 기록은 사용자가 향후 투자 결정을 내릴 때 도움이 됩니다. "개미는 오늘도"는 사용자가 남긴 매매 기록을 분석하고 AI 피드백을 제공합니다. 이를 통해 사용자는 자신의 투자가 합리적인지 여부를 판단하고 향후 더 나은 투자 결정을 할 수 있습니다.
 
-사용자들은 **개미는 오늘도** 서비스를 사용함으로써 투자 전 **워드클라우드를 이용한 이슈 키워드**와 투자 후 **간편한 매매 일지 작성** 서비스 제공을 통해 주식 투자에 대한 부담을 줄일 수 있습니다.
-
-<br>
+---
 
 ### 👤 서비스 대상
-- 주식 투자를 처음 해보는 분
-- 주식 투자와 관련된 정보를 한 곳에서 보길 원하는 분
-- 주식 매매에 관한 기록을 남기고 싶은신 분
+
+- 주식 투자를 처음 해보는 사람
+- 주식 매매에 관한 기록을 남기고 싶은 사람
+- 주식 투자와 관련된 정보를 한 곳에서 보길 원하는 사람
 
 ---
-<br>
 
-## 팀원 소개
-|      공정민       |          김광표         |       서이현         |                                                                                                               
-| :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
-|   <img width="100px" src="https://avatars.githubusercontent.com/u/102538362?v=4" />    |                      <img width="100px" src="https://avatars.githubusercontent.com/u/108651596?v=4" />    |                   <img width="100px" src="https://avatars.githubusercontent.com/u/122415843?v=4"/>   |
-|   [@jeongmin59](https://github.com/jeongmin59)   |    [@Pangpyo](https://github.com/Pangpyo)  | [@I-HYEON](https://github.com/I-HYEON)  |
-| 역할 | 역할 | 역할 |
-|      오수빈       |          유혜민         |       최영은         |                                                                                                               
-|   <img width="100px" src="https://avatars.githubusercontent.com/u/102538362?v=4" />    |                      <img width="100px" src="https://avatars.githubusercontent.com/u/98294357?v=4" />    |                   <img width="100px" src="https://avatars.githubusercontent.com/u/122415843?v=4"/>   |
-|   [@](https://github.com/jeongmin59)   |    [@hyemco](https://github.com/hyemco)  | [@](https://github.com/I-HYEON)  |
-| 역할 | 역할 | 역할 |
+### 👤 서비스 화면 및 기능 소개
 
+- 홈 화면
 
-
-
-
-
-<br>
-
-## 시작 가이드
-
-### Installation
-``` bash
-$ git clone https://lab.ssafy.com/s09-fintech-finance-sub2/S09P22E107.git
-$ cd S09P22E107
-```
-#### Backend
-``` bash
-$ cd ....????
-
-```
-
-#### Frontend
-``` bash
-$ cd .....???
-$ yarn install
-$ yarn run dev
-```
 ---
-<br>
+
+![메인조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EB%25A9%2594%25EC%259D%25B8%25EC%25A1%25B0%25ED%259A%258C.gif)
+
+![워드 파도타기.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%259B%258C%25EB%2593%259C_%25ED%258C%258C%25EB%258F%2584%25ED%2583%2580%25EA%25B8%25B0.gif)
+
+- 종목 검색 화면
+
+---
+
+![관심기업 검색.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EA%25B4%2580%25EC%258B%25AC%25EA%25B8%25B0%25EC%2597%2585_%25EA%25B2%2580%25EC%2583%2589.gif)
+
+![검색화면.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EA%25B2%2580%25EC%2583%2589%25ED%2599%2594%25EB%25A9%25B4.gif)
+
+- 종목 정보 화면
+
+---
+
+![종목디테일 조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%25A2%2585%25EB%25AA%25A9%25EB%2594%2594%25ED%2585%258C%25EC%259D%25BC_%25EC%25A1%25B0%25ED%259A%258C.gif)
+
+- 매매일지 목록 및 수익률 화면
+
+---
+
+![수익률.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%2588%2598%25EC%259D%25B5%25EB%25A5%25A0.gif)
+
+- 매매일지 작성 및 조회 화면
+
+---
+
+![매매일지 작성.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EB%25A7%25A4%25EB%25A7%25A4%25EC%259D%25BC%25EC%25A7%2580_%25EC%259E%2591%25EC%2584%25B1.gif)
+
+![작성 후 목록 조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%259E%2591%25EC%2584%25B1_%25ED%259B%2584_%25EB%25AA%25A9%25EB%25A1%259D_%25EC%25A1%25B0%25ED%259A%258C.gif)
+
+- 매매일지 AI 피드백 화면
+
+---
+
+![조회 및 ai 피드백.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%25A1%25B0%25ED%259A%258C_%25EB%25B0%258F_ai_%25ED%2594%25BC%25EB%2593%259C%25EB%25B0%25B1.gif)
+
+---
 
 ## ⚒️ 기술 스택
-#### Frontend
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=black)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
 
+### Frontend
 
+VS Code(버전), React(버전), Node.js(버전), Recoil(버전), Recoil-persist(버전)
 
-#### Backend
-![Java](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white)
-![Pyhon](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?style=for-the-badge&logo=Visual%20Studio%20Code&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=Spring%20Boot&logoColor=white)
+### Backend
 
+Intellij(버전), Java(버전), SpringBoot(버전), Gradle, ORM (JPA), Spring Security, java-jwt(버전), Swagger(버전)
 
-#### ETC
-![MySQL](https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white)
-![Amazon AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=Amazon%20AWS&logoColor=white)
+### ETC
 
+### Communication
 
-![Figma](https://img.shields.io/badge/Figma-5B0BB5?style=for-the-badge&logo=Figma&logoColor=white)
-
-
-NGINX, 도커,JIRA
-
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
-![GitLab](https://img.shields.io/badge/GitLab-FC6D26?style=for-the-badge&logo=GitLab&logoColor=white)
-
-
-#### Communication
-![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
-![Mattermost](https://img.shields.io/badge/Mattermost-0058CC?style=for-the-badge&logo=Mattermost&logoColor=white)
-![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white)
-
-
+노션,메타모스트,지라,깃랩
 
 ---
-<br>
 
-## ✨ 주요 기능
+## 📂프로젝트 구조
+
 ---
-<br>
 
-## 📺 화면 구성 
+- **Frontend - React**
+
+```bash
+C:.
+├─📁api
+├─📁assets
+│  └─📁img
+│      ├─📁ant
+│      ├─📁common
+│      ├─📁login
+│      ├─📁logo
+│      └─📁trade
+├─📁components
+│  ├─📁AiFeedback
+│  │  ├─📁module
+│  │  └─📁template
+│  ├─📁Common
+│  │  ├─📁atom
+│  │  └─📁template
+│  ├─📁Main
+│  │  ├─📁module
+│  │  └─📁template
+│  ├─📁StockInfo
+│  │  ├─📁atom
+│  │  ├─📁module
+│  │  └─📁template
+│  ├─📁StockSearch
+│  │  ├─📁atom
+│  │  ├─📁module
+│  │  └─📁template
+│  ├─📁TradingDairy
+│  │  ├─📁atoms
+│  │  ├─📁modules
+│  │  └─📁template
+│  ├─📁TradingRecord
+│  │  ├─📁atom
+│  │  ├─📁module
+│  │  └─📁template
+│  └─📁WordCloud
+│      ├─📁atom
+│      ├─📁module
+│      └─📁template
+├─📁pages
+│  ├─📁CommonPage
+│  ├─📁HomePage
+│  ├─📁StockPage
+│  ├─📁TradeDiaryPage
+│  └─📁TradePage
+├─📁recoil
+└─📁utils
+```
+
+- **Backend - Springboot**
+
+```jsx
+C:.
+├─📂java
+│  └─📂com
+│      └─📂omfg
+│          └─📂antoday
+│              ├─📂config
+│              │  └─📂jwt
+│              ├─📂memo
+│              │  ├─📂api
+│              │  ├─📂application
+│              │  ├─📂dao
+│              │  ├─📂domain
+│              │  └─📂dto
+│              ├─📂stock
+│              │  ├─📂api
+│              │  ├─📂application
+│              │  ├─📂dao
+│              │  ├─📂domain
+│              │  └─📂dto
+│              ├─📂trade
+│              │  ├─📂api
+│              │  ├─📂application
+│              │  ├─📂dao
+│              │  ├─📂domain
+│              │  └─📂dto
+│              ├─📂user
+│              │  ├─📂api
+│              │  ├─📂application
+│              │  ├─📂dao
+│              │  ├─📂domain
+│              │  └─📂dto
+│              └─📂utils
+└─📂resources
+```
+
+- **Backend - FastAPI**
+
+```jsx
+C:.
+├─📂models
+│  └─📂__pycache__
+├─📂routers
+│  └─📂__pycache__
+├─📂schemas
+│  └─📂__pycache__
+├─📂services
+│  └─📂__pycache__
+└─📂__pycache__
+```
 
 ## 📜 프로젝트 산출물
 
 ### 💥 아키텍쳐
 
+![개미는 오늘도(Antoday) V3 (4).png](README%2046eacf3c522c40e68886725e9fb959fb/architecture.png)
+
 ### ERD
+
+![erd.png](README%2046eacf3c522c40e68886725e9fb959fb/erd.png)
 
 ### API 명세서
 
-### 프로젝트 구조
-#### Frontend
+- **Spring Boot**
 
-#### Backend - Spring Boot
+![Swagger UI-1.png](README%2046eacf3c522c40e68886725e9fb959fb/Swagger_UI-1.png)
 
+- **FastAPI**
 
+![FastAPI - Swagger UI-1.png](README%2046eacf3c522c40e68886725e9fb959fb/FastAPI_-_Swagger_UI-1.png)
 
-#### Backend - FastAPI
+## 👩팀원 소개
 
+| 공정민 | 김광표 | 서이현 |
+| --- | --- | --- |
+| <img width="100px" src="https://avatars.githubusercontent.com/u/102538362?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/108651596?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/122415843?v=4"/> |
+| https://github.com/jeongmin59 | https://github.com/Pangpyo | https://github.com/I-HYEON |
+| 역할 | 역할 | 역할
+팀장 <br>Textmining<br>FrontEnd메인 페이지<br>전체 CSS | Python Back-end<br>Data<br>Infra EC2<br>Docker<br>Jenkins CI/CD 구축<br>DB설계<br>워드클라우드 fe, be 개발 | FrontEnd<br>컴포넌트 구조 설계 <br>종목 검색 및 디테일 페이지<br>매매일지 작성 및 수정,삭제<br>전체 디자인 및 CSS |
+| 오수빈 | 유혜민 | 최영은 |
+| <img width="100px" src="https://avatars.githubusercontent.com/u/122499585?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/98294357?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/69569809?v=4"/> |
+| https://github.com/jeongmin59수빈 | https://github.com/hyemco | https://github.com/YoungEun-Choi930 |
+| 역할 | 역할 | 역할
+FrontEnd<br>매매일지 작성 및 조회 페이지<br>매매일지 작성 및 조회 CSS<br>일부 스켈레톤 | Spring Boot 및 Python Back-End<br> | BackEnd<br>Domain analyze |
 
-
-
-
-
-
-
+---
