@@ -1,8 +1,7 @@
-# README
-
 # 개미는 오늘도🎵🎶
+![개미는오늘도](https://github.com/jeongmin59/ssarout/assets/102538362/57055db1-95c6-4cd0-9e4f-8f91e6c7705a)
 
----
+<br/>
 
 ## 🎯 프로젝트 소개
 
@@ -21,7 +20,7 @@
 > 🖥 서비스 주소 : https://antoday.site
 > 
 > 
-> **🎥 소개 영상 보기** : 유튜브 링크 첨부
+> **🎥 소개 영상 보기** : https://youtu.be/F7QC9Tp8xhs
 > 
 
 ---
@@ -56,71 +55,77 @@
 
 ### 👤 서비스 화면 및 기능 소개
 
-- 홈 화면
+- **홈 화면**
+
+| 메인 조회              | 워드 파도타기                                       |
+|-----------------|--------------------------------------------|
+| ![메인조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EB%25A9%2594%25EC%259D%25B8%25EC%25A1%25B0%25ED%259A%258C.gif)        | ![워드 파도타기.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%259B%258C%25EB%2593%259C_%25ED%258C%258C%25EB%258F%2584%25ED%2583%2580%25EA%25B8%25B0.gif)         |
 
 ---
 
-![메인조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EB%25A9%2594%25EC%259D%25B8%25EC%25A1%25B0%25ED%259A%258C.gif)
+- **종목 검색 화면**
 
-![워드 파도타기.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%259B%258C%25EB%2593%259C_%25ED%258C%258C%25EB%258F%2584%25ED%2583%2580%25EA%25B8%25B0.gif)
-
-- 종목 검색 화면
-
----
-
-![관심기업 검색.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EA%25B4%2580%25EC%258B%25AC%25EA%25B8%25B0%25EC%2597%2585_%25EA%25B2%2580%25EC%2583%2589.gif)
-
-![검색화면.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EA%25B2%2580%25EC%2583%2589%25ED%2599%2594%25EB%25A9%25B4.gif)
-
-- 종목 정보 화면
+| 관심 기업 검색      | 검색 화면                                      |
+|------------------|--------------------------------------------|
+| ![관심기업 검색.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EA%25B4%2580%25EC%258B%25AC%25EA%25B8%25B0%25EC%2597%2585_%25EA%25B2%2580%25EC%2583%2589.gif)   | ![검색화면.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EA%25B2%2580%25EC%2583%2589%25ED%2599%2594%25EB%25A9%25B4.gif)          |
 
 ---
 
-![종목디테일 조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%25A2%2585%25EB%25AA%25A9%25EB%2594%2594%25ED%2585%258C%25EC%259D%25BC_%25EC%25A1%25B0%25ED%259A%258C.gif)
+- **종목 정보 화면**
 
-- 매매일지 목록 및 수익률 화면
+| 종목 디테일 조회  |
+|---------------|
+| ![종목디테일 조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%25A2%2585%25EB%25AA%25A9%25EB%2594%2594%25ED%2585%258C%25EC%259D%25BC_%25EC%25A1%25B0%25ED%259A%258C.gif)   | 
 
----
-
-![수익률.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%2588%2598%25EC%259D%25B5%25EB%25A5%25A0.gif)
-
-- 매매일지 작성 및 조회 화면
 
 ---
 
-![매매일지 작성.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EB%25A7%25A4%25EB%25A7%25A4%25EC%259D%25BC%25EC%25A7%2580_%25EC%259E%2591%25EC%2584%25B1.gif)
+- **매매일지 목록 및 수익률 화면**
 
-![작성 후 목록 조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%259E%2591%25EC%2584%25B1_%25ED%259B%2584_%25EB%25AA%25A9%25EB%25A1%259D_%25EC%25A1%25B0%25ED%259A%258C.gif)
+| 목록 및 수익률             |
+|----------------|
+| ![수익률.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%2588%2598%25EC%259D%25B5%25EB%25A5%25A0.gif)  |
 
-- 매매일지 AI 피드백 화면
+---
+
+- **매매일지 작성 및 조회 화면**
+
+| 매매일지 작성                | 작성 후 목록 조회     |
+|-------------------|--------------|
+| ![매매일지 작성.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EB%25A7%25A4%25EB%25A7%25A4%25EC%259D%25BC%25EC%25A7%2580_%25EC%259E%2591%25EC%2584%25B1.gif)      | ![작성 후 목록 조회.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%259E%2591%25EC%2584%25B1_%25ED%259B%2584_%25EB%25AA%25A9%25EB%25A1%259D_%25EC%25A1%25B0%25ED%259A%258C.gif)            |
 
 ---
 
-![조회 및 ai 피드백.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%25A1%25B0%25ED%259A%258C_%25EB%25B0%258F_ai_%25ED%2594%25BC%25EB%2593%259C%25EB%25B0%25B1.gif)
+- **매매일지 AI 피드백 화면**
 
----
+| 조회 및 AI 피드백                  | 
+|---------------------|
+| ![조회 및 ai 피드백.gif](README%2046eacf3c522c40e68886725e9fb959fb/%25EC%25A1%25B0%25ED%259A%258C_%25EB%25B0%258F_ai_%25ED%2594%25BC%25EB%2593%259C%25EB%25B0%25B1.gif)      |
+
+
+
+
+
 
 ## ⚒️ 기술 스택
 
 ### Frontend
 
-VS Code(버전), React(버전), Node.js(버전), Recoil(버전), Recoil-persist(버전)
+VS Code, React, Node.js, Recoil, Recoil-persist
 
 ### Backend
 
-Intellij(버전), Java(버전), SpringBoot(버전), Gradle, ORM (JPA), Spring Security, java-jwt(버전), Swagger(버전)
+Intellij, Java, SpringBoot, Gradle, ORM (JPA), Spring Security, java-jwt, Swagger
 
 ### ETC
 
 ### Communication
 
-노션,메타모스트,지라,깃랩
+노션, 메타모스트, 지라, 깃랩
 
 ---
 
 ## 📂프로젝트 구조
-
----
 
 - **Frontend - React**
 
@@ -254,7 +259,7 @@ C:.
 | <img width="100px" src="https://avatars.githubusercontent.com/u/102538362?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/108651596?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/122415843?v=4"/> |
 | https://github.com/jeongmin59 | https://github.com/Pangpyo | https://github.com/I-HYEON |
 | 역할 | 역할 | 역할
-팀장 <br>Textmining<br>FrontEnd메인 페이지<br>전체 CSS | Python Back-end<br>Data<br>Infra EC2<br>Docker<br>Jenkins CI/CD 구축<br>DB설계<br>워드클라우드 fe, be 개발 | FrontEnd<br>컴포넌트 구조 설계 <br>종목 검색 및 디테일 페이지<br>매매일지 작성 및 수정,삭제<br>전체 디자인 및 CSS |
+팀장 <br>FrontEnd<br>메인 페이지<br>전체 CSS<br>Textmining | Python Back-end<br>Data<br>Infra EC2<br>Docker<br>Jenkins CI/CD 구축<br>DB설계<br>워드클라우드 fe, be 개발 | FrontEnd<br>컴포넌트 구조 설계 <br>종목 검색 및 디테일 페이지<br>매매일지 작성 및 수정,삭제<br>전체 디자인 및 CSS |
 | 오수빈 | 유혜민 | 최영은 |
 | <img width="100px" src="https://avatars.githubusercontent.com/u/122499585?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/98294357?v=4" /> | <img width="100px" src="https://avatars.githubusercontent.com/u/69569809?v=4"/> |
 | https://github.com/subin990218 | https://github.com/hyemco | https://github.com/YoungEun-Choi930 |
